@@ -6,13 +6,13 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import axios from 'axios'
-// import { toast, Toaster } from 'react-hot-toast'
+import axios from 'axios'
+import { toast, Toaster } from 'react-hot-toast'
 
 
 export default function Register() {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -23,21 +23,22 @@ export default function Register() {
 
         try {
             console.log(name, email, password);
-            // const response = await axios.post('https://v-bbackend.vercel.app/api/register', {
-            //     name,
-            //     email,
-            //     password,
-            // });
-            // toast.success('Registration successful');
-            // console.log(response);
+            const response = await axios.post('http://localhost:4000/api/register', {
+                name,
+                email,
+                password,
+            });
 
-            // setTimeout(() => {
-            //     navigate('/login');
-            // }, 2000)
+            toast.success('Registration successful');
+            console.log(response);
+
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000)
 
 
         } catch (error) {
-            // toast(error.response.statusText);
+            toast(error.response.statusText);
             console.error('Registration failed:', error);
         }
     };
@@ -45,7 +46,7 @@ export default function Register() {
 
     return (
         <>
-            {/* <Toaster position="top-center"></Toaster> */}
+            <Toaster position="top-center"></Toaster>
             <Card color="transparent" className="h-screen flex justify-center items-center" shadow={false}>
                 <img src="/Login/bg.webp" alt="bg" className="absolute h-screen w-screen -z-10 opacity-90" />
                 <div className="bg-gray-200 p-10 rounded-xl  border-4 border-indigo-200">
