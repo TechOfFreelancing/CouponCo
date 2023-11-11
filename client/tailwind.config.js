@@ -11,8 +11,19 @@ module.exports = withMT({
       sans: ['Open Sans', 'sans-serif'],
     },
     extend: {
-
+      keyframes: {
+        fadeAnim: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+      },
+      animation: {
+        fadeAnim: 'fadeAnim 0.5s ease-out',
+      },
     },
+
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+  ],
 });

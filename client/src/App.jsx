@@ -9,7 +9,7 @@ import Home from './pages/Home';
 function App() {
 
   return (
-    <div className='w-full max-h-fit overflow-y-clip'>
+    <div className='w-full max-h-fit overflow-y-clip m-auto'>
       <Routes>
         <Route
           path='/'
