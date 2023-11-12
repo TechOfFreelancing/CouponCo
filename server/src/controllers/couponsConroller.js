@@ -43,8 +43,43 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// Get all stores with search and filter options
+exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
+    const { keyword, type } = req.query;
+
+    let sql = 'SELECT * FROM store';
+
+    // Apply search and filter conditions
+    if (keyword || type) {
+        sql += ' WHERE';
+
+        if (keyword) {
+            sql += ` name LIKE '%${keyword}%'`;
+            if (type) {
+                sql += ' AND';
+            }
+        }
+
+        if (type) {
+            sql += ` type = '${type}'`;
+        }
+    }
+
+    try {
+        const [result, fields] = await db.query(sql);
+
+        res.status(200).json({
+            success: true,
+            stores: result,
+        });
+    } catch (err) {
+        console.error('Error fetching stores:', err);
+        return next(new ErrorHandler("Stores not found", 400));
+    }
+});
+
 // Get store 
-exports.getStore = catchAsyncErrors(async (req, res, next) => {
+exports.getSingleStore = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
 
     try {

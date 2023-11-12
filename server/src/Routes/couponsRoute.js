@@ -1,11 +1,12 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getStore } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 
 
 router.route("/admin/addStore").post(fileUpload.single('storeFile'),addStore);
-router.route("/getStore/:storeId").get(getStore);
+router.route("/getAllStore").get(getAllStores);
+router.route("/getStore/:storeId").get(getSingleStore);
 router.route("/admin/delete/:storeId").delete(deleteStore);
 router.route("/coupons/:storeId").get(getCoupons);
 router.route("/coupons/:storeId/:cId").get(getSingleCoupon);
