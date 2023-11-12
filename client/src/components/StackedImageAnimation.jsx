@@ -26,7 +26,7 @@ export const StackedImageAnimation = () => {
     }, [activeIndex]);
 
     return (
-        <div className="w-[255px] h-[355px] relative p-2">
+        <div className="w-[255px] h-[355px] relative p-2 m-5">
             {images.map((image, i) => {
                 const factor = size - 1 - map.get(i);
                 const isPreviousActiveIndex = (activeIndex + size - 1) % size === i;
@@ -35,7 +35,6 @@ export const StackedImageAnimation = () => {
                     <div
                         key={i}
                         style={{
-                            // backgroundImage: `url(${image.url})`,
                             backgroundColor: `${image.background}`,
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",

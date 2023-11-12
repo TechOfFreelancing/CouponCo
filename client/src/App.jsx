@@ -5,6 +5,8 @@ import MobileFooter from './components/MobileFooter'
 import Footer from './components/Footer';
 import NoMatch from './pages/NoMatch';
 import Home from './pages/Home';
+import { Header } from './components/Header';
+
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
           path='/'
           element={
             <>
+              <Header></Header>
               <Home />
               <MobileFooter></MobileFooter>
               <Footer></Footer>
@@ -26,6 +29,7 @@ function App() {
           path="/login"
           element={
             <>
+              <Header></Header>
               <Login />
               <MobileFooter></MobileFooter>
               <Footer></Footer>
@@ -36,6 +40,7 @@ function App() {
           path="/signup"
           element={
             <>
+              <Header></Header>
               <SignUp />
               <MobileFooter></MobileFooter>
               <Footer></Footer>
@@ -46,6 +51,7 @@ function App() {
           path="*"
           element={
             <>
+              <Header></Header>
               <NoMatch />
               <MobileFooter />
               <Footer />

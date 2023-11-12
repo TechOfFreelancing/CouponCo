@@ -1,15 +1,18 @@
 import { StackedImageAnimation } from "../components/StackedImageAnimation";
 import CarouselSlider from "../components/carousel";
-import { ChakraProvider } from "@chakra-ui/react";
+import Content from "../components/content";
+import Stories from "../components/stories";
+
 
 export default function Home() {
     return (
-        <div className="h-full pt-5 w-[100vw] flex items-center  text-5xl bg-black justify-center gap-5">
-            <CarouselSlider></CarouselSlider>
-            <ChakraProvider>
+        <div>
+            <div className="mt-20 lg:mt-28 w-screen flex flex-col lg:flex-row text-5xl items-center justify-center gap-5">
+                <CarouselSlider></CarouselSlider>
                 <StackedImageAnimation></StackedImageAnimation>
-            </ChakraProvider>
-
+            </div>
+            <Content></Content>
+            <Stories></Stories>
         </div>
     )
 }
