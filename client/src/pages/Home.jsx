@@ -1,7 +1,10 @@
 import { StackedImageAnimation } from "../components/StackedImageAnimation";
+import About from "../components/about";
 import CarouselSlider from "../components/carousel";
 import Content from "../components/content";
+import Content2 from "../components/content2";
 import Stories from "../components/stories";
+import Womanfashion from "../components/womanfashion";
 
 
 export default function Home() {
@@ -13,6 +16,9 @@ export default function Home() {
             </div>
             <Content></Content>
             <Stories></Stories>
+            <Womanfashion></Womanfashion>
+            <Content2></Content2>
+            <About></About>
         </div>
     )
 }

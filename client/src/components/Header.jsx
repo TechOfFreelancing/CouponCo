@@ -7,6 +7,7 @@ import {
     Input
 } from "@material-tailwind/react";
 import Alert from "./alert";
+import { Link } from "react-router-dom";
 
 export function Header() {
     const [openNav, setOpenNav] = React.useState(false);
@@ -113,12 +114,12 @@ export function Header() {
                             </Button>
                         </div>
                         <div className="flex items-center gap-x-5">
-                            <button className="hidden lg:inline-block whitespace-nowrap">
+                            <Link to="/login" className="hidden lg:inline-block whitespace-nowrap">
                                 Log In
-                            </button>
-                            <button className="hidden lg:inline-block whitespace-nowrap">
+                            </Link>
+                            <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap">
                                 Sign in
-                            </button>
+                            </Link>
                         </div>
                         <IconButton
                             variant="text"

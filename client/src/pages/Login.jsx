@@ -79,9 +79,9 @@ export default function Login() {
                             />
                         </div>
                         <Typography color="gray" className="mt-2 mx-auto font-normal">
-                            <a href="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
+                            <Link href="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
                                 Forgot your password?
-                            </a>
+                            </Link>
                         </Typography>
                         <Button className="mt-6" color="blue" type="submit" onClick={handleLogin} fullWidth>
                             SIGN IN
