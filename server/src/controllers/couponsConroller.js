@@ -43,6 +43,62 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// Get all stores with search and filter options
+exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
+    const { keyword, type } = req.query;
+
+    let sql = 'SELECT * FROM store';
+
+    // Apply search and filter conditions
+    if (keyword || type) {
+        sql += ' WHERE';
+
+        if (keyword) {
+            sql += ` name LIKE '%${keyword}%'`;
+            if (type) {
+                sql += ' AND';
+            }
+        }
+
+        if (type) {
+            sql += ` type = '${type}'`;
+        }
+    }
+
+    try {
+        const [result, fields] = await db.query(sql);
+
+        res.status(200).json({
+            success: true,
+            stores: result,
+        });
+    } catch (err) {
+        console.error('Error fetching stores:', err);
+        return next(new ErrorHandler("Stores not found", 400));
+    }
+});
+
+// Get store 
+exports.getSingleStore = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+
+    try {
+        // Fetch the store details by ID
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        const store = storeResult[0];
+
+        res.status(200).json({ message: `Store with ID ${storeId} fetched successfully`, store });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch store", 500));
+    }
+});
+
 // Update store 
 exports.updateStore = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
@@ -95,6 +151,33 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// Delete a store
+exports.deleteStore = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        // Delete associated ratings
+        await db.query('DELETE FROM user_ratings WHERE store_id = ?', [storeId]);
+
+        // Delete associated coupons
+        await db.query('DELETE FROM coupons WHERE store_id = ?', [storeId]);
+
+        // Delete the store
+        await db.query('DELETE FROM store WHERE id = ?', [storeId]);
+
+        res.status(200).json({ message: `Store with ID ${storeId} deleted successfully` });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to delete store", 500));
+    }
+});
 
 // Add FAQs for a specific store
 exports.addStoreFAQs = catchAsyncErrors(async (req, res, next) => {
@@ -186,6 +269,94 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error('Error adding coupon:', err);
         return next(new ErrorHandler('Internal server error', 400));
+    }
+});
+
+// Update a coupon
+exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+    const { title, coupon_code, type, link, dueDate, description } = req.body;
+
+    try {
+        // Check if the coupon exists
+        const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [cId]);
+
+        if (couponResult.length === 0) {
+            return next(new ErrorHandler(`Coupon with ID ${cId} not found`, 404));
+        }
+
+        let updateSql = 'UPDATE coupons SET ';
+        const updateParams = [];
+        const validFields = ['title', 'coupon_code', 'type', 'link', 'due_date', 'description'];
+
+        // Update fields provided in the request body
+        for (const field of validFields) {
+            if (req.body[field] !== undefined) {
+                updateSql += `${field} = ?, `;
+                updateParams.push(req.body[field]);
+            }
+        }
+
+        // Remove the trailing comma and add the WHERE clause
+        updateSql = updateSql.slice(0, -2) + ` WHERE coupon_id = ?`;
+        updateParams.push(cId);
+
+
+        // Execute the update query
+        await db.query(updateSql, updateParams);
+
+        res.status(200).json({ message: `Coupon with ID ${cId} updated successfully` });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to update coupon", 500));
+    }
+});
+
+// Get single coupon for a specific store
+exports.getSingleCoupon = catchAsyncErrors(async (req, res, next) => {
+    const { storeId, cId } = req.params;
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        // Fetch the single coupon for the store based on cId
+        const [couponResult] = await db.query('SELECT * FROM coupons WHERE store_id = ? AND coupon_id = ?', [storeId, cId]);
+
+        if (couponResult.length === 0) {
+            return next(new ErrorHandler(`Coupon with ID ${cId} not found for store with ID ${storeId}`, 404));
+        }
+
+        res.status(200).json({ message: `Coupon with ID ${cId} for store with ID ${storeId} fetched successfully`, coupon: couponResult[0] });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch coupon", 500));
+    }
+});
+
+// Get all coupons for a specific store
+exports.getCoupons = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        // Fetch all coupons for the store
+        const [couponsResult] = await db.query('SELECT * FROM coupons WHERE store_id = ?', [storeId]);
+
+        res.status(200).json({ message: `Coupons for store with ID ${storeId} fetched successfully`, coupons: couponsResult });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch coupons", 500));
     }
 });
 
