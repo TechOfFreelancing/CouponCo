@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import SignUp from './pages/Signup';
-import Login from './pages/login';
+import Login from './pages/Login';
 import MobileFooter from './components/MobileFooter'
 import Footer from './components/Footer';
 import NoMatch from './pages/NoMatch';
