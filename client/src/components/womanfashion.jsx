@@ -11,8 +11,8 @@ const Womanfashion = () => {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                 {Categories.filter((ele) => ele.filter === "woman-fashion").map(
-                    (category, index) =>
-                        category.data.map((item) => (
+                    (category) =>
+                        category.data.map((item,index) => (
                             <img key={index} src={item.image} alt={item.link} className="cursor-pointer duration-300 hover:-translate-y-2 hover:shadow-lg" />
                         ))
                 )}
