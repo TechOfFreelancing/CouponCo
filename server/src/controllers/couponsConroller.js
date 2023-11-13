@@ -245,6 +245,12 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { title, couponCode, type, link, dueDate, description } = req.body;
 
     try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
 
         if (!title || !couponCode || !dueDate || !type) {
             return res.status(400).json({ error: 'Incomplete data' });
@@ -358,6 +364,41 @@ exports.getCoupons = catchAsyncErrors(async (req, res, next) => {
         console.error(err);
         return next(new ErrorHandler("Unable to fetch coupons", 500));
     }
+});
+
+//Get Coupons based on search and type
+exports.getCouponsBy = catchAsyncErrors(async (req, res, next) => {
+    const { keyword, type } = req.query;
+
+    let sql = `Select * from Coupons`;
+
+    //checking for filter obj
+    if (type || keyword) {
+        sql += ` where`;
+
+        if (keyword) {
+            sql += ` title LIKE "%${keyword}%"`;
+            if (type) {
+                sql += ` and`;
+            }
+        }
+        if (type) {
+            sql += ` type = '${type}'`
+        }
+    }
+
+    try {
+        const [result, fields] = await db.query(sql);
+
+        res.status(200).json({
+            success: true,
+            stores: result,
+        });
+    } catch (err) {
+        console.error('Error fetching coupons:', err);
+        return next(new ErrorHandler("Coupons not found", 400));
+    }
+
 });
 
 // Delete a coupon
