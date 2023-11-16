@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import NoMatch from './pages/NoMatch';
 import Home from './pages/Home';
 import { Header } from './components/Header';
+import Store from './pages/Store';
 
 
 function App() {
@@ -42,6 +43,17 @@ function App() {
             <>
               <Header></Header>
               <SignUp />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/store"
+          element={
+            <>
+              <Header></Header>
+              <Store></Store>
               <MobileFooter></MobileFooter>
               <Footer></Footer>
             </>
