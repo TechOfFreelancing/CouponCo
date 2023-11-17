@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
     Card,
     Input,
@@ -7,12 +7,12 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-// import Cookies from 'js-cookie';
-import { toast, Toaster } from 'react-hot-toast'
-
+import { toast, Toaster } from 'react-hot-toast';
+import AuthContext from "../components/AuthContext";
 
 export default function Login() {
 
+    const { updateUserRole } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,13 +29,15 @@ export default function Login() {
                password
             })
 
-            const { message, token } = res.data;
+            const { message, token ,user} = res.data;
             
             toast.success(message);
-            localStorage.setItem('token', token);
 
+            localStorage.setItem('token', token);
+            localStorage.setItem('role',user.role)
+            updateUserRole(user.role);
             setTimeout(() => {
-                navigate('/');
+               user.role === "Admin" ? navigate('/Admin') : navigate('/')
             }, 1200)
 
         } catch (error) {
@@ -79,7 +81,7 @@ export default function Login() {
                             />
                         </div>
                         <Typography color="gray" className="mt-2 mx-auto font-normal">
-                            <Link href="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
+                            <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
                                 Forgot your password?
                             </Link>
                         </Typography>

@@ -6,10 +6,22 @@ import Footer from './components/Footer';
 import NoMatch from './pages/NoMatch';
 import Home from './pages/Home';
 import { Header } from './components/Header';
+import AdminPanel from './pages/AdminPanel';
+import AddStores from './components/Admin/addStores';
+import UpdateStores from './components/Admin/updateStore';
+import AuthContext from './components/AuthContext';
+import { useContext } from 'react';
+import AddCoupons from './components/Admin/addCoupons';
+import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
 
 
+
 function App() {
+
+  const { role } = useContext(AuthContext);
+
+  const isAdmin = role === "Admin" ? true : false;
 
   return (
     <div className='w-full max-h-fit overflow-y-clip m-auto'>
@@ -26,6 +38,61 @@ function App() {
           }
         >
         </Route>
+        {isAdmin && (<Route
+          path='/Admin'
+          element={
+            <>
+              <AdminPanel />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/addStore'
+          element={
+            <>
+              <AddStores />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/addCoupons'
+          element={
+            <>
+              <AddCoupons />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/updateStore'
+          element={
+            <>
+              <UpdateStores />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/updateCoupons'
+          element={
+            <>
+              <UpdateCoupons />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        >
+        </Route>)}
         <Route
           path="/login"
           element={
