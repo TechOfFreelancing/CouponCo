@@ -6,15 +6,38 @@ import { useState } from "react";
 import {
     Dialog,
 } from "@material-tailwind/react";
+import { IoMdClose } from "react-icons/io";
 
 const Store = () => {
     let first_store = store[0];
     const [detailsVisibility, setDetailsVisibility] = useState(Array(first_store.products.length).fill(false));
     const [isMoreAboutCompanyVisible, setMoreAboutCompanyVisible] = useState(false);
     const [open, setOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState('');
+    const [copySuccess, setCopySuccess] = useState(false);
 
-    const handleOpen = () => setOpen(!open);
+    // Function to handle opening the dialog and setting the selected product
+    const handleOpen = (product) => {
+        setSelectedProduct(product);
+        setOpen(true);
+    };
 
+    const handleClose = () => {
+        setOpen(!open);
+        setCopySuccess(false);
+    }
+    const handleOutsideClick = () => {
+        if (open) {
+            setOpen(false);
+        }
+        if (copySuccess) {
+            setCopySuccess(false);
+        }
+    };
+    const handleInsideClick = (event) => {
+        // Prevent the click event from propagating to the outer container
+        event.stopPropagation();
+    };
 
     const toggleDetails = (index) => {
         setDetailsVisibility((prevVisibility) => {
@@ -28,9 +51,29 @@ const Store = () => {
         setMoreAboutCompanyVisible(!isMoreAboutCompanyVisible);
     };
 
+    const handleCopyClick = () => {
+        // Select the text inside the span
+        const textToCopy = document.querySelector('.copy-text');
+        const range = document.createRange();
+        range.selectNode(textToCopy);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+
+        // Copy the selected text to the clipboard
+        try {
+            document.execCommand('copy');
+            setCopySuccess(true);
+        } catch (err) {
+            console.error('Unable to copy text to clipboard', err);
+            setCopySuccess(false);
+        }
+        // Clear the selection
+        window.getSelection().removeAllRanges();
+    };
+
 
     return (
-        <div className="mt-20 lg:mt-28 flex gap-5  h-full w-[100vw] lg:py-5">
+        <div className="mt-20 lg:mt-28 flex gap-5 h-full w-[100vw] lg:py-5" onClick={handleOutsideClick}>
             <div className="w-1/4 h-full flex flex-col gap-5 px-10 text-sm">
                 <div className="h-[208px] w-[208px] bg-white rounded-full flex items-center justify-center shadow-lg mt-5 mx-auto">
                     <img src={first_store.logo} alt="logo" className='h-auto w-auto px-5' />
@@ -52,7 +95,6 @@ const Store = () => {
                     }
                     <div className="font-bold cursor-pointer" onClick={toggleMoreAboutCompany}>{isMoreAboutCompanyVisible ? 'SHOW LESS' : 'SHOW MORE'}</div>
                 </div>
-
             </div>
             <div className="w-3/4 h-full flex flex-col">
                 <div className="my-5">
@@ -77,7 +119,7 @@ const Store = () => {
                                                 <span>{ele.uses} uses today</span>
                                             </div>
                                         </div>
-                                        <div className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={handleOpen}>Show Code</div>
+                                        <div className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
                                     </div>
                                     <hr className="my-5" />
                                     <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
@@ -90,25 +132,6 @@ const Store = () => {
                                         </div>
                                     )}
 
-                                    <Dialog open={open} handler={handleOpen} size="lg">
-                                        <div className="flex flex-col">
-                                            <div className="h-3/4">
-
-                                                <div className="h-[112px] w-[112px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
-                                                    <img src={first_store.logo} alt="logo" className='h-auto w-auto px-5' />
-                                                </div>
-                                                <div>{first_store.name.toUpperCase()}</div>
-                                                <div>{ele.title}</div>
-                                                <div></div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                            <div className="h-1/4">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </Dialog>
                                 </div>
                             )
                         })
@@ -116,7 +139,54 @@ const Store = () => {
                 </div>
 
             </div>
-
+            <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black" >
+                <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
+                <div className="flex flex-col items-center" onClick={handleInsideClick}>
+                    <div className="h-3/4  flex flex-col gap-5 items-center">
+                        <div className="h-[112px] w-[112px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
+                            <img src={first_store.logo} alt="logo" className='h-auto w-auto px-5' />
+                        </div>
+                        <div className="text-md font-bold">{first_store.name.toUpperCase()}</div>
+                        <div className="text-2xl font-bold text-black">{selectedProduct.title}</div>
+                        <div className="text-sm">Ends {selectedProduct.ends}</div>
+                        <div className="flex gap-2 items-center justify-center border border-black rounded-full text-2xl pl-5 p-2">
+                            <span className="copy-text">RMNHCOM5O</span>
+                            <button
+                                className="bg-purple-600 max-w-fit p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                onClick={handleCopyClick}
+                            >
+                                Copy
+                            </button>
+                        </div>
+                        {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
+                        <div className="text-sm"> Copy and paste this code at <span className="underline text-purple-500 hover:cursor-pointer">{first_store.name.toUpperCase()}</span></div>
+                    </div>
+                    {
+                        (selectedProduct.rules_restrictions || selectedProduct.details) && (
+                            <div className="h-[15rem] w-full bg-gray-300 overflow-y-scroll mt-5 p-10 flex flex-col gap-5">
+                                {
+                                    selectedProduct.rules_restrictions && (
+                                        <div>
+                                            <span className="flex gap-2"><span className="text-black">Rules and Restrictions</span>
+                                                <span>Ends {selectedProduct.ends}</span></span>
+                                            <div className="text-gray-600">{selectedProduct.rules_restrictions}</div>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    selectedProduct.details && (
+                                        <div>
+                                            <span className="flex gap-2"><span className="text-black">Details</span>
+                                            </span>
+                                            <div className="text-gray-600">{selectedProduct.details}</div>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+                </div>
+            </Dialog>
 
         </div>
     )
