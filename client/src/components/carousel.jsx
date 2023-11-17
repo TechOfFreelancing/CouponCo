@@ -16,13 +16,11 @@ const CarouselSlider = () => {
     };
 
     const handleOnNextClick = () => {
-        console.log("Next Slider")
         count = (count + 1) % featuredImages.length;
         setCurrentIndex(count);
         slideRef.current.classList.add("fade-anim");
     };
     const handleOnPrevClick = () => {
-        console.log("Previous Slider")
         const productsLength = featuredImages.length;
         count = (currentIndex + productsLength - 1) % productsLength;
         setCurrentIndex(count);
