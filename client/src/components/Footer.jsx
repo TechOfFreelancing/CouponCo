@@ -6,7 +6,7 @@ import SITEMAP from "../api/Footer";
 
 export default function Footer() {
   return (
-    <footer className="hidden md:block mt-5 bg-black text-white w-screen -z-10">
+    <footer className="hidden md:block bg-black text-white w-screen -z-10">
       <div className="w-full p-6">
         <div className="flex flex-wrap -mt-1 ts:-mx-2">
           {SITEMAP.map(({ title, links }, index) => (

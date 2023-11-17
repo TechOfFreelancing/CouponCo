@@ -26,7 +26,7 @@ export const StackedImageAnimation = () => {
     }, [activeIndex]);
 
     return (
-        <div className="w-[255px] h-[355px] relative p-2 m-5">
+        <div className="w-[255px] h-[355px] relative p-2 m-5 hidden lg:inline-block">
             {images.map((image, i) => {
                 const factor = size - 1 - map.get(i);
                 const isPreviousActiveIndex = (activeIndex + size - 1) % size === i;

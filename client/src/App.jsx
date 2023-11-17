@@ -13,6 +13,8 @@ import AuthContext from './components/AuthContext';
 import { useContext } from 'react';
 import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
+import Store from './pages/Store';
+
 
 
 function App() {
@@ -108,6 +110,17 @@ function App() {
             <>
               <Header></Header>
               <SignUp />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/store"
+          element={
+            <>
+              <Header></Header>
+              <Store></Store>
               <MobileFooter></MobileFooter>
               <Footer></Footer>
             </>
