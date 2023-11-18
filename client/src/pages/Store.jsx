@@ -2,7 +2,7 @@ import store from "../api/store"
 import { MdLocalOffer } from "react-icons/md";
 import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Dialog,
 } from "@material-tailwind/react";
@@ -15,6 +15,8 @@ const Store = () => {
     const [open, setOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState('');
     const [copySuccess, setCopySuccess] = useState(false);
+    const [userRating, setUserRating] = useState(0);
+    const [ratingcount, setratingcount] = useState(0);
 
     // Function to handle opening the dialog and setting the selected product
     const handleOpen = (product) => {
@@ -71,17 +73,42 @@ const Store = () => {
         window.getSelection().removeAllRanges();
     };
 
+    const handleRatingChange = (value) => {
+        setUserRating(value);
+    };
+    const resetRating = () => {
+        setUserRating(0);
+        if (ratingcount > 0)
+            setratingcount(ratingcount - 1);
+    }
+
+    useEffect(() => {
+        if (userRating !== 0 && ratingcount < 1) {
+            setratingcount(ratingcount + 1);
+        }
+    }, [userRating]);
 
     return (
-        <div className="mt-20 lg:mt-28 flex gap-5 h-full w-[100vw] lg:py-5" onClick={handleOutsideClick}>
-            <div className="w-1/4 h-full flex flex-col gap-5 px-10 text-sm">
+        <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full w-[100vw] lg:py-5" onClick={handleOutsideClick}>
+            <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 lg:px-10 text-sm">
                 <div className="h-[208px] w-[208px] bg-white rounded-full flex items-center justify-center shadow-lg mt-5 mx-auto">
                     <img src={first_store.logo} alt="logo" className='h-auto w-auto px-5' />
                 </div>
+                <div className="text-2xl font-bold lg:hidden inline">{first_store.title}</div>
                 <div>When you buy through links on RetailMeNot <span className="underline cursor-pointer">we may earn a commission.</span></div>
                 <div className="flex gap-2 items-center text-purple-600 hover:underline">Submit a coupon <MdLocalOffer className="cursor-pointer"></MdLocalOffer></div>
-                <div className="font-bold" >  MORE ABOUT {first_store.name.toUpperCase()}</div>
-                <div className="flex gap-2 items-center"><Rating value={Math.round(first_store.rating.rating)} readonly /><span className="font-bold">{first_store.rating.rating} RATING ({first_store.rating.persons})</span></div>
+                <div className="font-bold">  MORE ABOUT {first_store.name.toUpperCase()}</div>
+                <div className="flex flex-col gap-5">
+                    <div className="flex gap-5 items-center">
+                        <Rating value={userRating} onChange={handleRatingChange} />
+                        <span className="font-bold whitespace-nowrap"><span>{userRating}</span> RATING </span>
+                    </div>
+                    <div className="flex gap-5 items-center">
+                        <span>Total Rating : ({ratingcount})</span>
+                        <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>
+                    </div>
+
+                </div>
                 <div className="flex flex-col gap-5">
                     <div className="flex flex-col">{first_store.moreaboutcompany}</div>
                     {isMoreAboutCompanyVisible &&
@@ -96,17 +123,17 @@ const Store = () => {
                     <div className="font-bold cursor-pointer" onClick={toggleMoreAboutCompany}>{isMoreAboutCompanyVisible ? 'SHOW LESS' : 'SHOW MORE'}</div>
                 </div>
             </div>
-            <div className="w-3/4 h-full flex flex-col">
+            <div className="w-full lg:w-3/4 h-full flex flex-col">
                 <div className="my-5">
-                    <div className="text-4xl font-bold ml-10 ">{first_store.title}</div>
+                    <div className="text-4xl font-bold ml-10 hidden lg:inline">{first_store.title}</div>
                     <div className="ml-10">{first_store.subtitle}</div>
                 </div>
-                <div className="flex flex-col gap-5 my-5 items-center">
+                <div className="flex flex-col gap-5 my-5 items-center mx-10">
                     {
                         first_store.products.map((ele, index) => {
                             return (
-                                <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-[50rem] hover:shadow-lg duration-200">
-                                    <div className="flex justify-between gap-10 px-4 items-center">
+                                <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-200 ">
+                                    <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
                                         <div className="flex flex-col font-bold">
                                             <span className="text-3xl text-purple-600 whitespace-nowrap">{ele.offer} %</span>
                                             <span className="text-3xl text-purple-600">Off</span>
