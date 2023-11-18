@@ -7,11 +7,12 @@ import {
     Dialog,
 } from "@material-tailwind/react";
 import { IoMdClose } from "react-icons/io";
+import { List, ListItem, Card } from "@material-tailwind/react";
+import { Link } from 'react-scroll';
 
 const Store = () => {
     let first_store = store[0];
     const [detailsVisibility, setDetailsVisibility] = useState(Array(first_store.products.length).fill(false));
-    const [isMoreAboutCompanyVisible, setMoreAboutCompanyVisible] = useState(false);
     const [open, setOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState('');
     const [copySuccess, setCopySuccess] = useState(false);
@@ -47,10 +48,6 @@ const Store = () => {
             newVisibility[index] = !newVisibility[index];
             return newVisibility;
         });
-    };
-
-    const toggleMoreAboutCompany = () => {
-        setMoreAboutCompanyVisible(!isMoreAboutCompanyVisible);
     };
 
     const handleCopyClick = () => {
@@ -103,36 +100,93 @@ const Store = () => {
                         <Rating value={userRating} onChange={handleRatingChange} />
                         <span className="font-bold whitespace-nowrap"><span>{userRating}</span> RATING </span>
                     </div>
-                    <div className="flex gap-5 items-center">
-                        <span>Total Rating : ({ratingcount})</span>
+                    <div className="flex gap-5 items-center ">
+                        <span className="whitespace-nowrap">Total Rating : ({ratingcount})</span>
                         <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>
+                        <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl">Submit</button>
+                        <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl">Login</button>
                     </div>
 
                 </div>
                 <div className="flex flex-col gap-5">
-                    <div className="flex flex-col">{first_store.moreaboutcompany}</div>
-                    {isMoreAboutCompanyVisible &&
-                        <div className="moreaboutcompany flex flex-col gap-2">
-                            <div className="flex flex-col"><span className="font-bold">{first_store.name.toUpperCase()} Coupons</span><span>{first_store.companycoupons}</span></div>
-                            <div className="flex flex-col"><span className="font-bold">{first_store.name.toUpperCase()} Rewards</span><span>{first_store.rewards}</span></div>
-                            <div className="flex flex-col"><span className="font-bold">Price Guarantee</span><span>{first_store.priceguarantee}</span></div>
-                            <div className="flex flex-col"><span className="font-bold">Cancelations and Refunds</span><span>{first_store.cancelations_refunds}</span></div>
-                            <div className="flex flex-col"><span className="font-bold">Customer Support</span><span>{first_store.customer_support}</span></div>
+                    <Card className="min-w-full flex flex-col gap-2 pt-5 w-80">
+                        <div className="text-xl text-black font-semibold whitespace-nowrap px-5">Today&apos;s Active Voucher Codes</div>
+                        <div className="px-5">Last updated: Today</div>
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black font-semibold">Exclusive codes</span>
+                            <span>2</span>
                         </div>
-                    }
-                    <div className="font-bold cursor-pointer" onClick={toggleMoreAboutCompany}>{isMoreAboutCompanyVisible ? 'SHOW LESS' : 'SHOW MORE'}</div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black font-semibold">Codes tested by our team</span>
+                            <span>3</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black font-semibold">Rewards</span>
+                            <span>1</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black font-semibold">Deals</span>
+                            <span>13</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black font-semibold">Sales</span>
+                            <span>44</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center bg-purple-50 px-5 py-2">
+                            <span className="text-lg text-black font-semibold ">Total Offers</span>
+                            <span className="text-purple-600 text-lg font-semibold">63</span>
+                        </div>
+
+                    </Card>
+                    <Card className="w-80">
+                        <List>
+                            <Link className="text-initial" to="about"
+                                spy={true}
+                                smooth={true}
+                                offset={-150}
+                                duration={800}>
+                                <ListItem>About {first_store.name.toUpperCase()}</ListItem>
+                            </Link>
+                            <Link className="text-initial" to="faqs"
+                                spy={true}
+                                smooth={true}
+                                offset={-150}
+                                duration={800}>
+                                <ListItem>FAQS</ListItem>
+                            </Link>
+                            <Link className="text-initial" to="hints_tips"
+                                spy={true}
+                                smooth={true}
+                                offset={-150}
+                                duration={800}>
+                                <ListItem>Hints & Tips</ListItem>
+                            </Link>
+                            <Link className="text-initial" to="how_to_use_voucher"
+                                spy={true}
+                                smooth={true}
+                                offset={-150}
+                                duration={800}>
+                                <ListItem>How to Use Very Voucher Codes</ListItem>
+                            </Link>
+                        </List>
+                    </Card>
                 </div>
             </div>
             <div className="w-full lg:w-3/4 h-full flex flex-col">
                 <div className="my-5">
-                    <div className="text-4xl font-bold ml-10 hidden lg:inline">{first_store.title}</div>
+                    <div className="lg:text-4xl text-2xl font-bold ml-10 hidden lg:inline">{first_store.title}</div>
                     <div className="ml-10">{first_store.subtitle}</div>
                 </div>
                 <div className="flex flex-col gap-5 my-5 items-center mx-10">
                     {
                         first_store.products.map((ele, index) => {
                             return (
-                                <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-200 ">
+                                <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration--150 ">
                                     <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
                                         <div className="flex flex-col font-bold">
                                             <span className="text-3xl text-purple-600 whitespace-nowrap">{ele.offer} %</span>
@@ -158,12 +212,64 @@ const Store = () => {
                                             <span>{ele.details}</span>
                                         </div>
                                     )}
-
                                 </div>
                             )
                         })
                     }
                 </div>
+                <div className="flex flex-col gap-5 mx-10">
+                    <div className="w-full lg:w-[50rem]" id="about">
+                        <div className="font-semibold lg:text-4xl text-2xl my-3">About {first_store.name.toUpperCase()}</div>
+                        <div className="moreaboutcompany flex flex-col gap-2">
+                            <div className="flex flex-col text-justify">{first_store.moreaboutcompany}</div>
+                            <div className="flex flex-col"><span className="font-bold">{first_store.name.toUpperCase()} Coupons</span><span>{first_store.companycoupons}</span></div>
+                            <div className="flex flex-col"><span className="font-bold">{first_store.name.toUpperCase()} Rewards</span><span>{first_store.rewards}</span></div>
+                            <div className="flex flex-col"><span className="font-bold">Price Guarantee</span><span>{first_store.priceguarantee}</span></div>
+                            <div className="flex flex-col"><span className="font-bold">Cancelations and Refunds</span><span>{first_store.cancelations_refunds}</span></div>
+                            <div className="flex flex-col"><span className="font-bold">Customer Support</span><span>{first_store.customer_support}</span></div>
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-[50rem]" id="faqs">
+                        <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
+                        <div className="moreaboutcompany flex flex-col gap-2">
+                            {
+                                first_store.faqs.map((ele, index) => {
+                                    return (<div key={index} className="flex flex-col gap-2">
+                                        <div className="font-bold text-2xl">{ele.question}</div>
+                                        <div>{ele.answer}</div>
+                                        {ele.answer2 && <div>{ele.answer2}</div>}
+                                        {ele.answer3 && <div>{ele.answer3}</div>}
+                                        {ele.answer4 && <div>{ele.answer4}</div>}
+                                    </div>)
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-[50rem]" id="hints_tips">
+                        <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
+                        <div className="moreaboutcompany flex flex-col gap-2">
+                            <div className="font-bold text-2xl">{first_store.hints_tips._tips}</div>
+                            {
+                                first_store.hints_tips.tips.map((ele, index) => {
+                                    return (<div key={index} className="flex flex-col gap-2">
+                                        <div>• {ele}</div>
+                                    </div>)
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-[50rem]" id="how_to_use_voucher">
+                        <div className="font-semibold lg:text-4xl text-2xl my-3">How to Use Voucher Codes</div>
+                        <div className="moreaboutcompany flex flex-col gap-2">
+                            {
+                                first_store.how_to_use_very_voucher_codes.map((ele, index) => <div key={index} className="flex flex-col gap-2">
+                                    •  {ele}
+                                </div>)
+                            }
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black" >

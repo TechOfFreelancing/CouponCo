@@ -22,6 +22,55 @@ const store = [
 
         customer_support: "If you need help with your travel plans, Hotels.com has a 24/7 Virtual Agent that provides several services through online chat. However, you can also ask to be connected to a live representative or call Hotels.com at (866) 223-2092.",
 
+        faqs: [
+            {
+                question: "Does Hotels.com have free cancellation?",
+                answer: "Hotels.com partners with hundreds of thousands of hotels that offer free cancellation options, but policies may vary from property to property. To find listings with free cancellation, filter your search by the 'free cancellation' option and be sure to double-check the property's policy."
+            },
+            {
+                question: "How does the Hotels.com price guarantee work?",
+                answer: "The Hotels.com price guarantee promises to match lower rates listed publicly by their competitors or on Hotels.com. To be eligible for a price match, the listing must be for the same accommodation option at the same property on the same dates. If you find a better rate after you booked via Hotels.com, you can submit a price match request. If your price match is approved and your booking is refundable, Hotels.com will refund you the difference immediately. If your booking is non-refundable, the site will refund you the price difference in the form of a Hotels.com coupon for a future stay."
+            },
+            {
+                question: "Where can I find Hotels.com coupons?",
+                answer: "Answer: Check RetailMeNot's collection of Hotels.com coupons for a curated selection of the latest deals and promo codes. You can also download our browser extension, Deal Finder, to have coupon codes applied automatically when you check out at Hotels.com and your other favorite companies.",
+                answer2: "To use: After choosing a property, click 'Pay online' to check out. Select 'Apply a coupon,' enter the promo code into the box, and hit 'Apply.'"
+            },
+            {
+                question: "Does Hotels.com have gift cards?",
+                answer: "Yes, Hotels.com offers gift cards in dominations from $10 - $2,000 with no expiration date. Note that gift cards may only be used towards bookings on Hotels.com/gc, which includes a slightly smaller pool of 200,000 properties."
+            },
+            {
+                question: "What is One Key and what changed for Hotels.com Rewards?",
+                answer: "One Key unifies Expedia, Hotels.com, and Vrbo loyalty rewards. It's free to join and streamlines travel rewards, offering flexibility, peace of mind, and personalized access. Members can earn and redeem rewards, access Member Prices, and enjoy tier-based travel perks.",
+                answer2: "One Key also replaces the former Hotels.com's Rewards program. It allows you to earn and use OneKeyCash across a broader selection of travel services on Hotels.com, Expedia, and Vrbo, along with exclusive discounts and benefits. You can now redeem rewards without waiting for 10 nights and have the flexibility to use them at your convenience, including for flights and car rentals. Additionally, achieving tier status is now easier with lower qualification thresholds and more travel counting toward progression. For example, Silver status can be attained with a weekend stay and roundtrip flights.",
+                answer3: "If you had a Hotels.com Rewards account, your confirmed reward stamps and nights from bookings were automatically converted to OneKeyCash. Some exclusions apply, such as if you have a rewards account that wasn't created on the Hotels.com U.S. site or if you have pending travel booked on a non-U.S. site. Reach out to the Hotels.com customer support team for more information. Additionally, if you had a Hotels.com Rewards account, it was automatically converted to a One Key account.",
+                answer4: "If you still have a Hotels.com credit card, you can still use your Hotels.com credit card with One Key, keeping the same rewards value and redeeming them on Hotels.com, Expedia, and Vrbo. You'll earn $11 OneKeyCash for every $500 spent, with no need to wait for 10 stamps to redeem. Unused introductory reward nights will convert to OneKeyCash. Your membership level aligns with program rules, and Silver status is retained if you earned it via the credit card.",
+            },
+            {
+                question: "Does Hotels.com do cashback on purchases?",
+                answer: "RetailMeNot often offers cashback rewards for online purchases at Hotels.com. You can locate the cashback offer card on the right and, once the offer is activated, you’ll be directed to the store's site to make your purchase. Additionally, you can even use a promo code for more savings.",
+                answer2: "Once your purchase at Hotels.com is approved, RetailMeNot will email you that your cashback reward can be redeemed from your RetailMeNot account via PayPal or Venmo. Cashback rewards through RetailMeNot generally include sitewide purchases, but it's best to review the offer card to see if there are any special exceptions or exclusions."
+            },
+
+        ],
+        hints_tips: {
+            _tips: "Can’t stop shopping at Very? While they have great prices year-round, there are ways to make your shop even more frugal. Try these tips:",
+            tips: ["Browse the Very clearance to shop fashion, home, electricals and more at a reduced cost. Check out the Offers page too, for more flash savings and deals. If you've got your eye on something that's still full price, you could save some pounds with a Very discount code.  ", "Download the Very app to shop with ease. Plus, you’ll receive App only exclusives and the chance to enter amazing competitions.  ", "Save on delivery fees when you choose to click and collect your order. Remember to use a Very promo code for extra savings too."]
+        },
+        how_to_use_very_voucher_codes: [
+
+            "Once you’ve had a browse through all of the products Very has to offer and you’ve put all of your favourite items into your basket, you’re ready to grab yourself a saving for your online shop!",
+
+            "After this, have a look on the VoucherCodes site for various Very voucher codes available to help you on your way to making an extra saving.",
+
+            "Next, you need to head to your basket which is available on the top right hand side and after you arrive, you’ll be able to see all of the goods. Following this, you’ll need to hit the “continue securely” button to proceed with placing your order.",
+
+            "You’ll need to ensure you sign in during the next step otherwise we won’t be able to move forward. You can either create a new account or if this isn’t your first time shopping with Very, login to your account.",
+
+            "After following all the steps and confirming the options that suit you, you will arrive at the third step which is “Payment”. On the right hand side of the page, you will come across a “Promo codes” box. This is where you’ll enter that special offer code you found earlier to see the savings appear right in front of you!"
+
+        ],
         products: [
             {
                 offer: 5,
@@ -41,7 +90,7 @@ const store = [
                 uses: "96",
                 ends: "11/30/2023",
                 details: "Combine with other offers for an even better deal! Cash back is earned on the qualifying purchase total after any discounts and before any fees or taxes are applied. Purchases of gift cards are excluded. Rewards earnings up to $50.00. Cash back is based on the room rate and does not apply to any taxes, service fees, VAT or other hotel facility costs (including restaurant and spa). Cash back will be paid out once we have confirmation of a completed stay. Rewards earnings not to exceed $50.00.",
-                
+
             },
             {
                 offer: 5,
