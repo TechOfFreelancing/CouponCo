@@ -45,28 +45,36 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
 
 // Get all stores with search and filter options
 exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
-    const { keyword, type } = req.query;
+    const { keyword, type, page = 1 } = req.query;
+    const limit = 12;
+    const offset = (page - 1) * limit;
 
     let sql = 'SELECT * FROM store';
 
-    // Apply search and filter conditions
-    if (keyword || type) {
-        sql += ' WHERE';
+    const conditions = [];
+    const params = [];
 
-        if (keyword) {
-            sql += ` name LIKE '%${keyword}%'`;
-            if (type) {
-                sql += ' AND';
-            }
-        }
-
-        if (type) {
-            sql += ` type = '${type}'`;
-        }
+    if (keyword) {
+        conditions.push('name LIKE ?');
+        params.push(`%${keyword}%`);
     }
 
+    if (type) {
+        conditions.push('type = ?');
+        params.push(type);
+    }
+
+    if (conditions.length > 0) {
+        sql += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    // Add pagination
+    sql += ` LIMIT ? OFFSET ?`;
+    params.push(limit);
+    params.push(offset);
+
     try {
-        const [result, fields] = await db.query(sql);
+        const [result, fields] = await db.query(sql, [...params]);
 
         res.status(200).json({
             success: true,
@@ -186,8 +194,7 @@ exports.addStoreFAQs = catchAsyncErrors(async (req, res, next) => {
 
     try {
         // Convert the FAQs from form-data format to JSON
-        const faqArray = Object.entries(faq).map(([question, answer]) => ({ question, answer }));
-        console.log(faqArray);
+        const faqArray = Object.entries(faq).map(([question, answer]) => ({ answer, question }));
 
         const sql = `UPDATE store SET faq = ? WHERE id = ?`;
         await db.query(sql, [JSON.stringify(faqArray), storeId]);
@@ -243,7 +250,7 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const { title, couponCode, type, link, dueDate, description } = req.body;
-
+    console.log(title,couponCode,type,dueDate);
     try {
         // Check if the store exists
         const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
@@ -281,7 +288,7 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
 // Update a coupon
 exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
     const { cId } = req.params;
-    const { title, coupon_code, type, link, dueDate, description } = req.body;
+    const { title, coupon_code, type, link, due_date, description } = req.body;
 
     try {
         // Check if the coupon exists
@@ -368,37 +375,41 @@ exports.getCoupons = catchAsyncErrors(async (req, res, next) => {
 
 //Get Coupons based on search and type
 exports.getCouponsBy = catchAsyncErrors(async (req, res, next) => {
-    const { keyword, type } = req.query;
+    const { keyword, type, page = 1 } = req.query;
+    const limit = 12;
+    const offset = (page - 1) * limit;
 
-    let sql = `Select * from Coupons`;
+    let sql = `SELECT * FROM Coupons`;
 
-    //checking for filter obj
+    // Checking for filter object
     if (type || keyword) {
-        sql += ` where`;
+        sql += ` WHERE`;
 
         if (keyword) {
             sql += ` title LIKE "%${keyword}%"`;
             if (type) {
-                sql += ` and`;
+                sql += ` AND`;
             }
         }
         if (type) {
-            sql += ` type = '${type}'`
+            sql += ` type = '${type}'`;
         }
     }
 
+    // Adding pagination
+    sql += ` LIMIT ? OFFSET ?`;
+
     try {
-        const [result, fields] = await db.query(sql);
+        const [result, fields] = await db.query(sql, [limit, offset]);
 
         res.status(200).json({
             success: true,
-            stores: result,
+            coupons: result,
         });
     } catch (err) {
         console.error('Error fetching coupons:', err);
         return next(new ErrorHandler("Coupons not found", 400));
     }
-
 });
 
 // Delete a coupon
