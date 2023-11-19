@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "@material-tailwind/react";
 import { CouponsBox } from "./CouponsBox";
+import { ShowOnDisplay } from "./showOnDisplay";
 
 function UpdateStores() {
 
     const [openDialog, setOpenDialog] = useState(false);
+    const [openDisplayForm, setOpenDisplayForm] = useState(false);
 
     const [selectedFile, setSelectedFile] = useState(null);
     const location = useLocation();
 
     const [store, setStore] = useState([]);
+
     const [faqs, setFaqs] = useState([]);
     const handleRemoveFAQ = (index) => {
         const updatedFaqs = [...faqs];
@@ -21,6 +24,10 @@ function UpdateStores() {
         setFaqs(updatedFaqs);
     };
 
+    const isPresentInHomePage = useRef(false);
+    const [showcase, setShowCase] = useState("");
+
+    console.log(isPresentInHomePage.current);
 
     const handleFAQChange = (index, event) => {
         const { name, value } = event.target;
@@ -39,6 +46,8 @@ function UpdateStores() {
     const handleOpenDialog = () => {
         setOpenDialog(!openDialog);
     };
+
+    const handleFormOpen = () => { setOpenDisplayForm(!openDisplayForm); };
 
     const sId = location.state?.sId;
 
@@ -77,6 +86,7 @@ function UpdateStores() {
                         withCredentials: true,
                         headers: {
                             "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
                         },
                     });
 
@@ -88,6 +98,7 @@ function UpdateStores() {
                     withCredentials: true,
                     headers: {
                         "Content-Type": "multipart/form-data",
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },
                 });
 
@@ -99,6 +110,23 @@ function UpdateStores() {
             }
         },
     });
+
+    const handleRemoveFrom = async () => {
+        try {
+            await axios.delete(`http://localhost:4000/api/storeDisplay/${sId}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+
+            isPresentInHomePage.current = false;
+            toast.success(`Store Deleted from ${showcase} Successfully!`);
+            setShowCase("");
+        } catch (error) {
+            toast.error("Failed to delete store");
+            console.error('Failed to delete store:', error);
+        }
+    }
 
     const inputStyle = {
         width: '100%',
@@ -113,6 +141,24 @@ function UpdateStores() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
+
+                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
+
+                const presentInHomePage = result.data.data.some(item => item.store_id === sId);
+                isPresentInHomePage.current = presentInHomePage;
+
+                if (presentInHomePage) {
+                    const showcaseItem = result.data.data.find(item => item.store_id === sId && item.show_in_carousel === 1);
+                    const showcase = showcaseItem
+                        ? 'carousel'
+                        : result.data.data.find(item => item.store_id === sId && item.show_in_card === 1)
+                            ? 'card'
+                            : result.data.data.find(item => item.store_id === sId && item.show_in_cashback === 1)
+                                ? 'cashback category'
+                                : '';
+                    setShowCase(showcase)
+                }
+
                 setStore(response.data.store);
                 const fetchedFaqs = response.data.store.faq;
 
@@ -142,6 +188,11 @@ function UpdateStores() {
                 storeId={sId}
                 open={openDialog}
                 handleOpen={handleOpenDialog}
+            />
+            <ShowOnDisplay
+                storeId={sId}
+                open={openDisplayForm}
+                handleOpen={handleFormOpen}
             />
             <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Store</h1>
@@ -247,27 +298,48 @@ function UpdateStores() {
                         + Add FAQ
                     </button>
 
+                    <div className="flex gap-4">
+                        <button
+                            type="button"
+                            onClick={handleOpenDialog}
+                            className="flex-1 py-2 px-4 mb-3 bg-yellow-500 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        >
+                            Show Coupons
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => navigate("/Admin/addCoupons", { state: { sId: sId } })}
+                            className="flex-1 py-2 px-4 bg-purple-500 text-white rounded-md mb-3 hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        >
+                            Add New Coupon
+                        </button>
+                    </div>
+
+                    <div className="flex gap-3">
+                        {isPresentInHomePage.current ? (
+                            <button
+                                type="button"
+                                onClick={handleRemoveFrom}
+                                className="w-full py-2 px-4 bg-pink-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                            >
+                                Remove From {showcase}
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={handleFormOpen}
+                                className="w-full py-2 px-4 bg-pink-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                            >
+                                Add To Home Page?
+                            </button>
+                        )}
+                    </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 bg-blue-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
                     >
                         Update Store
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => navigate("/Admin/addCoupons", { state: { sId: sId } })}
-                        className="w-full py-2 px-4 bg-purple-500 text-white rounded-md mb-3 hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
-                    >
-                        Add New Coupon
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleOpenDialog}
-                        className="w-full py-2 px-4 bg-yellow-500 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
-                    >
-                        Show Coupons
                     </button>
                 </form>
             </div>

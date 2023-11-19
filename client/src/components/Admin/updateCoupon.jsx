@@ -52,6 +52,7 @@ const UpdateCoupons = () => {
                 method: 'put',
                 maxBodyLength: Infinity,
                 url: `http://localhost:4000/api/admin/${cId}`,
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -70,7 +71,7 @@ const UpdateCoupons = () => {
         },
     });
 
-    
+
 
     useEffect(() => {
         const fetchData = async () => {

@@ -1,23 +1,32 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, addToCashBack, getStoreDisplay, deleteFromDisplay } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
+const { isAdmin } = require('../middleware/auth');
 
 
-router.route("/admin/addStore").post(fileUpload.single('storeFile'),addStore);
+router.route("/admin/addStore").post(isAdmin,fileUpload.single('storeFile'),addStore);
 router.route("/getAllStore").get(getAllStores);
 router.route("/getStore/:storeId").get(getSingleStore);
-router.route("/admin/delete/:storeId").delete(deleteStore);
+router.route("/admin/delete/:storeId").delete(isAdmin,deleteStore);
 router.route("/coupons/:storeId").get(getCoupons);
 router.route("/coupons/:storeId/:cId").get(getSingleCoupon);
 
+router.route("/storeDisplay").get(getStoreDisplay);
+router.route("/storeDisplay/:storeId").delete(isAdmin,deleteFromDisplay);
 
-router.route("/admin/updateStore/:storeId").put(fileUpload.single('storeFile'),updateStore);
-router.route("/admin/addFaq/:storeId").put(formData.none(),addStoreFAQs);
-router.route("/admin/addCoupons/:storeId").post(addCoupons);
+
+router.route("/admin/updateStore/:storeId").put(isAdmin,fileUpload.single('storeFile'),updateStore);
+router.route("/admin/addFaq/:storeId").put(isAdmin,formData.none(),addStoreFAQs);
+
+router.route("/admin/addToCarousel/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToCarousel);
+router.route("/admin/addToCard/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToCard);
+router.route("/admin/addToCashBack/:storeId").post(isAdmin,addToCashBack);
+
+router.route("/admin/addCoupons/:storeId").post(isAdmin,addCoupons);
 router.route("/coupons").get(getCouponsBy);
 
-router.route("/admin/:cId").put(updateCoupon).delete(deleteCoupon);
+router.route("/admin/:cId").put(isAdmin,updateCoupon).delete(isAdmin,deleteCoupon);
 
 router.route("/addRatings/:storeId").put(addStoreRating);
 router.route("/redeem/:cId").put(redeem);

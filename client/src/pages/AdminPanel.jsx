@@ -19,7 +19,6 @@ const AdminPanel = () => {
     const handleLogout = async () =>{
         try {
             const response = await axios.get('http://localhost:4000/api/logout', {
-                withCredentials: true,
                 headers: {
                     "Content-Type": "application/json",
                 },
