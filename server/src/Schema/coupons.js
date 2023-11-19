@@ -22,6 +22,26 @@ class Coupons {
         }
     }
 
+    static async createShowStoreTable() {
+        const sql = `CREATE TABLE IF NOT EXISTS store_display (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            store_id INT,
+            show_in_carousel BOOLEAN DEFAULT FALSE,
+            show_in_card BOOLEAN DEFAULT FALSE,
+            show_in_cashback BOOLEAN DEFAULT FALSE,
+            cashback_percentage INT,
+            thumbnail VARCHAR(255),
+            FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
+        );`
+
+        try {
+            const [reslut, fields] = await db.query(sql);
+            console.log("store_display table created successfully!");
+        } catch (err) {
+            console.error("Error in Creating store_display table:", err);
+        }
+    }
+
     static async createRatingsTable() {
         const sql = `CREATE TABLE IF NOT EXISTS user_ratings (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,6 +98,23 @@ class Coupons {
             console.error("Error creating redeem table:", err);
         }
 
+    }
+
+    static async createFestivalShowcaseTable() {
+        const sql = `CREATE TABLE IF NOT EXISTS festivalShowcase (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            festival_name VARCHAR(255) NOT NULL,
+            discount INT DEFAULT 0,
+            storeId INT,
+            FOREIGN KEY (storeId) REFERENCES store(id) ON DELETE CASCADE
+        )`
+
+        try {
+            const [reslut, fields] = await db.query(sql);
+            console.log("festival Showcase table created successfully!");
+        } catch (err) {
+            console.error("Error in Creating festival Showcase table:", err);
+        }
     }
 }
 

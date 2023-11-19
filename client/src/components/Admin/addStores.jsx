@@ -37,9 +37,9 @@ function AddStores() {
                 "http://localhost:4000/api/admin/addStore",
                 formData,
                 {
-                    withCredentials: true,
                     headers: {
                         "Content-Type": "multipart/form-data",
+                        "Authorization" : `Bearer ${localStorage.getItem('token')}`
                     },
                 }
             );

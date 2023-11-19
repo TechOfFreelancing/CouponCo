@@ -33,13 +33,14 @@ const Coupons = require('./src/Schema/coupons');
 
 const authRoute = require('./src/Routes/userRoute');
 const couponsRoute = require('./src/Routes/couponsRoute');
+const festRoute = require('./src/Routes/festivalRoute');
 
 
 app.get('/', async (req, res) => {
     res.status(200).json("All Okay!");
 })
 
-app.use('/api',authRoute,couponsRoute);
+app.use('/api',authRoute,couponsRoute,festRoute);
 
 const server = app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
@@ -50,6 +51,8 @@ const server = app.listen(PORT, () => {
         Coupons.createRatingsTable();
         Coupons.createCouponsTable();
         Coupons.createRedeemTable();
+        Coupons.createShowStoreTable();
+        Coupons.createFestivalShowcaseTable();
     } catch (err) {
         console.log(err);
     }

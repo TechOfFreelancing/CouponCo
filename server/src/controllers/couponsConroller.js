@@ -43,6 +43,121 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+//add to carousel
+exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const thumbFile = req.file;
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
+
+        const sql = `INSERT INTO store_display (store_id, show_in_carousel, thumbnail) VALUES (?, ?, ?)`;
+
+        const result = await db.query(sql, [storeId, true, thumbnailUrl]);
+
+        res.status(200).json({ message: "Success!", rowId: result[0].insertId });
+
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add this to the carousel", 400));
+    }
+});
+
+//add to cashBack
+exports.addToCashBack = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const { cashBack } = req.body;
+
+    console.log(cashBack);
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        const sql = `INSERT INTO store_display (store_id, show_in_cashback, cashback_percentage) VALUES (?, ?, ?)`;
+
+        const result = await db.query(sql, [storeId, true, cashBack]);
+
+        res.status(200).json({ message: "Success!", rowId: result[0].insertId });
+
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add this to the carousel", 400));
+    }
+});
+
+//add store to card
+exports.addToCard = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const thumbFile = req.file;
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
+
+        const sql = `INSERT INTO store_display (store_id, show_in_card, thumbnail) VALUES (?, ?, ?)`;
+
+        const result = await db.query(sql, [storeId, true, thumbnailUrl]);
+
+        res.status(200).json({ message: "Success!", rowId: result[0].insertId });
+
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add this at card", 400));
+    }
+});
+
+//get store_display
+exports.getStoreDisplay = catchAsyncErrors(async (req, res, next) => {
+
+    try {
+        const sql = `select * from store_display`;
+
+        const result = await db.query(sql);
+
+        res.status(200).json({ message: "Success!", data: result[0] })
+
+    } catch (err) {
+        console.log(err);
+        return next(new ErrorHandler("Unalbe to show store display data!", 400));
+    }
+
+});
+
+//delete store from store_display
+exports.deleteFromDisplay = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    try {
+        const sql = `delete from store_display where store_id = ?`;
+
+        const result = await db.query(sql, [storeId]);
+
+        res.status(200).json({ message: "Success in deletion"})
+
+    } catch (err) {
+        console.log(err);
+        return next(new ErrorHandler("Unalbe to delete!", 400));
+    }
+
+});
+
 // Get all stores with search and filter options
 exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
     const { keyword, type, page = 1 } = req.query;
@@ -171,12 +286,6 @@ exports.deleteStore = catchAsyncErrors(async (req, res, next) => {
             return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
         }
 
-        // Delete associated ratings
-        await db.query('DELETE FROM user_ratings WHERE store_id = ?', [storeId]);
-
-        // Delete associated coupons
-        await db.query('DELETE FROM coupons WHERE store_id = ?', [storeId]);
-
         // Delete the store
         await db.query('DELETE FROM store WHERE id = ?', [storeId]);
 
@@ -250,7 +359,7 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const { title, couponCode, type, link, dueDate, description } = req.body;
-    console.log(title,couponCode,type,dueDate);
+    console.log(title, couponCode, type, dueDate);
     try {
         // Check if the store exists
         const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);

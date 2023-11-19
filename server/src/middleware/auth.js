@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 
 
 exports.isAdmin = catchAsyncErrors(async (req, res, next) => {
-    const { tokenjwt } = req.cookies;
+    
+    const tokenjwt = req.headers.authorization.split(' ')[1];
 
 
     if (!tokenjwt) {

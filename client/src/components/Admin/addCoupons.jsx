@@ -42,8 +42,10 @@ function AddCoupons() {
             method: 'post',
             maxBodyLength: Infinity,
             url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
+            withCredentials: true,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
             data: data
         };
