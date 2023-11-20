@@ -22,7 +22,7 @@ const Womanfashion = () => {
         fetchImages();
     }, []);
 
-    console.log(featuredImages);
+    // console.log(featuredImages);
 
     return (
 
