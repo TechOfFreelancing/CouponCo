@@ -14,6 +14,8 @@ import { useContext } from 'react';
 import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
+import AllStores from './pages/Stores';
+import Allcategories from './pages/Categories';
 
 
 
@@ -110,6 +112,28 @@ function App() {
             <>
               <Header></Header>
               <SignUp />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/AllStores"
+          element={
+            <>
+              <Header></Header>
+              <AllStores />
+              <MobileFooter></MobileFooter>
+              <Footer></Footer>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/AllCategories"
+          element={
+            <>
+              <Header></Header>
+              <Allcategories />
               <MobileFooter></MobileFooter>
               <Footer></Footer>
             </>

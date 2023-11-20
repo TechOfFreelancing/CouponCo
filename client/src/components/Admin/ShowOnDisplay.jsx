@@ -73,6 +73,30 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                 console.error(error);
             }
         }
+        else if (displayOption === 'todaysTop') {
+            const formdata = new FormData();
+            try {
+                if (selectedFile) {
+                    formdata.append("thumbFile", selectedFile);
+                }
+
+                await axios.post(
+                    `http://localhost:4000/api/admin/addToOffer/${storeId}`,
+                    formdata,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                    }
+                );
+                alert("Store Added to today's Offer successfully");
+                handleOpen();
+            } catch (error) {
+                alert(error.response.data.message);
+                console.error(error);
+            }
+        }
         else {
             let data = JSON.stringify({
                 "cashBack": cashBack
@@ -121,11 +145,16 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                                     checked={displayOption === 'cashback'}
                                     onChange={() => handleDisplayOptionChange('cashback')}
                                 />
+                                <Radio
+                                    label="Show on Today's Top Offers"
+                                    checked={displayOption === 'todaysTop'}
+                                    onChange={() => handleDisplayOptionChange('todaysTop')}
+                                />
                             </div>
                         </div>
                         {displayOption !== '' && (
                             <div className="mb-4">
-                                {displayOption === 'carousel' || displayOption === 'card' ? (
+                                {displayOption === 'carousel' || displayOption === 'todaysTop' || displayOption === 'card' ? (
                                     <input
                                         type="file"
                                         style={{

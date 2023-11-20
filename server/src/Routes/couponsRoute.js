@@ -1,5 +1,5 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, addToCashBack, getStoreDisplay, deleteFromDisplay } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, addToCashBack, getStoreDisplay, deleteFromDisplay, addToTodaysTop } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 const { isAdmin } = require('../middleware/auth');
@@ -22,6 +22,7 @@ router.route("/admin/addFaq/:storeId").put(isAdmin,formData.none(),addStoreFAQs)
 router.route("/admin/addToCarousel/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToCarousel);
 router.route("/admin/addToCard/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToCard);
 router.route("/admin/addToCashBack/:storeId").post(isAdmin,addToCashBack);
+router.route("/admin/addToOffer/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToTodaysTop);
 
 router.route("/admin/addCoupons/:storeId").post(isAdmin,addCoupons);
 router.route("/coupons").get(getCouponsBy);

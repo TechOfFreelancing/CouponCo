@@ -26,8 +26,9 @@ function UpdateStores() {
 
     const isPresentInHomePage = useRef(false);
     const [showcase, setShowCase] = useState("");
+    const [isPresentInOffer, setIsPresentInOffer] = useState(false);
 
-    console.log(isPresentInHomePage.current);
+    console.log(isPresentInOffer);
 
     const handleFAQChange = (index, event) => {
         const { name, value } = event.target;
@@ -137,12 +138,52 @@ function UpdateStores() {
         outline: 'none',
     };
 
+    const handleRemoveFromFestivalOffer = async () => {
+        try {
+            await axios.delete(`http://localhost:4000/api/admin/deleteStoreFromFest/${sId}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+            setIsPresentInOffer(false)
+            toast.success(`Store Deleted from Offer Successfully!`);
+        } catch (error) {
+            toast.error("Failed to delete store from offer");
+            console.error('Failed to delete store from offer', error);
+        }
+    }
+
+    const handleAddToFestivalOffer = async () => {
+        try {
+            await axios.post(
+                `http://localhost:4000/api/admin/addStoreToFest/${sId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
+            setIsPresentInOffer(true);
+            toast.success(`Store Added to Festival Offer Successfully!`);
+        } catch (error) {
+            toast.error("Failed to Add store to offer");
+            console.error('Failed to add store to offer', error);
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
 
                 const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
+
+                const offerRes = await axios.get("http://localhost:4000/api/festStoreDisplay");
+
+                const presentInOffer = offerRes.data.data.some(item => item.storeId === sId);
+
+                setIsPresentInOffer(presentInOffer);
 
                 const presentInHomePage = result.data.data.some(item => item.store_id === sId);
                 isPresentInHomePage.current = presentInHomePage;
@@ -155,7 +196,9 @@ function UpdateStores() {
                             ? 'card'
                             : result.data.data.find(item => item.store_id === sId && item.show_in_cashback === 1)
                                 ? 'cashback category'
-                                : '';
+                                : result.data.data.find(item => item.store_id === sId && item.show_in_top === 1)
+                                    ? `today's offer`
+                                    : '';
                     setShowCase(showcase)
                 }
 
@@ -321,7 +364,7 @@ function UpdateStores() {
                             <button
                                 type="button"
                                 onClick={handleRemoveFrom}
-                                className="w-full py-2 px-4 bg-pink-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                                className="w-1/2 py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
                             >
                                 Remove From {showcase}
                             </button>
@@ -329,12 +372,31 @@ function UpdateStores() {
                             <button
                                 type="button"
                                 onClick={handleFormOpen}
-                                className="w-full py-2 px-4 bg-pink-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                                className="w-1/2 py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
                             >
                                 Add To Home Page?
                             </button>
                         )}
+
+                        {isPresentInOffer ? (
+                            <button
+                                type="button"
+                                onClick={handleRemoveFromFestivalOffer}
+                                className="w-1/2 py-2 px-4 bg-yellow-500 mb-3 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                            >
+                                Remove from Festival Offer
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={handleAddToFestivalOffer}
+                                className="w-1/2 py-2 px-4 bg-yellow-500 mb-3 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                            >
+                                Add to Current Festival Offer
+                            </button>
+                        )}
                     </div>
+
                     <button
                         type="submit"
                         className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"

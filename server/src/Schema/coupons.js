@@ -29,6 +29,7 @@ class Coupons {
             show_in_carousel BOOLEAN DEFAULT FALSE,
             show_in_card BOOLEAN DEFAULT FALSE,
             show_in_cashback BOOLEAN DEFAULT FALSE,
+            show_in_top BOOLEAN DEFAULT FALSE,
             cashback_percentage INT,
             thumbnail VARCHAR(255),
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE

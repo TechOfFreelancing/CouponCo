@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import categories from "../api/categories";
 
 const Categories = () => {
@@ -7,7 +8,9 @@ const Categories = () => {
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Categories</span>
                 </div>
-                <div className="hover:underline h-7 duration-300 underline ">All Cash Back</div>
+                <Link to="/AllCategories" className="hover:underline h-7 duration-300 underline">
+                    All Categories
+                </Link>
             </div>
             <div className="grid grid-cols-3 lg:grid-cols-6 lg:gap-5 my-5 overflow-auto xl:flex scroll-snap-type-x mandatory scrollbar-hide">
                 {
