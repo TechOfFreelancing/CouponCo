@@ -3,6 +3,7 @@ import { AiOutlineVerticalRight, AiOutlineVerticalLeft } from 'react-icons/ai';
 import axios from 'axios';
 let count = 0;
 let slideInterval;
+import "./carousel.css"
 
 const CarouselSlider = () => {
     const [featuredImages, setFeaturedImages] = useState([]);
@@ -66,14 +67,7 @@ const CarouselSlider = () => {
     return (
         <div className="max-w-screen-xl">
             <div ref={slideRef} className="w-full relative select-none">
-                <div className="flex w-fit ">
-                    {featuredImages.map((image, index) => (
-                        <div key={index} className={`m-2 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-
-                            <img src={image} alt={`Slider ${index}`} className="w-64 h-48 object-cover rounded-lg" />
-                        </div>
-                    ))}
-                </div>
+                <img src={featuredImages[currentIndex]} alt="" />
                 <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
                     <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
                         <AiOutlineVerticalRight size={35} />
