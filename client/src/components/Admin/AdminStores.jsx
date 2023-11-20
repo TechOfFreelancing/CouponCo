@@ -13,7 +13,6 @@ const AdminStores = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch data from the API
         const fetchStores = async () => {
             try {
                 const response = await axios.get(

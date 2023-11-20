@@ -81,8 +81,6 @@ const UpdateCoupons = () => {
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
 
-                console.log(response.data.coupon);
-
                 formik.setValues({
                     title: response.data.coupon.title || '',
                     type: response.data.coupon.type || '',

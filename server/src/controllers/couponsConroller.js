@@ -43,6 +43,32 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+//add to today's Top category
+exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const thumbFile = req.file;
+
+    try {
+        // Check if the store exists
+        const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
+
+        if (storeResult.length === 0) {
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+        }
+
+        const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
+
+        const sql = `INSERT INTO store_display (store_id, show_in_top, thumbnail) VALUES (?, ?, ?)`;
+
+        const result = await db.query(sql, [storeId, true, thumbnailUrl]);
+
+        res.status(200).json({ message: "Success!", rowId: result[0].insertId });
+
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add this to today's top offer", 400));
+    }
+});
 //add to carousel
 exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
@@ -74,8 +100,6 @@ exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
 exports.addToCashBack = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const { cashBack } = req.body;
-
-    console.log(cashBack);
 
     try {
         // Check if the store exists

@@ -26,7 +26,7 @@ export function Header() {
                 variant="small"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
+                <a href="/AllStores" className="flex items-center">
                     Stores
                 </a>
             </Typography>
@@ -35,7 +35,7 @@ export function Header() {
                 variant="small"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
+                <a href="/AllCategories" className="flex items-center">
                     Categories
                 </a>
             </Typography>
@@ -67,7 +67,7 @@ export function Header() {
                 <div className="flex items-center justify-between text-white">
                     <Typography
                         as="a"
-                        href="#"
+                        href="/"
                         className="mr-4 cursor-pointer py-1.5 font-medium"
                     >
                         Logo
