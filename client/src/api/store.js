@@ -1,4 +1,5 @@
 import logo from '../assets/images/Store/1.webp';
+import discount from '../assets/images/discount.png';
 const store = [
     {
         id: 1,
@@ -58,18 +59,41 @@ const store = [
             _tips: "Can’t stop shopping at Very? While they have great prices year-round, there are ways to make your shop even more frugal. Try these tips:",
             tips: ["Browse the Very clearance to shop fashion, home, electricals and more at a reduced cost. Check out the Offers page too, for more flash savings and deals. If you've got your eye on something that's still full price, you could save some pounds with a Very discount code.  ", "Download the Very app to shop with ease. Plus, you’ll receive App only exclusives and the chance to enter amazing competitions.  ", "Save on delivery fees when you choose to click and collect your order. Remember to use a Very promo code for extra savings too."]
         },
-        how_to_use_very_voucher_codes: [
-
-            "Once you’ve had a browse through all of the products Very has to offer and you’ve put all of your favourite items into your basket, you’re ready to grab yourself a saving for your online shop!",
-
-            "After this, have a look on the VoucherCodes site for various Very voucher codes available to help you on your way to making an extra saving.",
-
-            "Next, you need to head to your basket which is available on the top right hand side and after you arrive, you’ll be able to see all of the goods. Following this, you’ll need to hit the “continue securely” button to proceed with placing your order.",
-
-            "You’ll need to ensure you sign in during the next step otherwise we won’t be able to move forward. You can either create a new account or if this isn’t your first time shopping with Very, login to your account.",
-
-            "After following all the steps and confirming the options that suit you, you will arrive at the third step which is “Payment”. On the right hand side of the page, you will come across a “Promo codes” box. This is where you’ll enter that special offer code you found earlier to see the savings appear right in front of you!"
-
+        how_to_use_very_voucher_codes:
+        {
+            img: discount,
+            answer: [
+                "Find an Argos discount from Savoo",
+                "Click on the offer to get the code, and click 'copy'",
+                "Go through to the Argos website to start shopping",
+                "Add your items to your basket",
+                "Go to your basket when you want to pay",
+                "Fill in your details until you progress to the payment page",
+                "Paste the Argos discount code into the ‘Promo codes, Gift cards & Flexecash’ box and click apply",
+                "The discount will come off your order total"
+            ]
+        },
+        Discount_table: [
+            {
+                Discount: "Up to 50% off in the Argos Clearance - Tech, Home & Garden DIY, Toys & more",
+                Last_verified: "6 Nov, 2023",
+                Redemptions: "Used 1,477 Times",
+            },
+            {
+                Discount: "Up to 50% off in the Argos Clearance - Tech, Home & Garden DIY, Toys & more",
+                Last_verified: "6 Nov, 2023",
+                Redemptions: "Used 1,477 Times",
+            },
+            {
+                Discount: "Up to 50% off in the Argos Clearance - Tech, Home & Garden DIY, Toys & more",
+                Last_verified: "6 Nov, 2023",
+                Redemptions: "Used 1,477 Times",
+            },
+            {
+                Discount: "Up to 50% off in the Argos Clearance - Tech, Home & Garden DIY, Toys & more",
+                Last_verified: "6 Nov, 2023",
+                Redemptions: "Used 1,477 Times",
+            },
         ],
         products: [
             {
@@ -173,6 +197,74 @@ const store = [
                 ends: "11/22/2023",
                 details: "RMN Exclusive! Get 5% Off Most hotels",
             },
+        ],
+        similar_products: [
+            {
+                offer: 5,
+                label: "code",
+                verified: true,
+                title: "RMN Exclusive! Get 5% Off Most hotels",
+                uses: "525",
+                ends: "11/22/2023",
+                details: "RMN Exclusive! Get 5% Off Most hotels",
+                rules_restrictions: "This coupon is only valid when you click on the Hotels.com link via Retailmenot website. Use this coupon to get 5% off the price of your booking at a participating Best Price Guarantee hotel when you stay between 1 and 28 nights and spend a minimum of $1.00 for your entire stay. You must pay for your stay when you make the booking. The discount only applies to the first room in the booking. You’ll need to pay the full price for any other rooms. The discount doesn’t apply to any taxes, fees or additional costs. To use this coupon, you must be over 18 years old and resident in the United States. You may only use this coupon for bookings made between 12:00 AM GMT on 11/14/23 and 11:59 PM GMT on 11/21/23 on the US version of Hotels.com for a stay to be completed between 11/14/23 and 08/31/24. Bookings are subject to availability and the hotel’s terms and conditions. This coupon can’t be used for: Package bookings i.e. hotel + flight Bookings made through Group Travel Services Bookings paid for at the hotel Bookings paid for in a foreign currency Bookings at non-participating hotels Bookings made prior to receipt of this coupon Go to https://www.hotels.com/lp/b/hotel-exclusions?pos=HCOM_US&locale=en_US for a list of non-participating hotels. Participating hotels are subject to change at any time. You can only use this coupon for a maximum of five bookings and each time it must be used in full. After those five bookings you won’t be able to use this coupon again, even if you cancel one or more of those bookings. This coupon is only valid for the first 600 bookings made by all customers using this coupon. You’ll be able to check that it’s still valid before completing a booking. There’s a limit of one coupon per booking. This coupon can be combined with discounted prices on Hotels.com. It cannot however be used in conjunction with any other promotion on Hotels.com, whether offered by a third party or otherwise. You can’t collect or redeem Hotels.com® Rewards nights when you use this coupon. You can’t apply this coupon to taxes, fees, or charges including, without limitation, extra guests, phone calls, cancellation fees, parking, or other charges. You must pay these charges when you make your booking, or directly at the hotel. You can’t redeem this coupon for cash, and it can’t be transferred or sold. It’s void where prohibited by law. Improper use of the coupon by you is prohibited and could be construed as fraud. We reserve the right to change or withdraw this offer at any time and to cancel any bookings made where the coupon has been used to make any speculative, false or fraudulent bookings or any bookings in anticipation of demand. Usual booking terms and conditions apply (see hotels.com/customer_care/terms_conditions.html) and all bookings are subject to availability. Hotels.com is the promoter of this offer. These terms and conditions are governed by and construed in accordance with the laws of the State of Washington."
+            },
+            {
+                offer: 6,
+                label: "online cash back",
+                verified: false,
+                title: "6% Cash Back for Purchases Sitewide",
+                uses: "96",
+                ends: "11/30/2023",
+                details: "Combine with other offers for an even better deal! Cash back is earned on the qualifying purchase total after any discounts and before any fees or taxes are applied. Purchases of gift cards are excluded. Rewards earnings up to $50.00. Cash back is based on the room rate and does not apply to any taxes, service fees, VAT or other hotel facility costs (including restaurant and spa). Cash back will be paid out once we have confirmation of a completed stay. Rewards earnings not to exceed $50.00.",
+
+            },
+            {
+                offer: 5,
+                label: "code",
+                verified: true,
+                title: "6% Cash Back for Purchases Sitewide",
+                uses: "525",
+                ends: "11/22/2023",
+                details: "RMN Exclusive! Get 5% Off Most hotels",
+            },
+            {
+                offer: 5,
+                label: "code",
+                verified: true,
+                title: "RMN Exclusive! Up to 25% Off + Extra 5% Off Select Hotels",
+                uses: "525",
+                ends: "11/22/2023",
+                details: "RMN Exclusive! Get 5% Off Most hotels",
+            },
+            {
+                offer: 5,
+                label: "code",
+                verified: true,
+                title: "Up to $100 Cash Back Rebate With Hotel Bookings",
+                uses: "525",
+                ends: "11/22/2023",
+                details: "Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            },
+            {
+                offer: 5,
+                label: "code",
+                verified: true,
+                title: "RMN Exclusive! Get 5% Off Most hotels",
+                uses: "525",
+                ends: "11/22/2023",
+                details: "RMN Exclusive! Get 5% Off Most hotels",
+            },
+            {
+                offer: 5,
+                label: "code",
+                verified: true,
+                title: "RMN Exclusive! Get 5% Off Most hotels",
+                uses: "525",
+                ends: "11/22/2023",
+                details: "RMN Exclusive! Get 5% Off Most hotels",
+            }
+
         ]
     }
 ]
