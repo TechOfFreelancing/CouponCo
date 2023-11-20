@@ -5,7 +5,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "@material-tailwind/react";
 import { CouponsBox } from "./CouponsBox";
-import { ShowOnDisplay } from "./showOnDisplay";
+import { ShowOnDisplay } from "./ShowOnDisplay";
 
 function UpdateStores() {
 
