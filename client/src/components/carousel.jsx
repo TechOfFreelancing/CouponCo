@@ -74,7 +74,7 @@ const CarouselSlider = () => {
         <div className="max-w-screen-xl">
             {featuredImages[currentIndex] && (
                 <div ref={slideRef} className="w-full relative select-none block">
-                    <img src={imageCache[featuredImages[currentIndex]].src} alt="hello world" />
+                    <img src={imageCache[featuredImages[currentIndex]].src} alt="hello world" className=' w-screen h-auto lg:w-[856px] lg:h-[310px]'/>
                     <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
                         <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
                             <AiOutlineVerticalRight size={35} />
