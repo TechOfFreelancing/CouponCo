@@ -1,24 +1,60 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Typography, Button, CardFooter } from "@material-tailwind/react";
+import { useLocation } from "react-router-dom";
 
 const AllStores = () => {
     const [count, setCount] = useState(1);
     const [stores, setStores] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const location = useLocation();
+
+    const type = location.state?.type;
+    const keyword = location.state?.keyword;
+
+    const isFestival = location.state?.isFestival;
+
     useEffect(() => {
         const fetchStores = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:4000/api/getAllStore?page=${count}`,
-                    {
+                if (isFestival) {
+                    const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    })
+                    const storeDetailsPromises = response.data.data.map(async (store) => {
+                        if (store.storeId) {
+                            const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
+                            return response.data.store;
+                        }
+                        return null; // Cases where storeId is null or undefined
+                    });
+
+                    const storeDetails = await Promise.all(storeDetailsPromises);
+                
+                    setStores(storeDetails.filter(Boolean)); // Filtering out null values
+                }
+
+                else {
+                    let apiUrl = `http://localhost:4000/api/getAllStore?page=${count}`;
+
+                    if (type) {
+                        apiUrl += `&type=${type}`;
+                    }
+
+                    if (keyword) {
+                        apiUrl += `&keyword=${keyword}`;
+                    }
+
+                    const response = await axios.get(apiUrl, {
                         headers: {
                             "Content-Type": "application/json",
                         },
-                    }
-                );
-                setStores(response.data.stores);
+                    });
+                    setStores(response.data.stores);
+                }
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
@@ -29,7 +65,7 @@ const AllStores = () => {
         };
 
         fetchStores();
-    }, [count]);
+    }, [count, type, keyword]);
 
     return (
         <>
