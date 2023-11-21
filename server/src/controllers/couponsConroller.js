@@ -199,8 +199,8 @@ exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
     }
 
     if (type) {
-        conditions.push('type = ?');
-        params.push(type);
+        conditions.push('type LIKE ?');
+        params.push(`%${type}%`);
     }
 
     if (conditions.length > 0) {

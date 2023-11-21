@@ -22,8 +22,6 @@ const Womanfashion = () => {
         fetchImages();
     }, []);
 
-    console.log(featuredImages);
-
     return (
 
         <div className='lg:mx-28 mx-5'>
