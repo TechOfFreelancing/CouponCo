@@ -4,11 +4,13 @@ import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import {
-    Dialog,
+    Dialog, Card, Typography, List, ListItem
 } from "@material-tailwind/react";
 import { IoMdClose } from "react-icons/io";
-import { List, ListItem, Card } from "@material-tailwind/react";
 import { Link } from 'react-scroll';
+
+const TABLE_HEAD = ["Discount", "Last verified", "Redemptions"];
+
 
 const Store = () => {
     let first_store = store[0];
@@ -218,6 +220,67 @@ const Store = () => {
                     }
                 </div>
                 <div className="flex flex-col gap-5 mx-10">
+                    <Card className="h-auto w-full overflow-scroll lg:w-[50rem]">
+                        <div className="lg:text-4xl text-2xl my-2 text-black font-bold">Popular {first_store.name} Discount Codes</div>
+                        <table className=" min-w-max table-auto text-left ">
+                            <thead>
+                                <tr>
+                                    {TABLE_HEAD.map((head) => (
+                                        <th
+                                            key={head}
+                                            className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                                        >
+                                            <Typography
+                                                variant="small"
+                                                color="blue-gray"
+                                                className="font-normal leading-none opacity-70"
+                                            >
+                                                {head}
+                                            </Typography>
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {first_store.Discount_table.map(({ Discount, Last_verified, Redemptions }, index) => {
+                                    const isLast = index === first_store.Discount_table.length - 1;
+                                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+
+                                    return (
+                                        <tr key={name}>
+                                            <td className={classes}>
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal"
+                                                >
+                                                    {Discount}
+                                                </Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal"
+                                                >
+                                                    {Last_verified}
+                                                </Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal"
+                                                >
+                                                    {Redemptions}
+                                                </Typography>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </Card>
                     <div className="w-full lg:w-[50rem]" id="about">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">About {first_store.name.toUpperCase()}</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
@@ -262,15 +325,78 @@ const Store = () => {
                         <div className="font-semibold lg:text-4xl text-2xl my-3">How to Use Voucher Codes</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
                             {
-                                first_store.how_to_use_very_voucher_codes.map((ele, index) => <div key={index} className="flex flex-col gap-2">
+                                first_store.how_to_use_very_voucher_codes.answer.map((ele, index) => <div key={index} className="flex flex-col gap-2">
                                     •  {ele}
                                 </div>)
                             }
+                            <img src={first_store.how_to_use_very_voucher_codes.img} alt="" />
                         </div>
                     </div>
                 </div>
+                <Card className=" flex flex-col gap-2 pt-5 w-full lg:w-[50rem]">
+                    <div className="text-xl text-black font-semibold whitespace-nowrap px-5">Recently Expired Argos Discount Codes & Deals </div>
 
-
+                    <div className="flex justify-between items-center px-5">
+                        <span>Get 20% off Indoor Furniture</span>
+                        <span className="text-lg text-black font-semibold line-through border-2 border-dashed border-black p-2 px-5 rounded-md">FURN20</span>
+                    </div>
+                    <hr />
+                    <div className="flex justify-between items-center px-5">
+                        <span>£100 off Selected Sony Cameras at Argos</span>
+                        <span className="text-lg text-black font-semibold line-through border-2 border-dashed border-black p-2 px-5 rounded-md">FURN20</span>
+                    </div>
+                    <hr />
+                    <div className="flex justify-between items-center px-5">
+                        <span>Get 20% off Indoor Furniture</span>
+                        <span className="text-lg text-black font-semibold line-through border-2 border-dashed border-black p-2 px-5 rounded-md">FURN20</span>
+                    </div>
+                    <hr />
+                    <div className="flex justify-between items-center px-5">
+                        <span>Get 20% off Indoor Furniture</span>
+                        <span className="text-lg text-black font-semibold line-through border-2 border-dashed border-black p-2 px-5 rounded-md">FURN20</span>
+                    </div>
+                    <hr />
+                    <div className="flex justify-between items-center px-5">
+                        <span>Get 20% off Indoor Furniture</span>
+                        <span className="text-lg text-black font-semibold line-through border-2 border-dashed border-black p-2 px-5 rounded-md">FURN20</span>
+                    </div>
+                </Card>
+                <div className="flex flex-col gap-5 my-5 items-start mx-10">
+                    <div className="font-semibold lg:text-4xl text-2xl my-3">Similar Products</div>
+                    {
+                        first_store.similar_products.map((ele, index) => {
+                            return (
+                                <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration--150 ">
+                                    <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
+                                        <div className="flex flex-col font-bold">
+                                            <span className="text-3xl text-purple-600 whitespace-nowrap">{ele.offer} %</span>
+                                            <span className="text-3xl text-purple-600">Off</span>
+                                        </div>
+                                        <div className="flex flex-col gap-3">
+                                            <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.label}</div>
+                                            <div className="font-bold text-xl">{ele.title}</div>
+                                            <div className="flex gap-2 text-gray-500 text-sm">
+                                                <span>{ele.verified && <div>Verified</div>}</span>
+                                                <span>{ele.uses} uses today</span>
+                                            </div>
+                                        </div>
+                                        <div className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                    </div>
+                                    <hr className="my-5" />
+                                    <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                        See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                    </div>
+                                    {detailsVisibility[index] && (
+                                        <div className="details flex flex-col gap-2">
+                                            <span className="font-bold">Ends {ele.ends}</span>
+                                            <span>{ele.details}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />

@@ -1,13 +1,35 @@
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineVerticalRight, AiOutlineVerticalLeft } from 'react-icons/ai';
 import axios from 'axios';
-let count = 0;
-let slideInterval;
+import "./carousel.css";
 
 const CarouselSlider = () => {
     const [featuredImages, setFeaturedImages] = useState([]);
+    const [imageCache, setImageCache] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
-    const slideRef = useRef();
+    const slideRef = useRef(null);
+
+    const animation = () => {
+        if (slideRef.current) {
+            slideRef.current.classList.add("fade-anim");
+        }
+    }
+
+    const handleOnNextClick = () => {
+        animation();
+        const nextIndex = (currentIndex + 1) % featuredImages.length;
+        setCurrentIndex(nextIndex);
+
+    };
+
+    const handleOnPrevClick = () => {
+        animation();
+        const productsLength = featuredImages.length;
+        const prevIndex = (currentIndex + productsLength - 1) % productsLength;
+        setCurrentIndex(prevIndex);
+
+    };
+
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -17,6 +39,17 @@ const CarouselSlider = () => {
                     const fetchedImages = response.data.data
                         .filter(item => item.show_in_carousel === 1 && item.thumbnail)
                         .map(item => item.thumbnail);
+
+                    // Preload images into the cache
+                    const imagePromises = fetchedImages.map(async (imageSrc) => {
+                        const img = new Image();
+                        img.src = imageSrc;
+                        await img.decode();
+                        setImageCache(prevCache => ({ ...prevCache, [imageSrc]: img }));
+                    });
+
+                    await Promise.all(imagePromises);
+
                     setFeaturedImages(fetchedImages);
                 }
             } catch (error) {
@@ -27,62 +60,31 @@ const CarouselSlider = () => {
         fetchImages();
     }, []);
 
-    const pauseSlider = () => {
-        clearInterval(slideInterval);
-    };
-
-    const handleOnNextClick = () => {
-        count = (count + 1) % featuredImages.length;
-        setCurrentIndex(count);
-        slideRef.current.classList.add("fade-anim");
-    };
-    const handleOnPrevClick = () => {
-        const productsLength = featuredImages.length;
-        count = (currentIndex + productsLength - 1) % productsLength;
-        setCurrentIndex(count);
-        slideRef.current.classList.add("fade-anim");
-    };
-
-    const startSlider = () => {
-        slideInterval = setInterval(() => {
+    useEffect(() => {
+        const slideInterval = setInterval(() => {
             handleOnNextClick();
         }, 3000);
-    };
 
-    const removeAnimation = () => {
-        slideRef.current.classList.remove("fade-anim");
-    };
+        const cleanup = () => clearInterval(slideInterval);
+        return cleanup;
+    },);
 
-    useEffect(() => {
-        startSlider();
-        slideRef.current.addEventListener("animationend", removeAnimation);
-        slideRef.current.addEventListener("mouseenter", pauseSlider);
-        slideRef.current.addEventListener("mouseleave", startSlider);
-        return () => {
-            clearInterval(slideInterval);
-        };
-    }, []);
 
     return (
         <div className="max-w-screen-xl">
-            <div ref={slideRef} className="w-full relative select-none">
-                <div className="flex w-fit ">
-                    {featuredImages.map((image, index) => (
-                        <div key={index} className={`m-2 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-
-                            <img src={image} alt={`Slider ${index}`} className="w-64 h-48 object-cover rounded-lg" />
-                        </div>
-                    ))}
+            {featuredImages[currentIndex] && (
+                <div ref={slideRef} className="w-full relative select-none block">
+                    <img src={imageCache[featuredImages[currentIndex]].src} alt="hello world" />
+                    <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
+                        <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
+                            <AiOutlineVerticalRight size={35} />
+                        </button>
+                        <button onClick={handleOnNextClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
+                            <AiOutlineVerticalLeft size={35} />
+                        </button>
+                    </div>
                 </div>
-                <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
-                    <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
-                        <AiOutlineVerticalRight size={35} />
-                    </button>
-                    <button onClick={handleOnNextClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
-                        <AiOutlineVerticalLeft size={35} />
-                    </button>
-                </div>
-            </div>
+            )}
         </div>
     );
 };
