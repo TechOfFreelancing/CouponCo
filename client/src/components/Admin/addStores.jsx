@@ -9,6 +9,7 @@ function AddStores() {
     const initialValues = {
         name: "",
         description: "",
+        hint: "",
         type: "",
     };
 
@@ -27,6 +28,7 @@ function AddStores() {
             const formData = new FormData();
             formData.append("name", values.name);
             formData.append("description", values.description);
+            formData.append("hint", values.hint);
             formData.append("type", values.type);
 
             if (selectedFile) {
@@ -39,7 +41,7 @@ function AddStores() {
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
-                        "Authorization" : `Bearer ${localStorage.getItem('token')}`
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },
                 }
             );
@@ -72,13 +74,43 @@ function AddStores() {
 
                         <div className="mb-4">
                             <label htmlFor="description" className="block mb-1 font-medium">
-                                Description:
+                                About:
                             </label>
                             <Field
-                                type="text"
+                                as="textarea"
                                 id="description"
                                 name="description"
-                                style={inputStyle}
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    border: '1px solid black',
+                                    borderRadius: '0.375rem',
+                                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                    outline: 'none',
+                                    resize: 'vertical',
+                                }}
+                                rows={4}
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="hint" className="block mb-1 font-medium">
+                                Hint & Tips:
+                            </label>
+                            <Field
+                                as="textarea"
+                                id="hint"
+                                name="hint"
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    border: '1px solid black',
+                                    borderRadius: '0.375rem',
+                                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                    outline: 'none',
+                                    resize: 'vertical',
+                                }}
+                                rows={4}
                             />
                         </div>
 

@@ -83,8 +83,8 @@ const AdminStores = () => {
                                     {stores.map((store) => (
                                         <div key={store.id} className="relative group" onClick={() => navigate("/Admin/updateStore", { state: { sId: store.id } })}>
                                             <div className="flex flex-col gap-2 h-[10rem] lg:h-[20rem] cursor-pointer items-center justify-center">
-                                                <div className="h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl">
-                                                    <img src={store.logo_url} alt={store.name} className="h-auto w-auto" />
+                                                <div className="h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl overflow-hidden">
+                                                    <img src={store.logo_url} alt={store.name} className="h-auto w-auto max-h-full max-w-full" />
                                                 </div>
                                                 <div className="hover:underline text-center group-hover:underline">
                                                     <span className="flex justify-center gap-2 items-center">

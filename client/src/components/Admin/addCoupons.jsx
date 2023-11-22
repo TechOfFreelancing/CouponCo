@@ -34,7 +34,7 @@ function AddCoupons() {
             "type": values.type,
             "couponCode": values.couponCode,
             "dueDate": values.dueDate,
-            "link": values.link,
+            "ref_link": values.link,
             "description": values.description
         });
 

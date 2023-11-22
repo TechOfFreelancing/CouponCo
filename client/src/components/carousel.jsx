@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AiOutlineVerticalRight, AiOutlineVerticalLeft } from 'react-icons/ai';
 import axios from 'axios';
 import "./carousel.css";
+import { useNavigate } from 'react-router-dom';
 
 const CarouselSlider = () => {
     const [featuredImages, setFeaturedImages] = useState([]);
@@ -38,20 +39,24 @@ const CarouselSlider = () => {
                 if (response.data && response.data.data) {
                     const fetchedImages = response.data.data
                         .filter(item => item.show_in_carousel === 1 && item.thumbnail)
-                        .map(item => item.thumbnail);
+                        .map(item => ({
+                            store_id: item.store_id,
+                            thumbnail: item.thumbnail
+                        }));
 
                     // Preload images into the cache
-                    const imagePromises = fetchedImages.map(async (imageSrc) => {
+                    const imagePromises = fetchedImages.map(async (imageData) => {
                         const img = new Image();
-                        img.src = imageSrc;
+                        img.src = imageData.thumbnail;
                         await img.decode();
-                        setImageCache(prevCache => ({ ...prevCache, [imageSrc]: img }));
+                        setImageCache(prevCache => ({ ...prevCache, [imageData.store_id]: img }));
                     });
 
                     await Promise.all(imagePromises);
 
                     setFeaturedImages(fetchedImages);
                 }
+
             } catch (error) {
                 console.error('Error fetching images:', error);
             }
@@ -59,6 +64,7 @@ const CarouselSlider = () => {
 
         fetchImages();
     }, []);
+
 
     useEffect(() => {
         const slideInterval = setInterval(() => {
@@ -69,12 +75,24 @@ const CarouselSlider = () => {
         return cleanup;
     },);
 
+    const navigate = useNavigate();
+
 
     return (
         <div className="max-w-screen-xl">
             {featuredImages[currentIndex] && (
                 <div ref={slideRef} className="w-full relative select-none block">
-                    <img src={imageCache[featuredImages[currentIndex]].src} alt="hello world" className=' w-screen h-auto lg:w-[856px] lg:h-[310px]'/>
+                    <img
+                        src={imageCache[featuredImages[currentIndex].store_id].src} // Accessing the URL using store_id as key
+                        alt="hello world"
+                        className=' w-screen h-auto lg:w-[856px] lg:h-[310px] cursor-pointer'
+                        onClick={() => {
+                            navigate(
+                                '/Store',
+                                { state: { sId: featuredImages[currentIndex].store_id } } // Passing store_id in state
+                            );
+                        }}
+                    />
                     <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
                         <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
                             <AiOutlineVerticalRight size={35} />

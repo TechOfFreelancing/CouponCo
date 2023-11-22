@@ -28,7 +28,6 @@ function UpdateStores() {
     const [showcase, setShowCase] = useState("");
     const [isPresentInOffer, setIsPresentInOffer] = useState(false);
 
-    console.log(isPresentInOffer);
 
     const handleFAQChange = (index, event) => {
         const { name, value } = event.target;
@@ -54,12 +53,13 @@ function UpdateStores() {
 
     const navigate = useNavigate();
 
-    const formik = useFormik({
 
-        initialValues: {
+    const formik = useFormik({
+        initialValues :  {
             name: store.name || '',
             description: store.description || '',
             type: store.type || '',
+            hint: store.hint || "",
         },
 
         onSubmit: async (values) => {
@@ -69,7 +69,9 @@ function UpdateStores() {
 
                 formData.append("name", values.name);
                 formData.append("description", values.description);
+                formData.append("hint", values.hint);
                 formData.append("type", values.type);
+
 
                 if (selectedFile) {
                     formData.append("storeFile", selectedFile);
@@ -215,6 +217,7 @@ function UpdateStores() {
                     name: response.data.store.name || '',
                     description: response.data.store.description || '',
                     type: response.data.store.type || '',
+                    hint: response.data.store.hint || '',
                 });
             } catch (error) {
                 toast.error(error.response ? error.response.statusText : 'Failed to fetch data');
@@ -260,9 +263,9 @@ function UpdateStores() {
 
                     <div className="mb-4">
                         <label htmlFor="description" className="block mb-1 font-medium">
-                            Description:
+                            About:
                         </label>
-                        <input
+                        <textarea
                             type="text"
                             id="description"
                             name="description"
@@ -270,6 +273,21 @@ function UpdateStores() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="hint" className="block mb-1 font-medium">
+                            Hint & Tips:
+                        </label>
+                        <textarea
+                            type="text"
+                            id="hint"
+                            name="hint"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.hint}
                         />
                     </div>
 
