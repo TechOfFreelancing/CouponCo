@@ -211,7 +211,7 @@ const Store = () => {
                         </div>
                         <div className="flex gap-5 items-center ">
                             <span className="whitespace-nowrap">
-                                Avg Rating : {(str?.total_ratings / str?.ratings_count).toFixed(1)}
+                                Avg Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
                             </span>
 
                             <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>
@@ -225,7 +225,7 @@ const Store = () => {
                     </div>
                     <div className="flex flex-col gap-5">
                         <Card className="min-w-full flex flex-col gap-2 pt-5 w-80">
-                            <div className="text-xl text-black font-semibold whitespace-nowrap px-5">{str?.name}&apos;s Active Voucher Codes</div>
+                            <div className="text-xl text-black font-semibold lg:whitespace-nowrap px-5">{str?.name}&apos;s Active Voucher Codes</div>
                             <div className="flex justify-between items-center px-5">
                                 <span className="text-lg text-black font-semibold">Exclusive codes</span>
                                 <span>{couponCounts.exclusive}</span>

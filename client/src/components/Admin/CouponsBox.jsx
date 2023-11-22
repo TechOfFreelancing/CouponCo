@@ -35,7 +35,8 @@ export function CouponsBox({ storeId, open, handleOpen }) {
                 </Button>
             </DialogHeader>
 
-            <DialogBody className="overflow-scroll max-h-screen">
+            <DialogBody>
+                <div className="overflow-scroll h-[50rem] pb-[10rem]">
                 {coupons.map((coupon, index) => (
                     <div key={index} className="border border-gray-300 rounded-lg p-4 mb-4">
                         <div className="flex justify-between items-center mb-2">
@@ -46,7 +47,7 @@ export function CouponsBox({ storeId, open, handleOpen }) {
                         <div className="bg-gray-100 text-center rounded p-2 mb-2">{coupon.coupon_code}</div>
                     </div>
                 ))}
-
+</div>
             </DialogBody>
         </Dialog>
     );
