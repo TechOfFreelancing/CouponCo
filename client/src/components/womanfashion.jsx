@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import logo from '../assets/images/logos/1.png'
 const Womanfashion = () => {
 
     const [featuredImages, setFeaturedImages] = useState([]);
@@ -40,14 +41,18 @@ const Womanfashion = () => {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                 {featuredImages.map((item, index) => (
+                    <div  key={index} className="flex flex-col items-center justify-evenly relative h-[122px] w-[145px] lg:h-[230px] lg:w-[280px] border rounded-lg overflow-hidden hover:-translate-y-2 hover:shadow-lg duration-300">
                     <img
-                        key={index}
                         src={item.thumbnail}
-                        className="cursor-pointer duration-300 hover:-translate-y-2 hover:shadow-lg"
+                        className="cursor-pointer h-2/3 lg:w-[280px] lg:h-[155px]"
                         onClick={() => {
                             navigate('/Store', { state: { sId: item.storeId } });
                         }}
                     />
+                    <img src={logo} alt="" className="absolute h-[25px] w-[25px] lg:h-[50px] lg:w-[50px] left-2 bottom-10 rounded-sm lg:rounded-2xl"/>
+                    <span className="text-md font-bold">Berlook code</span>
+                    <span className="text-sm">15% off on first order</span>
+                    </div>
                 ))}
 
             </div>
