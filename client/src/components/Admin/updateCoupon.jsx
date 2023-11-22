@@ -25,6 +25,8 @@ const UpdateCoupons = () => {
 
     const cId = location.state?.cId;
 
+    const formattedDate = coupons?.due_date?.substring(0, 10)
+
     const formik = useFormik({
 
 
@@ -32,8 +34,8 @@ const UpdateCoupons = () => {
             title: coupons.title || '',
             type: coupons.type || '',
             coupon_code: coupons.couponCode || '',
-            due_date: coupons.due_date || '',
-            link: coupons.link || '',
+            due_date: formattedDate || '',
+            ref_link: coupons.ref_link || '',
             description: coupons.description || '',
         },
 
@@ -44,9 +46,11 @@ const UpdateCoupons = () => {
                 "type": values.type,
                 "coupon_code": values.coupon_code,
                 "due_date": values.due_date,
-                "link": values.link,
+                "ref_link": values.ref_link,
                 "description": values.description
             });
+
+            console.log(data);
 
             let config = {
                 method: 'put',
@@ -54,7 +58,8 @@ const UpdateCoupons = () => {
                 url: `http://localhost:4000/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "Authorization" : `Bearer ${localStorage.getItem('token')}`
                 },
                 data: data
             };
@@ -71,8 +76,6 @@ const UpdateCoupons = () => {
         },
     });
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -85,8 +88,8 @@ const UpdateCoupons = () => {
                     title: response.data.coupon.title || '',
                     type: response.data.coupon.type || '',
                     coupon_code: response.data.coupon.coupon_code || '',
-                    due_date: response.data.coupon.due_date || '',
-                    link: response.data.coupon.link || '',
+                    due_date: response.data.coupon.due_date.substring(0,10) || '',
+                    ref_link: response.data.coupon.ref_link || '',
                     description: response.data.coupon.description || '',
                 });
 
@@ -182,17 +185,17 @@ const UpdateCoupons = () => {
                     </div>
 
                     <div className="mb-4">
-                        <label htmlFor="Link" className="block mb-1 font-medium">
+                        <label htmlFor="ref_link" className="block mb-1 font-medium">
                             Link:
                         </label>
                         <input
                             type="text"
-                            id="link"
-                            name="link"
+                            id="ref_link"
+                            name="ref_link"
                             style={inputStyle}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.link}
+                            value={formik.values.ref_link}
                         />
                     </div>
 

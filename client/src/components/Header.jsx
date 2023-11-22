@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Collapse,
     Typography,
@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import Alert from "./alert";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "./AuthContext";
+import axios from "axios";
 
 export function Header() {
     const [openNav, setOpenNav] = React.useState(false);
@@ -20,6 +22,15 @@ export function Header() {
     }, []);
 
     const [keyword, setKeyWord] = React.useState("");
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+    const { role } = React.useContext(AuthContext);
+
+
+    useEffect(() => {
+        setIsLoggedIn(role === "General");
+    }, [role]);
+
     const navigate = useNavigate();
 
     const navList = (
@@ -73,6 +84,31 @@ export function Header() {
         navigate("/AllStores", { state: { keyword: keyword } })
     }
 
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get('http://localhost:4000/api/logout', {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response && response.status === 200) {
+                setIsLoggedIn(false);
+                alert(response.data.message);
+                localStorage.clear();
+                navigate("/");
+            } else {
+                alert("Logout failed. Please try again.");
+            }
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                alert(error.response.data.message);
+            } else {
+                alert("An error occurred. Please try again later.");
+            }
+            console.error(error);
+        }
+    }
+
     return (
         <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen bg-purple-600 justify-around items-center z-20 opacity-100">
             <Alert></Alert>
@@ -104,12 +140,22 @@ export function Header() {
                             </Button>
                         </div>
                         <div className="flex items-center gap-x-5">
-                            <Link to="/login" className="hidden lg:inline-block whitespace-nowrap">
-                                Log In
-                            </Link>
-                            <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap">
-                                Sign in
-                            </Link>
+                            <>
+                                {isLoggedIn ? (
+                                    <div onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap">
+                                        Logout
+                                    </div>
+                                ) : (
+                                    <>
+                                        <Link to="/login" className="hidden lg:inline-block whitespace-nowrap">
+                                            Log In
+                                        </Link>
+                                        <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap">
+                                            Sign Up
+                                        </Link>
+                                    </>
+                                )}
+                            </>
                         </div>
                         <IconButton
                             variant="text"

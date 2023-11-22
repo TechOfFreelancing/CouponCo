@@ -1,5 +1,5 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, addToCashBack, getStoreDisplay, deleteFromDisplay, addToTodaysTop } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, addToCashBack, getStoreDisplay, deleteFromDisplay, addToTodaysTop, getRedeemCount } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 const { isAdmin } = require('../middleware/auth');
@@ -31,5 +31,6 @@ router.route("/admin/:cId").put(isAdmin,updateCoupon).delete(isAdmin,deleteCoupo
 
 router.route("/addRatings/:storeId").put(addStoreRating);
 router.route("/redeem/:cId").put(redeem);
+router.route("/getRedeemCount/:cId").get(getRedeemCount);
 
 module.exports = router;

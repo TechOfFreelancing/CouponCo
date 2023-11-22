@@ -8,6 +8,7 @@ class Coupons {
             logo_url VARCHAR(255),
             type VARCHAR(255),
             description TEXT,
+            hint TEXT,
             faq JSON, 
             total_ratings INT DEFAULT 0,
             ratings_count INT DEFAULT 0,
@@ -68,8 +69,8 @@ class Coupons {
             title VARCHAR(255) NOT NULL,
             coupon_code VARCHAR(50) NOT NULL,
             type VARCHAR(255),
-            link VARCHAR(255),
-            due_date DATE,
+            ref_link VARCHAR(255),
+            due_date DATETIME,
             user_count INT DEFAULT 0,
             description TEXT,
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE

@@ -21,14 +21,14 @@ const uploadAndCreateDocument = async (file) => {
 
 //add new store with basic details
 exports.addStore = catchAsyncErrors(async (req, res, next) => {
-    const { name, type, description } = req.body;
+    const { name, type, description, hint } = req.body;
     const storeFile = req.file;
 
     try {
         const logo_url = await uploadAndCreateDocument(storeFile);
-        const sql = `INSERT INTO store (name, logo_url, type, description) VALUES (?, ?, ?, ?)`;
+        const sql = `INSERT INTO store (name, logo_url, type, description ,hint) VALUES (?, ?, ?, ?, ?)`;
 
-        const result = await db.query(sql, [name, logo_url, type, description]);
+        const result = await db.query(sql, [name, logo_url, type, description, hint]);
         const storeId = result[0].insertId;
 
         const store = `SELECT * FROM store WHERE id = ?`;
@@ -173,7 +173,7 @@ exports.deleteFromDisplay = catchAsyncErrors(async (req, res, next) => {
 
         const result = await db.query(sql, [storeId]);
 
-        res.status(200).json({ message: "Success in deletion"})
+        res.status(200).json({ message: "Success in deletion" })
 
     } catch (err) {
         console.log(err);
@@ -249,7 +249,6 @@ exports.getSingleStore = catchAsyncErrors(async (req, res, next) => {
 // Update store 
 exports.updateStore = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    const { name, type, description } = req.body;
     const storeFile = req.file;
 
     try {
@@ -260,10 +259,9 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
             return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
         }
 
-        // Build the update query and parameters based on the provided fields
         let updateSql = 'UPDATE store SET ';
         const updateParams = [];
-        const validFields = ['name', 'type', 'description'];
+        const validFields = ['name', 'type', 'description', 'hint'];
 
         // If there's a new storeFile, update logo_url
         if (storeFile) {
@@ -382,7 +380,7 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
 //add coupons
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    const { title, couponCode, type, link, dueDate, description } = req.body;
+    const { title, couponCode, type, ref_link, dueDate, description } = req.body;
     console.log(title, couponCode, type, dueDate);
     try {
         // Check if the store exists
@@ -398,10 +396,10 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
 
         // Inserting the coupon into the coupons table
         const insertCouponSql = `
-            INSERT INTO coupons (store_id, title, coupon_code, type, link, due_date, description)
+            INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, due_date, description)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
-        const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, link, dueDate, description]);
+        const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate, description]);
 
         // Updating the stock count in the store table
         const updateStockSql = `
@@ -421,8 +419,6 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
 // Update a coupon
 exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
     const { cId } = req.params;
-    const { title, coupon_code, type, link, due_date, description } = req.body;
-
     try {
         // Check if the coupon exists
         const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [cId]);
@@ -433,7 +429,7 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE coupons SET ';
         const updateParams = [];
-        const validFields = ['title', 'coupon_code', 'type', 'link', 'due_date', 'description'];
+        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description'];
 
         // Update fields provided in the request body
         for (const field of validFields) {
@@ -600,6 +596,22 @@ exports.redeem = catchAsyncErrors(async (req, res, next) => {
         res.status(201).json({ message: 'Coupon redemption successful!' });
     } catch (err) {
         console.error('Error in redeeming coupon:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//get redemption count
+exports.getRedeemCount = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+    try {
+        const redemptionCountSql = `SELECT COUNT(*) AS redemptionCount FROM redeemed_coupons WHERE coupon_id = ?`;
+        const [redemptionCountResult] = await db.query(redemptionCountSql, [cId]);
+
+        const redemptionCount = redemptionCountResult[0].redemptionCount;
+
+        res.status(200).json({ redemptionCount });
+    } catch (err) {
+        console.error('Error getting redemption count:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

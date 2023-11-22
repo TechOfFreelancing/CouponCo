@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Womanfashion = () => {
 
     const [featuredImages, setFeaturedImages] = useState([]);
@@ -9,11 +10,16 @@ const Womanfashion = () => {
             try {
                 const response = await axios.get('http://localhost:4000/api/storeDisplay');
                 if (response.data && response.data.data) {
-                    const fetchedImages = response.data.data
+                    const fetchedImagesWithId = response.data.data
                         .filter(item => item.show_in_top === 1 && item.thumbnail)
-                        .map(item => item.thumbnail);
-                    setFeaturedImages(fetchedImages);
+                        .map(item => ({
+                            storeId: item.store_id,
+                            thumbnail: item.thumbnail
+                        }));
+
+                    setFeaturedImages(fetchedImagesWithId);
                 }
+
             } catch (error) {
                 console.error('Error fetching images:', error);
             }
@@ -21,6 +27,8 @@ const Womanfashion = () => {
 
         fetchImages();
     }, []);
+
+    const navigate = useNavigate();
 
     return (
 
@@ -32,8 +40,16 @@ const Womanfashion = () => {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                 {featuredImages.map((item, index) => (
-                    <img key={index} src={item} className="cursor-pointer duration-300 hover:-translate-y-2 hover:shadow-lg" />
+                    <img
+                        key={index}
+                        src={item.thumbnail}
+                        className="cursor-pointer duration-300 hover:-translate-y-2 hover:shadow-lg"
+                        onClick={() => {
+                            navigate('/Store', { state: { sId: item.storeId } });
+                        }}
+                    />
                 ))}
+
             </div>
         </div>
     )

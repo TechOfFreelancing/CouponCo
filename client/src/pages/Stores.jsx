@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Typography, Button, CardFooter } from "@material-tailwind/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AllStores = () => {
     const [count, setCount] = useState(1);
@@ -9,6 +9,7 @@ const AllStores = () => {
     const [loading, setLoading] = useState(true);
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const type = location.state?.type;
     const keyword = location.state?.keyword;
@@ -33,7 +34,7 @@ const AllStores = () => {
                     });
 
                     const storeDetails = await Promise.all(storeDetailsPromises);
-                
+
                     setStores(storeDetails.filter(Boolean)); // Filtering out null values
                 }
 
@@ -91,10 +92,14 @@ const AllStores = () => {
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mt-5 xl:mt-10">
                                 {stores.map((store) => (
-                                    <div key={store.id} className="relative group">
+                                    <div key={store.id} className="relative group" onClick={() => {
+                                        navigate(
+                                            '/Store', { state: { sId: store.id } }
+                                        )
+                                    }}>
                                         <div className="flex flex-col gap-2 h-40 lg:h-80 cursor-pointer items-center justify-center">
-                                            <div className="h-20 w-20 lg:h-40 lg:w-40 p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl">
-                                                <img src={store.logo_url} alt={store.name} className="h-auto w-auto" />
+                                            <div className="h-20 w-20 lg:h-40 lg:w-40 p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl overflow-hidden">
+                                                <img src={store.logo_url} alt={store.name} className="h-auto w-auto max-h-full max-w-full" />
                                             </div>
                                             <div className="hover:underline text-center group-hover:underline">
                                                 <span className="flex justify-center items-center">{store.name}</span>
