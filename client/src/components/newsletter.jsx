@@ -5,6 +5,7 @@ import { BiSolidMap } from 'react-icons/bi';
 import { FaMobileAlt } from 'react-icons/fa';
 import { BsTwitter, BsLinkedin } from 'react-icons/bs'
 import { AiFillInstagram } from 'react-icons/ai'
+import PropTypes from 'prop-types';
 
 const CustomForm = ({ status, message, onValidated }) => {
     let email;
@@ -42,8 +43,19 @@ export default function NewsLetter() {
     return (
         <div className="relative isolate overflow-hidden bg-purple-200 py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
-                    <div className="flex flex-wrap -mt-1 ts:-mx-2 justify-around">
+                <div className="flex flex-wrap -mt-1 ts:-mx-2 justify-around items-start">
+                    <div className="w-full sm:w-1/2 lg:w-1/5 p-2 flex flex-col items-center">
+                        <img
+                            src="/log.avif"
+                            alt="Logo"
+                            className="mb-4"
+                            style={{ maxWidth: '100px' }}
+                        />
+                        <p className="text-black-300 text-center">
+                            Find the best coupons, deals, promo codes, and discounts for thousands of your favorite stores at Coupons Co. We may earn a commission when you use one of our coupons/links to make a purchase. Save money at the checkout.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap -mt-1 ts:-mx-2 justify-around w-full sm:w-1/2 lg:w-4/5">
                         {SITEMAP.map(({ title, links }, index) => (
                             <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
                                 <Typography
@@ -103,7 +115,7 @@ export default function NewsLetter() {
                             </div>
                         ))}
                     </div>
-                    <div className="max-w-xl lg:max-w-lg">
+                    <div className="lg:max-w-lg mt-8 lg:mt-0">
                         <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">Subscribe to our newsletter.</h2>
                         <p className="mt-4 text-lg leading-8 text-black">
                             Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
@@ -137,7 +149,15 @@ export default function NewsLetter() {
                     <BiSolidMap></BiSolidMap>
                 </div>
             </div>
-
+            <div className="flex justify-center items-center text-black-300 mt-6">
+                <p>&copy; Coupon Co {new Date().getFullYear()}</p>
+            </div>
         </div>
     )
 }
+
+CustomForm.propTypes = {
+    status: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    onValidated: PropTypes.func.isRequired,
+};
