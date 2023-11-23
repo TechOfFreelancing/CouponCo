@@ -82,13 +82,13 @@ const CarouselSlider = () => {
     },);
 
     return (
-        <div className="max-w-screen-xl">
+        <div className="max-w-screen-xl black">
             {featuredImages[currentIndex] && (
-                <div ref={slideRef} className="w-full relative select-none block">
+                <div ref={slideRef} className="w-full relative select-none block group duration-300">
                     <img
                         src={imageCache[featuredImages[currentIndex]?.ref_link]}
                         alt="hello world"
-                        className='w-screen h-auto lg:w-[856px] lg:h-[310px] cursor-pointer'
+                        className='w-screen h-auto lg:w-[856px] lg:h-[310px] cursor-pointer rounded-xl'
                         onClick={() => {
                             let refLink = featuredImages[currentIndex]?.ref_link;
                             if (refLink) {
@@ -101,11 +101,25 @@ const CarouselSlider = () => {
                             }
                         }}
                     />
-                    <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
-                        <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
+                    {/* <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
+                        <button onClick={handleOnPrevClick}  className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition hidden group-hover:block animate-left duration-300 ">
                             <AiOutlineVerticalRight size={35} />
                         </button>
-                        <button onClick={handleOnNextClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
+                        <button onClick={handleOnNextClick}  className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition hidden group-hover:block animate-right duration-300 ">
+                            <AiOutlineVerticalLeft size={35} />
+                        </button>
+                    </div> */}
+                    <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
+                        <button
+                            onClick={handleOnPrevClick}
+                            className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-left hidden animate-right duration-300 hover:scale-125"
+                        >
+                            <AiOutlineVerticalRight size={35} />
+                        </button>
+                        <button
+                            onClick={handleOnNextClick}
+                            className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-right hidden animate-left duration-300 hover:scale-125"
+                        >
                             <AiOutlineVerticalLeft size={35} />
                         </button>
                     </div>

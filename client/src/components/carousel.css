@@ -1,3 +1,4 @@
+
 .fade-anim img {
   animation: fadeAnim 0.5s ease-out;
 }
@@ -10,4 +11,34 @@
   to {
     opacity: 1;
   }
+}
+
+@keyframes slide-from-left {
+  from {
+    transform: translateX(-50px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(50px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.animate-left {
+  animation: slide-from-left 0.4s ease-out;
+  scale: 1.2;
+ 
+}
+
+.animate-right {
+  animation: slide-from-right 0.4s ease-out;
+  scale: 1.2;
+
 }

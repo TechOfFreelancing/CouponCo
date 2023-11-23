@@ -42,8 +42,8 @@ const CustomForm = ({ status, message, onValidated }) => {
 export default function NewsLetter() {
     return (
         <div className="relative isolate overflow-hidden bg-purple-200 py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="flex flex-wrap -mt-1 ts:-mx-2 justify-around items-start">
+            <div className="w-full ">
+                <div className="flex -mt-1 ts:-mx-2 justify-between items-start gap-5 border border-black">
                     <div className="w-full sm:w-1/2 lg:w-1/5 p-2 flex flex-col items-center">
                         <img
                             src="/log.avif"
@@ -55,7 +55,7 @@ export default function NewsLetter() {
                             Find the best coupons, deals, promo codes, and discounts for thousands of your favorite stores at Coupons Co. We may earn a commission when you use one of our coupons/links to make a purchase. Save money at the checkout.
                         </p>
                     </div>
-                    <div className="flex flex-wrap -mt-1 ts:-mx-2 justify-around w-full sm:w-1/2 lg:w-4/5">
+                    <div className="flex -mt-1 ts:-mx-2 justify-around ">
                         {SITEMAP.map(({ title, links }, index) => (
                             <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
                                 <Typography
@@ -115,8 +115,8 @@ export default function NewsLetter() {
                             </div>
                         ))}
                     </div>
-                    <div className="lg:max-w-lg mt-8 lg:mt-0">
-                        <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">Subscribe to our newsletter.</h2>
+                    <div className="lg:max-w-lg mt-8 lg:mt-0 pl-10 flex flex-col items-center justify-center">
+                        <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl whitespace-nowrap">Subscribe to our newsletter.</h2>
                         <p className="mt-4 text-lg leading-8 text-black">
                             Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
                             dolore.
