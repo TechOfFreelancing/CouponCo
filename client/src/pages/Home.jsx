@@ -1,6 +1,8 @@
+
+import Carousel2 from "../components/Carousel2";
+import Slider from "../components/Slider";
 import { StackedImageAnimation } from "../components/StackedImageAnimation";
 import About from "../components/about";
-import CarouselSlider from "../components/carousel";
 import Categories from "../components/categories";
 import Content from "../components/content";
 import Content2 from "../components/content2";
@@ -12,8 +14,8 @@ import Womanfashion from "../components/womanfashion";
 export default function Home() {
     return (
         <div>
-            <div className="mt-20 lg:mt-32 w-screen flex flex-col lg:flex-row text-5xl items-center justify-center gap-5">
-                <CarouselSlider></CarouselSlider>
+            <div className="mt-20 lg:mt-32 w-screen flex flex-col lg:flex-row text-5xl items-center justify-center lg:pr-[10rem]">
+                <Carousel2></Carousel2>
                 <StackedImageAnimation></StackedImageAnimation>
             </div>
             <Content></Content>
@@ -22,6 +24,7 @@ export default function Home() {
             <Categories></Categories>
             <Content2></Content2>
             <About></About>
+            <Slider></Slider>
             <NewsLetter></NewsLetter>
         </div>
     )
