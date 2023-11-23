@@ -53,9 +53,9 @@ const Womanfashion = () => {
                     <span className="font-semibold text-lg lg:text-3xl">Today&apos;s Top Woman fashion Offers</span>
                 </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
                 {featuredImages.map((item, index) => (
-                    <div key={index} className="flex flex-col items-center justify-evenly relative h-[122px] w-[145px] lg:h-[230px] lg:w-[280px] border rounded-lg overflow-hidden hover:-translate-y-2 hover:shadow-lg duration-300">
+                    <div key={index} className="flex flex-col items-center justify-evenly relative h-[122px] w-[145px] lg:h-[230px] lg:w-[280px] border rounded-lg overflow-hidden hover:scale-105 shadow-lg duration-300">
                         <img
                             src={item.thumbnail}
                             className="cursor-pointer h-2/3 lg:w-[280px] lg:h-[155px]"
@@ -64,8 +64,8 @@ const Womanfashion = () => {
                             }}
                         />
                         <img src={store[index]?.logo_url} alt="" className="absolute h-[25px] w-[25px] lg:h-[50px] lg:w-[50px] left-2 bottom-10 rounded-sm lg:rounded-2xl" />
-                        <span className="text-md font-bold">{store[index]?.name} code</span>
-                        <span className="text-sm">{item.content}</span>
+                        <span className="text-md font-bold text-center w-[10rem]">{store[index]?.name} code</span>
+                        <span className="text-sm">{item.content} coupon available</span>
                     </div>
                 ))}
             </div>

@@ -28,11 +28,11 @@ const CustomForm = ({ status, message, onValidated }) => {
             <button
                 type="submit"
                 onClick={submit}
-                className="flex-none rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
+                className="flex-none rounded-md bg-[#800000] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
                 Subscribe
             </button>
-            {status === 'sending' && <div style={{ color: 'blue' }}>Subscribing...</div>}
+            {status === 'sending' && <div style={{ color: 'red' }}>Subscribing...</div>}
             {status === 'error' && <div style={{ color: 'red' }} dangerouslySetInnerHTML={{ __html: message }} />}
             {status === 'success' && <div style={{ color: 'green' }}>Subscribed!</div>}
         </div>
@@ -41,9 +41,9 @@ const CustomForm = ({ status, message, onValidated }) => {
 
 export default function NewsLetter() {
     return (
-        <div className="relative isolate overflow-hidden bg-purple-200 py-16">
+        <div className="relative isolate overflow-hidden bg-red-100 py-16 px-10">
             <div className="w-full ">
-                <div className="flex -mt-1 ts:-mx-2 justify-between items-start gap-5 border border-black">
+                <div className="flex flex-col lg:flex-row -mt-1 ts:-mx-2 justify-between items-center gap-5">
                     <div className="w-full sm:w-1/2 lg:w-1/5 p-2 flex flex-col items-center">
                         <img
                             src="/log.avif"
@@ -55,7 +55,7 @@ export default function NewsLetter() {
                             Find the best coupons, deals, promo codes, and discounts for thousands of your favorite stores at Coupons Co. We may earn a commission when you use one of our coupons/links to make a purchase. Save money at the checkout.
                         </p>
                     </div>
-                    <div className="flex -mt-1 ts:-mx-2 justify-around ">
+                    <div className="flex flex-col lg:flex-row -mt-1 ts:-mx-2 justify-around ">
                         {SITEMAP.map(({ title, links }, index) => (
                             <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
                                 <Typography
@@ -87,7 +87,7 @@ export default function NewsLetter() {
                                                     {text}
                                                 </a>
                                             ) : (
-                                                <div className="flex items-center">
+                                                <div className="flex items-center justify-center">
                                                     {Icon && <Icon />}
                                                     <div>
                                                         <div className="mb-1">{text}</div>
@@ -116,8 +116,8 @@ export default function NewsLetter() {
                         ))}
                     </div>
                     <div className="lg:max-w-lg mt-8 lg:mt-0 pl-10 flex flex-col items-center justify-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl whitespace-nowrap">Subscribe to our newsletter.</h2>
-                        <p className="mt-4 text-lg leading-8 text-black">
+                        <h2 className="text-xl font-bold tracking-tight text-black sm:text-4xl whitespace-nowrap">Subscribe to our newsletter.</h2>
+                        <p className="mt-4 text-sm lg:text-lg leading-8 text-black">
                             Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
                             dolore.
                         </p>
@@ -136,12 +136,13 @@ export default function NewsLetter() {
             </div>
             <hr className=' border-black hidden lg:block' />
             <div className="flex flex-col lg:flex-row flex-nowrap lg:mx-20 justify-between mt-10 items-center gap-5">
-                <div className="contact flex flex-col lg:flex-row gap-5 text-purple-700 items-center">
+                <div className='text-[#800000]'>&copy; Coupon Co {new Date().getFullYear()}</div>
+                <div className="contact flex flex-col lg:flex-row gap-5 text-[#800000] items-center">
                     <span className='whitespace-nowrap'>Email : support@looknbookart.com
                     </span>
                     <span className='whitespace-nowrap'>Phone: +91.96649 70700</span>
                 </div>
-                <div className="flex icons gap-5 text-purple-600 text-xl">
+                <div className="flex icons gap-5 text-[#800000] text-xl">
                     <AiFillInstagram></AiFillInstagram>
                     <BsLinkedin></BsLinkedin>
                     <BsTwitter></BsTwitter>
@@ -149,9 +150,7 @@ export default function NewsLetter() {
                     <BiSolidMap></BiSolidMap>
                 </div>
             </div>
-            <div className="flex justify-center items-center text-black-300 mt-6">
-                <p>&copy; Coupon Co {new Date().getFullYear()}</p>
-            </div>
+
         </div>
     )
 }

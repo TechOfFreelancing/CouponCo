@@ -15,16 +15,16 @@ const Categories = () => {
                     All Categories
                 </Link>
             </div>
-            <div className="grid grid-cols-3 lg:grid-cols-6 lg:gap-5 my-5 overflow-auto xl:flex scroll-snap-type-x mandatory scrollbar-hide">
+            <div className="gap-5 lg:gap-10 my-5 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide h-[12rem]  lg:h-[18rem]">
                 {
                     categories.map((ele, index) => {
                         return (
-                            <div key={index} onClick={() => {navigate("/AllStores" ,{state : { type : ele.filter }})}} className="flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group  items-center justify-center">
-                                <div className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl ">
+                            <div key={index} onClick={() => {navigate("/AllStores" ,{state : { type : ele.filter }})}} className="flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group  items-center justify-center hover:scale-110 lg:hover:scale-125 duration-300 lg:pl-20">
+                                <div className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] p-5 rounded-full flex items-center justify-center border-2 border-black shadow-2xl ">
                                     <img src={ele.image} alt={index} className="h-auto w-auto " />
                                 </div>
                                 <div className="hover:underline text-center group-hover:underline">
-                                    <span className="text-[14px] lg:text-base">{ele.filter}</span>
+                                    <span className="text-[14px] lg:text-base whitespace-nowrap">{ele.filter}</span>
                                 </div>
                             </div>
                         )

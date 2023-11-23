@@ -26,7 +26,7 @@ function App() {
   const isAdmin = role === "Admin" ? true : false;
 
   return (
-    <div className='w-full max-h-fit overflow-y-clip m-auto'>
+    <div className='w-full max-h-fit overflow-y-clip'>
       <Routes>
         <Route
           path='/'
