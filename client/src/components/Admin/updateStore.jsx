@@ -5,7 +5,8 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "@material-tailwind/react";
 import { CouponsBox } from "./CouponsBox";
-import { ShowOnDisplay } from "./ShowOnDisplay";
+import { ShowOnDisplay } from "./showOnDisplay";
+
 
 function UpdateStores() {
 
@@ -196,8 +197,8 @@ function UpdateStores() {
                         ? 'carousel'
                         : result.data.data.find(item => item.store_id === sId && item.show_in_card === 1)
                             ? 'card'
-                            : result.data.data.find(item => item.store_id === sId && item.show_in_cashback === 1)
-                                ? 'cashback category'
+                            : result.data.data.find(item => item.store_id === sId && item.show_in_fetured === 1)
+                                ? 'featured'
                                 : result.data.data.find(item => item.store_id === sId && item.show_in_top === 1)
                                     ? `today's offer`
                                     : '';

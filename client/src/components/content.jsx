@@ -1,4 +1,4 @@
-import content from '../assets/images/content.png'
+// import content from '../assets/images/content.png'
 
 const Content = () => {
     return (
@@ -9,7 +9,7 @@ const Content = () => {
 
                 <div className="text-justify">Our team is in continuous efforts to find a perfect coupon for you so that you dont have to dig deeper into your pockets. We are here for you with our price comparison extentsion browser, that helps you choose the best products at the best prices available. Trust us, we’ll not let you spend more than you need to.</div>
             </div>
-            <img src={content} alt="" className='lg:w-1/2 lg:h-auto my-10' />
+            {/* <img src={content} alt="" className='lg:w-1/2 lg:h-auto my-10' /> */}
         </div>
     )
 }

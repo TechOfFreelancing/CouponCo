@@ -224,8 +224,8 @@ const Store = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-5">
-                        <Card className="min-w-full flex flex-col gap-2 pt-5 w-80">
-                            <div className="text-xl text-black font-semibold whitespace-nowrap px-5">{str?.name}&apos;s Active Voucher Codes</div>
+                        <Card className="min-w-full flex flex-col gap-2 pt-5 w-86">
+                            <div className="text-xl text-black font-semibold whitespace-nowrap px-5 overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
                             <div className="flex justify-between items-center px-5">
                                 <span className="text-lg text-black font-semibold">Exclusive codes</span>
                                 <span>{couponCounts.exclusive}</span>
