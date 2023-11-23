@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.15",
+    "@fontsource/poppins": "^5.0.8",
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
