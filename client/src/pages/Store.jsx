@@ -200,7 +200,7 @@ const Store = () => {
                     </div>
 
                     <div className="text-2xl text-center font-bold inline">{str?.name}</div>
-                    <div className="flex gap-2 items-center text-purple-600 hover:underline">
+                    <div className="flex gap-2 items-center text-red-600 hover:underline">
                         Submit a coupon <MdLocalOffer className="cursor-pointer"></MdLocalOffer>
                     </div>
                     <div className="font-bold">MORE ABOUT {str?.name?.toUpperCase()}</div>
@@ -214,11 +214,11 @@ const Store = () => {
                                 Avg Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
                             </span>
 
-                            <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>
+                            <button className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>
                             {isLoggedIn ? (
-                                <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => { handleReview() }}>Submit</button>
+                                <button className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => { handleReview() }}>Submit</button>
                             ) : (
-                                <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => { navigate("/login") }}>Login</button>
+                                <button className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => { navigate("/login") }}>Login</button>
                             )}
 
                         </div>
@@ -246,9 +246,9 @@ const Store = () => {
                                 <span>{couponCounts.sales}</span>
                             </div>
                             <hr />
-                            <div className="flex justify-between items-center bg-purple-50 px-5 py-2">
+                            <div className="flex justify-between items-center bg-red-50 px-5 py-2">
                                 <span className="text-lg text-black font-semibold ">Total Offers</span>
-                                <span className="text-purple-600 text-lg font-semibold">{validCoupons?.length}</span>
+                                <span className="text-red-600 text-lg font-semibold">{validCoupons?.length}</span>
                             </div>
 
                         </Card>
@@ -289,7 +289,7 @@ const Store = () => {
                                 return (
                                     <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration--150 ">
                                         <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
-                                            <div className="flex flex-col gap-3">
+                                            <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
                                                 <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
                                                 <div className="font-bold text-xl">{ele.title}</div>
                                                 <div className="flex gap-2 text-gray-500 text-sm">
@@ -297,7 +297,7 @@ const Store = () => {
                                                     <span>{ele.redemptionCount} uses</span>
                                                 </div>
                                             </div>
-                                            <div className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                            <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
                                         </div>
                                         <hr className="my-5" />
                                         <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
@@ -372,8 +372,8 @@ const Store = () => {
                                 <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration--150 ">
                                     <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
                                         <div className="flex flex-col font-bold">
-                                            <span className="text-3xl text-purple-600 whitespace-nowrap">{ele.offer} %</span>
-                                            <span className="text-3xl text-purple-600">Off</span>
+                                            <span className="text-3xl text-red-600 whitespace-nowrap">{ele.offer} %</span>
+                                            <span className="text-3xl text-red-600">Off</span>
                                         </div>
                                         <div className="flex flex-col gap-3">
                                             <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.label}</div>
@@ -383,7 +383,7 @@ const Store = () => {
                                                 <span>{ele.uses} uses today</span>
                                             </div>
                                         </div>
-                                        <div className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                        <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
                                     </div>
                                     <hr className="my-5" />
                                     <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
@@ -413,7 +413,7 @@ const Store = () => {
                         <div className="flex gap-2 items-center justify-center border border-black rounded-full text-2xl pl-5 p-2">
                             <span className="copy-text">{selectedProduct.coupon_code}</span>
                             <button
-                                className="bg-purple-600 max-w-fit p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                className="bg-[#800000] max-w-fit p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
                                 onClick={handleCopyClick}
                             >
                                 Copy
@@ -422,7 +422,7 @@ const Store = () => {
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-sm">
                             Copy and paste this code at {""}
-                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-purple-500 hover:cursor-pointer">
+                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-red-500 hover:cursor-pointer">
                                 {selectedProduct.ref_link}
                             </a>
                         </div>
