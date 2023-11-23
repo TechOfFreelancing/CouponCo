@@ -211,7 +211,7 @@ const Store = () => {
                         </div>
                         <div className="flex gap-5 items-center ">
                             <span className="whitespace-nowrap">
-                                Avg Rating : {(str?.total_ratings / str?.ratings_count).toFixed(1)}
+                                Avg Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
                             </span>
 
                             <button className="bg-purple-600 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>

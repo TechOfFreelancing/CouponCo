@@ -113,13 +113,13 @@ export function Header() {
         <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen bg-purple-600 justify-around items-center z-20 opacity-100">
             <Alert></Alert>
             <nav className=" z-10 h-max max-w-full rounded-none px-4 py-0 ">
-                <div className="flex items-center justify-between text-white">
+                <div className="flex flex-col lg:flex-row items-center justify-between text-white">
                     <Link to="/" className="mr-4 cursor-pointer py-1.5 font-medium">
                         Logo
                     </Link>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1 lg:gap-5 my-2">
                         <div className="mr-4 hidden lg:block">{navList}</div>
-                        <div className="hidden items-center gap-x-2 lg:flex">
+                        <div className="items-center gap-x-2 flex">
                             <div className="relative flex w-full gap-2 md:w-max">
                                 <Input
                                     type="search"
@@ -127,7 +127,7 @@ export function Header() {
                                     onChange={(e) => { setKeyWord(e.target.value) }}
                                     onKeyDown={handleKeyPress}
                                     containerProps={{
-                                        className: "min-w-[288px]",
+                                        className: "lg:min-w-[288px] h-10",
                                     }}
                                     className=" pl-9 placeholder:text-black focus:!border-black bg-white"
                                     labelProps={{
@@ -135,7 +135,7 @@ export function Header() {
                                     }}
                                 />
                             </div>
-                            <Button size="md" className="rounded-lg " onClick={handleSearch}>
+                            <Button size="md" className="rounded-lg h-10 bg-purple-700 text-white flex items-center justify-center" onClick={handleSearch}>
                                 Search
                             </Button>
                         </div>

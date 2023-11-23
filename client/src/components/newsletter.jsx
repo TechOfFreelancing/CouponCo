@@ -1,6 +1,10 @@
-import { BsCalendarCheck } from 'react-icons/bs'
-import { HiOutlineHandRaised } from 'react-icons/hi2'
 import MailchimpSubscribe from 'react-mailchimp-subscribe';
+import { Typography } from "@material-tailwind/react";
+import SITEMAP from "../api/Footer";
+import { BiSolidMap } from 'react-icons/bi';
+import { FaMobileAlt } from 'react-icons/fa';
+import { BsTwitter, BsLinkedin } from 'react-icons/bs'
+import { AiFillInstagram } from 'react-icons/ai'
 
 const CustomForm = ({ status, message, onValidated }) => {
     let email;
@@ -36,35 +40,75 @@ const CustomForm = ({ status, message, onValidated }) => {
 
 export default function NewsLetter() {
     return (
-        <div className="relative isolate overflow-hidden bg-purple-200 py-16 sm:py-24 lg:py-32">
+        <div className="relative isolate overflow-hidden bg-purple-200 py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+                    <div className="flex flex-wrap -mt-1 ts:-mx-2 justify-around">
+                        {SITEMAP.map(({ title, links }, index) => (
+                            <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
+                                <Typography
+                                    variant="small"
+                                    color="black"
+                                    className="mb-4 divide-gray-300 uppercase whitespace-nowrap text-center font-bold"
+                                >
+                                    {title}
+                                </Typography>
+                                <ul className="space-y-1 text-gray-300">
+                                    {links.map(({ text, icon: Icon, href, inputPlaceholder, buttonText }, index) => (
+                                        <Typography
+                                            key={index}
+                                            as="li"
+                                            className="font-normal flex flex-row justify-center items-center whitespace-nowrap"
+                                            style={{
+                                                fontWeight: 400,
+                                                fontSize: '15px',
+                                                lineHeight: '26px',
+                                                color: '#404040',
+                                            }}
+                                        >
+                                            {href ? (
+                                                <a
+                                                    href={href}
+                                                    className="flex justify-center items-center gap-5 py-1 pr-2 text-black transition-transform hover:scale-105 hover:text-black dark:hover:text-black"
+                                                >
+                                                    {Icon && <Icon />}
+                                                    {text}
+                                                </a>
+                                            ) : (
+                                                <div className="flex items-center">
+                                                    {Icon && <Icon />}
+                                                    <div>
+                                                        <div className="mb-1">{text}</div>
+                                                        {inputPlaceholder && (
+                                                            <div className="ml-auto flex">
+                                                                <input
+                                                                    type="email"
+                                                                    placeholder={inputPlaceholder}
+                                                                    className=""
+                                                                />
+                                                                <button
+                                                                    type="button"
+                                                                    className="bg-orange-500 text-black px-4 py-1 rounded-r hover:bg-orange-600 focus:outline-none"
+                                                                >
+                                                                    {buttonText}
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Typography>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                     <div className="max-w-xl lg:max-w-lg">
                         <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">Subscribe to our newsletter.</h2>
                         <p className="mt-4 text-lg leading-8 text-black">
                             Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
                             dolore.
                         </p>
-                        {/* <div className="mt-6 flex max-w-md gap-x-4">
-                            <label htmlFor="email-address" className="sr-only">
-                                Email address
-                            </label>
-                            <input
-                                id="email-address"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
-                                required
-                                className="min-w-0 flex-auto rounded-md border-0  px-3.5 py-2 !text-black shadow-sm outline-none  sm:text-sm sm:leading-6"
-                                placeholder="Enter your email"
-                            />
-                            <button
-                                type="submit"
-                                className="flex-none rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
-                            >
-                                Subscribe
-                            </button>
-                        </div> */}
                         <MailchimpSubscribe
                             url={import.meta.env.VITE_PUBLIC_MAILCHIMP_URL}
                             render={({ subscribe, status, message }) => (
@@ -76,26 +120,21 @@ export default function NewsLetter() {
                             )}
                         />
                     </div>
-                    <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
-                        <div className="flex flex-col items-start">
-                            <div className="rounded-md  p-2 ring-1 ring-white/10">
-                                <BsCalendarCheck className="h-6 w-6 text-black" aria-hidden="true" />
-                            </div>
-                            <dt className="mt-4 font-semibold text-black">Weekly articles</dt>
-                            <dd className="mt-2 leading-7 text-black">
-                                Non laboris consequat cupidatat laborum magna. Eiusmod non irure cupidatat duis commodo amet.
-                            </dd>
-                        </div>
-                        <div className="flex flex-col items-start">
-                            <div className="rounded-md  p-2 ring-1 ring-white/10">
-                                <HiOutlineHandRaised className="h-6 w-6 text-black" aria-hidden="true" />
-                            </div>
-                            <dt className="mt-4 font-semibold text-black">No spam</dt>
-                            <dd className="mt-2 leading-7 text-black">
-                                Officia excepteur ullamco ut sint duis proident non adipisicing. Voluptate incididunt anim.
-                            </dd>
-                        </div>
-                    </dl>
+                </div>
+            </div>
+            <hr className=' border-black hidden lg:block' />
+            <div className="flex flex-col lg:flex-row flex-nowrap lg:mx-20 justify-between mt-10 items-center gap-5">
+                <div className="contact flex flex-col lg:flex-row gap-5 text-purple-700 items-center">
+                    <span className='whitespace-nowrap'>Email : support@looknbookart.com
+                    </span>
+                    <span className='whitespace-nowrap'>Phone: +91.96649 70700</span>
+                </div>
+                <div className="flex icons gap-5 text-purple-600 text-xl">
+                    <AiFillInstagram></AiFillInstagram>
+                    <BsLinkedin></BsLinkedin>
+                    <BsTwitter></BsTwitter>
+                    <FaMobileAlt></FaMobileAlt>
+                    <BiSolidMap></BiSolidMap>
                 </div>
             </div>
 

@@ -34,8 +34,8 @@ function App() {
             <>
               <Header></Header>
               <Home />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         >
@@ -45,8 +45,8 @@ function App() {
           element={
             <>
               <AdminPanel />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         >
@@ -56,8 +56,8 @@ function App() {
           element={
             <>
               <AddStores />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         >
@@ -67,8 +67,8 @@ function App() {
           element={
             <>
               <AddCoupons />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         >
@@ -78,8 +78,8 @@ function App() {
           element={
             <>
               <UpdateStores />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         >
@@ -89,8 +89,8 @@ function App() {
           element={
             <>
               <UpdateCoupons />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         >
@@ -101,8 +101,8 @@ function App() {
             <>
               <Header></Header>
               <Login />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         ></Route>
@@ -112,8 +112,8 @@ function App() {
             <>
               <Header></Header>
               <SignUp />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         ></Route>
@@ -123,8 +123,8 @@ function App() {
             <>
               <Header></Header>
               <AllStores />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         ></Route>
@@ -134,8 +134,8 @@ function App() {
             <>
               <Header></Header>
               <Allcategories />
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         ></Route>
@@ -145,8 +145,8 @@ function App() {
             <>
               <Header></Header>
               <Store></Store>
-              <MobileFooter></MobileFooter>
-              <Footer></Footer>
+              
+              
             </>
           }
         ></Route>
