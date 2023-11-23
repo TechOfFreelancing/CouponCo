@@ -10,7 +10,7 @@ const navList = (
         <Typography
             as="li"
             variant="small"
-            className="p-1 font-normal"
+            className="p-1 font-normal font-[Poppins]"
         >
             <Link to="/AllStores" className="flex items-center">
                 Stores
@@ -19,7 +19,7 @@ const navList = (
         <Typography
             as="li"
             variant="small"
-            className="p-1 font-normal"
+            className="p-1 font-normal font-[Poppins]"
         >
             <Link to="/AllCategories" className="flex items-center">
                 Categories
@@ -28,7 +28,7 @@ const navList = (
         <Typography
             as="li"
             variant="small"
-            className="p-1 font-normal"
+            className="p-1 font-normal font-[Poppins]"
         >
             <Link to="#" className="flex items-center">
                 Our Codes
@@ -37,7 +37,7 @@ const navList = (
         <Typography
             as="li"
             variant="small"
-            className="p-1 font-normal"
+            className="p-1 font-normal font-[Poppins]"
         >
             <Link to="#" className="flex items-center">
                 Blog

@@ -194,7 +194,7 @@ const Store = () => {
         <>
             <Toaster position="top-center"></Toaster>
             <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full w-[100vw] lg:py-5" onClick={handleOutsideClick}>
-                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 lg:px-10 text-sm">
+                <div className=" w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 lg:px-10 text-sm">
                     <div className="h-[208px] w-[208px] bg-white rounded-full flex items-center justify-center shadow-lg mt-5 mx-auto overflow-hidden">
                         <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
                     </div>
@@ -279,7 +279,7 @@ const Store = () => {
                         </Card>
                     </div>
                 </div>
-                <div className="w-full lg:w-3/4 h-full flex flex-col">
+                <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2">
                     <div className="my-5">
                         <div className="lg:text-4xl text-2xl font-bold ml-10 hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
                     </div>
@@ -287,7 +287,7 @@ const Store = () => {
                         {
                             validCoupons && validCoupons.map((ele, index) => {
                                 return (
-                                    <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration--150 ">
+                                    <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
                                         <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
                                             <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
                                                 <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
@@ -314,13 +314,13 @@ const Store = () => {
                             })
                         }
                     </div>
-                    <div className="w-full lg:w-[50rem]" id="about">
+                    <div className="w-full lg:w-[50rem] lg:mx-10" id="about">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">About {str?.name?.toUpperCase()}</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
                             <div className="flex flex-col text-justify">{str?.description}</div>
                         </div>
                     </div>
-                    <div className="w-full lg:w-[50rem]" id="faqs">
+                    <div className="w-full lg:w-[50rem] lg:mx-10" id="faqs">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
                             {
@@ -334,7 +334,7 @@ const Store = () => {
                             }
                         </div>
                     </div>
-                    <div className="w-full lg:w-[50rem]" id="hints_tips">
+                    <div className="w-full lg:w-[50rem] lg:mx-10" id="hints_tips">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
                             {str?.hint?.includes('\n') ? (
@@ -349,7 +349,7 @@ const Store = () => {
                         </div>
                     </div>
 
-                    <Card className="flex flex-col gap-2 pt-5 w-full lg:w-[50rem]">
+                    <Card className="flex flex-col gap-2 pt-5 w-full lg:w-[50rem] lg:mx-10">
                         <div className="text-xl text-black font-semibold whitespace-nowrap px-5">
                             Recently Expired {str?.name} Discount Codes & Deals
                         </div>
