@@ -2,13 +2,22 @@ import { Typography } from "@material-tailwind/react";
 import SITEMAP from "../api/Footer";
 
 
-// const currentYear = new Date().getFullYear();
-
 export default function Footer() {
   return (
     <footer className="hidden md:block bg-black text-white w-screen -z-10">
       <div className="w-full p-6">
         <div className="flex flex-wrap -mt-1 ts:-mx-2">
+          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
+            <img
+              src="/log.avif" 
+              alt="Logo"
+              className="mb-4"
+              style={{ maxWidth: '100px' }} 
+            />
+            <p className="text-gray-300">
+              Find the best coupons, deals, promo codes, and discounts for thousands of your favorite stores at Coupons Co. We may earn a commission when you use one of our coupons/links to make a purchase. Save money at the checkout.
+            </p>
+          </div>
           {SITEMAP.map(({ title, links }, index) => (
             <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
               <Typography
@@ -23,7 +32,6 @@ export default function Footer() {
                   <Typography
                     key={index}
                     as="li"
-                   
                     className="font-normal flex flex-row justify-center items-center"
                     style={{
                       fontWeight: 400,
@@ -68,6 +76,9 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+        <div className="flex justify-center items-center text-gray-300 mt-6">
+          <p>&copy; Coupon Co {new Date().getFullYear()}</p>
         </div>
       </div>
     </footer>

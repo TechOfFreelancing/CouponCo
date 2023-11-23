@@ -47,6 +47,7 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
 exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const thumbFile = req.file;
+    const { data } = req.body;
 
     try {
         // Check if the store exists
@@ -58,9 +59,9 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
 
         const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
 
-        const sql = `INSERT INTO store_display (store_id, show_in_top, thumbnail) VALUES (?, ?, ?)`;
+        const sql = `INSERT INTO store_display (store_id, show_in_top, thumbnail,content) VALUES (?, ?, ?,?)`;
 
-        const result = await db.query(sql, [storeId, true, thumbnailUrl]);
+        const result = await db.query(sql, [storeId, true, thumbnailUrl, data]);
 
         res.status(200).json({ message: "Success!", rowId: result[0].insertId });
 
@@ -73,6 +74,7 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
 exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const thumbFile = req.file;
+    const { ref_link } = req.body;
 
     try {
         // Check if the store exists
@@ -84,9 +86,9 @@ exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
 
         const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
 
-        const sql = `INSERT INTO store_display (store_id, show_in_carousel, thumbnail) VALUES (?, ?, ?)`;
+        const sql = `INSERT INTO store_display (store_id, show_in_carousel, thumbnail,ref_link) VALUES (?, ?, ?,?)`;
 
-        const result = await db.query(sql, [storeId, true, thumbnailUrl]);
+        const result = await db.query(sql, [storeId, true, thumbnailUrl, ref_link]);
 
         res.status(200).json({ message: "Success!", rowId: result[0].insertId });
 
@@ -96,10 +98,10 @@ exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-//add to cashBack
-exports.addToCashBack = catchAsyncErrors(async (req, res, next) => {
+//add to Featured
+exports.addToFeatured = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    const { cashBack } = req.body;
+    const { coupons_count } = req.body;
 
     try {
         // Check if the store exists
@@ -109,9 +111,9 @@ exports.addToCashBack = catchAsyncErrors(async (req, res, next) => {
             return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
         }
 
-        const sql = `INSERT INTO store_display (store_id, show_in_cashback, cashback_percentage) VALUES (?, ?, ?)`;
+        const sql = `INSERT INTO store_display (store_id, show_in_fetured, coupons_count) VALUES (?, ?, ?)`;
 
-        const result = await db.query(sql, [storeId, true, cashBack]);
+        const result = await db.query(sql, [storeId, true, coupons_count]);
 
         res.status(200).json({ message: "Success!", rowId: result[0].insertId });
 

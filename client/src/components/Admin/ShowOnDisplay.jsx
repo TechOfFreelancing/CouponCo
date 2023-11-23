@@ -14,14 +14,10 @@ import { useState } from "react";
 export function ShowOnDisplay({ storeId, open, handleOpen }) {
     const [displayOption, setDisplayOption] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
-    const [cashBack, setCashBack] = useState('');
+    const [data, setData] = useState('');
 
     const handleDisplayOptionChange = (option) => {
         setDisplayOption(option);
-    };
-
-    const handleCashBackChange = (event) => {
-        setCashBack(event.target.value);
     };
 
     const handleSubmit = async () => {
@@ -31,6 +27,8 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                 if (selectedFile) {
                     formdata.append("thumbFile", selectedFile);
                 }
+
+                formdata.append("ref_link", data);
 
                 await axios.post(
                     `http://localhost:4000/api/admin/addToCarousel/${storeId}`,
@@ -80,6 +78,8 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                     formdata.append("thumbFile", selectedFile);
                 }
 
+                formdata.append("data", data);
+
                 await axios.post(
                     `http://localhost:4000/api/admin/addToOffer/${storeId}`,
                     formdata,
@@ -98,12 +98,19 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
             }
         }
         else {
-            let data = JSON.stringify({
-                "cashBack": cashBack
-            });
             try {
+                const response = await axios.get(`http://localhost:4000/api/coupons/${storeId}`);
+                const coupons = response.data.coupons;
+
+                const currentDate = new Date();
+                const validCouponsCount = coupons.filter(coupon => new Date(coupon.due_date) > currentDate).length;
+
+                const data = JSON.stringify({
+                    coupons_count: validCouponsCount.toString()
+                });
+
                 await axios.post(
-                    `http://localhost:4000/api/admin/addToCashBack/${storeId}`,
+                    `http://localhost:4000/api/admin/addToFetured/${storeId}`,
                     data,
                     {
                         headers: {
@@ -112,7 +119,8 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                         },
                     }
                 );
-                alert("Store Added to CashBack Category successfully");
+
+                alert("Store Added to Featured Category successfully");
                 handleOpen();
             } catch (error) {
                 alert(error.response.data.message);
@@ -141,9 +149,9 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                                     onChange={() => handleDisplayOptionChange('card')}
                                 />
                                 <Radio
-                                    label="Show on CashBack Category"
-                                    checked={displayOption === 'cashback'}
-                                    onChange={() => handleDisplayOptionChange('cashback')}
+                                    label="Show on Featured"
+                                    checked={displayOption === 'featured'}
+                                    onChange={() => handleDisplayOptionChange('featured')}
                                 />
                                 <Radio
                                     label="Show on Today's Top Offers"
@@ -154,7 +162,36 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                         </div>
                         {displayOption !== '' && (
                             <div className="mb-4">
-                                {displayOption === 'carousel' || displayOption === 'todaysTop' || displayOption === 'card' ? (
+                                {displayOption === 'carousel' && (
+                                    <>
+                                        <input
+                                            type="file"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.75rem',
+                                                border: '1px solid black',
+                                                borderRadius: '0.375rem',
+                                                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                                outline: 'none'
+                                            }}
+                                            onChange={(e) => { setSelectedFile(e.target.files[0]) }}
+                                        />
+                                        <input
+                                            type="text"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.75rem',
+                                                border: '1px solid black',
+                                                borderRadius: '0.375rem',
+                                                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                                outline: 'none'
+                                            }}
+                                            placeholder="Enter Link"
+                                            onChange={(e) => { setData(e.target.value) }}
+                                        />
+                                    </>
+                                )}
+                                {displayOption === 'card' && (
                                     <input
                                         type="file"
                                         style={{
@@ -167,11 +204,11 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                                         }}
                                         onChange={(e) => { setSelectedFile(e.target.files[0]) }}
                                     />
-                                ) : (
+                                )}
+                                {displayOption === 'todaysTop' && (
                                     <>
-                                        <Typography variant="h6">Enter Cash Back Value (%)</Typography>
                                         <input
-                                            type="number"
+                                            type="file"
                                             style={{
                                                 width: '100%',
                                                 padding: '0.75rem',
@@ -180,8 +217,20 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                                                 boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
                                                 outline: 'none'
                                             }}
-                                            value={cashBack}
-                                            onChange={handleCashBackChange}
+                                            onChange={(e) => { setSelectedFile(e.target.files[0]) }}
+                                        />
+                                        <input
+                                            type="text"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.75rem',
+                                                border: '1px solid black',
+                                                borderRadius: '0.375rem',
+                                                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                                outline: 'none'
+                                            }}
+                                            placeholder="Enter Offer"
+                                            onChange={(e) => { setData(e.target.value) }}
                                         />
                                     </>
                                 )}

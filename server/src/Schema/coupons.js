@@ -29,10 +29,12 @@ class Coupons {
             store_id INT,
             show_in_carousel BOOLEAN DEFAULT FALSE,
             show_in_card BOOLEAN DEFAULT FALSE,
-            show_in_cashback BOOLEAN DEFAULT FALSE,
+            show_in_fetured BOOLEAN DEFAULT FALSE,
             show_in_top BOOLEAN DEFAULT FALSE,
-            cashback_percentage INT,
+            coupons_count INT,
             thumbnail VARCHAR(255),
+            content VARCHAR(255),
+            ref_link VARCHAR(1000),
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
         );`
 
@@ -69,7 +71,7 @@ class Coupons {
             title VARCHAR(255) NOT NULL,
             coupon_code VARCHAR(50) NOT NULL,
             type VARCHAR(255),
-            ref_link VARCHAR(255),
+            ref_link VARCHAR(1000),
             due_date DATETIME,
             user_count INT DEFAULT 0,
             description TEXT,

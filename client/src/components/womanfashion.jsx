@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import logo from '../assets/images/logos/1.png'
 const Womanfashion = () => {
 
     const [featuredImages, setFeaturedImages] = useState([]);
+    const [store,setStore] = useState([]);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -15,8 +15,20 @@ const Womanfashion = () => {
                         .filter(item => item.show_in_top === 1 && item.thumbnail)
                         .map(item => ({
                             storeId: item.store_id,
-                            thumbnail: item.thumbnail
+                            thumbnail: item.thumbnail,
+                            content: item.content
                         }));
+                
+                    const store = await Promise.all(fetchedImagesWithId.map(async store => {
+                        try {
+                            const storeDetails = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
+                            return storeDetails.data.store || null;
+                        } catch (error) {
+                            console.error('Error fetching store :', error);
+                            return null;
+                        }
+                    }));
+                    setStore(store);
 
                     setFeaturedImages(fetchedImagesWithId);
                 }
@@ -28,6 +40,8 @@ const Womanfashion = () => {
 
         fetchImages();
     }, []);
+
+    console.log(featuredImages);
 
     const navigate = useNavigate();
 
@@ -41,20 +55,19 @@ const Womanfashion = () => {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                 {featuredImages.map((item, index) => (
-                    <div  key={index} className="flex flex-col items-center justify-evenly relative h-[122px] w-[145px] lg:h-[230px] lg:w-[280px] border rounded-lg overflow-hidden hover:-translate-y-2 hover:shadow-lg duration-300">
-                    <img
-                        src={item.thumbnail}
-                        className="cursor-pointer h-2/3 lg:w-[280px] lg:h-[155px]"
-                        onClick={() => {
-                            navigate('/Store', { state: { sId: item.storeId } });
-                        }}
-                    />
-                    <img src={logo} alt="" className="absolute h-[25px] w-[25px] lg:h-[50px] lg:w-[50px] left-2 bottom-10 rounded-sm lg:rounded-2xl"/>
-                    <span className="text-md font-bold">Berlook code</span>
-                    <span className="text-sm">15% off on first order</span>
+                    <div key={index} className="flex flex-col items-center justify-evenly relative h-[122px] w-[145px] lg:h-[230px] lg:w-[280px] border rounded-lg overflow-hidden hover:-translate-y-2 hover:shadow-lg duration-300">
+                        <img
+                            src={item.thumbnail}
+                            className="cursor-pointer h-2/3 lg:w-[280px] lg:h-[155px]"
+                            onClick={() => {
+                                navigate('/Store', { state: { sId: item.storeId } });
+                            }}
+                        />
+                        <img src={store[index]?.logo_url} alt="" className="absolute h-[25px] w-[25px] lg:h-[50px] lg:w-[50px] left-2 bottom-10 rounded-sm lg:rounded-2xl" />
+                        <span className="text-md font-bold">{store[index]?.name} code</span>
+                        <span className="text-sm">{item.content}</span>
                     </div>
                 ))}
-
             </div>
         </div>
     )
