@@ -1,5 +1,5 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, getStoreDisplay, deleteFromDisplay, addToTodaysTop, getRedeemCount, addToFeatured } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons, redeem, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, getStoreDisplay, deleteFromDisplay, addToTodaysTop, getRedeemCount, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 const { isAdmin } = require('../middleware/auth');
@@ -24,8 +24,12 @@ router.route("/admin/addToCard/:storeId").post(isAdmin,fileUpload.single('thumbF
 router.route("/admin/addToFetured/:storeId").post(isAdmin,addToFeatured);
 router.route("/admin/addToOffer/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToTodaysTop);
 
+router.route("/admin/addClouser/:storeId").post(isAdmin,addStoreIds);
+router.route("/admin/removeClouser/:storeId").delete(isAdmin,removeStoreId);
 router.route("/admin/addCoupons/:storeId").post(isAdmin,addCoupons);
+
 router.route("/coupons").get(getCouponsBy);
+router.route("/clouser").get(getAllStoreIds);
 
 router.route("/admin/:cId").put(isAdmin,updateCoupon).delete(isAdmin,deleteCoupon);
 

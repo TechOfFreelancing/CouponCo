@@ -10,7 +10,7 @@ class Coupons {
             description TEXT,
             hint TEXT,
             faq JSON, 
-            total_ratings INT DEFAULT 0,
+            total_ratings BIGINT DEFAULT 0,
             ratings_count INT DEFAULT 0,
             stock INT DEFAULT 0
         )`;
@@ -20,6 +20,23 @@ class Coupons {
             console.log("Store Table Created Successfully!");
         } catch (err) {
             console.error("Error creating store table:", err);
+        }
+    }
+
+    static async createSimilarTable() {
+        const sql = `CREATE TABLE IF NOT EXISTS store_ids (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            store_id INT,
+            store_type ENUM('similar', 'popular'),
+            sId INT,
+            FOREIGN KEY (store_id) REFERENCES store(id)
+        )`;
+
+        try {
+            const [result, fields] = await db.query(sql);
+            console.log("Similar Store Table Created Successfully!");
+        } catch (err) {
+            console.error("Error creating Similar store table:", err);
         }
     }
 
@@ -43,24 +60,6 @@ class Coupons {
             console.log("store_display table created successfully!");
         } catch (err) {
             console.error("Error in Creating store_display table:", err);
-        }
-    }
-
-    static async createRatingsTable() {
-        const sql = `CREATE TABLE IF NOT EXISTS user_ratings (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT,
-            store_id INT,
-            rating INT,
-            FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-            FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
-        )`;
-
-        try {
-            const [result, fields] = await db.query(sql);
-            console.log("Ratings table created Successfully!");
-        } catch (err) {
-            console.error("Error creating ratings table:", err);
         }
     }
 
