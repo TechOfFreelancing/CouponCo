@@ -332,12 +332,12 @@ const Store = () => {
                         </Card>
                         <Card className="w-80">
                             <List>
-                                <div className="w-full lg:w-[50rem] lg:mx-10 card">
-                                    <div className="font-semibold lg:text-4xl text-2xl my-3 text-black">
+                                <div className="w-full lg:w-80 lg:px-10 card">
+                                    <div className="font-semibold text-2xl my-3 text-black">
                                         {lessAbout} {str?.name?.toUpperCase()}
                                     </div>
-                                    <div className="moreaboutcompany flex flex-col gap-2 text-black">
-                                        <div className="flex flex-col text-justify">{descriptionToShow}</div>
+                                    <div className="moreaboutcompany flex flex-col gap-2 text-black ">
+                                        <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
                                         <div
                                             className="underline text-blue-500 cursor-pointer"
                                             onClick={toggleDescription}
@@ -417,71 +417,68 @@ const Store = () => {
                     </div>
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2">
-                    <Tabs value={activeTab}>
-                        <div className="flex items-center justify-between">
-                            <TabsHeader className="w-1/4 flex gap-4">
+                    <Tabs value={activeTab} className="p-5">
+                        <div className="flex flex-col lg:flex-row items-center justify-between gap-5  px-10">
+                            <TabsHeader className="w-full flex gap-4">
                                 <Tab
                                     value="all"
-                                    className={activeTab === 'all' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    className={activeTab === 'all' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
                                     onClick={() => handleTabChange('all')}
                                 >
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2 lg:mx-2">
                                         All({validCoupons?.length})
                                     </div>
                                 </Tab>
                                 <Tab
                                     value="Rewards"
-                                    className={activeTab === 'reward' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    className={activeTab === 'reward' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
                                     onClick={() => handleTabChange('reward')}
                                 >
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2 lg:mx-2">
                                         Rewards({couponCounts.rewards})
                                     </div>
                                 </Tab>
                                 <Tab
                                     value="codes"
-                                    className={activeTab === 'code' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    className={activeTab === 'code' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
                                     onClick={() => handleTabChange('code')}
                                 >
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2 lg:mx-2">
                                         Codes({couponCounts.exclusive})
                                     </div>
                                 </Tab>
                                 <Tab
                                     value="Sale"
-                                    className={activeTab === 'sale' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    className={activeTab === 'sale' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
                                     onClick={() => handleTabChange('sale')}
                                 >
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2 lg:mx-2">
                                         Sale({couponCounts.sales})
                                     </div>
                                 </Tab>
                             </TabsHeader>
                             <div className=" flex items-start text-red-600 hover:underline cursor-pointer">
                                 {submittingCoupon ? (
-                                    <input
-                                        type="text"
-                                        placeholder="Enter coupon code"
-                                        value={couponCode}
-                                        onChange={handleInputChange}
-                                        onKeyDown={handleKeyPress}
-                                    />
+                                    <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-full lg:w-[25rem]  justify-between">
+                                        <input type="text" placeholder="Enter coupon code" className=' outline-none bg-transparent text-black' onChange={handleInputChange}
+                                            onKeyDown={handleKeyPress} value={couponCode} />
+                                    </div>
                                 ) : (
-                                    <div className="flex items-start text-red-600 hover:underline cursor-pointer" onClick={toggleCouponSubmission}>
-                                        <div className="hidden lg:inline">Submit a coupon</div>
+                                    <div className="flex items-center gap-3 text-red-600 hover:underline cursor-pointer" onClick={toggleCouponSubmission}>
+                                        <div className="inline">Submit a coupon</div>
                                         <MdLocalOffer className="cursor-pointer" />
                                     </div>
                                 )}
                             </div>
                         </div>
-                        <div className="my-5">
-                            <div className="lg:text-4xl text-2xl font-bold ml-10 hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
-                            <div className="text-lg font-medium m-10">
+                        <div className="flex flex-col gap-3 justify-evenly mt-5 lg:mx-5">
+                            <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
+                            <div className="text-sm lg:text-lg font-medium">
                                 Uncover {validCoupons?.length} Active Offers and Voucher codes out of {str?.stock} - Used {totalRedemptionCount} Times for Better Savings!
                             </div>
                         </div>
                         <TabsBody>
-                            <div className="flex flex-col gap-5 my-5 items-center mx-10">
+                            <div className="flex flex-col gap-5 items-center m-10">
                                 {
                                     filteredCoupons && filteredCoupons.map((ele, index) => {
                                         return (
@@ -552,7 +549,7 @@ const Store = () => {
                                     <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
                                         <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
                                         <div className="font-bold text-xl">{ele.title}</div>
-                                        <div className="flex gap-2 text-gray-500 text-sm">
+                                        <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
                                             <IoMdTime />
                                             <span>expired!</span>
                                         </div>
@@ -597,19 +594,22 @@ const Store = () => {
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-sm">
                             Copy and paste this code at {""}
-                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-red-500 hover:cursor-pointer">
+                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>
                         </div>
-                        <div className="mt-auto bg-gray-200 w-full rounded-b-lg p-4 flex justify-between">
+                    </div>
+                    <div className="mt-auto bg-gray-200 rounded-b-lg p-4 flex justify-center items-center gap-3 lg:gap-5 w-[100%]">
+                        <span className="font-semibold text-sm lg:text-lg">
                             Did the coupon work?
-                            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none">
-                                Yes
-                            </button>
-                            <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">
-                                No
-                            </button>
-                        </div>
+                        </span>
+
+                        <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md focus:outline-none">
+                            Yes
+                        </button>
+                        <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">
+                            No
+                        </button>
                     </div>
                 </div>
             </Dialog>

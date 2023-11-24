@@ -9,7 +9,7 @@ const Carousel2 = () => {
     const [featuredImages, setFeaturedImages] = useState([]);
 
     const calculateTranslateX = (index) => {
-        return -index * 95.5 + '%';
+        return -index * (window.innerWidth < 1024 ? 108 : 95.5) + '%';
     };
     const handleOnNextClick = () => {
         setCurrentIndex((prevIndex) =>
@@ -71,7 +71,7 @@ const Carousel2 = () => {
                             key={index}
                         >
                             <img
-                                className="relative object-cover w-[97vw] h-auto lg:h-[300px] lg:w-[860px] rounded-3xl lg:rounded-none"
+                                className="relative object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[860px] rounded-3xl lg:rounded-none"
                                 src={element.thumbnail}
                                 alt={`Image ${index + 1}`}
                             />

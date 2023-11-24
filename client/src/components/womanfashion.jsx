@@ -56,19 +56,19 @@ const Womanfashion = () => {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-5">
                 {featuredImages.map((item, index) => (
-                    <div key={index} className="flex flex-col gap-5 items-center justify-start relative h-[122px] w-[145px] lg:h-[230px] lg:w-[230px] border rounded-lg overflow-hidden hover:scale-105 shadow-lg duration-300 my-5">
+                    <div key={index} className="flex flex-col gap-5 items-center justify-start relative h-[160px] w-[145px] lg:h-[230px] lg:w-[230px] border rounded-lg overflow-hidden hover:scale-105 shadow-lg duration-300 my-5">
                         <img
                             src={item.thumbnail}
-                            className="cursor-pointer h-3/5 lg:w-[230px]"
+                            className="cursor-pointer w-full h-1/2 lg:h-3/5 lg:w-[230px]"
                             onClick={() => {
                                 navigate('/Store', { state: { sId: item.storeId } });
                             }}
                         />
-                        <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[25px] w-[25px] lg:h-[50px] lg:w-[50px] left-2 bottom-20 border border-black bg-white rounded-sm lg:rounded-2xl" />
+                        <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[35px] w-[35px] lg:h-[50px] lg:w-[50px] left-2 bottom-16 lg:bottom-20 border border-black bg-white rounded-sm lg:rounded-2xl" />
                         <div className="flex flex-col items-center justify-between">
-                            <span className="text-xl font-bold text-center w-[10rem] whitespace-nowrap">{store[index]?.name} code</span>
+                            <span className="text-sm lg:text-xl font-bold text-center w-[10rem] whitespace-nowrap">{store[index]?.name} code</span>
                             <div className="flex text-[#800000]  cursor-pointer items-center justify-between gap-2">
-                                <span className="text-[#800000] text-md whitespace-nowrap">{item.content} coupon available</span>
+                                <span className="text-[#800000] text-[10px] lg:text-md whitespace-nowrap">{item.content} coupon available</span>
                                 <FaLink className="h-6 w-6" />
                             </div>
 
