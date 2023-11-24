@@ -6,12 +6,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "@material-tailwind/react";
 import { CouponsBox } from "./CouponsBox";
 import { ShowOnDisplay } from "./showOnDisplay";
+import { Clouser } from "./ClouserAdd";
+import { ClouserRemove } from "./ClouserRemove";
 
 
 function UpdateStores() {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [openDisplayForm, setOpenDisplayForm] = useState(false);
+    const [openClouserForm, setOpneClouserForm] = useState(false);
+    const [openDeleteClouser, setOpneDeleteClouser] = useState(false);
 
     const [selectedFile, setSelectedFile] = useState(null);
     const location = useLocation();
@@ -50,13 +54,17 @@ function UpdateStores() {
 
     const handleFormOpen = () => { setOpenDisplayForm(!openDisplayForm); };
 
+    const handleClouserOpen = () => { setOpneClouserForm(!openClouserForm); };
+
+    const handleDeleteClouserOpen = () => { setOpneDeleteClouser(!openDeleteClouser); };
+
     const sId = location.state?.sId;
 
     const navigate = useNavigate();
 
 
     const formik = useFormik({
-        initialValues :  {
+        initialValues: {
             name: store.name || '',
             description: store.description || '',
             type: store.type || '',
@@ -241,6 +249,16 @@ function UpdateStores() {
                 open={openDisplayForm}
                 handleOpen={handleFormOpen}
             />
+            <Clouser
+                storeId={sId}
+                open={openClouserForm}
+                handleOpen={handleClouserOpen}
+            />
+            <ClouserRemove
+               storeId={sId}
+               open={openDeleteClouser}
+               handleOpen={handleDeleteClouserOpen}
+            />
             <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Store</h1>
                 <div className="flex items-center justify-center">
@@ -375,6 +393,24 @@ function UpdateStores() {
                             className="flex-1 py-2 px-4 bg-purple-500 text-white rounded-md mb-3 hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
                         >
                             Add New Coupon
+                        </button>
+                    </div>
+
+                    <div className="flex gap-4">
+                        <button
+                            type="button"
+                            onClick={handleClouserOpen}
+                            className="flex-1 py-2 px-4 mb-3 bg-yellow-500 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        >
+                            Add To Clouser
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={handleDeleteClouserOpen}
+                            className="flex-1 py-2 px-4 bg-purple-500 text-white rounded-md mb-3 hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        >
+                            Remove From Clouser
                         </button>
                     </div>
 

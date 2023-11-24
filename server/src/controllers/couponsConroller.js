@@ -348,19 +348,8 @@ exports.addStoreFAQs = catchAsyncErrors(async (req, res, next) => {
 exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const { rating } = req.body;
-    console.log(rating);
-
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user_id = decoded.userId;
-
     try {
-        // Add the rating to the user_ratings table
-        const addUserRatingSql = `INSERT INTO user_ratings (user_id, store_id, rating) VALUES (?, ?, ?)`;
-        await db.query(addUserRatingSql, [user_id, storeId, rating]);
 
-        // Update the store table with the new rating
         const updateStoreRatingSql = `
             UPDATE store 
             SET total_ratings = total_ratings + ?, ratings_count = ratings_count + 1
@@ -615,5 +604,55 @@ exports.getRedeemCount = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error('Error getting redemption count:', err);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//add similar and popular store ids
+exports.addStoreIds = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const { storeType, storeid } = req.body;
+    try {
+        const insertStoreIdsSql = `
+            INSERT INTO store_ids (store_id, store_type, sId)
+            VALUES (?, ?, ?)
+        `;
+        await db.query(insertStoreIdsSql, [storeId, storeType, storeid]);
+
+        res.status(200).json({ message: "Store IDs added successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add store IDs", 400));
+    }
+});
+
+// Remove a row based on sId provided in req.params
+exports.removeStoreId = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    try {
+        const deleteStoreIdSql = `
+            DELETE FROM store_ids
+            WHERE sId = ?
+        `;
+        await db.query(deleteStoreIdSql, [storeId]);
+
+        res.status(200).json({ message: "Store ID removed successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to remove store ID", 400));
+    }
+});
+
+// Get all data from store_ids table
+exports.getAllStoreIds = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const getAllStoreIdsSql = `
+            SELECT * FROM store_ids
+        `;
+        const storeIds = await db.query(getAllStoreIdsSql);
+
+        res.status(200).json({ data: storeIds[0] });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to retrieve store IDs", 500));
     }
 });
