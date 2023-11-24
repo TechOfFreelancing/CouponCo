@@ -9,7 +9,7 @@ const Carousel2 = () => {
     const [featuredImages, setFeaturedImages] = useState([]);
 
     const calculateTranslateX = (index) => {
-        return -index * 105 + '%';
+        return -index * 95.5 + '%';
     };
     const handleOnNextClick = () => {
         setCurrentIndex((prevIndex) =>
@@ -71,11 +71,11 @@ const Carousel2 = () => {
                             key={index}
                         >
                             <img
-                                className="relative object-cover w-[97vw] h-auto lg:h-[20rem] lg:w-auto rounded-3xl lg:rounded-none"
+                                className="relative object-cover w-[97vw] h-auto lg:h-[300px] lg:w-[860px] rounded-3xl lg:rounded-none"
                                 src={element.thumbnail}
                                 alt={`Image ${index + 1}`}
                             />
-                            <div className="absolute top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3 w-[90vw] lg:w-[55rem]">
+                            <div className="absolute top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3 w-[90vw] lg:w-[50rem]">
                                 <button
                                     onClick={handleOnPrevClick}
                                     className="hidden bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-left  animate-right duration-300 hover:lg:scale-125"

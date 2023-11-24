@@ -16,6 +16,9 @@ import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
 import AllStores from './pages/Stores';
 import Allcategories from './pages/Categories';
+import "@fontsource/poppins"; // Defaults to weight 400
+import "@fontsource/poppins/700.css"; // Specify weight
+import "@fontsource/poppins/500-italic.css"; // Specify weight and style
 
 
 
