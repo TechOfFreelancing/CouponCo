@@ -2,15 +2,20 @@ import { MdLocalOffer } from "react-icons/md";
 import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
 import { useContext, useEffect, useState } from "react";
+import { IoMdTime } from "react-icons/io";
 import {
-    Dialog, Card, List, ListItem
+    Dialog, Card, List, ListItem,
+    Tabs,
+    TabsHeader,
+    TabsBody,
+    Tab,
 } from "@material-tailwind/react";
 import { IoMdClose } from "react-icons/io";
 import { Link } from 'react-scroll';
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import AuthContext from "../components/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import AuthContext from '../components/AuthContext';
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -18,13 +23,20 @@ const Store = () => {
     const [copySuccess, setCopySuccess] = useState(false);
     const [userRating, setUserRating] = useState(0);
     const [ratingcount, setratingcount] = useState(0);
+    const [activeTab, setActiveTab] = useState('all');
+    const [truncatedDescription, setDesc] = useState('...');
+    const [showFullDescription, setShowFullDescription] = useState(false);
+    const [similarStoreNames, setSimilarStoreNames] = useState([]);
+    const [popularStoreNames, setPopularStoreNames] = useState([]);
+    const [submittingCoupon, setSubmittingCoupon] = useState(false);
+    const [couponCode, setCouponCode] = useState('');
 
-
-    const location = useLocation();
     const navigate = useNavigate();
 
+    const location = useLocation();
+
+    const { role } = useContext(AuthContext);
     const [str, setStr] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [coupons, setCoupons] = useState(null);
     const [couponCounts, setCouponCounts] = useState({
         exclusive: 0,
@@ -34,8 +46,6 @@ const Store = () => {
     });
     const sId = location.state?.sId;
 
-    const { role } = useContext(AuthContext);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -43,9 +53,10 @@ const Store = () => {
                 const coup = await axios.get(`http://localhost:4000/api/coupons/${sId}`);
                 setStr(res.data.store);
 
-                const fetchedCoupons = coup.data.coupons;
+                const truncated = res.data.store.description?.slice(0, 100);
+                setDesc(truncated || '...');
 
-                role === "General" ? setIsLoggedIn(true) : setIsLoggedIn(false);
+                const fetchedCoupons = coup.data.coupons;
 
                 const redemptionCounts = await Promise.all(
                     fetchedCoupons.map(async (coupon) => {
@@ -59,13 +70,31 @@ const Store = () => {
                     })
                 );
 
-                // Combining coupon data with redemption counts
                 const couponsWithRedemption = fetchedCoupons.map((coupon, index) => ({
                     ...coupon,
                     redemptionCount: redemptionCounts[index],
                 }));
 
                 setCoupons(couponsWithRedemption);
+                const response = await axios.get('http://localhost:4000/api/clouser');
+
+                const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
+                const popularStores = response.data.data.filter(item => item.store_type === 'popular' && item.store_id == sId);
+
+                const getStoreInfo = async stores => {
+                    return await Promise.all(
+                        stores.map(async store => {
+                            const res = await axios.get(`http://localhost:4000/api/getStore/${store.sId}`);
+                            return { id: store.sId, name: res.data.store.name };
+                        })
+                    );
+                };
+
+                const similarStoreInfo = await getStoreInfo(similarStores);
+                const popularStoreInfo = await getStoreInfo(popularStores);
+
+                setSimilarStoreNames(similarStoreInfo);
+                setPopularStoreNames(popularStoreInfo);
 
             } catch (err) {
                 console.error(err);
@@ -86,6 +115,44 @@ const Store = () => {
         return dueDate < today;
     });
 
+    const toggleCouponSubmission = () => {
+        if (role !== 'General') {
+            window.location.href = '/login'; // Redirect to login if the role is not General
+        } else {
+            setSubmittingCoupon(!submittingCoupon); // Toggle input field if the role is General
+        }
+    };
+
+    const handleInputChange = event => {
+        setCouponCode(event.target.value);
+    };
+
+    const handleKeyPress = event => {
+        if (event.key === 'Enter') {
+            handleRedeem();
+        }
+    };
+
+    const handleRedeem = async () => {
+        try {
+            const res = await axios.put(`http://localhost:4000/api/redeem`, {
+                "coupon_code": couponCode
+            },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    },
+                }
+            );
+            toast.success(res.data.message);
+        } catch (error) {
+            toast.error(error.response.data.error);
+            console.error(error);
+        }
+
+    }
+
     const handleOpen = (product) => {
         setSelectedProduct(product);
         setOpen(true);
@@ -105,7 +172,6 @@ const Store = () => {
     };
 
     const handleInsideClick = (event) => {
-        // Prevent the click event from propagating to the outer container
         event.stopPropagation();
     };
 
@@ -135,19 +201,17 @@ const Store = () => {
 
     const handleRatingChange = (value) => {
         setUserRating(value);
+        const confirmed = window.confirm('Are you sure you want to submit ratings?');
+
+        if (confirmed) {
+            handleReview(value);
+        }
     };
 
-    const resetRating = () => {
-        setUserRating(0);
-        if (ratingcount > 0)
-            setratingcount(ratingcount - 1);
-    }
-
-    const handleReview = async () => {
-        console.log(userRating);
+    const handleReview = async (rate) => {
 
         let data = JSON.stringify({
-            "rating": userRating,
+            "rating": rate,
         });
 
         try {
@@ -162,7 +226,6 @@ const Store = () => {
             toast.error("Failed to add ratings!");
             console.error(error);
         }
-
     }
 
     useEffect(() => {
@@ -170,6 +233,11 @@ const Store = () => {
             setratingcount(ratingcount + 1);
         }
     }, [userRating]);
+
+    const totalRedemptionCount = validCoupons?.reduce((total, coupon) => {
+        return total + coupon.redemptionCount;
+    }, 0)
+
 
     const [detailsVisibility, setDetailsVisibility] = useState(Array(coupons?.length).fill(false));
 
@@ -184,11 +252,33 @@ const Store = () => {
         setCouponCounts(counts);
     }, [coupons]);
 
+    const handleTabChange = (value) => {
+        setActiveTab(value);
+    };
+
+    const filteredCoupons = validCoupons?.filter(coupon => {
+        if (activeTab === 'all') {
+            return true;
+        } else {
+            return coupon.type.toLowerCase() === activeTab;
+        }
+    });
+
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleString(undefined, options);
     };
+
+    const toggleDescription = () => {
+        setShowFullDescription(!showFullDescription);
+    };
+
+    const descriptionToShow = showFullDescription
+        ? str?.description
+        : truncatedDescription;
+
+    const lessAbout = showFullDescription ? 'Less about ' : 'More about ';
 
     return (
         <>
@@ -200,10 +290,6 @@ const Store = () => {
                     </div>
 
                     <div className="text-2xl text-center font-bold inline">{str?.name}</div>
-                    <div className="flex gap-2 items-center text-red-600 hover:underline">
-                        Submit a coupon <MdLocalOffer className="cursor-pointer"></MdLocalOffer>
-                    </div>
-                    <div className="font-bold">MORE ABOUT {str?.name?.toUpperCase()}</div>
                     <div className="flex flex-col gap-5">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
@@ -213,14 +299,6 @@ const Store = () => {
                             <span className="whitespace-nowrap">
                                 Avg Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
                             </span>
-
-                            <button className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => resetRating()}>Reset</button>
-                            {isLoggedIn ? (
-                                <button className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => { handleReview() }}>Submit</button>
-                            ) : (
-                                <button className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => { navigate("/login") }}>Login</button>
-                            )}
-
                         </div>
                     </div>
                     <div className="flex flex-col gap-5">
@@ -254,72 +332,188 @@ const Store = () => {
                         </Card>
                         <Card className="w-80">
                             <List>
-                                <Link className="text-initial" to="about"
+                                <div className="w-full lg:w-[50rem] lg:mx-10 card">
+                                    <div className="font-semibold lg:text-4xl text-2xl my-3 text-black">
+                                        {lessAbout} {str?.name?.toUpperCase()}
+                                    </div>
+                                    <div className="moreaboutcompany flex flex-col gap-2 text-black">
+                                        <div className="flex flex-col text-justify">{descriptionToShow}</div>
+                                        <div
+                                            className="underline text-blue-500 cursor-pointer"
+                                            onClick={toggleDescription}
+                                        >
+                                            {lessAbout} {str?.name}
+                                        </div>
+                                    </div>
+                                </div>
+                                <Link
+                                    className="text-initial"
+                                    to="faqs"
                                     spy={true}
                                     smooth={true}
                                     offset={-150}
-                                    duration={800}>
-                                    <ListItem>About {str?.name?.toUpperCase()}</ListItem>
-                                </Link>
-                                <Link className="text-initial" to="faqs"
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-150}
-                                    duration={800}>
+                                    duration={800}
+                                >
                                     <ListItem>FAQS</ListItem>
                                 </Link>
-                                <Link className="text-initial" to="hints_tips"
+                                <Link
+                                    className="text-initial"
+                                    to="hints_tips"
                                     spy={true}
                                     smooth={true}
                                     offset={-150}
-                                    duration={800}>
+                                    duration={800}
+                                >
                                     <ListItem>Hints & Tips</ListItem>
                                 </Link>
                             </List>
                         </Card>
                     </div>
+                    <div className="flex flex-col gap-5">
+
+                        <Card className="w-80">
+                            <List>
+                                <div className="font-semibold lg:text-4xl text-2xl my-3 text-black">
+                                    Similar Stores
+                                </div>
+                                {similarStoreNames && similarStoreNames.length > 0 ? (
+                                    similarStoreNames.map((store, index) => (
+                                        <div key={index} className="text-initial"
+                                            onClick={() => {
+                                                navigate(
+                                                    '/Store', { state: { sId: store.id } }
+                                                )
+                                            }}>
+                                            <ListItem>{store.name}</ListItem>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div>No similar stores found</div>
+                                )}
+                            </List>
+                        </Card>
+
+                        <Card className="w-80">
+                            <List>
+                                <div className="font-semibold lg:text-4xl text-2xl my-3 text-black">
+                                    Popular Stores
+                                </div>
+                                {popularStoreNames && popularStoreNames.length > 0 ? (
+                                    popularStoreNames.map((store, index) => (
+                                        <div key={index} className="text-initial"
+                                            onClick={() => {
+                                                navigate(
+                                                    '/Store', { state: { sId: store.id } }
+                                                )
+                                            }}>
+                                            <ListItem>{store.name}</ListItem>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div>No popular stores found</div>
+                                )}
+                            </List>
+                        </Card>
+                    </div>
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2">
-                    <div className="my-5">
-                        <div className="lg:text-4xl text-2xl font-bold ml-10 hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
-                    </div>
-                    <div className="flex flex-col gap-5 my-5 items-center mx-10">
-                        {
-                            validCoupons && validCoupons.map((ele, index) => {
-                                return (
-                                    <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
-                                        <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
-                                            <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
-                                                <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
-                                                <div className="font-bold text-xl">{ele.title}</div>
-                                                <div className="flex gap-2 text-gray-500 text-sm">
-                                                    <span><div>Verified</div></span>
-                                                    <span>{ele.redemptionCount} uses</span>
-                                                </div>
-                                            </div>
-                                            <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
-                                        </div>
-                                        <hr className="my-5" />
-                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                        </div>
-                                        {detailsVisibility[index] && (
-                                            <div className="details flex flex-col gap-2">
-                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                <span>{ele.description}</span>
-                                            </div>
-                                        )}
+                    <Tabs value={activeTab}>
+                        <div className="flex items-center justify-between">
+                            <TabsHeader className="w-1/4 flex gap-4">
+                                <Tab
+                                    value="all"
+                                    className={activeTab === 'all' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    onClick={() => handleTabChange('all')}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        All({validCoupons?.length})
                                     </div>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className="w-full lg:w-[50rem] lg:mx-10" id="about">
-                        <div className="font-semibold lg:text-4xl text-2xl my-3">About {str?.name?.toUpperCase()}</div>
-                        <div className="moreaboutcompany flex flex-col gap-2">
-                            <div className="flex flex-col text-justify">{str?.description}</div>
+                                </Tab>
+                                <Tab
+                                    value="Rewards"
+                                    className={activeTab === 'reward' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    onClick={() => handleTabChange('reward')}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        Rewards({couponCounts.rewards})
+                                    </div>
+                                </Tab>
+                                <Tab
+                                    value="codes"
+                                    className={activeTab === 'code' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    onClick={() => handleTabChange('code')}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        Codes({couponCounts.exclusive})
+                                    </div>
+                                </Tab>
+                                <Tab
+                                    value="Sale"
+                                    className={activeTab === 'sale' ? "text-red-500 border-b-2 border-red-500" : ""}
+                                    onClick={() => handleTabChange('sale')}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        Sale({couponCounts.sales})
+                                    </div>
+                                </Tab>
+                            </TabsHeader>
+                            <div className=" flex items-start text-red-600 hover:underline cursor-pointer">
+                                {submittingCoupon ? (
+                                    <input
+                                        type="text"
+                                        placeholder="Enter coupon code"
+                                        value={couponCode}
+                                        onChange={handleInputChange}
+                                        onKeyDown={handleKeyPress}
+                                    />
+                                ) : (
+                                    <div className="flex items-start text-red-600 hover:underline cursor-pointer" onClick={toggleCouponSubmission}>
+                                        <div className="hidden lg:inline">Submit a coupon</div>
+                                        <MdLocalOffer className="cursor-pointer" />
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                        <div className="my-5">
+                            <div className="lg:text-4xl text-2xl font-bold ml-10 hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
+                            <div className="text-lg font-medium m-10">
+                                Uncover {validCoupons?.length} Active Offers and Voucher codes out of {str?.stock} - Used {totalRedemptionCount} Times for Better Savings!
+                            </div>
+                        </div>
+                        <TabsBody>
+                            <div className="flex flex-col gap-5 my-5 items-center mx-10">
+                                {
+                                    filteredCoupons && filteredCoupons.map((ele, index) => {
+                                        return (
+                                            <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                                                <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
+                                                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
+                                                        <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
+                                                        <div className="font-bold text-xl">{ele.title}</div>
+                                                        <div className="flex gap-2 text-gray-500 text-sm">
+                                                            <span><div>Verified</div></span>
+                                                            <span>{ele.redemptionCount} uses</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                                </div>
+                                                <hr className="my-5" />
+                                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                </div>
+                                                {detailsVisibility[index] && (
+                                                    <div className="details flex flex-col gap-2">
+                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                        <span>{ele.description}</span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </TabsBody>
+                    </Tabs>
                     <div className="w-full lg:w-[50rem] lg:mx-10" id="faqs">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
@@ -348,58 +542,39 @@ const Store = () => {
                             )}
                         </div>
                     </div>
-
                     <Card className="flex flex-col gap-2 pt-5 w-full lg:w-[50rem] lg:mx-10">
                         <div className="text-xl text-black font-semibold whitespace-nowrap px-5">
                             Recently Expired {str?.name} Discount Codes & Deals
                         </div>
-                        {expiredCoupons?.map((coupon, index) => (
-                            <div key={index} className="flex justify-between items-center px-5">
-                                <span>{coupon.title}</span>
-                                <span className="text-lg text-black font-semibold line-through border-2 border-dashed border-black p-2 px-5 rounded-md">
-                                    {coupon.coupon_code}
-                                </span>
+                        {expiredCoupons?.map((ele, index) => (
+                            <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                                <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
+                                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
+                                        <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
+                                        <div className="font-bold text-xl">{ele.title}</div>
+                                        <div className="flex gap-2 text-gray-500 text-sm">
+                                            <IoMdTime />
+                                            <span>expired!</span>
+                                        </div>
+                                    </div>
+                                    <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                </div>
+                                <hr className="my-5" />
+                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                </div>
+                                {detailsVisibility[index] && (
+                                    <div className="details flex flex-col gap-2">
+                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                        <span>{ele.description}</span>
+                                    </div>
+                                )}
                             </div>
-                        ))}
+                        )
+                        )}
                     </Card>
                 </div>
             </div>
-            {/* <div className="flex flex-col gap-5 my-5 items-start mx-10">
-                    <div className="font-semibold lg:text-4xl text-2xl my-3">Similar Products</div>
-                    {
-                        first_store.similar_products.map((ele, index) => {
-                            return (
-                                <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration--150 ">
-                                    <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
-                                        <div className="flex flex-col font-bold">
-                                            <span className="text-3xl text-red-600 whitespace-nowrap">{ele.offer} %</span>
-                                            <span className="text-3xl text-red-600">Off</span>
-                                        </div>
-                                        <div className="flex flex-col gap-3">
-                                            <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.label}</div>
-                                            <div className="font-bold text-xl">{ele.title}</div>
-                                            <div className="flex gap-2 text-gray-500 text-sm">
-                                                <span>{ele.verified && <div>Verified</div>}</span>
-                                                <span>{ele.uses} uses today</span>
-                                            </div>
-                                        </div>
-                                        <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
-                                    </div>
-                                    <hr className="my-5" />
-                                    <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                        See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                    </div>
-                                    {detailsVisibility[index] && (
-                                        <div className="details flex flex-col gap-2">
-                                            <span className="font-bold">Ends {ele.ends}</span>
-                                            <span>{ele.details}</span>
-                                        </div>
-                                    )}
-                                </div>
-                            )
-                        })
-                    }
-                </div> */}
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>
@@ -423,24 +598,18 @@ const Store = () => {
                         <div className="text-sm">
                             Copy and paste this code at {""}
                             <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-red-500 hover:cursor-pointer">
-                                {selectedProduct.ref_link}
+                                {str?.name}
                             </a>
                         </div>
-                        {
-                            selectedProduct.description && (
-                                <div className="h-[15rem] w-full bg-gray-300 overflow-y-scroll mt-5 p-10 flex flex-col gap-5">
-                                    {
-                                        selectedProduct.description && (
-                                            <div>
-                                                <span className="flex gap-2"><span className="text-black">Details</span>
-                                                </span>
-                                                <div className="text-gray-600">{selectedProduct.description}</div>
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            )
-                        }
+                        <div className="mt-auto bg-gray-200 w-full rounded-b-lg p-4 flex justify-between">
+                            Did the coupon work?
+                            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none">
+                                Yes
+                            </button>
+                            <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">
+                                No
+                            </button>
+                        </div>
                     </div>
                 </div>
             </Dialog>
