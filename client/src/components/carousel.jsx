@@ -8,7 +8,7 @@ const CarouselSlider = () => {
     const [imageCache, setImageCache] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const slideRef = useRef(null);
-
+   
     const animation = () => {
         if (slideRef.current) {
             slideRef.current.classList.add("fade-anim");
@@ -82,13 +82,13 @@ const CarouselSlider = () => {
     },);
 
     return (
-        <div className="max-w-screen-xl">
+        <div className="max-w-screen-xl black">
             {featuredImages[currentIndex] && (
-                <div ref={slideRef} className="w-full relative select-none block">
-                    <img
+                <div className="w-full relative select-none block group duration-300">
+                    <img ref={slideRef}
                         src={imageCache[featuredImages[currentIndex]?.ref_link]}
                         alt="hello world"
-                        className='w-screen h-auto lg:w-[856px] lg:h-[310px] cursor-pointer'
+                        className='w-screen h-auto lg:w-[1000px] lg:h-[350px] cursor-pointer rounded-sm lg:rounded-[4rem]'
                         onClick={() => {
                             let refLink = featuredImages[currentIndex]?.ref_link;
                             if (refLink) {
@@ -102,10 +102,16 @@ const CarouselSlider = () => {
                         }}
                     />
                     <div className="absolute w-full top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3">
-                        <button onClick={handleOnPrevClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
+                        <button
+                            onClick={handleOnPrevClick}
+                            className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-left hidden animate-right duration-300 hover:lg:scale-125"
+                        >
                             <AiOutlineVerticalRight size={35} />
                         </button>
-                        <button onClick={handleOnNextClick} className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition">
+                        <button
+                            onClick={handleOnNextClick}
+                            className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-right hidden animate-left duration-300 hover:lg:scale-125"
+                        >
                             <AiOutlineVerticalLeft size={35} />
                         </button>
                     </div>

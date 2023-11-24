@@ -5,7 +5,7 @@ const SITEMAP = [
 
     {
         id: "1",
-        title: "Useful Reads",
+        title: "Useful",
         links: [
             { text: "About Us", href: "/account", },
             { text: "Our Codes", href: "/account" },
@@ -26,7 +26,7 @@ const SITEMAP = [
     },
     {
         id: "3",
-        title: "POPULAR CATEGORIES",
+        title: "CATEGORIES",
         links: [
             { text: "Woman fashion", href: "/account", },
             { text: "Men's fashion", href: "/account" },

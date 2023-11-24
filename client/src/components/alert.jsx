@@ -34,7 +34,7 @@ const Alert = () => {
     }, []);
 
     return (
-        <div className='flex h-10 justify-center gap-2 lg:gap-5 items-center bg-purple-800 text-white text-[10px] lg:text-base w-screen z-30 group whitespace-nowrap'>
+        <div className='flex h-10 justify-center gap-2 lg:gap-5 items-center bg-[#500e0e] text-white text-[10px] lg:text-base w-screen z-30 group whitespace-nowrap'>
             <img src={gift} alt="gift" className='h-5 lg:h-10 w-auto' />
             <span>Celebrate the {details.festival_name}</span>
             <span
