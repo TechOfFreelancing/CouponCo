@@ -34,7 +34,7 @@ router.route("/clouser").get(getAllStoreIds);
 router.route("/admin/:cId").put(isAdmin,updateCoupon).delete(isAdmin,deleteCoupon);
 
 router.route("/addRatings/:storeId").put(addStoreRating);
-router.route("/redeem/:cId").put(redeem);
+router.route("/redeem").put(redeem);
 router.route("/getRedeemCount/:cId").get(getRedeemCount);
 
 module.exports = router;
