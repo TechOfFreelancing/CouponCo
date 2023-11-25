@@ -2,12 +2,17 @@ import {
     Card,
     Input,
     Button,
-    Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
-import { toast, Toaster } from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast';
+import { FcGoogle } from "react-icons/fc";
+import { BiSolidMap } from 'react-icons/bi';
+import { FaMobileAlt } from 'react-icons/fa'
+import { BsTwitter } from 'react-icons/bs'
+import { BsLinkedin } from 'react-icons/bs';
+import { AiFillInstagram } from 'react-icons/ai'
 
 
 export default function Register() {
@@ -45,23 +50,37 @@ export default function Register() {
 
 
     return (
-        <>
+        <div className="min-h-screen h-full py-14">
             <Toaster position="top-center"></Toaster>
-            <Card color="transparent" className="h-screen flex justify-center items-center" shadow={false}>
-                <img src="/Login/bg.webp" alt="bg" className="absolute h-screen w-screen -z-10 opacity-10" />
-                <div className="bg-white p-10 rounded-xl  border-4 border-red-200">
-                    <Typography variant="h4" color="#800000" className="px-4 text-center">
-                        SignUp
-                    </Typography>
-                    <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 mx-auto">
+            <Card color="transparent" className="h-full flex justify-center items-center" shadow={false}>
+                <img src="/Login/bg.webp" alt="bg" className="absolute hidden lg:inline h-[150vh] w-screen -z-10 opacity-10" />
+                <div className="text-4xl text-black font-semibold mb-2 mt-10 lg:mt-20">Join Now</div>
+                <div className="mt-4 mx-auto font-normal text-black my-2">
+                    <span>  Already have an account?  <Link to="/login" className="underline font-medium text-red-500 transition-colors hover:text-red-800">
+                        Sign In
+                    </Link></span>
+
+                </div>
+                <div className="bg-white p-10 rounded-xl my-5 flex flex-col gap-5">
+                    <div className="flex justify-center gap-5 items-center px-10 py-3 border border-gray-500 rounded-full cursor-pointer">
+                        <FcGoogle className="h-6 w-6"></FcGoogle>
+                        <span>Connect with Google</span>
+                    </div>
+                    <div className="flex items-center">
+                        <hr className="flex-grow border-t border-gray-500" />
+                        <span className="mx-2">or</span>
+                        <hr className="flex-grow border-t border-gray-500" />
+                    </div>
+
+                    <form className="w-80 max-w-screen-lg lg:w-96 mx-auto">
                         <div className="mb-4 flex flex-col gap-6  items-center justify-center">
                             <Input type="text" size="lg" value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                color="#800000" label="Name" />
+                                color="black" label="Name" />
                             <Input type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                size="lg" color="#800000" label={
+                                size="lg" color="black" label={
                                     <>
                                         Email <span className="text-red-500">*</span>
                                     </>
@@ -71,26 +90,40 @@ export default function Register() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                color="#800000"
+                                color="black"
                                 label={
                                     <>
                                         Password <span className="text-red-500">*</span>
                                     </>
                                 }
                             />
+                            <span className="text-sm text-gray-500">Password must be 8 characters or more, Don&apos;t use any part of your email, Don&apos;t use a common password</span>
                         </div>
-                        <Button className="mt-6 bg-[#800000]" type="submit" onClick={handleRegister} fullWidth>
+                        <Button className="mt-6 bg-[#800000] rounded-full" type="submit" onClick={handleRegister} fullWidth >
                             Register
                         </Button>
+                        <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                            <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
                     </form>
                 </div>
-
-                <Typography color="gray" className="mt-4 mx-auto font-normal">
-                    <Link to="/login" className="underline font-medium text-red-500 transition-colors hover:text-red-800">
-                        Already have an account? Sign In
-                    </Link>
-                </Typography>
             </Card>
-        </>
+
+            <hr className=' border-black hidden lg:block' />
+            <div className="flex flex-col lg:flex-row flex-nowrap lg:mx-20 justify-between mt-10 items-center gap-5">
+                <div className='text-[#800000]'>&copy; Coupon Co {new Date().getFullYear()}</div>
+                <div className="contact flex flex-col lg:flex-row gap-5 text-[#800000] items-center">
+                    <span className='whitespace-nowrap'>Email : support@looknbookart.com
+                    </span>
+                    <span className='whitespace-nowrap'>Phone: +91.96649 70700</span>
+                </div>
+                <div className="flex icons gap-5 text-[#800000] text-xl">
+                    <AiFillInstagram></AiFillInstagram>
+                    <BsLinkedin></BsLinkedin>
+                    <BsTwitter></BsTwitter>
+                    <FaMobileAlt></FaMobileAlt>
+                    <BiSolidMap></BiSolidMap>
+                </div>
+            </div>
+        </div>
     );
 }
