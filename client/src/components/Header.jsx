@@ -65,7 +65,7 @@ export function Header() {
     return (
         <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#800000] bg-white">
             <Alert></Alert>
-            <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10">
+            <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10 lg:h-[93px]">
                 <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
                     <ImSearch className="h-6 w-6" />
                 </button>
@@ -80,15 +80,15 @@ export function Header() {
                     </button>
                 </div>
                 {isLoggedIn ? (
-                    <div onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap">
+                    <div onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
                         Logout
                     </div>
                 ) : (
                     <>
-                        <Link to="/login" className="hidden lg:inline-block whitespace-nowrap">
+                        <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
                             Log In
                         </Link>
-                        <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap bg-[#800000] px-4 py-2 text-white rounded-md">
+                        <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap bg-[#800000] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
                             Sign Up
                         </Link>
                     </>

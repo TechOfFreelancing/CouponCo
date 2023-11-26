@@ -19,152 +19,171 @@ import Allcategories from './pages/Categories';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
+import { useState, useEffect } from 'react';
+import Loader from './components/Loader';
 
 
 
 function App() {
 
-  const { role } = useContext(AuthContext);
+  const [loaded, setLoaded] = useState(false);
 
+
+  const { role } = useContext(AuthContext);
   const isAdmin = role === "Admin" ? true : false;
 
+  //   the useEffect will run on the first rendering of the App component
+  //   after two seconds (about how long it takes for the data to load)
+  //   the loaded state will become true
+  useEffect(() => {
+    let timer = setTimeout(() => setLoaded(true), 5000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
-    <div className='w-full max-h-fit overflow-y-clip'>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <>
-              <Header></Header>
-              <Home />
-              
-              
-            </>
-          }
-        >
-        </Route>
-        {isAdmin && (<Route
-          path='/Admin'
-          element={
-            <>
-              <AdminPanel />
-              
-              
-            </>
-          }
-        >
-        </Route>)}
-        {isAdmin && (<Route
-          path='/Admin/addStore'
-          element={
-            <>
-              <AddStores />
-              
-              
-            </>
-          }
-        >
-        </Route>)}
-        {isAdmin && (<Route
-          path='/Admin/addCoupons'
-          element={
-            <>
-              <AddCoupons />
-              
-              
-            </>
-          }
-        >
-        </Route>)}
-        {isAdmin && (<Route
-          path='/Admin/updateStore'
-          element={
-            <>
-              <UpdateStores />
-              
-              
-            </>
-          }
-        >
-        </Route>)}
-        {isAdmin && (<Route
-          path='/Admin/updateCoupons'
-          element={
-            <>
-              <UpdateCoupons />
-              
-              
-            </>
-          }
-        >
-        </Route>)}
-        <Route
-          path="/login"
-          element={
-            <>
-              <Header></Header>
-              <Login />
-              
-              
-            </>
-          }
-        ></Route>
-        <Route
-          path="/signup"
-          element={
-            <>
-              <Header></Header>
-              <SignUp />
-              
-              
-            </>
-          }
-        ></Route>
-        <Route
-          path="/AllStores"
-          element={
-            <>
-              <Header></Header>
-              <AllStores />
-              
-              
-            </>
-          }
-        ></Route>
-        <Route
-          path="/AllCategories"
-          element={
-            <>
-              <Header></Header>
-              <Allcategories />
-              
-              
-            </>
-          }
-        ></Route>
-        <Route
-          path="/store"
-          element={
-            <>
-              <Header></Header>
-              <Store></Store>
-              
-              
-            </>
-          }
-        ></Route>
-        <Route
-          path="*"
-          element={
-            <>
-              <Header></Header>
-              <NoMatch />
-              <MobileFooter />
-              <Footer />
-            </>
-          }
-        ></Route>
-      </Routes>
+    <div className="w-full max-h-fit overflow-y-clip">
+      {!loaded ? (
+        <Loader />
+      ) : (
+
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <Header></Header>
+                <Home />
+
+
+              </>
+            }
+          >
+          </Route>
+          {isAdmin && (<Route
+            path='/Admin'
+            element={
+              <>
+                <AdminPanel />
+
+
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/addStore'
+            element={
+              <>
+                <AddStores />
+
+
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/addCoupons'
+            element={
+              <>
+                <AddCoupons />
+
+
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/updateStore'
+            element={
+              <>
+                <UpdateStores />
+
+
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/updateCoupons'
+            element={
+              <>
+                <UpdateCoupons />
+
+
+              </>
+            }
+          >
+          </Route>)}
+          <Route
+            path="/login"
+            element={
+              <>
+                <Header></Header>
+                <Login />
+
+
+              </>
+            }
+          ></Route>
+          <Route
+            path="/signup"
+            element={
+              <>
+                <Header></Header>
+                <SignUp />
+
+
+              </>
+            }
+          ></Route>
+          <Route
+            path="/AllStores"
+            element={
+              <>
+                <Header></Header>
+                <AllStores />
+
+
+              </>
+            }
+          ></Route>
+          <Route
+            path="/AllCategories"
+            element={
+              <>
+                <Header></Header>
+                <Allcategories />
+
+
+              </>
+            }
+          ></Route>
+          <Route
+            path="/store"
+            element={
+              <>
+                <Header></Header>
+                <Store></Store>
+
+
+              </>
+            }
+          ></Route>
+          <Route
+            path="*"
+            element={
+              <>
+                <Header></Header>
+                <NoMatch />
+                <MobileFooter />
+                <Footer />
+              </>
+            }
+          ></Route>
+        </Routes>
+      )}
     </div>
   )
 }
