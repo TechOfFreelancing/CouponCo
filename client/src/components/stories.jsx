@@ -6,6 +6,9 @@ const Stories = () => {
 
     const [featured, setFeatured] = useState([]);
     const [images, setImages] = useState([]);
+    const [count,setCount] = useState([]);
+
+    console.log(count);
 
 
     useEffect(() => {
@@ -14,17 +17,24 @@ const Stories = () => {
                 const response = await axios.get('http://localhost:4000/api/storeDisplay');
                 if (response.data && response.data.data) {
                     const filteredStores = response.data.data.filter(store => store.show_in_fetured === 1);
-                    setFeatured(filteredStores);
+                    setCount(filteredStores);
 
-                    const logoUrls = await Promise.all(filteredStores.map(async store => {
+                    const storeDetails = await Promise.all(filteredStores.map(async store => {
                         try {
-                            const storeDetails = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
-                            return storeDetails.data.store.logo_url || null;
+                            const storeDetailsResponse = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
+                            return {
+                                name: storeDetailsResponse.data.store.name || null, // Add the name attribute
+                                storeId: store.store_id,
+                                logoUrl: storeDetailsResponse.data.store.logo_url || null
+                            };
                         } catch (error) {
-                            console.error('Error fetching store logo:', error);
+                            console.error('Error fetching store details:', error);
                             return null;
                         }
                     }));
+
+                    setFeatured(storeDetails); // Update state with the modified data
+                    const logoUrls = storeDetails.map(detail => detail.logoUrl); // Extract logoUrls
                     setImages(logoUrls);
                 }
             } catch (error) {
@@ -46,18 +56,18 @@ const Stories = () => {
                 </div>
             </div>
             <div className="flex flex-wrap gap-5 lg:grid lg:grid-cols-4 lg:px-[10rem]">
-                {featured.slice(0,window.innerWidth < 1024 ? 9 : 4).map((ele, index) => (
+                {featured.slice(0, window.innerWidth < 1024 ? 9 : 4).map((ele, index) => (
                     <div key={index} className="flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-125 duration-300">
                         <div style={{ backgroundColor: `${ele.background}` }} className="h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center shadow-inner border overflow-hidden">
                             <img src={images[index]} alt={`Logo ${index}`} onClick={() => {
                                 navigate(
-                                    '/Store', { state: { sId: ele.store_id } }
+                                    `/Stores/${ele.name}`, { state: { sId: ele.storeId } }
                                 )
                             }} className="h-auto w-auto max-h-full max-w-full cursor-pointer rounded-full" />
                         </div>
                         <div className="hover:underline text-center group-hover:underline">
                             <span className="flex justify-center gap-2 items-center ">
-                                <span>{ele.coupons_count}</span>
+                                <span>{count[index]?.coupons_count}</span>
                                 <span>coupons</span>
                             </span>
                         </div>
@@ -70,18 +80,18 @@ const Stories = () => {
                         <div style={{ backgroundColor: `${ele.background}` }} className="h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center shadow-inner border overflow-hidden">
                             <img src={images[index]} alt={`Logo ${index}`} onClick={() => {
                                 navigate(
-                                    '/Store', { state: { sId: ele.store_id } }
+                                    `/Stores/${ele.name}`, { state: { sId: ele.storeId } }
                                 )
                             }} className="h-auto w-auto max-h-full max-w-full cursor-pointer rounded-full" />
                         </div>
                         <div className="hover:underline text-center group-hover:underline">
                             <span className="flex justify-center gap-2 items-center ">
-                                <span>{ele.coupons_count}</span>
+                                <span>{count[index]?.coupons_count}</span>
                                 <span>coupons</span>
                             </span>
                         </div>
                     </div>
-                )).slice(4,9)}
+                )).slice(4, 9)}
             </div>
         </div>
     )

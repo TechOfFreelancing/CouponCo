@@ -39,7 +39,7 @@ const Alert = () => {
             <span>Celebrate the {details.festival_name}</span>
             <span
                 className='hover:underline group-hover:underline flex gap-2 items-center'
-                onClick={() => navigate('/AllStores', { state: { isFestival: true } })}
+                onClick={() => navigate('/Stores', { state: { isFestival: true } })}
             >
                 <div className="flex items-center cursor-pointer">
                     Shop Deals Up to {details.discount}% Off <GrLinkNext style={{ color: 'white' }} />
