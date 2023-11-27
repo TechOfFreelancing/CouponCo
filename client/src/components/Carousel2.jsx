@@ -77,23 +77,24 @@ const Carousel2 = () => {
 
     return (
         <div className='lg:px-[10rem]'>
-            <div className="gap-2 m-2 sm:mt-5  sm:m-5 overflow-auto flex md:scroll-snap-type-x md:mandatory scrollbar-hide">
+            <div className="gap-2 m-2 sm:mt-5  sm:m-5 overflow-auto flex md:scroll-snap-type-x md:mandatory scrollbar-hide rounded-[5rem]">
                 <div
-                    className=" flex transition-transform duration-500 ease-in-out gap-5 lg:gap-10"
+                    className="flex transition-transform duration-500 ease-in-out gap-5 lg:gap-10"
                     style={{ transform: `translateX(${calculateTranslateX(currentIndex)})` }}
                 >
                     {featuredImages.map((element, index) => (
                         <div
-                            className="relative overflow-hidden className shadow-lg cursor-pointer flex-shrink-0 lg:rounded-[6rem] group"
+                            className="relative overflow-hidden className shadow-lg cursor-pointer flex-shrink-0 lg:rounded-[4rem] group h-fit w-fit"
                             key={index}
                         >
                             <a
                                 href={element.ref_link && (element.ref_link.startsWith('https://') ? element.ref_link : `https://${element.ref_link}`)}
                                 target='_blank'
                                 rel="noreferrer"
+                                className='rounded-xl lg:rounded-none'
                             >
                                 <img
-                                    className="relative object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[860px] rounded-3xl lg:rounded-none"
+                                    className="relative object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[860px]"
                                     src={element.thumbnail}
                                     alt={`Image ${index + 1}`}
                                 />

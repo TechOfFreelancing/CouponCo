@@ -16,7 +16,8 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from '../components/AuthContext';
-import { Link as RouterLink } from 'react-router-dom';
+import { motion } from 'framer-motion'
+
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -46,6 +47,11 @@ const Store = () => {
         sales: 0,
     });
     const sId = location.state?.sId;
+
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -289,24 +295,24 @@ const Store = () => {
                     <div className="bg-white p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
-                                <RouterLink to="/" className="text-gray-600 hover:text-red-500">
+                                <a href="/" className="text-gray-600 hover:text-red-500">
                                     <svg className="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
-                                </RouterLink>
+                                </a>
 
                                 <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                             </li>
 
                             <li className="inline-flex items-center">
-                                <RouterLink to="/Stores" className="text-gray-600 hover:text-red-500 whitespace-nowrap">
+                                <a href="/Stores" className="text-gray-600 hover:text-red-500 whitespace-nowrap">
                                     Stores
-                                </RouterLink>
+                                </a>
                                 <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                             </li>
 
                             <li className="inline-flex items-center">
-                                <RouterLink to={`/Stores/${str?.name}`} className="text-gray-600 hover:text-red-500 whitespace-nowrap">
+                                <a href={`/Stores/${str?.name}`} className="text-gray-600 hover:text-red-500 whitespace-nowrap">
                                     {str?.name}
-                                </RouterLink>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -403,14 +409,16 @@ const Store = () => {
                                 </div>
                                 {similarStoreNames && similarStoreNames.length > 0 ? (
                                     similarStoreNames.map((store, index) => (
-                                        <div key={index} className="text-initial"
+                                        <motion.div variants={variants} initial="hidden"
+                                            animate="visible"
+                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-initial"
                                             onClick={() => {
                                                 navigate(
                                                     `/Stores/${store.name}`, { state: { sId: store.id } }
                                                 )
                                             }}>
                                             <ListItem>{store.name}</ListItem>
-                                        </div>
+                                        </motion.div>
                                     ))
                                 ) : (
                                     <div>No similar stores found</div>
@@ -425,14 +433,16 @@ const Store = () => {
                                 </div>
                                 {popularStoreNames && popularStoreNames.length > 0 ? (
                                     popularStoreNames.map((store, index) => (
-                                        <div key={index} className="text-initial"
+                                        <motion.div variants={variants} initial="hidden"
+                                            animate="visible"
+                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-initial"
                                             onClick={() => {
                                                 navigate(
                                                     `/Stores/${store.name}`, { state: { sId: store.id } }
                                                 )
                                             }}>
                                             <ListItem>{store.name}</ListItem>
-                                        </div>
+                                        </motion.div>
                                     ))
                                 ) : (
                                     <div>No popular stores found</div>
@@ -507,7 +517,9 @@ const Store = () => {
                                 {
                                     filteredCoupons && filteredCoupons.map((ele, index) => {
                                         return (
-                                            <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                                            <motion.div variants={variants} initial="hidden"
+                                                animate="visible"
+                                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
                                                 <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
                                                     <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
                                                         <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
@@ -529,47 +541,21 @@ const Store = () => {
                                                         <span>{ele.description}</span>
                                                     </div>
                                                 )}
-                                            </div>
+                                            </motion.div>
                                         )
                                     })
                                 }
                             </div>
                         </TabsBody>
                     </Tabs>
-                    <div className="w-full lg:w-[50rem] lg:mx-10" id="faqs">
-                        <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
-                        <div className="moreaboutcompany flex flex-col gap-2">
-                            {
-                                str?.faq?.map((ele, index) => {
-                                    return (
-                                        <div key={index} className="flex flex-col gap-2">
-                                            <div className="font-bold text-2xl">{ele.question}</div>
-                                            <div>{ele.answer}</div>
-                                        </div>)
-                                })
-                            }
-                        </div>
-                    </div>
-                    <div className="w-full lg:w-[50rem] lg:mx-10" id="hints_tips">
-                        <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
-                        <div className="moreaboutcompany flex flex-col gap-2">
-                            {str?.hint?.includes('\n') ? (
-                                str?.hint?.split('\n').map((line, index) => (
-                                    <div className="flex flex-col text-justify" key={index}>
-                                        {line}
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="flex flex-col text-justify">{str?.hint}</div>
-                            )}
-                        </div>
-                    </div>
-                    <Card className="flex flex-col gap-2 pt-5 w-full lg:w-[50rem] lg:mx-10">
+                    <Card className="flex flex-col gap-5 items-center m-10">
                         <div className="text-xl text-black font-semibold whitespace-nowrap px-5">
                             Recently Expired {str?.name} Discount Codes & Deals
                         </div>
                         {expiredCoupons?.map((ele, index) => (
-                            <div key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                            <motion.div variants={variants} initial="hidden"
+                                animate="visible"
+                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
                                 <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
                                     <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
                                         <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
@@ -591,10 +577,43 @@ const Store = () => {
                                         <span>{ele.description}</span>
                                     </div>
                                 )}
-                            </div>
+                            </motion.div>
                         )
                         )}
                     </Card>
+                    <div className="w-full lg:w-[50rem] lg:mx-10" id="faqs">
+                        <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
+                        <div className="moreaboutcompany flex flex-col gap-2">
+                            {
+                                str?.faq?.map((ele, index) => {
+                                    return (
+                                        <motion.div variants={variants} initial="hidden"
+                                            animate="visible"
+                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-2">
+                                            <div className="font-bold text-2xl">{ele.question}</div>
+                                            <div>{ele.answer}</div>
+                                        </motion.div>)
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-[50rem] lg:mx-10" id="hints_tips">
+                        <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
+                        <div className="moreaboutcompany flex flex-col gap-2">
+                            {str?.hint?.includes('\n') ? (
+                                str?.hint?.split('\n').map((line, index) => (
+                                    <motion.div className="flex flex-col text-justify" key={index} variants={variants} initial="hidden"
+                                        animate="visible"
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }}>
+                                        {line}
+                                    </motion.div>
+                                ))
+                            ) : (
+                                <div className="flex flex-col text-justify">{str?.hint}</div>
+                            )}
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black" >

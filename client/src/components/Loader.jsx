@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 function Loader() {
     const [showText, setShowText] = useState('');
-    const [cursorVisible, setCursorVisible] = useState(true);
+    const [cursorVisible, setCursorVisible] = useState(false);
 
     useEffect(() => {
         const text = 'Weelcome to my website';

@@ -41,7 +41,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 
 export default function NewsLetter() {
     return (
-        <div className="relative isolate overflow-hidden bg-red-100 py-16 px-10">
+        <div className="relative isolate overflow-hidden bg-white py-16 px-10">
             <div className="w-full ">
                 <div className="flex flex-col lg:flex-row -mt-1 ts:-mx-2 justify-between items-center gap-5">
                     <div className="w-full sm:w-1/2 lg:w-1/5 p-2 flex flex-col items-center">

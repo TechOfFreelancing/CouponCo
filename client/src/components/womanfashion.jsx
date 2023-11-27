@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaLink } from "react-icons/fa6";
+import { motion } from 'framer-motion'
 const Womanfashion = () => {
 
     const [featuredImages, setFeaturedImages] = useState([]);
@@ -43,6 +44,10 @@ const Womanfashion = () => {
     }, []);
 
     const navigate = useNavigate();
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
 
     return (
 
@@ -54,7 +59,9 @@ const Womanfashion = () => {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-5">
                 {featuredImages.map((item, index) => (
-                    <div key={index} className="flex flex-col gap-5 items-center justify-start relative h-[160px] w-[145px] lg:h-[230px] lg:w-[230px] border rounded-lg overflow-hidden hover:scale-105 shadow-lg duration-300 my-5">
+                    <motion.div variants={variants} initial="hidden"
+                        animate="visible"
+                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-5 items-center justify-start relative h-[160px] w-[145px] lg:h-[230px] lg:w-[230px] border rounded-lg overflow-hidden hover:scale-105 shadow-lg duration-300 my-5">
                         <img
                             src={item.thumbnail}
                             className="cursor-pointer w-full h-1/2 lg:h-3/5 lg:w-[230px]"
@@ -71,7 +78,7 @@ const Womanfashion = () => {
                             </div>
 
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </div>

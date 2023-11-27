@@ -34,10 +34,20 @@ function App() {
 
 
   useEffect(() => {
-    let timer = setTimeout(() => setLoaded(true), 5000);
-    return () => {
-      clearTimeout(timer);
-    };
+    const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
+
+    if (!hasLoadedBefore) {
+      let timer = setTimeout(() => {
+        setLoaded(true);
+        sessionStorage.setItem('hasLoadedBefore', 'true');
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    } else {
+      setLoaded(true);
+    }
   }, []);
 
   return (

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Typography, Button, CardFooter } from "@material-tailwind/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion'
 
 const AllStores = () => {
     const [count, setCount] = useState(1);
@@ -15,6 +16,11 @@ const AllStores = () => {
     const keyword = location.state?.keyword;
 
     const isFestival = location.state?.isFestival;
+
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
 
     useEffect(() => {
         const fetchStores = async () => {
@@ -91,8 +97,10 @@ const AllStores = () => {
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mt-5 xl:mt-10">
-                                {stores.map((store) => (
-                                    <div key={store.id} className="relative group" onClick={() => {
+                                {stores.map((store,index) => (
+                                    <motion.div variants={variants} initial="hidden"
+                                    animate="visible"
+                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={store.id} className="relative group" onClick={() => {
                                         navigate(
                                             `/Stores/${store.name}`, { state: { sId: store.id } }
                                         )
@@ -105,7 +113,7 @@ const AllStores = () => {
                                                 <span className="flex justify-center items-center">{store.name}</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         )}
