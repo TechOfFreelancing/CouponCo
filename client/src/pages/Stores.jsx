@@ -94,7 +94,7 @@ const AllStores = () => {
                                 {stores.map((store) => (
                                     <div key={store.id} className="relative group" onClick={() => {
                                         navigate(
-                                            '/Store', { state: { sId: store.id } }
+                                            `/Stores/${store.name}`, { state: { sId: store.id } }
                                         )
                                     }}>
                                         <div className="flex flex-col gap-2 h-40 lg:h-80 cursor-pointer items-center justify-center">

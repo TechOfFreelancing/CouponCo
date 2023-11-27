@@ -34,7 +34,7 @@ export function Header() {
 
     const handleSearch = () => {
         CloseSidebar();
-        navigate("/AllStores", { state: { keyword: keyword } })
+        navigate("/Stores", { state: { keyword: keyword } })
     }
 
     const handleLogout = async () => {
@@ -69,7 +69,7 @@ export function Header() {
                 <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
                     <ImSearch className="h-6 w-6" />
                 </button>
-                <Link className="cursor-pointer font-medium">
+                <Link  to="/" className="cursor-pointer font-medium">
                     Logo
                 </Link>
                 <div className="hidden lg:block">{navList}</div>

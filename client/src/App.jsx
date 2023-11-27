@@ -32,9 +32,7 @@ function App() {
   const { role } = useContext(AuthContext);
   const isAdmin = role === "Admin" ? true : false;
 
-  //   the useEffect will run on the first rendering of the App component
-  //   after two seconds (about how long it takes for the data to load)
-  //   the loaded state will become true
+
   useEffect(() => {
     let timer = setTimeout(() => setLoaded(true), 5000);
     return () => {
@@ -47,7 +45,6 @@ function App() {
       {!loaded ? (
         <Loader />
       ) : (
-
         <Routes>
           <Route
             path='/'
@@ -55,8 +52,6 @@ function App() {
               <>
                 <Header></Header>
                 <Home />
-
-
               </>
             }
           >
@@ -66,8 +61,6 @@ function App() {
             element={
               <>
                 <AdminPanel />
-
-
               </>
             }
           >
@@ -77,8 +70,6 @@ function App() {
             element={
               <>
                 <AddStores />
-
-
               </>
             }
           >
@@ -88,8 +79,6 @@ function App() {
             element={
               <>
                 <AddCoupons />
-
-
               </>
             }
           >
@@ -99,8 +88,6 @@ function App() {
             element={
               <>
                 <UpdateStores />
-
-
               </>
             }
           >
@@ -110,8 +97,6 @@ function App() {
             element={
               <>
                 <UpdateCoupons />
-
-
               </>
             }
           >
@@ -122,8 +107,6 @@ function App() {
               <>
                 <Header></Header>
                 <Login />
-
-
               </>
             }
           ></Route>
@@ -133,19 +116,15 @@ function App() {
               <>
                 <Header></Header>
                 <SignUp />
-
-
               </>
             }
           ></Route>
           <Route
-            path="/AllStores"
+            path="/Stores"
             element={
               <>
                 <Header></Header>
                 <AllStores />
-
-
               </>
             }
           ></Route>
@@ -155,19 +134,15 @@ function App() {
               <>
                 <Header></Header>
                 <Allcategories />
-
-
               </>
             }
           ></Route>
           <Route
-            path="/store"
+            path="/Stores/:store_name"
             element={
               <>
                 <Header></Header>
                 <Store></Store>
-
-
               </>
             }
           ></Route>

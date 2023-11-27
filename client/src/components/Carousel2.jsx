@@ -87,14 +87,18 @@ const Carousel2 = () => {
                             className="relative overflow-hidden className shadow-lg cursor-pointer flex-shrink-0 lg:rounded-[6rem] group"
                             key={index}
                         >
-                            <a href={element.ref_link&&element.ref_link}
-                                target='_blank' rel="noreferrer">
+                            <a
+                                href={element.ref_link && (element.ref_link.startsWith('https://') ? element.ref_link : `https://${element.ref_link}`)}
+                                target='_blank'
+                                rel="noreferrer"
+                            >
                                 <img
                                     className="relative object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[860px] rounded-3xl lg:rounded-none"
                                     src={element.thumbnail}
                                     alt={`Image ${index + 1}`}
                                 />
                             </a>
+
                             <div className="absolute top-1/2 transform -translate-y-1/2 flex justify-between items-start px-3 w-[90vw] lg:w-[50rem]">
                                 <button
                                     onClick={handleOnPrevClick}

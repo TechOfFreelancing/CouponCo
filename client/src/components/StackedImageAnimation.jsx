@@ -22,7 +22,8 @@ export const StackedImageAnimation = () => {
                             const storeDetails = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
                             return {
                                 storeId: store.store_id,
-                                logoUrl: storeDetails.data.store.logo_url || null
+                                logoUrl: storeDetails.data.store.logo_url || null,
+                                name : storeDetails.data.store.name || null
                             };
                         } catch (error) {
                             console.error('Error fetching store logo:', error);
@@ -115,7 +116,7 @@ export const StackedImageAnimation = () => {
                             className='absolute bottom-5 left-5 bg-blue-600 text-white z-10 text-xl p-3 px-5 rounded-lg hover:bg-blue-700'
                             onClick={() => {
                                 navigate(
-                                    '/Store',
+                                    `/Stores/${imageObj.name}`,
                                     { state: { sId: imageObj.storeId } }
                                 );
                             }}

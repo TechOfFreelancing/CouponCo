@@ -42,8 +42,6 @@ const Womanfashion = () => {
         fetchImages();
     }, []);
 
-    // console.log(featuredImages);
-
     const navigate = useNavigate();
 
     return (
@@ -61,7 +59,7 @@ const Womanfashion = () => {
                             src={item.thumbnail}
                             className="cursor-pointer w-full h-1/2 lg:h-3/5 lg:w-[230px]"
                             onClick={() => {
-                                navigate('/Store', { state: { sId: item.storeId } });
+                                navigate(`/Stores/${store[index]?.name}`, { state: { sId: item.storeId } });
                             }}
                         />
                         <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[35px] w-[35px] lg:h-[50px] lg:w-[50px] left-2 bottom-16 lg:bottom-20 border border-black bg-white rounded-sm lg:rounded-2xl" />
