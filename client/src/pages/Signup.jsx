@@ -7,7 +7,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast';
-import { FcGoogle } from "react-icons/fc";
 import { BiSolidMap } from 'react-icons/bi';
 import { FaMobileAlt } from 'react-icons/fa'
 import { BsTwitter } from 'react-icons/bs'
@@ -57,21 +56,11 @@ export default function Register() {
                 <div className="text-4xl text-black font-semibold mb-2 mt-10 lg:mt-20">Join Now</div>
                 <div className="mt-4 mx-auto font-normal text-black my-2">
                     <span>  Already have an account?  <Link to="/login" className="underline font-medium text-red-500 transition-colors hover:text-red-800">
-                        Sign In
+                        Log In
                     </Link></span>
 
                 </div>
                 <div className="bg-white p-10 rounded-xl my-5 flex flex-col gap-5">
-                    <div className="flex justify-center gap-5 items-center px-10 py-3 border border-gray-500 rounded-full cursor-pointer">
-                        <FcGoogle className="h-6 w-6"></FcGoogle>
-                        <span>Connect with Google</span>
-                    </div>
-                    <div className="flex items-center">
-                        <hr className="flex-grow border-t border-gray-500" />
-                        <span className="mx-2">or</span>
-                        <hr className="flex-grow border-t border-gray-500" />
-                    </div>
-
                     <form className="w-80 max-w-screen-lg lg:w-96 mx-auto">
                         <div className="mb-4 flex flex-col gap-6  items-center justify-center">
                             <Input type="text" size="lg" value={name}
