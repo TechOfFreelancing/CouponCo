@@ -23,8 +23,9 @@ const CustomForm = ({ status, message, onValidated }) => {
                 ref={(node) => (email = node)}
                 type="email"
                 placeholder="Your email"
-                className="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 !text-black shadow-sm outline-none sm:text-sm sm:leading-6"
+                className="min-w-0 flex-auto rounded-md border border-red-800 px-3.5 py-2 text-black shadow-sm outline-none sm:text-sm sm:leading-6"
             />
+
             <button
                 type="submit"
                 onClick={submit}
@@ -156,7 +157,7 @@ export default function NewsLetter() {
 }
 
 CustomForm.propTypes = {
-    status: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
+    status: PropTypes.string,
+    message: PropTypes.string,
     onValidated: PropTypes.func.isRequired,
 };

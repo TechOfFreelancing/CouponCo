@@ -9,7 +9,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from 'react-hot-toast';
 import AuthContext from "../components/AuthContext";
-import { FcGoogle } from 'react-icons/fc';
 import { BiSolidMap } from 'react-icons/bi';
 import { FaMobileAlt } from 'react-icons/fa'
 import { BsTwitter } from 'react-icons/bs'
@@ -66,15 +65,6 @@ export default function Login() {
 
                 </div>
                 <div className="bg-white p-10 rounded-xl border flex flex-col gap-5 my-10">
-                    <div className="flex justify-center gap-5 items-center px-10 py-3 border border-gray-500 rounded-full cursor-pointer">
-                        <FcGoogle className="h-6 w-6"></FcGoogle>
-                        <span>Connect with Google</span>
-                    </div>
-                    <div className="flex items-center">
-                        <hr className="flex-grow border-t border-gray-500" />
-                        <span className="mx-2">or</span>
-                        <hr className="flex-grow border-t border-gray-500" />
-                    </div>
 
                     <form className="w-80 max-w-screen-lg lg:w-96 mx-auto">
                         <div className="mb-4 flex flex-col gap-6  items-center justify-center">
