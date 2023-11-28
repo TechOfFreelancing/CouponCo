@@ -5,7 +5,7 @@ function Loader() {
     const [cursorVisible, setCursorVisible] = useState(false);
 
     useEffect(() => {
-        const text = 'Weelcome to my website';
+        const text = 'Weelcome to Coupon Co';
         let index = 0;
 
         const intervalId = setInterval(() => {
