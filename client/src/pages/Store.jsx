@@ -508,8 +508,8 @@ const Store = () => {
                         </div>
                         <div className="flex flex-col gap-3 justify-evenly mt-5 lg:mx-5">
                             <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
-                            <div className="text-sm lg:text-lg font-medium">
-                                Uncover {validCoupons?.length} Active Offers and Voucher codes out of {str?.stock} - Used {totalRedemptionCount} Times for Better Savings!
+                            <div className="text-sm font-semibold uppercase">
+                                Best 9 offers last validated on November 29th, 2023
                             </div>
                         </div>
                         <TabsBody>
@@ -529,7 +529,7 @@ const Store = () => {
                                                             <span>{ele.redemptionCount} uses</span>
                                                         </div>
                                                     </div>
-                                                    <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                                    <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
                                                 </div>
                                                 <hr className="my-5" />
                                                 <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
@@ -565,7 +565,7 @@ const Store = () => {
                                             <span>expired!</span>
                                         </div>
                                     </div>
-                                    <div className="bg-[#800000] max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                    <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
                                 </div>
                                 <hr className="my-5" />
                                 <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
@@ -620,7 +620,7 @@ const Store = () => {
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>
                     <div className="h-3/4  flex flex-col gap-5 items-center">
-                        <div className="h-[112px] w-[112px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
+                        <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
                             <img src={str?.logo_url} alt="logo" className='h-auto w-auto px-5' />
                         </div>
                         <div className="text-md font-bold">{str?.name.toUpperCase()}</div>
@@ -651,7 +651,7 @@ const Store = () => {
                         <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md focus:outline-none">
                             Yes
                         </button>
-                        <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">
+                        <button className="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">
                             No
                         </button>
                     </div>
