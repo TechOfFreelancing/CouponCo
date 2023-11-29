@@ -387,8 +387,8 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
 
         // Inserting the coupon into the coupons table
         const insertCouponSql = `
-            INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, due_date, description)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, due_date, description,created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?,NOW())
         `;
         const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate, description]);
 
@@ -420,14 +420,20 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE coupons SET ';
         const updateParams = [];
-        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description'];
+        let updateDate = false;
+        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description','created_at'];
 
         // Update fields provided in the request body
         for (const field of validFields) {
             if (req.body[field] !== undefined) {
                 updateSql += `${field} = ?, `;
                 updateParams.push(req.body[field]);
+                updateDate = true;
             }
+        }
+
+        if(updateDate){
+            updateSql += `created_at = NOW(), `;
         }
 
         // Remove the trailing comma and add the WHERE clause
@@ -601,7 +607,6 @@ exports.redeem = catchAsyncErrors(async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
 
 //get redemption count
 exports.getRedeemCount = catchAsyncErrors(async (req, res, next) => {
