@@ -116,6 +116,29 @@ const Store = () => {
         return dueDate >= today;
     });
 
+    const formatDate = (dateString) => {
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString('en-US', options);
+
+        const day = date.getDate();
+        const suffix = (day >= 10 && day <= 20) ? 'th' : ['st', 'nd', 'rd'][day % 10 - 1] || 'th';
+
+        return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
+    };
+
+    let mostRecentDate = null;
+
+    validCoupons?.forEach((coupon) => {
+        const couponDate = new Date(coupon.created_at);
+        if (!mostRecentDate || couponDate >= mostRecentDate) {
+            mostRecentDate = couponDate;
+        }
+    });
+
+    // Formatting the most recent date
+    const formattedDate = mostRecentDate ? formatDate(mostRecentDate.toISOString()) : 'X'
+
     const expiredCoupons = coupons?.filter((coupon) => {
         const dueDate = new Date(coupon.due_date);
         const today = new Date();
@@ -241,11 +264,6 @@ const Store = () => {
         }
     }, [userRating]);
 
-    const totalRedemptionCount = validCoupons?.reduce((total, coupon) => {
-        return total + coupon.redemptionCount;
-    }, 0)
-
-
     const [detailsVisibility, setDetailsVisibility] = useState(Array(coupons?.length).fill(false));
 
     useEffect(() => {
@@ -270,12 +288,6 @@ const Store = () => {
             return coupon.type.toLowerCase() === activeTab;
         }
     });
-
-
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleString(undefined, options);
-    };
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
@@ -509,7 +521,7 @@ const Store = () => {
                         <div className="flex flex-col gap-3 justify-evenly mt-5 lg:mx-5">
                             <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
                             <div className="text-sm font-semibold uppercase">
-                                Best 9 offers last validated on November 29th, 2023
+                                Best 9 offers last validated on {formattedDate}
                             </div>
                         </div>
                         <TabsBody>
