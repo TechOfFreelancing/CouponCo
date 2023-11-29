@@ -17,6 +17,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from '../components/AuthContext';
 import { motion } from 'framer-motion'
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaQuestionCircle } from "react-icons/fa";
+import { MdTipsAndUpdates } from "react-icons/md";
 
 
 const Store = () => {
@@ -291,7 +294,7 @@ const Store = () => {
         <>
             <Toaster position="top-center"></Toaster>
             <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full w-[100vw] lg:py-5" onClick={handleOutsideClick}>
-                <div className=" w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 lg:px-10 text-sm">
+                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 lg:px-10 text-sm">
                     <div className="bg-white p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
@@ -332,79 +335,71 @@ const Store = () => {
                             </span>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-5">
-                        <Card className="min-w-full flex flex-col gap-2 pt-5 w-86">
-                            <div className="text-xl text-black font-semibold whitespace-nowrap px-5 overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black font-semibold">Exclusive codes</span>
-                                <span>{couponCounts.exclusive}</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black font-semibold">Rewards</span>
-                                <span>{couponCounts.rewards}</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black font-semibold">Deals</span>
-                                <span>{couponCounts.deals}</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black font-semibold">Sales</span>
-                                <span>{couponCounts.sales}</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center bg-red-50 px-5 py-2">
-                                <span className="text-lg text-black font-semibold ">Total Offers</span>
-                                <span className="text-red-600 text-lg font-semibold">{validCoupons?.length}</span>
-                            </div>
-
-                        </Card>
-                        <Card className="w-80">
-                            <List>
-                                <div className="w-full lg:w-80 lg:px-10 card">
-                                    <div className="font-semibold text-2xl my-3 text-black">
-                                        {lessAbout} {str?.name?.toUpperCase()}
-                                    </div>
-                                    <div className="moreaboutcompany flex flex-col gap-2 text-black ">
-                                        <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
-                                        <div
-                                            className="underline text-red-500 cursor-pointer"
-                                            onClick={toggleDescription}
-                                        >
-                                            {lessAbout} {str?.name}
-                                        </div>
+                    <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
+                        <div className="text-xl text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black">Exclusive codes</span>
+                            <span>{couponCounts.exclusive}</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black">Rewards</span>
+                            <span>{couponCounts.rewards}</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black">Deals</span>
+                            <span>{couponCounts.deals}</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center px-5">
+                            <span className="text-lg text-black">Sales</span>
+                            <span>{couponCounts.sales}</span>
+                        </div>
+                        <hr />
+                        <div className="flex justify-between items-center bg-red-50 px-5 py-2">
+                            <span className="text-lg text-black">Total Offers</span>
+                            <span className="text-red-600 text-lg">{validCoupons?.length}</span>
+                        </div>
+                        <List>
+                            <div className="w-full lg:w-80 card">
+                                <div className="font-semibold text-xl my-3 text-black">
+                                    {lessAbout} {str?.name?.toUpperCase()}
+                                </div>
+                                <div className="moreaboutcompany flex flex-col gap-2 text-black ">
+                                    <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
+                                    <div
+                                        className="underline text-red-500 cursor-pointer"
+                                        onClick={toggleDescription}
+                                    >
+                                        {lessAbout} {str?.name}
                                     </div>
                                 </div>
-                                <Link
-                                    className="text-initial"
-                                    to="faqs"
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-150}
-                                    duration={800}
-                                >
-                                    <ListItem>FAQS</ListItem>
-                                </Link>
-                                <Link
-                                    className="text-initial"
-                                    to="hints_tips"
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-150}
-                                    duration={800}
-                                >
-                                    <ListItem>Hints & Tips</ListItem>
-                                </Link>
-                            </List>
-                        </Card>
-                    </div>
-                    <div className="flex flex-col gap-5">
-
-                        <Card className="w-80">
+                            </div>
+                            <Link
+                                className="text-initial"
+                                to="faqs"
+                                spy={true}
+                                smooth={true}
+                                offset={-150}
+                                duration={800}
+                            >
+                                <ListItem className="flex gap-5 justify-between">FAQS  <FaQuestionCircle></FaQuestionCircle></ListItem>
+                            </Link>
+                            <Link
+                                className="text-initial"
+                                to="hints_tips"
+                                spy={true}
+                                smooth={true}
+                                offset={-150}
+                                duration={800}
+                            >
+                                <ListItem className="flex gap-5 justify-between">Hints & Tips  <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
+                            </Link>
+                        </List>
+                        <div className="w-80">
                             <List>
-                                <div className="font-semibold lg:text-4xl text-2xl my-3 text-black">
+                                <div className="font-semibold text-xl my-3 text-black">
                                     Similar Stores
                                 </div>
                                 {similarStoreNames && similarStoreNames.length > 0 ? (
@@ -424,11 +419,8 @@ const Store = () => {
                                     <div>No similar stores found</div>
                                 )}
                             </List>
-                        </Card>
-
-                        <Card className="w-80">
                             <List>
-                                <div className="font-semibold lg:text-4xl text-2xl my-3 text-black">
+                                <div className="font-semibold text-xl my-3 text-black">
                                     Popular Stores
                                 </div>
                                 {popularStoreNames && popularStoreNames.length > 0 ? (
@@ -448,13 +440,15 @@ const Store = () => {
                                     <div>No popular stores found</div>
                                 )}
                             </List>
-                        </Card>
+                        </div>
                     </div>
+
+
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2">
                     <Tabs value={activeTab} className="p-5">
-                        <div className="flex flex-col lg:flex-row items-center justify-between gap-5  px-10">
-                            <TabsHeader className="w-full flex gap-4 " style={{ zIndex: 10 }}>
+                        <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 px-10">
+                            <TabsHeader className="lg:w-full flex lg:gap-4 " style={{ zIndex: 10 }}>
                                 <Tab
                                     value="all"
                                     className={activeTab === 'all' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
@@ -513,7 +507,7 @@ const Store = () => {
                             </div>
                         </div>
                         <TabsBody>
-                            <div className="flex flex-col gap-5 items-center m-10">
+                            <div className="flex flex-col gap-5 items-center lg:m-10">
                                 {
                                     filteredCoupons && filteredCoupons.map((ele, index) => {
                                         return (
@@ -548,8 +542,8 @@ const Store = () => {
                             </div>
                         </TabsBody>
                     </Tabs>
-                    <Card className="flex flex-col gap-5 items-center m-10">
-                        <div className="text-xl text-black font-semibold whitespace-nowrap px-5">
+                    <div className="flex flex-col gap-5 items-center lg:m-10 p-5">
+                        <div className="text-xl text-black font-semibold">
                             Recently Expired {str?.name} Discount Codes & Deals
                         </div>
                         {expiredCoupons?.map((ele, index) => (
@@ -580,8 +574,8 @@ const Store = () => {
                             </motion.div>
                         )
                         )}
-                    </Card>
-                    <div className="w-full lg:w-[50rem] lg:mx-10" id="faqs">
+                    </div>
+                    <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="faqs">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
                             {
@@ -597,7 +591,7 @@ const Store = () => {
                             }
                         </div>
                     </div>
-                    <div className="w-full lg:w-[50rem] lg:mx-10" id="hints_tips">
+                    <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="hints_tips">
                         <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
                         <div className="moreaboutcompany flex flex-col gap-2">
                             {str?.hint?.includes('\n') ? (
@@ -613,48 +607,47 @@ const Store = () => {
                             )}
                         </div>
                     </div>
-
                 </div>
             </div>
-            <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black" >
+            <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black py-5" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>
                     <div className="h-3/4  flex flex-col gap-5 items-center">
                         <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
                             <img src={str?.logo_url} alt="logo" className='h-auto w-auto px-5' />
                         </div>
-                        <div className="text-md font-bold">{str?.name.toUpperCase()}</div>
-                        <div className="text-2xl font-bold text-black">{selectedProduct.title}</div>
-                        <div className="text-sm">Ends {formatDate(selectedProduct.due_date)}</div>
-                        <div className="flex gap-2 items-center justify-center border border-black rounded-full text-2xl pl-5 p-2">
-                            <span className="copy-text">{selectedProduct.coupon_code}</span>
+                        <div className="flex gap-5 justify-center items-center"> <div className="text-2xl font-bold">{str?.name.toUpperCase()}</div>
+                            <div className="text-2xl font-bold text-black">{selectedProduct.title}</div></div>
+                        <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
+                        <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
+                            <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
                             <button
-                                className="bg-[#800000] max-w-fit p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                className="bg-[#800000]  max-w-fit p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
                                 onClick={handleCopyClick}
                             >
                                 Copy
                             </button>
                         </div>
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
-                        <div className="text-sm">
+                        <div className="text-lg">
                             Copy and paste this code at {""}
                             <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>
                         </div>
+                        <div className="flex gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
+                            <span className="text-sm lg:text-lg text-[#800000]">
+                                Did the coupon work?
+                            </span>
+                            <button className="border border-green-600 hover:bg-green-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsUp></FaThumbsUp>
+                            </button>
+                            <button className="border border-red-600 hover:bg-red-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsDown></FaThumbsDown>
+                            </button>
+                        </div>
                     </div>
-                    <div className="mt-auto bg-gray-200 rounded-b-lg p-4 flex justify-center items-center gap-3 lg:gap-5 w-[100%]">
-                        <span className="font-semibold text-sm lg:text-lg">
-                            Did the coupon work?
-                        </span>
 
-                        <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md focus:outline-none">
-                            Yes
-                        </button>
-                        <button className="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">
-                            No
-                        </button>
-                    </div>
                 </div>
             </Dialog>
         </>
