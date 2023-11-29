@@ -73,6 +73,7 @@ class Coupons {
             ref_link VARCHAR(1000),
             due_date DATETIME,
             user_count INT DEFAULT 0,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             description TEXT,
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
         )`;
