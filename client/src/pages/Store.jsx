@@ -4,7 +4,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { useContext, useEffect, useState } from "react";
 import { IoMdTime } from "react-icons/io";
 import {
-    Dialog, Card, List, ListItem,
+    Dialog, List, ListItem,
     Tabs,
     TabsHeader,
     TabsBody,
@@ -288,7 +288,8 @@ const Store = () => {
         if (activeTab === 'all') {
             return true;
         } else {
-            return coupon.type.toLowerCase() === activeTab;
+            return coupon.type.toLowerCase() === activeTab ||
+                (activeTab === 'reward' && (coupon.type.toLowerCase() === 'rewards'));
         }
     });
 
