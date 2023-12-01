@@ -460,6 +460,13 @@ const Store = () => {
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2">
                     <Tabs value={activeTab} className="p-5">
+
+                        <div className="flex flex-col gap-3 justify-evenly mt-5 lg:mx-5">
+                            <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
+                            <div className="text-sm font-semibold uppercase">
+                                Best 9 offers last validated on {formattedDate}
+                            </div>
+                        </div>
                         <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 px-10">
                             <TabsHeader className="lg:w-full flex lg:gap-4 " style={{ zIndex: 10 }}>
                                 <Tab
@@ -477,7 +484,7 @@ const Store = () => {
                                     onClick={() => handleTabChange('reward')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2">
-                                        Rewards({couponCounts.rewards})
+                                        Deals({couponCounts.rewards})
                                     </div>
                                 </Tab>
                                 <Tab
@@ -489,15 +496,7 @@ const Store = () => {
                                         Codes({couponCounts.exclusive})
                                     </div>
                                 </Tab>
-                                <Tab
-                                    value="Sale"
-                                    className={activeTab === 'sale' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('sale')}
-                                >
-                                    <div className="flex items-center gap-2 lg:mx-2">
-                                        Sale({couponCounts.sales})
-                                    </div>
-                                </Tab>
+                              
                             </TabsHeader>
                             <div className=" flex items-start text-red-600 hover:underline cursor-pointer">
                                 {submittingCoupon ? (
@@ -513,14 +512,8 @@ const Store = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-3 justify-evenly mt-5 lg:mx-5">
-                            <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
-                            <div className="text-sm font-semibold uppercase">
-                                Best 9 offers last validated on {formattedDate}
-                            </div>
-                        </div>
                         <TabsBody>
-                            <div className="flex flex-col gap-5 items-center lg:m-10">
+                            <div className="flex flex-col gap-5 items-center">
                                 {
                                     filteredCoupons && filteredCoupons.map((ele, index) => {
                                         return (
@@ -555,7 +548,7 @@ const Store = () => {
                             </div>
                         </TabsBody>
                     </Tabs>
-                    <div className="flex flex-col gap-5 items-center lg:m-10 p-5">
+                    <div className="flex flex-col gap-5 items-center">
                         <div className="text-xl text-black font-semibold">
                             Recently Expired {str?.name} Discount Codes & Deals
                         </div>
