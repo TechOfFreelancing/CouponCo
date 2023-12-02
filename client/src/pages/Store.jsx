@@ -288,8 +288,7 @@ const Store = () => {
         if (activeTab === 'all') {
             return true;
         } else {
-            return coupon.type.toLowerCase() === activeTab ||
-                (activeTab === 'reward' && (coupon.type.toLowerCase() === 'rewards'));
+            return coupon.type.toLowerCase() === activeTab;
         }
     });
 
@@ -479,12 +478,12 @@ const Store = () => {
                                     </div>
                                 </Tab>
                                 <Tab
-                                    value="Rewards"
-                                    className={activeTab === 'reward' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('reward')}
+                                    value="Deals"
+                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('deal')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2">
-                                        Deals({couponCounts.rewards})
+                                        Deals({couponCounts.deals})
                                     </div>
                                 </Tab>
                                 <Tab
