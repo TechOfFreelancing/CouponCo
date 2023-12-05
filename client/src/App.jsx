@@ -14,7 +14,7 @@ import { useContext } from 'react';
 import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
-import AllStores from './pages/Stores';
+import AllStores from './pages/AllStores';
 import Allcategories from './pages/Categories';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight

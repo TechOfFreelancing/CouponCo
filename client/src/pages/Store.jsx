@@ -7,7 +7,6 @@ import {
     Dialog, List, ListItem,
     Tabs,
     TabsHeader,
-    TabsBody,
     Tab,
 } from "@material-tailwind/react";
 import { IoMdClose } from "react-icons/io";
@@ -305,8 +304,8 @@ const Store = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full w-[100vw] lg:py-5" onClick={handleOutsideClick}>
-                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 lg:px-10 text-sm">
+            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[80vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
+                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm">
                     <div className="bg-white p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
@@ -336,7 +335,7 @@ const Store = () => {
                     </div>
 
                     <div className="text-2xl text-center font-bold inline">{str?.name}</div>
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-5 items-center justify-center">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
                             <span className="font-bold whitespace-nowrap"><span>{userRating}</span> RATING </span>
@@ -348,7 +347,7 @@ const Store = () => {
                         </div>
                     </div>
                     <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
-                        <div className="text-xl text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
+                        <div className="text-lg text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
                         <div className="flex justify-between items-center px-5">
                             <span className="text-lg text-black">Exclusive codes</span>
                             <span>{couponCounts.exclusive}</span>
@@ -457,16 +456,15 @@ const Store = () => {
 
 
                 </div>
-                <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2">
+                <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
                     <Tabs value={activeTab} className="p-5">
-
-                        <div className="flex flex-col gap-3 justify-evenly mt-5 lg:mx-5">
+                        <div className="flex flex-col gap-3 justify-evenly mt-5 ">
                             <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
                             <div className="text-sm font-semibold uppercase">
                                 Best 9 offers last validated on {formattedDate}
                             </div>
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 px-10">
+                        <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 mt-3">
                             <TabsHeader className="lg:w-full flex lg:gap-4 " style={{ zIndex: 10 }}>
                                 <Tab
                                     value="all"
@@ -495,9 +493,9 @@ const Store = () => {
                                         Codes({couponCounts.exclusive})
                                     </div>
                                 </Tab>
-                              
+
                             </TabsHeader>
-                            <div className=" flex items-start text-red-600 hover:underline cursor-pointer">
+                            <div className="flex items-start text-red-600 hover:underline cursor-pointer">
                                 {submittingCoupon ? (
                                     <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-full lg:w-[25rem]  justify-between">
                                         <input type="text" placeholder="Enter coupon code" className=' outline-none bg-transparent text-black' onChange={handleInputChange}
@@ -511,43 +509,41 @@ const Store = () => {
                                 )}
                             </div>
                         </div>
-                        <TabsBody>
-                            <div className="flex flex-col gap-5 items-center">
-                                {
-                                    filteredCoupons && filteredCoupons.map((ele, index) => {
-                                        return (
-                                            <motion.div variants={variants} initial="hidden"
-                                                animate="visible"
-                                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
-                                                <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
-                                                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
-                                                        <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
-                                                        <div className="font-bold text-xl">{ele.title}</div>
-                                                        <div className="flex gap-2 text-gray-500 text-sm">
-                                                            <span><div>Verified</div></span>
-                                                            <span>{ele.redemptionCount} uses</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
-                                                </div>
-                                                <hr className="my-5" />
-                                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                                </div>
-                                                {detailsVisibility[index] && (
-                                                    <div className="details flex flex-col gap-2">
-                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                        <span>{ele.description}</span>
-                                                    </div>
-                                                )}
-                                            </motion.div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </TabsBody>
                     </Tabs>
-                    <div className="flex flex-col gap-5 items-center">
+                    <div className="flex flex-col gap-5 items-start">
+                        {
+                            filteredCoupons && filteredCoupons.map((ele, index) => {
+                                return (
+                                    <motion.div variants={variants} initial="hidden"
+                                        animate="visible"
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                                        <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
+                                            <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
+                                                <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
+                                                <div className="font-bold text-xl">{ele.title}</div>
+                                                <div className="flex gap-2 text-gray-500 text-sm">
+                                                    <span><div>Verified</div></span>
+                                                    <span>{ele.redemptionCount} uses</span>
+                                                </div>
+                                            </div>
+                                            <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
+                                        </div>
+                                        <hr className="my-5" />
+                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                        </div>
+                                        {detailsVisibility[index] && (
+                                            <div className="details flex flex-col gap-2">
+                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                <span>{ele.description}</span>
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className="flex flex-col gap-5 items-start lg:mx-5">
                         <div className="text-xl text-black font-semibold">
                             Recently Expired {str?.name} Discount Codes & Deals
                         </div>
@@ -564,7 +560,7 @@ const Store = () => {
                                             <span>expired!</span>
                                         </div>
                                     </div>
-                                    <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Show Code</div>
+                                    <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
                                 </div>
                                 <hr className="my-5" />
                                 <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
