@@ -21,6 +21,7 @@ import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
+import SubmitCouponForm from './pages/SubmitCouponForm';
 
 
 
@@ -153,6 +154,15 @@ function App() {
               <>
                 <Header></Header>
                 <Store></Store>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/Submitcoupon"
+            element={
+              <>
+                <Header></Header>
+                <SubmitCouponForm></SubmitCouponForm>
               </>
             }
           ></Route>

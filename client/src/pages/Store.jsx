@@ -1,7 +1,7 @@
 import { MdLocalOffer } from "react-icons/md";
 import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdTime } from "react-icons/io";
 import {
     Dialog, List, ListItem,
@@ -14,12 +14,12 @@ import { Link } from 'react-scroll';
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import AuthContext from '../components/AuthContext';
+// import AuthContext from '../components/AuthContext';
 import { motion } from 'framer-motion'
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
 import { MdTipsAndUpdates } from "react-icons/md";
-
+import { Link as LinkRouter } from "react-router-dom";
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -32,14 +32,14 @@ const Store = () => {
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [similarStoreNames, setSimilarStoreNames] = useState([]);
     const [popularStoreNames, setPopularStoreNames] = useState([]);
-    const [submittingCoupon, setSubmittingCoupon] = useState(false);
-    const [couponCode, setCouponCode] = useState('');
+    // const [submittingCoupon, setSubmittingCoupon] = useState(false);
+    // const [couponCode, setCouponCode] = useState('');
 
     const navigate = useNavigate();
 
     const location = useLocation();
 
-    const { role } = useContext(AuthContext);
+    // const { role } = useContext(AuthContext);
     const [str, setStr] = useState(null);
     const [coupons, setCoupons] = useState(null);
     const [couponCounts, setCouponCounts] = useState({
@@ -147,43 +147,43 @@ const Store = () => {
         return dueDate < today;
     });
 
-    const toggleCouponSubmission = () => {
-        if (role !== 'General') {
-            window.location.href = '/login'; // Redirect to login if the role is not General
-        } else {
-            setSubmittingCoupon(!submittingCoupon); // Toggle input field if the role is General
-        }
-    };
+    // const toggleCouponSubmission = () => {
+    //     if (role !== 'General') {
+    //         window.location.href = '/login'; // Redirect to login if the role is not General
+    //     } else {
+    //         setSubmittingCoupon(!submittingCoupon); // Toggle input field if the role is General
+    //     }
+    // };
 
-    const handleInputChange = event => {
-        setCouponCode(event.target.value);
-    };
+    // const handleInputChange = event => {
+    //     setCouponCode(event.target.value);
+    // };
 
-    const handleKeyPress = event => {
-        if (event.key === 'Enter') {
-            handleRedeem();
-        }
-    };
+    // const handleKeyPress = event => {
+    //     if (event.key === 'Enter') {
+    //         handleRedeem();
+    //     }
+    // };
 
-    const handleRedeem = async () => {
-        try {
-            const res = await axios.put(`http://localhost:4000/api/redeem`, {
-                "coupon_code": couponCode
-            },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                }
-            );
-            toast.success(res.data.message);
-        } catch (error) {
-            toast.error(error.response.data.error);
-            console.error(error);
-        }
+    // const handleRedeem = async () => {
+    //     try {
+    //         const res = await axios.put(`http://localhost:4000/api/redeem`, {
+    //             "coupon_code": couponCode
+    //         },
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     "Authorization": `Bearer ${localStorage.getItem('token')}`
+    //                 },
+    //             }
+    //         );
+    //         toast.success(res.data.message);
+    //     } catch (error) {
+    //         toast.error(error.response.data.error);
+    //         console.error(error);
+    //     }
 
-    }
+    // }
 
     const handleOpen = (product) => {
         setSelectedProduct(product);
@@ -496,17 +496,10 @@ const Store = () => {
 
                             </TabsHeader>
                             <div className="flex items-start text-red-600 hover:underline cursor-pointer">
-                                {submittingCoupon ? (
-                                    <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-full lg:w-[25rem]  justify-between">
-                                        <input type="text" placeholder="Enter coupon code" className=' outline-none bg-transparent text-black' onChange={handleInputChange}
-                                            onKeyDown={handleKeyPress} value={couponCode} />
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center gap-3 text-red-600 hover:underline cursor-pointer" onClick={toggleCouponSubmission}>
-                                        <div className="inline">Submit a coupon</div>
-                                        <MdLocalOffer className="cursor-pointer" />
-                                    </div>
-                                )}
+                                <LinkRouter to="/submitcoupon" className="flex items-center gap-3 text-red-600 hover:underline cursor-pointer">
+                                    <div className="inline">Submit a coupon</div>
+                                    <MdLocalOffer className="cursor-pointer" />
+                                </LinkRouter>
                             </div>
                         </div>
                     </Tabs>
