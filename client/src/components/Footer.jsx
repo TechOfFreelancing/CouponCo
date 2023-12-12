@@ -22,8 +22,7 @@ export default function Footer() {
             <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
               <Typography
                 variant="small"
-                color="black"
-                className="mb-4 divide-gray-300 uppercase"
+                className="mb-4 text-[#800000] divide-gray-300 uppercase"
               >
                 {title}
               </Typography>

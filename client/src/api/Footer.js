@@ -24,22 +24,6 @@ const SITEMAP = [
             { text: "Contact Us", href: "https://looknbookart.com/pages/faq" },
         ],
     },
-    {
-        id: "3",
-        title: "CATEGORIES",
-        links: [
-            { text: "Woman fashion", href: "/account", },
-            { text: "Men's fashion", href: "/account" },
-            { text: "Health fitness", href: "https://looknbookart.com/pages/faq" },
-            { text: "Travel", href: "https://looknbookart.com/pages/faq" },
-            { text: "Food", href: "https://looknbookart.com/pages/faq" },
-            { text: "Electronics", href: "https://looknbookart.com/pages/faq" },
-            { text: "Home garden", href: "https://looknbookart.com/pages/faq" },
-            { text: "Gift flowers", href: "https://looknbookart.com/pages/faq" },
-            { text: "Accessories", href: "https://looknbookart.com/pages/faq" },
-            { text: "Sport outdoor", href: "https://looknbookart.com/pages/faq" },
-        ],
-    },
 ];
 
 
