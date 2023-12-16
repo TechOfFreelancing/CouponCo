@@ -20,6 +20,10 @@ import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { Link as LinkRouter } from "react-router-dom";
+import { FaRegBookmark } from "react-icons/fa6";
+import coupon from '../assets/images/coupons/voucher_code.png'
+import { GoVerified } from "react-icons/go";
+import { CiUser } from "react-icons/ci";
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -299,7 +303,7 @@ const Store = () => {
         ? str?.description
         : truncatedDescription;
 
-    const lessAbout = showFullDescription ? 'Less about ' : 'More about ';
+    const lessAbout = showFullDescription ? 'Less' : 'More';
 
     return (
         <>
@@ -375,7 +379,7 @@ const Store = () => {
                         <List>
                             <div className="w-full lg:w-80 card">
                                 <div className="font-semibold text-xl my-3 text-black">
-                                    {lessAbout} {str?.name?.toUpperCase()}
+                                    About {str?.name?.toUpperCase()}
                                 </div>
                                 <div className="moreaboutcompany flex flex-col gap-2 text-black ">
                                     <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
@@ -383,30 +387,40 @@ const Store = () => {
                                         className="underline text-red-500 cursor-pointer"
                                         onClick={toggleDescription}
                                     >
-                                        {lessAbout} {str?.name}
+                                        {lessAbout}
                                     </div>
                                 </div>
                             </div>
-                            <Link
-                                className="text-initial"
-                                to="faqs"
-                                spy={true}
-                                smooth={true}
-                                offset={-150}
-                                duration={800}
-                            >
-                                <ListItem className="flex gap-5 justify-between">FAQS  <FaQuestionCircle></FaQuestionCircle></ListItem>
-                            </Link>
-                            <Link
-                                className="text-initial"
-                                to="hints_tips"
-                                spy={true}
-                                smooth={true}
-                                offset={-150}
-                                duration={800}
-                            >
-                                <ListItem className="flex gap-5 justify-between">Hints & Tips  <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
-                            </Link>
+                            {
+                                str?.faq && (
+                                    <Link
+                                        className="text-initial"
+                                        to="faqs"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
+                                    >
+                                        <ListItem className="flex gap-5 justify-between">FAQS  <FaQuestionCircle></FaQuestionCircle></ListItem>
+                                    </Link>
+                                )
+                            }
+                            {
+                                str?.hint && (
+                                    <Link
+                                        className="text-initial"
+                                        to="hints_tips"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
+                                    >
+                                        <ListItem className="flex gap-5 justify-between">Hints & Tips  <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
+                                    </Link>
+                                )
+                            }
+
+
                         </List>
                         <div className="w-80">
                             <List>
@@ -464,7 +478,7 @@ const Store = () => {
                                 Best 9 offers last validated on {formattedDate}
                             </div>
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 mt-3">
+                        <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 mt-3 pr-10">
                             <TabsHeader className="lg:w-full flex lg:gap-4 " style={{ zIndex: 10 }}>
                                 <Tab
                                     value="all"
@@ -510,27 +524,35 @@ const Store = () => {
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
-                                        <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
-                                            <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
-                                                <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
-                                                <div className="font-bold text-xl">{ele.title}</div>
-                                                <div className="flex gap-2 text-gray-500 text-sm">
-                                                    <span><div>Verified</div></span>
-                                                    <span>{ele.redemptionCount} uses</span>
+                                        <div className="flex w-full">
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={coupon} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                            <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
+                                                <div className="flex w-full justify-end h-10"><FaRegBookmark className="hidden group-hover:block animate-fadeAnim cursor-pointer text-black hover:text-red-500 duration-300 text-xl " /></div>
+                                                <div className="flex justify-between w-full">
+                                                    <div className="font-bold text-xl">{ele.title}</div>
+                                                    <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
                                                 </div>
+                                                <div className="flex w-full justify-between">
+                                                    <div>
+                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                        </div>
+                                                        {detailsVisibility[index] && (
+                                                            <div className="details flex flex-col">
+                                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                                <span>{ele.description}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex whitespace-nowrap gap-2">
+                                                        <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
+                                                        <span className="flex justify-center items-center"><CiUser></CiUser>775 Used</span>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
-                                            <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
                                         </div>
-                                        <hr className="my-5" />
-                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                        </div>
-                                        {detailsVisibility[index] && (
-                                            <div className="details flex flex-col gap-2">
-                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                <span>{ele.description}</span>
-                                            </div>
-                                        )}
                                     </motion.div>
                                 )
                             })
@@ -543,64 +565,83 @@ const Store = () => {
                         {expiredCoupons?.map((ele, index) => (
                             <motion.div variants={variants} initial="hidden"
                                 animate="visible"
-                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
-                                <div className="flex flex-col lg:flex-row justify-between gap-10 px-4 items-center">
-                                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-3 lg:gap-10">
-                                        <div className="bg-gray-300 max-w-fit p-2 rounded-lg">{ele.type}</div>
-                                        <div className="font-bold text-xl">{ele.title}</div>
-                                        <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
-                                            <IoMdTime />
-                                            <span>expired!</span>
+                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+
+                                <div className="flex w-full">
+                                    <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={coupon} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                    <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
+                                        <div className="flex w-full justify-end h-10"><FaRegBookmark className="hidden group-hover:block animate-fadeAnim cursor-pointer text-black hover:text-red-500 duration-300 text-xl " /></div>
+                                        <div className="flex justify-between w-full">
+                                            <div className="font-bold text-xl">{ele.title}</div>
+                                            <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
                                         </div>
+                                        <div className="flex w-full justify-between">
+                                            <div>
+                                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                </div>
+                                                {detailsVisibility[index] && (
+                                                    <div className="details flex flex-col">
+                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                        <span>{ele.description}</span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="flex whitespace-nowrap gap-2">
+                                                <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
+                                                <span className="flex justify-center items-center"><CiUser></CiUser>775 Used</span>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-                                    <div className="bg-red-700 max-w-fit p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
                                 </div>
-                                <hr className="my-5" />
-                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                </div>
-                                {detailsVisibility[index] && (
-                                    <div className="details flex flex-col gap-2">
-                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                        <span>{ele.description}</span>
-                                    </div>
-                                )}
                             </motion.div>
                         )
                         )}
                     </div>
-                    <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="faqs">
-                        <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
-                        <div className="moreaboutcompany flex flex-col gap-2">
-                            {
-                                str?.faq?.map((ele, index) => {
-                                    return (
-                                        <motion.div variants={variants} initial="hidden"
-                                            animate="visible"
-                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-2">
-                                            <div className="font-bold text-2xl">{ele.question}</div>
-                                            <div>{ele.answer}</div>
-                                        </motion.div>)
-                                })
-                            }
-                        </div>
-                    </div>
-                    <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="hints_tips">
-                        <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
-                        <div className="moreaboutcompany flex flex-col gap-2">
-                            {str?.hint?.includes('\n') ? (
-                                str?.hint?.split('\n').map((line, index) => (
-                                    <motion.div className="flex flex-col text-justify" key={index} variants={variants} initial="hidden"
-                                        animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }}>
-                                        {line}
-                                    </motion.div>
-                                ))
-                            ) : (
-                                <div className="flex flex-col text-justify">{str?.hint}</div>
-                            )}
-                        </div>
-                    </div>
+                    {
+                        str?.faq && (
+                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="faqs">
+                                <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
+                                <div className="moreaboutcompany flex flex-col gap-2">
+                                    {
+                                        str?.faq?.map((ele, index) => {
+                                            return (
+                                                <motion.div variants={variants} initial="hidden"
+                                                    animate="visible"
+                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-2">
+                                                    <div className="font-bold text-2xl">{ele.question}</div>
+                                                    <div>{ele.answer}</div>
+                                                </motion.div>)
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
+                    {
+                        str?.hint && (
+                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="hints_tips">
+                                <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
+                                <div className="moreaboutcompany flex flex-col gap-2">
+                                    {str?.hint?.includes('\n') ? (
+                                        str?.hint?.split('\n').map((line, index) => (
+                                            <motion.div className="flex flex-col text-justify" key={index} variants={variants} initial="hidden"
+                                                animate="visible"
+                                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }}>
+                                                {line}
+                                            </motion.div>
+                                        ))
+                                    ) : (
+                                        <div className="flex flex-col text-justify">{str?.hint}</div>
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    }
+
+
                 </div>
             </div>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black py-5" >

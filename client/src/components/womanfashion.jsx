@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaLink } from "react-icons/fa6";
 import { motion } from 'framer-motion'
+import "../components/couponsbutton.css";
+import { FaRegBookmark } from "react-icons/fa6";
+
 const Womanfashion = () => {
 
     const [featuredImages, setFeaturedImages] = useState([]);
@@ -54,32 +56,47 @@ const Womanfashion = () => {
         <div className='lg:mx-28 mx-5'>
             <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between my-10">
                 <div className="flex flex-col gap-1 lg:gap-5">
+
                     <span className="font-semibold text-lg lg:text-3xl">Today&apos;s Top Woman fashion Offers</span>
                 </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-5">
+            <div className="grid grid-cols-1 lg:grid-cols-4">
                 {featuredImages.map((item, index) => (
                     <motion.div variants={variants} initial="hidden"
                         animate="visible"
-                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-5 items-center justify-start relative h-[160px] w-[145px] lg:h-[230px] lg:w-[230px] border rounded-lg overflow-hidden hover:scale-105 shadow-lg duration-300 my-5">
+                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index}
+                        className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5">
                         <img
                             src={item.thumbnail}
-                            className="cursor-pointer w-full h-1/2 lg:h-3/5 lg:w-[230px]"
+                            className="cursor-pointer w-full h-1/2"
                             onClick={() => {
                                 navigate(`/Stores/${store[index]?.name}`, { state: { sId: item.storeId } });
                             }}
                         />
-                        <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[35px] w-[35px] lg:h-[50px] lg:w-[50px] left-2 bottom-16 lg:bottom-20 border border-black bg-white rounded-sm lg:rounded-2xl" />
-                        <div className="flex flex-col items-center justify-between">
-                            <span className="text-sm lg:text-xl font-bold text-center w-[10rem] whitespace-nowrap">{store[index]?.name} code</span>
-                            <div className="flex text-[#800000]  cursor-pointer items-center justify-between gap-2">
-                                <span className="text-[#800000] text-[10px] lg:text-md whitespace-nowrap">{item.content} coupon available</span>
-                                <FaLink className="h-6 w-6" />
-                            </div>
+                        <span className="bg-white p-2 absolute right-1 top-1 rounded-lg">
+                            <FaRegBookmark className="cursor-pointer text-black hover:text-red-500 duration-300 text-xl " />
+                        </span>
 
+                        <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
+                        <div className="ml-24 flex w-3/5 justify-between items-center text-gray-700">
+                            <span className="text-sm">BSI</span>
+                            <span className="text-black bg-blue-200 p-1 rounded-md text-[12px]">Verified</span>
+                        </div>
+                        <div className="mx-2">
+                            <span className="text-red-600 mr-2">Exclusive</span>6% Off Entire Orders at BSI
+                        </div>
+                        <div className="flex justify-between w-full text-sm px-2">
+                            <span>View Terms</span>
+                            <span>1.4K Used</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-between">
+                            <button className="button has-code">
+                                <span className="is-code">LXA</span>
+                                <span className="is-code-text"><em>GET CODE</em></span>
+                            </button>
                         </div>
                     </motion.div>
-                ))}
+                )).slice(0, 8)}
             </div>
         </div>
     )
