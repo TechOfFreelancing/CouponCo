@@ -59,7 +59,7 @@ const Stories = () => {
         <div className="lg:mx-28 mx-5 h-fit max-h-[100vh]">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between mt-10">
                 <div className="flex flex-col gap-1 lg:gap-5">
-                    <span className="font-semibold text-lg lg:text-3xl">Categories</span>
+                    <span className="font-semibold text-lg lg:text-3xl">Feature Store</span>
                 </div>
                 <Link to="/AllCategories" className="hover:underline h-7 duration-300 underline">
                     All Categories

@@ -10,6 +10,8 @@ export const StackedImageAnimation = () => {
     const [cardImages, setCardImages] = useState([]);
     const [colorMap, setColorMap] = useState(new Map());
 
+    console.log(cardStores);
+
     useEffect(() => {
         const fetchStores = async () => {
             try {
@@ -18,6 +20,7 @@ export const StackedImageAnimation = () => {
                     const filteredStores = response.data.data.filter(store => store.show_in_card === 1);
                     setCardStores(filteredStores);
 
+                    //to fetch store details(like logo , name form store id)
                     const storeDetailsPromises = filteredStores.map(async store => {
                         try {
                             const storeDetails = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
@@ -82,27 +85,6 @@ export const StackedImageAnimation = () => {
         return map;
     }, [activeIndex, cardImages]);
 
-    // useEffect(() => {
-    //     let intervalId;
-    //     let counter = 0;
-
-    //     // Change image every `cardImages.length` intervals
-    //     intervalId = setInterval(() => {
-    //         setActiveIndex((prevIndex) =>
-    //             prevIndex === cardImages.length - 1 ? 0 : prevIndex + 1
-    //         );
-    //         counter++;
-
-    //         // Reset counter and clear interval after `cardImages.length` intervals
-    //         if (counter === cardImages.length) {
-    //             counter = 0;
-    //             clearInterval(intervalId);
-    //         }
-    //     }, 1000);
-
-    //     return () => clearInterval(intervalId); // Cleanup interval on component unmount
-    // }, [activeIndex, cardImages]);
-
     const navigate = useNavigate();
 
     return (
@@ -138,6 +120,7 @@ export const StackedImageAnimation = () => {
                                             <img src={imageObj.logoUrl} alt={`Logo ${i}`} className='h-14 w-14 rounded-lg' />
                                             <img src={cardStores[activeIndex]?.thumbnail} alt={`Thumbnail ${i}`} className='rounded-sm' />
                                         </div>
+                                        <p className='text-sm'>{cardStores[activeIndex]?.content}</p>
                                         <GrNext className="absolute bottom-5 right-5 text-white z-10 p-3 bg-green-400 rounded-full cursor-pointer" onClick={handleNextClick}></GrNext>
                                         <button
                                             className='absolute bottom-5 left-5 bg-blue-600 text-white z-10 text-xl p-3 px-5 rounded-lg hover:bg-blue-700'
@@ -148,7 +131,7 @@ export const StackedImageAnimation = () => {
                                                 );
                                             }}
                                         >
-                                            Grab now
+                                            Get now
                                         </button>
                                     </div>
                                 );

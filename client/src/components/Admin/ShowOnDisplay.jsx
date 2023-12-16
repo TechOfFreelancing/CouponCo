@@ -53,6 +53,8 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                 if (selectedFile) {
                     formdata.append("thumbFile", selectedFile);
                 }
+                
+                formdata.append("data", data);
 
                 await axios.post(
                     `http://localhost:4000/api/admin/addToCard/${storeId}`,
@@ -192,18 +194,33 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                                     </>
                                 )}
                                 {displayOption === 'card' && (
-                                    <input
-                                        type="file"
-                                        style={{
-                                            width: '100%',
-                                            padding: '0.75rem',
-                                            border: '1px solid black',
-                                            borderRadius: '0.375rem',
-                                            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
-                                            outline: 'none'
-                                        }}
-                                        onChange={(e) => { setSelectedFile(e.target.files[0]) }}
-                                    />
+                                    <>
+                                        <input
+                                            type="file"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.75rem',
+                                                border: '1px solid black',
+                                                borderRadius: '0.375rem',
+                                                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                                outline: 'none'
+                                            }}
+                                            onChange={(e) => { setSelectedFile(e.target.files[0]) }}
+                                        />
+                                        <input
+                                            type="text"
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.75rem',
+                                                border: '1px solid black',
+                                                borderRadius: '0.375rem',
+                                                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                                outline: 'none'
+                                            }}
+                                            placeholder="Enter Offer"
+                                            onChange={(e) => { setData(e.target.value) }}
+                                        />
+                                    </>
                                 )}
                                 {displayOption === 'todaysTop' && (
                                     <>

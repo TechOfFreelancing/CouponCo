@@ -42,6 +42,24 @@ function AdminFestival() {
         fetchData();
     }, []);
 
+    const handleDelete = async () => {
+
+        try {
+            const res = await axios.delete("http://localhost:4000/api/deleteOffer", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (res.data.message === 'Success!') toast.success("Offers data deleted!");
+            else toast.error("Unable to delete!");
+        } catch (err) {
+            console.error(err);
+        }
+
+    }
+
 
     const handleSubmit = async (values) => {
         try {
@@ -117,12 +135,18 @@ function AdminFestival() {
 
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                            className="w-full py-2 px-4 mb-3 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
                         >
                             Submit
                         </button>
                     </Form>
                 </Formik>
+                <button
+                    onClick={handleDelete}
+                    className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                >
+                    Delete Offer & Festival
+                </button>
             </div>
         </>
     );
