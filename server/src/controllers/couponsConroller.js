@@ -187,9 +187,9 @@ exports.deleteFromDisplay = catchAsyncErrors(async (req, res, next) => {
 
 // Get all stores with search and filter options
 exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
-    const { keyword, type, page = 1 } = req.query;
-    const limit = 12;
-    const offset = (page - 1) * limit;
+    const { keyword, type } = req.query;
+    // const limit = 12;
+    // const offset = (page - 1) * limit;
 
     let sql = 'SELECT * FROM store';
 
@@ -210,10 +210,10 @@ exports.getAllStores = catchAsyncErrors(async (req, res, next) => {
         sql += ' WHERE ' + conditions.join(' AND ');
     }
 
-    // Add pagination
-    sql += ` LIMIT ? OFFSET ?`;
-    params.push(limit);
-    params.push(offset);
+    // // Add pagination
+    // sql += ` LIMIT ? OFFSET ?`;
+    // params.push(limit);
+    // params.push(offset);
 
     try {
         const [result, fields] = await db.query(sql, [...params]);

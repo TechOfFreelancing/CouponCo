@@ -10,8 +10,6 @@ export const StackedImageAnimation = () => {
     const [cardImages, setCardImages] = useState([]);
     const [colorMap, setColorMap] = useState(new Map());
 
-    console.log(cardStores);
-
     useEffect(() => {
         const fetchStores = async () => {
             try {
