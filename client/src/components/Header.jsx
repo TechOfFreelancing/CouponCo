@@ -15,6 +15,7 @@ export function Header() {
     const [openSidebar, setopenSidebar] = React.useState(false);
     const [keyword, setKeyWord] = React.useState("");
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    const [isOffer, setIsOffer] = React.useState(false);
     const { role } = React.useContext(AuthContext);
 
     const OpenSidebar = () => setopenSidebar(true);
@@ -23,6 +24,19 @@ export function Header() {
     useEffect(() => {
         setIsLoggedIn(role === "General");
     }, [role]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`http://localhost:4000/api/festStoreDisplay`);
+                if (res.data && res.data.data.length > 1) setIsOffer(true);
+            } catch (error) {
+                console.error('Error fetching festival details:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const navigate = useNavigate();
 
@@ -63,87 +77,89 @@ export function Header() {
     }
 
     return (
-        <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
-            <Alert></Alert>
-            <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10 lg:h-[93px]">
-                <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
-                    <ImSearch className="h-6 w-6" />
-                </button>
-                <Link to="/" className="cursor-pointer font-medium">
-                    Logo
-                </Link>
-                <div className="hidden lg:block">{navList}</div>
-                <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[25rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
-                    <input type="search" placeholder='Search on Retailmenot' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
-                    <button className="searchIcon text-red-900 cursor-pointer">
+        <>
+            <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
+                {isOffer && <Alert></Alert>}
+                <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10 lg:h-[93px]">
+                    <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
                         <ImSearch className="h-6 w-6" />
                     </button>
-                </div>
-                {isLoggedIn ? (
-                    <div onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
-                        Logout
-                    </div>
-                ) : (
-                    <>
-                        <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
-                            Log In
-                        </Link>
-                        <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
-                            Sign Up
-                        </Link>
-                    </>
-                )}
-                <GiHamburgerMenu
-                    onClick={OpenSidebar} className="cursor-pointer scale-125 hover:scale-150 duration-200 sm:hidden" />
-            </nav>
-            <Drawer open={openSidebar} onClose={CloseSidebar} placement="right" className="p-4">
-                <div className="mb-2 flex items-center justify-between ">
-                    <Link className="cursor-pointer font-medium">
+                    <Link to="/" className="cursor-pointer font-medium">
                         Logo
                     </Link>
-                    <IconButton variant="text" color="blue-gray" onClick={CloseSidebar}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="h-5 w-5"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </IconButton>
-                </div>
-                <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
-                    <input type="search" placeholder='Search on Retailmenot' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
-                    <button className="searchIcon text-red-900 cursor-pointer">
-                        <ImSearch className="h-6 w-6" />
-                    </button>
-                </div>
-                <div>{navList}</div>
-                <div className="flex items-center justify-center">
+                    <div className="hidden lg:block">{navList}</div>
+                    <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[25rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
+                        <input type="search" placeholder='Search on Retailmenot' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
+                        <button className="searchIcon text-red-900 cursor-pointer">
+                            <ImSearch className="h-6 w-6" />
+                        </button>
+                    </div>
                     {isLoggedIn ? (
-                        <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
+                        <div onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
                             Logout
                         </div>
                     ) : (
                         <>
-                            <Link to="/login" className="whitespace-nowrap text-black">
+                            <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
                                 Log In
                             </Link>
-                            <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md">
+                            <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
                                 Sign Up
                             </Link>
                         </>
                     )}
-                </div>
+                    <GiHamburgerMenu
+                        onClick={OpenSidebar} className="cursor-pointer scale-125 hover:scale-150 duration-200 sm:hidden" />
+                </nav>
+                <Drawer open={openSidebar} onClose={CloseSidebar} placement="right" className="p-4">
+                    <div className="mb-2 flex items-center justify-between ">
+                        <Link className="cursor-pointer font-medium">
+                            Logo
+                        </Link>
+                        <IconButton variant="text" color="blue-gray" onClick={CloseSidebar}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={2}
+                                stroke="currentColor"
+                                className="h-5 w-5"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </IconButton>
+                    </div>
+                    <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
+                        <input type="search" placeholder='Search on Retailmenot' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
+                        <button className="searchIcon text-red-900 cursor-pointer">
+                            <ImSearch className="h-6 w-6" />
+                        </button>
+                    </div>
+                    <div>{navList}</div>
+                    <div className="flex items-center justify-center">
+                        {isLoggedIn ? (
+                            <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
+                                Logout
+                            </div>
+                        ) : (
+                            <>
+                                <Link to="/login" className="whitespace-nowrap text-black">
+                                    Log In
+                                </Link>
+                                <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md">
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
+                    </div>
 
-            </Drawer>
+                </Drawer>
 
-        </div>
+            </div>
+        </>
     );
 }

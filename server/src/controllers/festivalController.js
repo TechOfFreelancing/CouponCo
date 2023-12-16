@@ -96,3 +96,17 @@ exports.getfestStoreDisplay = catchAsyncErrors(async (req, res, next) => {
     }
 
 });
+
+//Delete festival offer(clear all data)
+exports.deleteOffer = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const sql = `delete from festivalshowcase`;
+
+        const result = await db.query(sql);
+
+        res.status(200).json({ message: "Success!" })
+    } catch (err) {
+        console.log(err);
+        return next(new ErrorHandler("Unalbe to delete data!", 400));
+    }
+})

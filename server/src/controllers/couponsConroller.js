@@ -127,6 +127,7 @@ exports.addToFeatured = catchAsyncErrors(async (req, res, next) => {
 exports.addToCard = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const thumbFile = req.file;
+    const { data } = req.body;
 
     try {
         // Check if the store exists
@@ -138,9 +139,9 @@ exports.addToCard = catchAsyncErrors(async (req, res, next) => {
 
         const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
 
-        const sql = `INSERT INTO store_display (store_id, show_in_card, thumbnail) VALUES (?, ?, ?)`;
+        const sql = `INSERT INTO store_display (store_id, show_in_card, thumbnail,content) VALUES (?, ?, ?, ?)`;
 
-        const result = await db.query(sql, [storeId, true, thumbnailUrl]);
+        const result = await db.query(sql, [storeId, true, thumbnailUrl, data]);
 
         res.status(200).json({ message: "Success!", rowId: result[0].insertId });
 
@@ -421,7 +422,7 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
         let updateSql = 'UPDATE coupons SET ';
         const updateParams = [];
         let updateDate = false;
-        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description','created_at'];
+        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description', 'created_at'];
 
         // Update fields provided in the request body
         for (const field of validFields) {
@@ -432,7 +433,7 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
             }
         }
 
-        if(updateDate){
+        if (updateDate) {
             updateSql += `created_at = NOW(), `;
         }
 
@@ -561,50 +562,6 @@ exports.deleteCoupon = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to delete coupon", 500));
-    }
-});
-
-//redeem coupon
-exports.redeem = catchAsyncErrors(async (req, res, next) => {
-    const { coupon_code } = req.body;
-
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user_id = decoded.userId;
-
-    try {
-        // Check if the user has already redeemed the coupon
-        const checkRedemptionSql = `SELECT * FROM redeemed_coupons WHERE coupon_id = ? AND user_id = ?`;
-        const [redemptionResult] = await db.query(checkRedemptionSql, [coupon_code, user_id]);
-
-        if (redemptionResult.length > 0) {
-            return res.status(400).json({ error: 'Coupon already redeemed by You' });
-        }
-
-        // Check if the coupon with the entered code exists
-        const checkCouponSql = `SELECT * FROM coupons WHERE coupon_code = ?`;
-        const [couponResult] = await db.query(checkCouponSql, [coupon_code]);
-
-        if (couponResult.length === 0) {
-            return res.status(404).json({ error: 'Coupon not found' });
-        }
-
-        // Update the coupon count based on coupon_code
-        const updateCountSql = `UPDATE coupons SET user_count = user_count + 1 WHERE coupon_code = ?`;
-        await db.query(updateCountSql, [coupon_code]);
-
-        // Get the coupon ID associated with the coupon code
-        const couponId = couponResult[0].coupon_id;
-
-        // Record the redemption in the redeemed_coupons table
-        const recordRedemptionSql = `INSERT INTO redeemed_coupons (user_id, coupon_id) VALUES (?, ?)`;
-        await db.query(recordRedemptionSql, [user_id, couponId]);
-
-        res.status(201).json({ message: 'Coupon redemption successful!' });
-    } catch (err) {
-        console.error('Error in redeeming coupon:', err);
-        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
