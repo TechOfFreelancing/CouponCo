@@ -3,12 +3,24 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion'
 import "../components/couponsbutton.css";
-import { FaRegBookmark } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 
 const Womanfashion = () => {
 
     const [featuredImages, setFeaturedImages] = useState([]);
     const [store, setStore] = useState([]);
+    const [likedItems, setLikedItems] = useState([]);
+
+    const handleLikeClick = (index) => {
+        // Check if the item is already liked
+        if (!likedItems.includes(index)) {
+            // If not liked, add it to the likedItems state
+            setLikedItems([...likedItems, index]);
+        } else {
+            // If already liked, remove it from the likedItems state
+            setLikedItems(likedItems.filter((item) => item !== index));
+        }
+    };
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -73,8 +85,12 @@ const Womanfashion = () => {
                                 navigate(`/Stores/${store[index]?.name}`, { state: { sId: item.storeId } });
                             }}
                         />
-                        <span className="bg-white p-2 absolute right-1 top-1 rounded-lg">
-                            <FaRegBookmark className="cursor-pointer text-black hover:text-red-500 duration-300 text-xl " />
+                        <span
+                            className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                }`}
+                            onClick={() => handleLikeClick(index)}
+                        >
+                            <FaHeart className="cursor-pointer text-3xl duration-300" />
                         </span>
 
                         <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
