@@ -66,7 +66,9 @@ function UpdateStores() {
     const formik = useFormik({
         initialValues: {
             name: store.name || '',
+            title: store.title || '',
             description: store.description || '',
+            moreAbout: store.moreAbout || '',
             type: store.type || '',
             hint: store.hint || "",
         },
@@ -77,7 +79,9 @@ function UpdateStores() {
                 const updateUrl = `http://localhost:4000/api/admin/updateStore/${sId}`;
 
                 formData.append("name", values.name);
+                formData.append("title", values.title);
                 formData.append("description", values.description);
+                formData.append("moreAbout", values.moreAbout);
                 formData.append("hint", values.hint);
                 formData.append("type", values.type);
 
@@ -224,7 +228,9 @@ function UpdateStores() {
 
                 formik.setValues({
                     name: response.data.store.name || '',
+                    title: response.data.store.title || '',
                     description: response.data.store.description || '',
+                    moreAbout: response.data.store.moreAbout || '',
                     type: response.data.store.type || '',
                     hint: response.data.store.hint || '',
                 });
@@ -281,6 +287,21 @@ function UpdateStores() {
                     </div>
 
                     <div className="mb-4">
+                        <label htmlFor="title" className="block mb-1 font-medium">
+                            title:
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.title}
+                        />
+                    </div>
+
+                    <div className="mb-4">
                         <label htmlFor="description" className="block mb-1 font-medium">
                             About:
                         </label>
@@ -292,6 +313,21 @@ function UpdateStores() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.description}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="moreAbout" className="block mb-1 font-medium">
+                           More About:
+                        </label>
+                        <textarea
+                            type="text"
+                            id="moreAbout"
+                            name="moreAbout"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.moreAbout}
                         />
                     </div>
 

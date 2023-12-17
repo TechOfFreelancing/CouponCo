@@ -8,7 +8,9 @@ function AddStores() {
 
     const initialValues = {
         name: "",
+        title:"",
         description: "",
+        moreAbout: "",
         hint: "",
         type: "",
     };
@@ -27,7 +29,9 @@ function AddStores() {
         try {
             const formData = new FormData();
             formData.append("name", values.name);
+            formData.append("title", values.title);
             formData.append("description", values.description);
+            formData.append("moreAbout", values.moreAbout);
             formData.append("hint", values.hint);
             formData.append("type", values.type);
 
@@ -73,6 +77,18 @@ function AddStores() {
                         </div>
 
                         <div className="mb-4">
+                            <label htmlFor="title" className="block mb-1 font-medium">
+                                title:
+                            </label>
+                            <Field
+                                type="text"
+                                id="title"
+                                name="title"
+                                style={inputStyle}
+                            />
+                        </div>
+
+                        <div className="mb-4">
                             <label htmlFor="description" className="block mb-1 font-medium">
                                 About:
                             </label>
@@ -80,6 +96,27 @@ function AddStores() {
                                 as="textarea"
                                 id="description"
                                 name="description"
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    border: '1px solid black',
+                                    borderRadius: '0.375rem',
+                                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                    outline: 'none',
+                                    resize: 'vertical',
+                                }}
+                                rows={4}
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="moreAbout" className="block mb-1 font-medium">
+                                More About:
+                            </label>
+                            <Field
+                                as="textarea"
+                                id="moreAbout"
+                                name="moreAbout"
                                 style={{
                                     width: '100%',
                                     padding: '0.75rem',

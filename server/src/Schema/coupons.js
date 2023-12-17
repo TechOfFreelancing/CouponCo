@@ -5,9 +5,11 @@ class Coupons {
         const sql = `CREATE TABLE IF NOT EXISTS store (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
+            title VARCHAR(255),
             logo_url VARCHAR(255),
             type VARCHAR(255),
             description TEXT,
+            moreAbout TEXT,
             hint TEXT,
             faq JSON, 
             total_ratings BIGINT DEFAULT 0,
