@@ -43,11 +43,10 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-//add to today's Top category
 exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    const thumbFile = req.file;
-    const { data } = req.body;
+    const { couponId } = req.body;
+    const thumbFile = req.file; // Assuming this is a thumbnail for the coupon
 
     try {
         // Check if the store exists
@@ -57,11 +56,22 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
             return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
         }
 
+        // Check if the coupon exists
+        const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [couponId]);
+
+        if (couponResult.length === 0) {
+            return next(new ErrorHandler(`Coupon with ID ${couponId} not found`, 404));
+        }
+
+        // Process thumbnail upload (if needed)
         const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
 
-        const sql = `INSERT INTO store_display (store_id, show_in_top, thumbnail,content) VALUES (?, ?, ?,?)`;
+        const sql = `
+            INSERT INTO store_display (store_id, coupon_id, show_in_top, thumbnail) 
+            VALUES (?, ?, ?, ?)
+        `;
 
-        const result = await db.query(sql, [storeId, true, thumbnailUrl, data]);
+        const result = await db.query(sql, [storeId, couponId, true, thumbnailUrl]);
 
         res.status(200).json({ message: "Success!", rowId: result[0].insertId });
 
@@ -70,6 +80,7 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Unable to add this to today's top offer", 400));
     }
 });
+
 //add to carousel
 exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
@@ -264,7 +275,7 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE store SET ';
         const updateParams = [];
-        const validFields = ['name', 'title', 'type', 'description','moreAbout' ,'hint'];
+        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint'];
 
         // If there's a new storeFile, update logo_url
         if (storeFile) {
@@ -550,10 +561,45 @@ exports.incrementUserCount = catchAsyncErrors(async (req, res, next) => {
         `;
         await db.query(incrementUserCountSql, [cId]);
 
-        res.status(200).json({ message: "User count incremented successfully"});
+        res.status(200).json({ message: "User count incremented successfully" });
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to increment user count", 400));
+    }
+});
+
+// Save Coupon for a User
+exports.saveCouponForUser = catchAsyncErrors(async (req, res, next) => {
+    const { userId } = req.body;
+    const { cId } = req.params;
+    try {
+        const saveCouponSql = `
+            INSERT INTO saved_coupons (user_id, coupon_id)
+            VALUES (?, ?)
+        `;
+        await db.query(saveCouponSql, [userId, cId]);
+
+        res.status(200).json({ message: "Coupon saved successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to save coupon", 400));
+    }
+});
+
+// Unsave Coupon for a User
+exports.unsaveCouponForUser = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+    try {
+        const unsaveCouponSql = `
+            DELETE FROM saved_coupons 
+            WHERE coupon_id = ?
+        `;
+        await db.query(unsaveCouponSql, [cId]);
+
+        res.status(200).json({ message: "Coupon unsaved successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to unsave coupon", 400));
     }
 });
 

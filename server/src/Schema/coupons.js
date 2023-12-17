@@ -25,6 +25,26 @@ class Coupons {
         }
     }
 
+    static async createSavedCouponsTable() {
+        const sql = `
+            CREATE TABLE IF NOT EXISTS saved_coupons (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT,
+                coupon_id INT,
+                FOREIGN KEY (user_id) REFERENCES users(user_id),
+                FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id)
+            )
+        `;
+
+        try {
+            const [result, fields] = await db.query(sql);
+            console.log("Saved Coupons Table Created Successfully!");
+        } catch (err) {
+            console.error("Error creating saved coupons table:", err);
+        }
+    }
+
+
     static async createSimilarTable() {
         const sql = `CREATE TABLE IF NOT EXISTS store_ids (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,6 +66,7 @@ class Coupons {
         const sql = `CREATE TABLE IF NOT EXISTS store_display (
             id INT AUTO_INCREMENT PRIMARY KEY,
             store_id INT,
+            coupon_id INT,
             show_in_carousel BOOLEAN DEFAULT FALSE,
             show_in_card BOOLEAN DEFAULT FALSE,
             show_in_fetured BOOLEAN DEFAULT FALSE,
@@ -86,24 +107,6 @@ class Coupons {
         } catch (err) {
             console.error("Error creating coupons table:", err);
         }
-    }
-
-    static async createRedeemTable() {
-        const sql = `CREATE TABLE IF NOT EXISTS redeemed_coupons (
-            redemption_id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT,
-            coupon_id INT,
-            redeemed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-            FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id) ON DELETE CASCADE
-        )`
-        try {
-            const [result, fields] = await db.query(sql);
-            console.log("Redeem Table Created Successfully!");
-        } catch (err) {
-            console.error("Error creating redeem table:", err);
-        }
-
     }
 
     static async createFestivalShowcaseTable() {

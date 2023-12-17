@@ -1,27 +1,25 @@
 import { MdLocalOffer } from "react-icons/md";
 import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
+import { FcAbout } from "react-icons/fc";
 import { useEffect, useState } from "react";
-import { IoMdTime } from "react-icons/io";
 import {
     Dialog, List, ListItem,
     Tabs,
     TabsHeader,
     Tab,
 } from "@material-tailwind/react";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdTime } from "react-icons/io";
 import { Link } from 'react-scroll';
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 // import AuthContext from '../components/AuthContext';
 import { motion } from 'framer-motion'
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-import { FaQuestionCircle } from "react-icons/fa";
+import { FaQuestionCircle, FaBookmark, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { Link as LinkRouter } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa6";
-import coupon from '../assets/images/coupons/voucher_code.png'
 import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
 
@@ -36,8 +34,8 @@ const Store = () => {
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [similarStoreNames, setSimilarStoreNames] = useState([]);
     const [popularStoreNames, setPopularStoreNames] = useState([]);
-    // const [submittingCoupon, setSubmittingCoupon] = useState(false);
-    // const [couponCode, setCouponCode] = useState('');
+    const [savedCoupons, setSavedCoupons] = useState({});
+
 
     const navigate = useNavigate();
 
@@ -69,26 +67,8 @@ const Store = () => {
                 const truncated = res.data.store.description?.slice(0, 100);
                 setDesc(truncated || '...');
 
-                const fetchedCoupons = coup.data.coupons;
+                setCoupons(coup.data.coupons);
 
-                const redemptionCounts = await Promise.all(
-                    fetchedCoupons.map(async (coupon) => {
-                        try {
-                            const redemptionResponse = await axios.get(`http://localhost:4000/api/getRedeemCount/${coupon.coupon_id}`);
-                            return redemptionResponse.data.redemptionCount;
-                        } catch (error) {
-                            console.error('Error fetching redemption count:', error);
-                            return 0; // Return 0 if there's an error
-                        }
-                    })
-                );
-
-                const couponsWithRedemption = fetchedCoupons.map((coupon, index) => ({
-                    ...coupon,
-                    redemptionCount: redemptionCounts[index],
-                }));
-
-                setCoupons(couponsWithRedemption);
                 const response = await axios.get('http://localhost:4000/api/clouser');
 
                 const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
@@ -115,6 +95,39 @@ const Store = () => {
         }
         fetchData();
     }, [sId]);
+
+    const handleSave = (couponId) => {
+        setSavedCoupons(prevSaved => {
+            return {
+                ...prevSaved,
+                [couponId]: !prevSaved[couponId]
+            };
+        });
+    };
+
+    useEffect(() => {
+        const validCoupons = coupons?.filter((coupon) => {
+            const dueDate = new Date(coupon.due_date);
+            const today = new Date();
+            return dueDate >= today;
+        });
+
+        const filteredCoupons = validCoupons?.filter(coupon => {
+            if (activeTab === 'all') {
+                return true;
+            } else {
+                return coupon.type.toLowerCase() === activeTab;
+            }
+        });
+
+        if (filteredCoupons) {
+            const updatedSavedCoupons = {};
+            filteredCoupons.forEach(coupon => {
+                updatedSavedCoupons[coupon.id] = savedCoupons[coupon.id] || false;
+            });
+            setSavedCoupons(updatedSavedCoupons);
+        }
+    }, [coupons, activeTab]);
 
     const validCoupons = coupons?.filter((coupon) => {
         const dueDate = new Date(coupon.due_date);
@@ -151,43 +164,13 @@ const Store = () => {
         return dueDate < today;
     });
 
-    // const toggleCouponSubmission = () => {
-    //     if (role !== 'General') {
-    //         window.location.href = '/login'; // Redirect to login if the role is not General
-    //     } else {
-    //         setSubmittingCoupon(!submittingCoupon); // Toggle input field if the role is General
-    //     }
-    // };
-
-    // const handleInputChange = event => {
-    //     setCouponCode(event.target.value);
-    // };
-
-    // const handleKeyPress = event => {
-    //     if (event.key === 'Enter') {
-    //         handleRedeem();
-    //     }
-    // };
-
-    // const handleRedeem = async () => {
-    //     try {
-    //         const res = await axios.put(`http://localhost:4000/api/redeem`, {
-    //             "coupon_code": couponCode
-    //         },
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     "Authorization": `Bearer ${localStorage.getItem('token')}`
-    //                 },
-    //             }
-    //         );
-    //         toast.success(res.data.message);
-    //     } catch (error) {
-    //         toast.error(error.response.data.error);
-    //         console.error(error);
-    //     }
-
-    // }
+    const handleUse = async (cId) => {
+        try {
+            await axios.put(`http://localhost:4000/api/inCount/${cId}`);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const handleOpen = (product) => {
         setSelectedProduct(product);
@@ -299,6 +282,19 @@ const Store = () => {
         setShowFullDescription(!showFullDescription);
     };
 
+    const formatUserCount = (count) => {
+        if (count >= 10000000) {
+            return `${(count / 10000000).toFixed(1)} Cr`;
+        } else if (count >= 100000) {
+            return `${(count / 100000).toFixed(1)} L`;
+        } else if (count >= 1000) {
+            return `${(count / 1000).toFixed(1)} K`;
+        } else {
+            return count.toString();
+        }
+    };
+
+
     const descriptionToShow = showFullDescription
         ? str?.description
         : truncatedDescription;
@@ -392,6 +388,20 @@ const Store = () => {
                                 </div>
                             </div>
                             {
+                                str?.moreAbout && (
+                                    <Link
+                                        className="text-initial"
+                                        to="more_about"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
+                                    >
+                                        <ListItem className="flex gap-5 justify-between">More About <FcAbout /> </ListItem>
+                                    </Link>
+                                )
+                            }
+                            {
                                 str?.faq && (
                                     <Link
                                         className="text-initial"
@@ -415,7 +425,7 @@ const Store = () => {
                                         offset={-150}
                                         duration={800}
                                     >
-                                        <ListItem className="flex gap-5 justify-between">Hints & Tips  <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
+                                        <ListItem className="flex gap-5 justify-between">How To Apply  <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
                                     </Link>
                                 )
                             }
@@ -473,7 +483,7 @@ const Store = () => {
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
                     <Tabs value={activeTab} className="p-5">
                         <div className="flex flex-col gap-3 justify-evenly mt-5 ">
-                            <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">Verified {str?.name} Coupons & Promo Codes </div>
+                            <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">{str?.title}</div>
                             <div className="text-sm font-semibold uppercase">
                                 Best 9 offers last validated on {formattedDate}
                             </div>
@@ -525,9 +535,21 @@ const Store = () => {
                                         animate="visible"
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={coupon} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                                <div className="flex w-full justify-end h-10"><FaRegBookmark className="hidden group-hover:block animate-fadeAnim cursor-pointer text-black hover:text-red-500 duration-300 text-xl " /></div>
+                                                <div className="flex w-full justify-end h-10">
+                                                    {savedCoupons[ele.id] ? (
+                                                        <FaBookmark
+                                                            onClick={() => handleSave(ele.id)}
+                                                            className="group-hover:block cursor-pointer text-red-500 duration-300 text-xl"
+                                                        />
+                                                    ) : (
+                                                        <FaRegBookmark
+                                                            onClick={() => handleSave(ele.id)}
+                                                            className="group-hover:block cursor-pointer text-black hover:text-red-500 duration-300 text-xl"
+                                                        />
+                                                    )}
+                                                </div>
                                                 <div className="flex justify-between w-full">
                                                     <div className="font-bold text-xl">{ele.title}</div>
                                                     <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
@@ -546,7 +568,10 @@ const Store = () => {
                                                     </div>
                                                     <div className="flex whitespace-nowrap gap-2">
                                                         <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
-                                                        <span className="flex justify-center items-center"><CiUser></CiUser>775 Used</span>
+                                                        <span className="flex justify-center items-center">
+                                                            <CiUser></CiUser>
+                                                            {formatUserCount(ele.user_count)} Uses
+                                                        </span>
                                                     </div>
 
                                                 </div>
@@ -568,11 +593,14 @@ const Store = () => {
                                 transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
 
                                 <div className="flex w-full">
-                                    <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={coupon} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                    <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
                                     <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                        <div className="flex w-full justify-end h-10"><FaRegBookmark className="hidden group-hover:block animate-fadeAnim cursor-pointer text-black hover:text-red-500 duration-300 text-xl " /></div>
                                         <div className="flex justify-between w-full">
                                             <div className="font-bold text-xl">{ele.title}</div>
+                                            <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
+                                                <IoMdTime />
+                                                <span>expired!</span>
+                                            </div>
                                             <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
                                         </div>
                                         <div className="flex w-full justify-between">
@@ -588,8 +616,10 @@ const Store = () => {
                                                 )}
                                             </div>
                                             <div className="flex whitespace-nowrap gap-2">
-                                                <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
-                                                <span className="flex justify-center items-center"><CiUser></CiUser>775 Used</span>
+                                                <span className="flex justify-center items-center">
+                                                    <CiUser></CiUser>
+                                                    {formatUserCount(ele.user_count)} Uses
+                                                </span>
                                             </div>
 
                                         </div>
@@ -600,6 +630,16 @@ const Store = () => {
                         )
                         )}
                     </div>
+                    {
+                        str?.moreAbout && (
+                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="more_about">
+                                <div className="font-semibold lg:text-4xl text-2xl my-3">More About {str?.name}</div>
+                                <div className="moreaboutcompany flex flex-col gap-2">
+                                    <div className="flex flex-col text-justify">{str?.moreAbout}</div>
+                                </div>
+                            </div>
+                        )
+                    }
                     {
                         str?.faq && (
                             <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="faqs">
@@ -623,7 +663,7 @@ const Store = () => {
                     {
                         str?.hint && (
                             <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="hints_tips">
-                                <div className="font-semibold lg:text-4xl text-2xl my-3">Hints and Tips</div>
+                                <div className="font-semibold lg:text-4xl text-2xl my-3">How To Apply</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
                                         str?.hint?.split('\n').map((line, index) => (
@@ -640,8 +680,6 @@ const Store = () => {
                             </div>
                         )
                     }
-
-
                 </div>
             </div>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black py-5" >
@@ -666,7 +704,7 @@ const Store = () => {
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-lg">
                             Copy and paste this code at {""}
-                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
+                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>
                         </div>
