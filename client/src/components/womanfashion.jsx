@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from 'framer-motion'
 import "../components/couponsbutton.css";
+
 import { FaRegBookmark } from "react-icons/fa6";
 import { CouponDialog } from "./TopCouponBox";
+import { FaHeart } from "react-icons/fa6";
+
 
 const Womanfashion = () => {
 
@@ -27,6 +30,16 @@ const Womanfashion = () => {
             return `${(count / 1000).toFixed(1)} K`;
         } else {
             return count.toString();
+    const [likedItems, setLikedItems] = useState([]);
+
+    const handleLikeClick = (index) => {
+        // Check if the item is already liked
+        if (!likedItems.includes(index)) {
+            // If not liked, add it to the likedItems state
+            setLikedItems([...likedItems, index]);
+        } else {
+            // If already liked, remove it from the likedItems state
+            setLikedItems(likedItems.filter((item) => item !== index));
         }
     };
 
@@ -96,19 +109,27 @@ const Womanfashion = () => {
                         <span className="font-semibold text-lg lg:text-3xl">Today&apos;s Top Woman fashion Offers</span>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-4">
-                    {featuredImages.map((item, index) => (
-                        <motion.div variants={variants} initial="hidden"
-                            animate="visible"
-                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index}
-                            className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5">
-                            <img
-                                src={item.thumbnail}
-                                className="cursor-pointer w-full h-1/2"
-                            />
-                            <span className="bg-white p-2 absolute right-1 top-1 rounded-lg">
-                                <FaRegBookmark className="cursor-pointer text-black hover:text-red-500 duration-300 text-xl " />
-                            </span>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-4">
+                {featuredImages.map((item, index) => (
+                    <motion.div variants={variants} initial="hidden"
+                        animate="visible"
+                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index}
+                        className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5">
+                        <img
+                            src={item.thumbnail}
+                            className="cursor-pointer w-full h-1/2"
+                            onClick={() => {
+                                navigate(`/Stores/${store[index]?.name}`, { state: { sId: item.storeId } });
+                            }}
+                        />
+                        <span
+                            className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                }`}
+                            onClick={() => handleLikeClick(index)}
+                        >
+                            <FaHeart className="cursor-pointer text-3xl duration-300" />
+                        </span>
 
                             <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
                             <div className="ml-24 flex w-3/5 justify-between items-center text-gray-700">

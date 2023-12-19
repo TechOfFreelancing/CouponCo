@@ -304,7 +304,7 @@ const Store = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[80vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
+            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
                 <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm">
                     <div className="bg-white p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
@@ -533,7 +533,7 @@ const Store = () => {
                                 return (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
                                         <div className="flex w-full">
                                             <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
@@ -608,10 +608,21 @@ const Store = () => {
                                                 <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
                                                     See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                                 </div>
-                                                {detailsVisibility[index] && (
-                                                    <div className="details flex flex-col">
-                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                        <span>{ele.description}</span>
+                                                <div className="flex w-full justify-between">
+                                                    <div>
+                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                        </div>
+                                                        {detailsVisibility[index] && (
+                                                            <div className="details flex flex-col">
+                                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                                <span>{ele.description}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex whitespace-nowrap gap-2">
+                                                        <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
+                                                        <span className="flex justify-center items-center"><CiUser></CiUser>775 Used</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -622,14 +633,16 @@ const Store = () => {
                                                 </span>
                                             </div>
 
-                                        </div>
+                                                </div>
 
-                                    </div>
-                                </div>
-                            </motion.div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )
+                                )}
+                            </div>
                         )
-                        )}
-                    </div>
+                    }
                     {
                         str?.moreAbout && (
                             <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="more_about">
@@ -642,7 +655,7 @@ const Store = () => {
                     }
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
