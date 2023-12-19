@@ -1,14 +1,23 @@
+import {
+    Button,
+    Dialog,
+    Card,
+    CardBody,
+    CardFooter,
+} from "@material-tailwind/react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 
 const UpdateCoupons = () => {
 
     const [coupons, setCoupons] = useState([]);
+    const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const inputStyle = {
         width: '100%',
@@ -26,6 +35,7 @@ const UpdateCoupons = () => {
     const cId = location.state?.cId;
 
     const formattedDate = coupons?.due_date?.substring(0, 10)
+    const isPresentInHomePage = useRef(false);
 
     const formik = useFormik({
 
@@ -59,7 +69,7 @@ const UpdateCoupons = () => {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
-                    "Authorization" : `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
                 data: data
             };
@@ -81,14 +91,19 @@ const UpdateCoupons = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
                 const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
+
+                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
+
+                const presentInHomePage = result.data.data.some(item => item.coupon_id === cId);
+                isPresentInHomePage.current = presentInHomePage;
 
                 formik.setValues({
                     title: response.data.coupon.title || '',
                     type: response.data.coupon.type || '',
                     coupon_code: response.data.coupon.coupon_code || '',
-                    due_date: response.data.coupon.due_date.substring(0,10) || '',
+                    due_date: response.data.coupon.due_date.substring(0, 10) || '',
                     ref_link: response.data.coupon.ref_link || '',
                     description: response.data.coupon.description || '',
                 });
@@ -100,6 +115,53 @@ const UpdateCoupons = () => {
         };
         fetchData();
     }, [cId]);
+
+    const handleOpenDialog = () => {
+        setOpenDialog(!openDialog);
+    };
+
+    const handleAdd = async () => {
+        const formdata = new FormData();
+        try {
+            if (selectedFile) {
+                formdata.append("thumbFile", selectedFile);
+            }
+
+            formdata.append("couponId",cId);
+
+            await axios.post(
+                `http://localhost:4000/api/admin/addToOffer/${sId}`,
+                formdata,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    },
+                }
+            );
+            toast.success("Store Added to Top Offer successfully");
+            handleOpenDialog();
+        } catch (error) {
+            toast.error(error.response.data.message);
+            console.error(error);
+        }
+    }
+
+    const handleRemoveFrom = async () => {
+        try {
+            await axios.delete(`http://localhost:4000/api/storeDisplay/${sId}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+
+            isPresentInHomePage.current = false;
+            toast.success(`Store Deleted from Today's Top Successfully!`);
+        } catch (error) {
+            toast.error("Failed to delete store");
+            console.error('Failed to delete store:', error);
+        }
+    }
 
     return (
         <>
@@ -199,6 +261,24 @@ const UpdateCoupons = () => {
                         />
                     </div>
 
+                    {isPresentInHomePage.current ? (
+                        <button
+                            type="button"
+                            onClick={handleRemoveFrom}
+                            className="w-full py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                        >
+                            Remove From Top offers
+                        </button>
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={handleOpenDialog}
+                            className="w-full py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                        >
+                            Add To Top offers?
+                        </button>
+                    )}
+
                     <button
                         type="submit"
                         className="w-full py-2 px-4 bg-blue-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
@@ -207,6 +287,31 @@ const UpdateCoupons = () => {
                     </button>
                 </form>
             </div>
+            <Dialog size="xs" open={openDialog} handler={handleOpenDialog} className="bg-transparent shadow-none">
+                <Card className="mx-auto w-full max-w-[24rem]">
+                    <CardBody className="flex flex-col gap-4">
+                        <div className="mb-4">
+                            <input
+                                type="file"
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    border: '1px solid black',
+                                    borderRadius: '0.375rem',
+                                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                                    outline: 'none'
+                                }}
+                                onChange={(e) => { setSelectedFile(e.target.files[0]) }}
+                            />
+                        </div>
+                    </CardBody>
+                    <CardFooter className="pt-0">
+                        <Button variant="gradient" onClick={handleAdd} fullWidth>
+                            Submit
+                        </Button>
+                    </CardFooter>
+                </Card>
+            </Dialog>
         </>
     );
 }
