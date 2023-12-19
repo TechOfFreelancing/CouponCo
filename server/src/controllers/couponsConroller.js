@@ -21,14 +21,14 @@ const uploadAndCreateDocument = async (file) => {
 
 //add new store with basic details
 exports.addStore = catchAsyncErrors(async (req, res, next) => {
-    const { name, type, description, hint } = req.body;
+    const { name, title, moreAbout, type, description, hint } = req.body;
     const storeFile = req.file;
 
     try {
         const logo_url = await uploadAndCreateDocument(storeFile);
-        const sql = `INSERT INTO store (name, logo_url, type, description ,hint) VALUES (?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
-        const result = await db.query(sql, [name, logo_url, type, description, hint]);
+        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint]);
         const storeId = result[0].insertId;
 
         const store = `SELECT * FROM store WHERE id = ?`;
@@ -43,11 +43,10 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-//add to today's Top category
 exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    const thumbFile = req.file;
-    const { data } = req.body;
+    const { couponId } = req.body;
+    const thumbFile = req.file; // Assuming this is a thumbnail for the coupon
 
     try {
         // Check if the store exists
@@ -57,11 +56,22 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
             return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
         }
 
+        // Check if the coupon exists
+        const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [couponId]);
+
+        if (couponResult.length === 0) {
+            return next(new ErrorHandler(`Coupon with ID ${couponId} not found`, 404));
+        }
+
+        // Process thumbnail upload (if needed)
         const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
 
-        const sql = `INSERT INTO store_display (store_id, show_in_top, thumbnail,content) VALUES (?, ?, ?,?)`;
+        const sql = `
+            INSERT INTO store_display (store_id, coupon_id, show_in_top, thumbnail) 
+            VALUES (?, ?, ?, ?)
+        `;
 
-        const result = await db.query(sql, [storeId, true, thumbnailUrl, data]);
+        const result = await db.query(sql, [storeId, couponId, true, thumbnailUrl]);
 
         res.status(200).json({ message: "Success!", rowId: result[0].insertId });
 
@@ -70,6 +80,7 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Unable to add this to today's top offer", 400));
     }
 });
+
 //add to carousel
 exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
@@ -264,7 +275,7 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE store SET ';
         const updateParams = [];
-        const validFields = ['name', 'type', 'description', 'hint'];
+        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint'];
 
         // If there's a new storeFile, update logo_url
         if (storeFile) {
@@ -539,6 +550,59 @@ exports.getCouponsBy = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+//increase coupons user count
+exports.incrementUserCount = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+    try {
+        const incrementUserCountSql = `
+            UPDATE coupons 
+            SET user_count = user_count + 1
+            WHERE coupon_id = ?
+        `;
+        await db.query(incrementUserCountSql, [cId]);
+
+        res.status(200).json({ message: "User count incremented successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to increment user count", 400));
+    }
+});
+
+// Save Coupon for a User
+exports.saveCouponForUser = catchAsyncErrors(async (req, res, next) => {
+    const { userId } = req.body;
+    const { cId } = req.params;
+    try {
+        const saveCouponSql = `
+            INSERT INTO saved_coupons (user_id, coupon_id)
+            VALUES (?, ?)
+        `;
+        await db.query(saveCouponSql, [userId, cId]);
+
+        res.status(200).json({ message: "Coupon saved successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to save coupon", 400));
+    }
+});
+
+// Unsave Coupon for a User
+exports.unsaveCouponForUser = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+    try {
+        const unsaveCouponSql = `
+            DELETE FROM saved_coupons 
+            WHERE coupon_id = ?
+        `;
+        await db.query(unsaveCouponSql, [cId]);
+
+        res.status(200).json({ message: "Coupon unsaved successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to unsave coupon", 400));
+    }
+});
+
 // Delete a coupon
 exports.deleteCoupon = catchAsyncErrors(async (req, res, next) => {
     const { cId } = req.params;
@@ -562,22 +626,6 @@ exports.deleteCoupon = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to delete coupon", 500));
-    }
-});
-
-//get redemption count
-exports.getRedeemCount = catchAsyncErrors(async (req, res, next) => {
-    const { cId } = req.params;
-    try {
-        const redemptionCountSql = `SELECT COUNT(*) AS redemptionCount FROM redeemed_coupons WHERE coupon_id = ?`;
-        const [redemptionCountResult] = await db.query(redemptionCountSql, [cId]);
-
-        const redemptionCount = redemptionCountResult[0].redemptionCount;
-
-        res.status(200).json({ redemptionCount });
-    } catch (err) {
-        console.error('Error getting redemption count:', err);
-        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
