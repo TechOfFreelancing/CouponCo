@@ -109,9 +109,9 @@ export function Header() {
                             <div className="action">
                                 <div className={`menu ${menuActive ? 'active' : ''}`}>
                                     <div className="flex flex-col items-center justify-center">
-                                        <span className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
+                                        <Link to="/Profile" className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
                                             Profile
-                                        </span>
+                                        </Link>
                                         <hr className="border border-gray-500 w-full" />
                                         <span onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
                                             Logout
@@ -169,9 +169,9 @@ export function Header() {
                     <div className="flex items-center justify-center my-5">
                         {isLoggedIn ? (
                             <div className="flex justify-between w-full mx-10">
-                                <div className="cursor-pointer whitespace-nowrap">
+                                <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
                                     Profile
-                                </div>
+                                </Link>
                                 <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
                                     Logout
                                 </div>

@@ -23,6 +23,7 @@ import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
 import OurCodes from './pages/OurCodes';
+import Profile from './pages/Profile';
 
 
 
@@ -173,6 +174,15 @@ function App() {
               <>
                 <Header></Header>
                 <OurCodes></OurCodes>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/Profile"
+            element={
+              <>
+                <Header></Header>
+                <Profile></Profile>
               </>
             }
           ></Route>

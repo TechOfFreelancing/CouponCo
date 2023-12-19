@@ -19,10 +19,10 @@ import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { Link as LinkRouter } from "react-router-dom";
-import { FaRegBookmark } from "react-icons/fa6";
 import coupon from '../assets/images/coupons/voucher_code.png'
 import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa6";
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -51,6 +51,9 @@ const Store = () => {
         deals: 0,
         sales: 0,
     });
+    const [likedItems, setLikedItems] = useState([]);
+
+
     const sId = location.state?.sId;
 
     const variants = {
@@ -262,6 +265,16 @@ const Store = () => {
             console.error(error);
         }
     }
+    const handleLikeClick = (index) => {
+        // Check if the item is already liked
+        if (!likedItems.includes(index)) {
+            // If not liked, add it to the likedItems state
+            setLikedItems([...likedItems, index]);
+        } else {
+            // If already liked, remove it from the likedItems state
+            setLikedItems(likedItems.filter((item) => item !== index));
+        }
+    };
 
     useEffect(() => {
         if (userRating !== 0 && ratingcount < 1) {
@@ -522,11 +535,18 @@ const Store = () => {
                                 return (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        <span
+                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                                }`}
+                                            onClick={() => handleLikeClick(index)}
+                                        >
+                                            <FaHeart className="cursor-pointer text-xl duration-300" />
+                                        </span>
                                         <div className="flex w-full">
                                             <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={coupon} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                                <div className="flex w-full justify-end h-10"><FaRegBookmark className="hidden group-hover:block animate-fadeAnim cursor-pointer text-black hover:text-red-500 duration-300 text-xl " /></div>
+
                                                 <div className="flex justify-between w-full">
                                                     <div className="font-bold text-xl">{ele.title}</div>
                                                     <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
@@ -567,11 +587,17 @@ const Store = () => {
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        <span
+                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                                }`}
+                                            onClick={() => handleLikeClick(index)}
+                                        >
+                                            <FaHeart className="cursor-pointer text-xl duration-300" />
+                                        </span>
 
                                         <div className="flex w-full">
                                             <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={coupon} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                                <div className="flex w-full justify-end h-10"><FaRegBookmark className="hidden group-hover:block animate-fadeAnim cursor-pointer text-black hover:text-red-500 duration-300 text-xl " /></div>
                                                 <div className="flex justify-between w-full">
                                                     <div className="font-bold text-xl">{ele.title}</div>
                                                     <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
