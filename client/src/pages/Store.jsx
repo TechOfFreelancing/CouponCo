@@ -516,7 +516,7 @@ const Store = () => {
                             </div>
                         </div>
                     </Tabs>
-                    <div className="flex flex-col gap-5 items-start">
+                    <div className="flex flex-col gap-5 items-start lg:mx-5">
                         {
                             filteredCoupons && filteredCoupons.map((ele, index) => {
                                 return (
