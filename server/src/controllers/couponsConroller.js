@@ -401,7 +401,7 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
             INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, due_date, isVerified, description,created_at)
             VALUES (?, ?, ?, ?, ?, ?,? , ?,NOW())
         `;
-        const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate,isVerified, description]);
+        const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate, isVerified, description]);
 
         // Updating the stock count in the store table
         const updateStockSql = `
@@ -507,6 +507,22 @@ exports.getCoupons = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to fetch coupons", 500));
+    }
+});
+
+exports.getUnverifiedCoupons = catchAsyncErrors(async (req, res, next) => {
+    const sql = `SELECT * FROM Coupons WHERE isVerified = 0`;
+
+    try {
+        const [result, fields] = await db.query(sql);
+
+        res.status(200).json({
+            success: true,
+            coupons: result,
+        });
+    } catch (err) {
+        console.error('Error fetching unverified coupons:', err);
+        return next(new ErrorHandler("Unverified coupons not found", 400));
     }
 });
 
