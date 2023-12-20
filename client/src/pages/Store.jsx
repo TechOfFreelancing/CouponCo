@@ -21,6 +21,7 @@ import { MdTipsAndUpdates } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
+import { MdOutlineSentimentDissatisfied } from 'react-icons/md'
 
 
 const Store = () => {
@@ -617,19 +618,19 @@ const Store = () => {
                                         animate="visible"
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
                                         <span
-                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-[#B33D53]' : 'text-white'
+                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                 }`}
                                             onClick={() => handleLikeClick(index, ele.coupon_id)}
                                         >
                                             <FaHeart className="cursor-pointer text-xl duration-300" />
                                         </span>
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[104px] w-[104px] rounded-lg" /><span className="bg-blue-100 text-center w-full">DEAL</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[104px] w-[104px] rounded-lg my-2" /><span className="bg-blue-100 text-center w-full">DEAL</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
 
                                                 <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl lg:h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
                                                 <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>
@@ -672,12 +673,12 @@ const Store = () => {
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
 
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[104px] w-[104px] rounded-lg my-2" /><span className="bg-blue-100 text-center w-full">DEAL</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
 
                                                 <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
                                                 <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>
@@ -692,7 +693,7 @@ const Store = () => {
                                                         )}
                                                     </div>
                                                     <div className="flex whitespace-nowrap gap-5 lg:mr-[4rem]">
-                                                        <span className="flex justify-center items-center gap-2"><GoVerified className="text-blue-800" />Verified</span>
+                                                        <span className="flex justify-center items-center gap-2"><MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
                                                         <span className="flex justify-center items-center gap-2">
                                                             <CiUser></CiUser>
                                                             {formatUserCount(ele.user_count)} Uses
