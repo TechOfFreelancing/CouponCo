@@ -15,13 +15,15 @@ import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
 import AllStores from './pages/AllStores';
-import Allcategories from './pages/Categories';
+import Allcategories from './pages/AllCategories';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
+import OurCodes from './pages/OurCodes';
+import Profile from './pages/Profile';
 
 
 
@@ -163,6 +165,24 @@ function App() {
               <>
                 <Header></Header>
                 <SubmitCouponForm></SubmitCouponForm>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/Ourcodes"
+            element={
+              <>
+                <Header></Header>
+                <OurCodes></OurCodes>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/Profile"
+            element={
+              <>
+                <Header></Header>
+                <Profile></Profile>
               </>
             }
           ></Route>

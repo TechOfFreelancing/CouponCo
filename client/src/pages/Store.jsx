@@ -1,7 +1,6 @@
 import { MdLocalOffer } from "react-icons/md";
 import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
-import { FcAbout } from "react-icons/fc";
 import { useEffect, useState } from "react";
 import {
     Dialog, List, ListItem,
@@ -9,19 +8,21 @@ import {
     TabsHeader,
     Tab,
 } from "@material-tailwind/react";
-import { IoMdClose, IoMdTime } from "react-icons/io";
+import { IoMdClose} from "react-icons/io";
 import { Link } from 'react-scroll';
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 // import AuthContext from '../components/AuthContext';
+import { FcAbout } from "react-icons/fc";
 import { motion } from 'framer-motion'
-import { FaQuestionCircle, FaBookmark, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaQuestionCircle } from "react-icons/fa";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { Link as LinkRouter } from "react-router-dom";
-import { FaRegBookmark } from "react-icons/fa6";
 import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa6";
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -37,6 +38,7 @@ const Store = () => {
     const [savedCoupons, setSavedCoupons] = useState({});
 
 
+
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -50,6 +52,9 @@ const Store = () => {
         deals: 0,
         sales: 0,
     });
+    const [likedItems, setLikedItems] = useState([]);
+
+
     const sId = location.state?.sId;
 
     const variants = {
@@ -66,8 +71,8 @@ const Store = () => {
 
                 const truncated = res.data.store.description?.slice(0, 100);
                 setDesc(truncated || '...');
-
                 setCoupons(coup.data.coupons);
+
 
                 const response = await axios.get('http://localhost:4000/api/clouser');
 
@@ -96,14 +101,15 @@ const Store = () => {
         fetchData();
     }, [sId]);
 
-    const handleSave = (couponId) => {
-        setSavedCoupons(prevSaved => {
-            return {
-                ...prevSaved,
-                [couponId]: !prevSaved[couponId]
-            };
-        });
-    };
+
+    // const handleSave = (couponId) => {
+    //     setSavedCoupons(prevSaved => {
+    //         return {
+    //             ...prevSaved,
+    //             [couponId]: !prevSaved[couponId]
+    //         };
+    //     });
+    // };
 
     useEffect(() => {
         const validCoupons = coupons?.filter((coupon) => {
@@ -128,6 +134,7 @@ const Store = () => {
             setSavedCoupons(updatedSavedCoupons);
         }
     }, [coupons, activeTab]);
+
 
     const validCoupons = coupons?.filter((coupon) => {
         const dueDate = new Date(coupon.due_date);
@@ -171,6 +178,7 @@ const Store = () => {
             console.error(error);
         }
     }
+
 
     const handleOpen = (product) => {
         setSelectedProduct(product);
@@ -246,6 +254,16 @@ const Store = () => {
             console.error(error);
         }
     }
+    const handleLikeClick = (index) => {
+        // Check if the item is already liked
+        if (!likedItems.includes(index)) {
+            // If not liked, add it to the likedItems state
+            setLikedItems([...likedItems, index]);
+        } else {
+            // If already liked, remove it from the likedItems state
+            setLikedItems(likedItems.filter((item) => item !== index));
+        }
+    };
 
     useEffect(() => {
         if (userRating !== 0 && ratingcount < 1) {
@@ -278,9 +296,6 @@ const Store = () => {
         }
     });
 
-    const toggleDescription = () => {
-        setShowFullDescription(!showFullDescription);
-    };
 
     const formatUserCount = (count) => {
         if (count >= 10000000) {
@@ -295,6 +310,11 @@ const Store = () => {
     };
 
 
+
+    const toggleDescription = () => {
+        setShowFullDescription(!showFullDescription);
+    };
+
     const descriptionToShow = showFullDescription
         ? str?.description
         : truncatedDescription;
@@ -304,7 +324,7 @@ const Store = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[80vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
+            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
                 <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm">
                     <div className="bg-white p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
@@ -425,7 +445,7 @@ const Store = () => {
                                         offset={-150}
                                         duration={800}
                                     >
-                                        <ListItem className="flex gap-5 justify-between">How To Apply  <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
+                                        <ListItem className="flex gap-5 justify-between">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
                                     </Link>
                                 )
                             }
@@ -477,8 +497,6 @@ const Store = () => {
                             </List>
                         </div>
                     </div>
-
-
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
                     <Tabs value={activeTab} className="p-5">
@@ -527,32 +545,27 @@ const Store = () => {
                             </div>
                         </div>
                     </Tabs>
-                    <div className="flex flex-col gap-5 items-start">
+                    <div className="flex flex-col gap-5 items-start lg:mx-5">
                         {
                             filteredCoupons && filteredCoupons.map((ele, index) => {
                                 return (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        <span
+                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                                }`}
+                                            onClick={() => handleLikeClick(index)}
+                                        >
+                                            <FaHeart className="cursor-pointer text-xl duration-300" />
+                                        </span>
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                                <div className="flex w-full justify-end h-10">
-                                                    {savedCoupons[ele.id] ? (
-                                                        <FaBookmark
-                                                            onClick={() => handleSave(ele.id)}
-                                                            className="group-hover:block cursor-pointer text-red-500 duration-300 text-xl"
-                                                        />
-                                                    ) : (
-                                                        <FaRegBookmark
-                                                            onClick={() => handleSave(ele.id)}
-                                                            className="group-hover:block cursor-pointer text-black hover:text-red-500 duration-300 text-xl"
-                                                        />
-                                                    )}
-                                                </div>
+
                                                 <div className="flex justify-between w-full">
                                                     <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
+                                                    <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
                                                 <div className="flex w-full justify-between">
                                                     <div>
@@ -583,53 +596,59 @@ const Store = () => {
                             })
                         }
                     </div>
-                    <div className="flex flex-col gap-5 items-start lg:mx-5">
-                        <div className="text-xl text-black font-semibold">
-                            Recently Expired {str?.name} Discount Codes & Deals
-                        </div>
-                        {expiredCoupons?.map((ele, index) => (
-                            <motion.div variants={variants} initial="hidden"
-                                animate="visible"
-                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[50rem] hover:shadow-lg duration-300 ">
-
-                                <div className="flex w-full">
-                                    <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
-                                    <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                        <div className="flex justify-between w-full">
-                                            <div className="font-bold text-xl">{ele.title}</div>
-                                            <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
-                                                <IoMdTime />
-                                                <span>expired!</span>
-                                            </div>
-                                            <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>get deal</div>
-                                        </div>
-                                        <div className="flex w-full justify-between">
-                                            <div>
-                                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                                </div>
-                                                {detailsVisibility[index] && (
-                                                    <div className="details flex flex-col">
-                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                        <span>{ele.description}</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className="flex whitespace-nowrap gap-2">
-                                                <span className="flex justify-center items-center">
-                                                    <CiUser></CiUser>
-                                                    {formatUserCount(ele.user_count)} Uses
-                                                </span>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                    {
+                        expiredCoupons && (
+                            <div className="flex flex-col mt-5 gap-5 items-start lg:mx-5">
+                                <div className="text-xl text-black font-semibold">
+                                    Recently Expired {str?.name} Discount Codes & Deals
                                 </div>
-                            </motion.div>
+                                {expiredCoupons?.map((ele, index) => (
+                                    <motion.div variants={variants} initial="hidden"
+                                        animate="visible"
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        <span
+                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                                }`}
+                                            onClick={() => handleLikeClick(index)}
+                                        >
+                                            <FaHeart className="cursor-pointer text-xl duration-300" />
+                                        </span>
+
+                                        <div className="flex w-full">
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                            <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
+                                                <div className="flex justify-between w-full">
+                                                    <div className="font-bold text-xl">{ele.title}</div>
+                                                    <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                </div>
+                                                <div className="flex w-full justify-between">
+                                                    <div>
+                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                        </div>
+                                                        {detailsVisibility[index] && (
+                                                            <div className="details flex flex-col">
+                                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                                <span>{ele.description}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex whitespace-nowrap gap-2">
+                                                        <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
+                                                        <span className="flex justify-center items-center">
+                                                            <CiUser></CiUser>
+                                                            {formatUserCount(ele.user_count)} Uses
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )
+                                )}
+                            </div>
                         )
-                        )}
-                    </div>
+                    }
                     {
                         str?.moreAbout && (
                             <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="more_about">
@@ -637,12 +656,13 @@ const Store = () => {
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     <div className="flex flex-col text-justify">{str?.moreAbout}</div>
                                 </div>
+
                             </div>
                         )
                     }
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
@@ -662,8 +682,8 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="hints_tips">
-                                <div className="font-semibold lg:text-4xl text-2xl my-3">How To Apply</div>
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="hints_tips">
+                                <div className="font-semibold lg:text-4xl text-2xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
                                         str?.hint?.split('\n').map((line, index) => (
@@ -703,7 +723,7 @@ const Store = () => {
                         </div>
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-lg">
-                            Copy and paste this code at {""}
+                        Copy and paste this code at {""}
                             <a href={`http://${selectedProduct.ref_link}`} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>

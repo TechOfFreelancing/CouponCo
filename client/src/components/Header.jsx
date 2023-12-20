@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Drawer,
     IconButton
@@ -10,6 +10,8 @@ import axios from "axios";
 import { ImSearch } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import navList from "./navlist";
+import "../components/header.css";
+import { FaUserCircle } from "react-icons/fa";
 
 export function Header() {
     const [openSidebar, setopenSidebar] = React.useState(false);
@@ -17,26 +19,14 @@ export function Header() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [isOffer, setIsOffer] = React.useState(false);
     const { role } = React.useContext(AuthContext);
+    const [menuActive, setMenuActive] = useState(false);
+
+    const menuToggle = () => {
+        setMenuActive(prevMenuActive => !prevMenuActive);
+    };
 
     const OpenSidebar = () => setopenSidebar(true);
     const CloseSidebar = () => setopenSidebar(false);
-
-    useEffect(() => {
-        setIsLoggedIn(role === "General");
-    }, [role]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(`http://localhost:4000/api/festStoreDisplay`);
-                if (res.data && res.data.data.length > 1) setIsOffer(true);
-            } catch (error) {
-                console.error('Error fetching festival details:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     const navigate = useNavigate();
 
@@ -76,6 +66,23 @@ export function Header() {
         }
     }
 
+    useEffect(() => {
+        setIsLoggedIn(role === "General");
+    }, [role]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`http://localhost:4000/api/festStoreDisplay`);
+                if (res.data && res.data.data.length > 1) setIsOffer(true);
+            } catch (error) {
+                console.error('Error fetching festival details:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <>
             <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
@@ -95,8 +102,25 @@ export function Header() {
                         </button>
                     </div>
                     {isLoggedIn ? (
-                        <div onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
-                            Logout
+                        <div className="hidden lg:flex items-center justify-center">
+                            <div className="action">
+                                <div className={`menu ${menuActive ? 'active' : ''}`}>
+                                    <div className="flex flex-col items-center justify-center">
+                                        <Link to="/Profile" className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
+                                            Profile
+                                        </Link>
+                                        <hr className="border border-gray-500 w-full" />
+                                        <span onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
+                                            Logout
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div onClick={() => { menuToggle() }} className="profile flex items-center justify-center">
+                                    <FaUserCircle className="text-4xl"></FaUserCircle>
+                                </div>
+                            </div>
+
                         </div>
                     ) : (
                         <>
@@ -139,11 +163,15 @@ export function Header() {
                             <ImSearch className="h-6 w-6" />
                         </button>
                     </div>
-                    <div>{navList}</div>
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center my-5">
                         {isLoggedIn ? (
-                            <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
-                                Logout
+                            <div className="flex justify-between w-full mx-10">
+                                <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
+                                    Profile
+                                </Link>
+                                <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
+                                    Logout
+                                </div>
                             </div>
                         ) : (
                             <>
@@ -156,6 +184,8 @@ export function Header() {
                             </>
                         )}
                     </div>
+                    <div className="-my-5">{navList}</div>
+
 
                 </Drawer>
 

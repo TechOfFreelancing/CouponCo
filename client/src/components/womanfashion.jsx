@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from 'framer-motion'
 import "../components/couponsbutton.css";
-import { FaRegBookmark } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 
 const Womanfashion = () => {
 
@@ -21,6 +21,18 @@ const Womanfashion = () => {
     const [store, setStore] = useState([]);
     const [cop, setCop] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
+    const [likedItems, setLikedItems] = useState([]);
+
+    const handleLikeClick = (index) => {
+        // Check if the item is already liked
+        if (!likedItems.includes(index)) {
+            // If not liked, add it to the likedItems state
+            setLikedItems([...likedItems, index]);
+        } else {
+            // If already liked, remove it from the likedItems state
+            setLikedItems(likedItems.filter((item) => item !== index));
+        }
+    };
 
     const handleOpenDialog = (data, logo, name) => {
         setOpenDialog(!openDialog);
@@ -85,8 +97,9 @@ const Womanfashion = () => {
                             return null;
                         }
                     }));
+
                     setStore(store);
-                    setCop(coupon)
+                    setCop(coupon);
 
                     setFeaturedImages(fetchedImagesWithId);
                 }
@@ -193,8 +206,12 @@ const Womanfashion = () => {
                                 src={item.thumbnail}
                                 className="cursor-pointer w-full h-1/2"
                             />
-                            <span className="bg-white p-2 absolute right-1 top-1 rounded-lg">
-                                <FaRegBookmark className="cursor-pointer text-black hover:text-red-500 duration-300 text-xl " />
+                            <span
+                                className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
+                                    }`}
+                                onClick={() => handleLikeClick(index)}
+                            >
+                                <FaHeart className="cursor-pointer text-3xl duration-300" />
                             </span>
 
                             <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
