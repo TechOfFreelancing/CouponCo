@@ -87,7 +87,7 @@ export function Header() {
         <>
             <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
                 {isOffer && <Alert></Alert>}
-                <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10 lg:h-[93px]">
+                <nav className=" z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10 lg:h-[93px]">
                     <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
                         <ImSearch className="h-6 w-6" />
                     </button>
@@ -103,7 +103,7 @@ export function Header() {
                     </div>
                     {isLoggedIn ? (
                         <div className="hidden lg:flex items-center justify-center">
-                            <div className="action">
+                            <div className="action relative">
                                 <div className={`menu ${menuActive ? 'active' : ''}`}>
                                     <div className="flex flex-col items-center justify-center">
                                         <Link to="/Profile" className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
@@ -116,7 +116,7 @@ export function Header() {
                                     </div>
 
                                 </div>
-                                <div onClick={() => { menuToggle() }} className="profile flex items-center justify-center">
+                                <div onClick={() => { menuToggle() }} className="profile flex items-center justify-center absolute -top-5">
                                     <FaUserCircle className="text-4xl"></FaUserCircle>
                                 </div>
                             </div>

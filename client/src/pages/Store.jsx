@@ -353,7 +353,7 @@ const Store = () => {
         }
     };
 
-    const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
+    // const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
@@ -411,7 +411,27 @@ const Store = () => {
                         </div>
                     </div>
                     <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
-                        <div className="text-lg text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
+
+                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s shoppers also like</div>
+                        {
+                            validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
+                                return (
+
+                                    <div key={index} className="flex gap-3 w-full cursor-pointer" onClick={() => handleOpen(ele)}>
+                                        <div className="w-[30%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col "><img src={str?.logo_url} alt="H" className="rounded-full" /></div></div>
+                                        <div className="flex flex-col justify-start">
+                                            <div className="font-semibold">{ele.title}</div>
+                                            <div>{ele.description.slice(0, 50)}...</div>
+                                        </div>
+
+                                    </div>
+
+                                )
+                            })
+                        }
+                    </div>
+                    <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
+                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
                         <div className="flex justify-between items-center px-5">
                             <span className="text-lg text-black">Exclusive codes</span>
                             <span>{couponCounts.exclusive}</span>
@@ -606,11 +626,11 @@ const Store = () => {
                                             <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
 
-                                                <div className="flex justify-between w-full">
+                                                <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
                                                     <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
-                                                <div className="flex w-full justify-between">
+                                                <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>
                                                         <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
                                                             See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
@@ -622,9 +642,9 @@ const Store = () => {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="flex whitespace-nowrap gap-2">
-                                                        <span className="flex justify-center items-center"><GoVerified className="text-blue-800" />Verified</span>
-                                                        <span className="flex justify-center items-center">
+                                                    <div className="flex whitespace-nowrap gap-5 lg:mr-[4rem]">
+                                                        <span className="flex justify-center items-center gap-2"><GoVerified className="text-blue-800" />Verified</span>
+                                                        <span className="flex justify-center items-center gap-2">
                                                             <CiUser></CiUser>
                                                             {formatUserCount(ele.user_count)} Uses
                                                         </span>
@@ -652,30 +672,34 @@ const Store = () => {
 
                                         <div className="flex w-full">
                                             <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
-                                            <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
-                                                <div className="flex justify-between w-full">
+                                            <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
+
+                                                <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
                                                     <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
-                                                <div className="flex w-full justify-between">
+                                                <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>
-                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index + validCoupons?.length)}>
+                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
                                                             See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                                         </div>
-                                                        {detailsVisibility[index + validCoupons?.length] && (
+                                                        {detailsVisibility[index] && (
                                                             <div className="details flex flex-col">
                                                                 <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
                                                                 <span>{ele.description}</span>
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="flex whitespace-nowrap gap-2">
-                                                        <span className="flex justify-center items-center">
+                                                    <div className="flex whitespace-nowrap gap-5 lg:mr-[4rem]">
+                                                        <span className="flex justify-center items-center gap-2"><GoVerified className="text-blue-800" />Verified</span>
+                                                        <span className="flex justify-center items-center gap-2">
                                                             <CiUser></CiUser>
                                                             {formatUserCount(ele.user_count)} Uses
                                                         </span>
                                                     </div>
+
                                                 </div>
+
                                             </div>
                                         </div>
                                     </motion.div>
@@ -735,8 +759,8 @@ const Store = () => {
                             </div>
                         )
                     }
-                </div >
-            </div >
+                </div>
+            </div>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black py-5" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>
@@ -759,7 +783,7 @@ const Store = () => {
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-lg">
                             Copy and paste this code at {""}
-                            <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
+                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>
                         </div>

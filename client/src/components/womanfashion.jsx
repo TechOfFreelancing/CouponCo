@@ -7,7 +7,6 @@ import {
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { motion } from 'framer-motion'
 import "../components/couponsbutton.css";
 import { FaHeart } from "react-icons/fa6";
 
@@ -77,7 +76,7 @@ const Womanfashion = () => {
         return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
     };
 
-    const correctedRefLink = selectedCoupon?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
+    const correctedRefLink = selectedCoupon?.ref_link?.replace(/(https?:\/\/)([^:/]+)/, "$1$2:");
 
     const formatUserCount = (count) => {
         if (count >= 10000000) {
@@ -159,10 +158,6 @@ const Womanfashion = () => {
         fetchImages();
     }, []);
 
-    const variants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
-    };
 
     const handleUse = async (cId) => {
         try {
@@ -245,19 +240,17 @@ const Womanfashion = () => {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4">
                     {featuredImages.map((item, index) => (
-                        <motion.div variants={variants} initial="hidden"
-                            animate="visible"
-                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index}
+                        <div key={index}
                             className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5">
                             <img
                                 src={item.thumbnail}
                                 className="cursor-pointer w-full h-1/2"
                             />
                             <span
-                                className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
+                                className={`p-2 absolute right-1 top-1 backdrop-blur-sm bg-white/30 border border-gray-800  rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
                                 onClick={() => handleLikeClick(index, item.cId)}
                             >
-                                <FaHeart className="cursor-pointer text-3xl duration-300" />
+                                <FaHeart className="cursor-pointer text-xl duration-300" />
                             </span>
 
                             <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
@@ -276,7 +269,7 @@ const Womanfashion = () => {
                                     <span className="is-code-text"><em>GET CODE</em></span>
                                 </button>
                             </div>
-                        </motion.div>
+                        </div>
                     )).slice(0, 8)}
                 </div>
             </div>
