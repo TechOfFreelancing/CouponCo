@@ -18,7 +18,7 @@ const CustomForm = ({ status, message, onValidated }) => {
         });
 
     return (
-        <div className="mt-6 flex max-w-md gap-x-4 flex-col lg:flex-row">
+        <div className="mt-6 flex max-w-md lg:gap-x-4 flex-col lg:flex-row gap-3 items-center justify-center w-full">
             <input
                 ref={(node) => (email = node)}
                 type="email"
@@ -54,7 +54,7 @@ export default function NewsLetter() {
                         Find the best coupons, deals, promo codes, and discounts for thousands of your favorite stores at Coupons Co. We may earn a commission when you use one of our coupons/links to make a purchase. Save money at the checkout.
                     </p>
                 </div>
-                <div className="flex gap-2 lg:gap-28">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-28">
                     {
                         SITEMAP.map((ele, index) => {
                             return (
