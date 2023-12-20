@@ -102,12 +102,12 @@ const AllStores = () => {
                             if (letter === '0-9') {
                                 return /\d/.test(store.name.charAt(0));
                             } else {
-                                return store.name.charAt(0) === letter;
+                                return store.name.charAt(0).toLowerCase() === letter.toLowerCase();
                             }
                         });
 
                         if (filteredStores.length === 0) {
-                            return null; 
+                            return null;
                         }
 
                         return (
@@ -165,11 +165,12 @@ const AllStores = () => {
                     )
                 ) : (Array.from(firstLatter.map((letter) => letter)).map(
                     (letter, index) => (
-                        <div key={index} className={`border-2 border-gray-400 mb-3 ${selectedCategory === letter ? '' : 'hidden'}`}>
+                        <div
+                            key={index} className={`border-2 border-gray-400 mb-3 ${selectedCategory.toLocaleLowerCase() === letter.toLocaleLowerCase() ? '' : 'hidden'}`}>
                             <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                             <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
                                 {stores
-                                    .filter((store) => store.name.charAt(0) === selectedCategory)
+                                    .filter((store) => store.name.charAt(0).toLocaleLowerCase() === selectedCategory.toLocaleLowerCase())
                                     .map((ele) => (
                                         <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer" onClick={() => {
                                             navigate(

@@ -1,12 +1,36 @@
-import FavouriteCoupons from "../api/FavouriteCoupon";
-import { FaLink } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Profile = () => {
+
+    const [userData, setUserData] = useState({});
+    const [FavouriteCoupons, setFavouriteCoupons] = useState([]);
+
+    useEffect(() => {
+        const userId = localStorage.getItem('id'); // Retrieve the user's ID from localStorage
+
+        const fetchUserDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`);
+                if (response.data) {
+                    setUserData(response.data.user[0] || {}); // Set user data
+
+                    const savedCoupons = response.data.savedCoupons || [];
+                    setFavouriteCoupons(savedCoupons); // Set favourite coupons data
+                }
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        };
+
+        fetchUserDetails();
+    }, []);
+
     return (
         <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
-            <div className="text-4xl font-bold">Hi @restart_myself21</div>
-            <span className="text-lg">your email id is <span className="text-blue-700">restartmyself21@gmail.com</span></span>
+           <div className="text-4xl font-bold">Hi {userData?.username}</div>
+            <span className="text-lg">your email id is <span className="text-blue-700">{userData?.email}</span></span>
             <span className="text-2xl font-semibold">Favourite Coupons</span>
             <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
                 {FavouriteCoupons.map((ele, index) => (
@@ -29,7 +53,6 @@ const Profile = () => {
 
                                 </div>
                                 <div className="flex flex-row-reverse gap-2 items-center justify-center">
-                                    <FaLink className="cursor-pointer"></FaLink>
                                     <div className="flex gap-1 items-center justify-center">
                                         <CiUser></CiUser>
                                         {ele.user_count}

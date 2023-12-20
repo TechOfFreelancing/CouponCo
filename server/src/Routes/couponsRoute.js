@@ -26,7 +26,7 @@ router.route("/admin/addToOffer/:storeId").post(isAdmin,fileUpload.single('thumb
 
 router.route("/admin/addClouser/:storeId").post(isAdmin,addStoreIds);
 router.route("/admin/removeClouser/:storeId").delete(isAdmin,removeStoreId);
-router.route("/admin/addCoupons/:storeId").post(isAdmin,addCoupons);
+router.route("/admin/addCoupons/:storeId").post(addCoupons);
 
 router.route("/coupons").get(getCouponsBy);
 router.route("/clouser").get(getAllStoreIds);
