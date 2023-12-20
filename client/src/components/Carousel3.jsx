@@ -129,13 +129,13 @@ const Carousel = () => {
                                 onClick={prevStep}
                                 className="hidden bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-left  animate-right duration-300 hover:scale-125"
                             >
-                                <AiOutlineVerticalRight className='h-6 w-6  lg:h-10 lg:w-10' />
+                                <AiOutlineVerticalRight className='h-6 w-6 ' />
                             </button>
                             <button
                                 onClick={nextStep}
                                 className="hidden bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-right  animate-left duration-300 hover:scale-125"
                             >
-                                <AiOutlineVerticalLeft className='h-6 w-6 lg:h-10 lg:w-10' />
+                                <AiOutlineVerticalLeft className='h-6 w-6' />
                             </button>
                         </div>
                     </div>

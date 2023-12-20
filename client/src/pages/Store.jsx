@@ -8,7 +8,7 @@ import {
     TabsHeader,
     Tab,
 } from "@material-tailwind/react";
-import { IoMdClose} from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import { Link } from 'react-scroll';
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -367,7 +367,27 @@ const Store = () => {
                         </div>
                     </div>
                     <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
-                        <div className="text-lg text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
+
+                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s shoppers also like</div>
+                        {
+                            filteredCoupons && filteredCoupons.slice(0, 2).map((ele, index) => {
+                                return (
+
+                                    <div key={index} className="flex gap-3 w-full cursor-pointer" onClick={() => handleOpen(ele)}>
+                                        <div className="w-[30%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col "><img src={str?.logo_url} alt="H" className="rounded-full" /></div></div>
+                                        <div className="flex flex-col justify-start">
+                                            <div className="font-semibold">{ele.title}</div>
+                                            <div>{ele.description.slice(0, 50)}...</div>
+                                        </div>
+
+                                    </div>
+
+                                )
+                            })
+                        }
+                    </div>
+                    <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
+                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
                         <div className="flex justify-between items-center px-5">
                             <span className="text-lg text-black">Exclusive codes</span>
                             <span>{couponCounts.exclusive}</span>
@@ -551,7 +571,7 @@ const Store = () => {
                                 return (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 items-center justify-center">
                                         <span
                                             className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
                                                 }`}
@@ -723,7 +743,7 @@ const Store = () => {
                         </div>
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-lg">
-                        Copy and paste this code at {""}
+                            Copy and paste this code at {""}
                             <a href={`http://${selectedProduct.ref_link}`} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>

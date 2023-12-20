@@ -7,7 +7,6 @@ import {
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { motion } from 'framer-motion'
 import "../components/couponsbutton.css";
 import { FaHeart } from "react-icons/fa6";
 
@@ -112,10 +111,6 @@ const Womanfashion = () => {
         fetchImages();
     }, []);
 
-    const variants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
-    };
 
     const handleUse = async (cId) => {
         try {
@@ -198,9 +193,7 @@ const Womanfashion = () => {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4">
                     {featuredImages.map((item, index) => (
-                        <motion.div variants={variants} initial="hidden"
-                            animate="visible"
-                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index}
+                        <div key={index}
                             className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5">
                             <img
                                 src={item.thumbnail}
@@ -230,7 +223,7 @@ const Womanfashion = () => {
                                     <span className="is-code-text"><em>GET CODE</em></span>
                                 </button>
                             </div>
-                        </motion.div>
+                        </div>
                     )).slice(0, 8)}
                 </div>
             </div>

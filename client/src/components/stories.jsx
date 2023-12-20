@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { motion } from 'framer-motion';
 import { Link } from "react-router-dom";
 
 const Stories = () => {
@@ -12,10 +11,7 @@ const Stories = () => {
 
     // console.log(count);
 
-    const variants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
-    };
+  
 
 
     useEffect(() => {
@@ -67,10 +63,7 @@ const Stories = () => {
             </div>
             <div className="flex gap-5 lg:grid lg:grid-cols-8 lg:overflow-hidden overflow-auto overflow-y-hidden scroll-snap-type-x mandatory scrollbar-hide">
                 {featured.slice(0,8).map((ele, index) => (
-                    <motion.div variants={variants}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className={`flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-125 duration-300 hover:z-${index * 10} item flex-shrink-0 scroll-snap-align-start`}>
+                    <div key={index} className={`flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 hover:z-${index * 10} item flex-shrink-0 scroll-snap-align-start`}>
                         <div style={{ backgroundColor: `${ele.background}` }} className="h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center shadow-inner border overflow-hidden">
                             <img
                                 src={images[index]}
@@ -87,7 +80,7 @@ const Stories = () => {
                                 <span>coupons</span>
                             </span>
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </div>
