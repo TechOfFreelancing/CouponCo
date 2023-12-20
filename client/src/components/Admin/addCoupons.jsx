@@ -34,6 +34,7 @@ function AddCoupons() {
             "type": values.type,
             "couponCode": values.couponCode,
             "dueDate": values.dueDate,
+            "isVerified": true,
             "ref_link": values.link,
             "description": values.description
         });
@@ -45,7 +46,7 @@ function AddCoupons() {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
             },
             data: data
         };

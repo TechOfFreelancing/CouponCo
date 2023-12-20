@@ -383,8 +383,7 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
 //add coupons
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    const { title, couponCode, type, ref_link, dueDate, description } = req.body;
-    console.log(title, couponCode, type, dueDate);
+    const { title, couponCode, type, ref_link, dueDate, description, isVerified } = req.body;
     try {
         // Check if the store exists
         const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
@@ -399,10 +398,10 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
 
         // Inserting the coupon into the coupons table
         const insertCouponSql = `
-            INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, due_date, description,created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?,NOW())
+            INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, due_date, isVerified, description,created_at)
+            VALUES (?, ?, ?, ?, ?, ?,? , ?,NOW())
         `;
-        const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate, description]);
+        const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate,isVerified, description]);
 
         // Updating the stock count in the store table
         const updateStockSql = `
@@ -433,7 +432,7 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
         let updateSql = 'UPDATE coupons SET ';
         const updateParams = [];
         let updateDate = false;
-        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description', 'created_at'];
+        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'due_date', 'description', 'created_at', 'isVerified'];
 
         // Update fields provided in the request body
         for (const field of validFields) {

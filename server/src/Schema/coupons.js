@@ -98,6 +98,7 @@ class Coupons {
             user_count INT DEFAULT 0,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             description TEXT,
+            isVerified BOOLEAN DEFAULT false,
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
         )`;
 

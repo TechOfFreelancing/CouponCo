@@ -38,6 +38,7 @@ export default function Login() {
             toast.success(message);
 
             localStorage.setItem('token', token);
+            localStorage.setItem('id',user.user_id);
             localStorage.setItem('role', user.role)
             updateUserRole(user.role);
             setTimeout(() => {
