@@ -353,7 +353,7 @@ const Store = () => {
         }
     };
 
-    // const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
@@ -582,15 +582,6 @@ const Store = () => {
                                     </div>
                                 </Tab>
                                 <Tab
-                                    value="Deals"
-                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('deal')}
-                                >
-                                    <div className="flex items-center gap-2 lg:mx-2">
-                                        Deals({couponCounts.deals})
-                                    </div>
-                                </Tab>
-                                <Tab
                                     value="codes"
                                     className={activeTab === 'code' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
                                     onClick={() => handleTabChange('code')}
@@ -599,7 +590,15 @@ const Store = () => {
                                         Codes({couponCounts.exclusive})
                                     </div>
                                 </Tab>
-
+                                <Tab
+                                    value="Deals"
+                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('deal')}
+                                >
+                                    <div className="flex items-center gap-2 lg:mx-2">
+                                        Deals({couponCounts.deals})
+                                    </div>
+                                </Tab>
                             </TabsHeader>
                             <div className="flex items-start text-red-600 hover:underline cursor-pointer" onClick={() => {
                                 navigate('/submitcoupon', { state: { storeId: sId } });
@@ -783,7 +782,7 @@ const Store = () => {
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-lg">
                             Copy and paste this code at {""}
-                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
+                            <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>
                         </div>

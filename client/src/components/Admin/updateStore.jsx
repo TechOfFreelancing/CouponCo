@@ -8,6 +8,7 @@ import { CouponsBox } from "./CouponsBox";
 import { ShowOnDisplay } from "./ShowOnDisplay";
 import { Clouser } from "./ClouserAdd";
 import { ClouserRemove } from "./ClouserRemove";
+import typesData from "../../api/AllTypes";
 
 
 function UpdateStores() {
@@ -261,9 +262,9 @@ function UpdateStores() {
                 handleOpen={handleClouserOpen}
             />
             <ClouserRemove
-               storeId={sId}
-               open={openDeleteClouser}
-               handleOpen={handleDeleteClouserOpen}
+                storeId={sId}
+                open={openDeleteClouser}
+                handleOpen={handleDeleteClouserOpen}
             />
             <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Store</h1>
@@ -271,6 +272,21 @@ function UpdateStores() {
                     {store && <Avatar src={store.logo_url} size="xxl" className="h-auto w-auto" alt="avatar"></Avatar>}
                 </div>
                 <form onSubmit={formik.handleSubmit}>
+                    <div className="mb-4">
+                        <label
+                            className="block mb-1 font-medium"
+                            htmlFor="storeFile"
+                        >
+                            Upload image:
+                        </label>
+                        <input
+                            id="storeFile"
+                            type="file"
+                            style={inputStyle}
+                            onChange={(event) => setSelectedFile(event.target.files[0])}
+                        />
+                    </div>
+
                     <div className="mb-4">
                         <label htmlFor="name" className="block mb-1 font-medium">
                             Name:
@@ -302,6 +318,27 @@ function UpdateStores() {
                     </div>
 
                     <div className="mb-4">
+                        <label htmlFor="type" className="block mb-1 font-medium">
+                            Type:
+                        </label>
+                        <select
+                            id="type"
+                            name="type"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.type}
+                        >
+                            <option value="">Select Type</option>
+                            {typesData.map((type, index) => (
+                                <option key={index} value={type}>
+                                    {type}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="mb-4">
                         <label htmlFor="description" className="block mb-1 font-medium">
                             About:
                         </label>
@@ -318,7 +355,7 @@ function UpdateStores() {
 
                     <div className="mb-4">
                         <label htmlFor="moreAbout" className="block mb-1 font-medium">
-                           More About:
+                            More About:
                         </label>
                         <textarea
                             type="text"
@@ -343,36 +380,6 @@ function UpdateStores() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.hint}
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <label htmlFor="type" className="block mb-1 font-medium">
-                            Type:
-                        </label>
-                        <input
-                            type="text"
-                            id="type"
-                            name="type"
-                            style={inputStyle}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.type}
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <label
-                            className="block mb-1 font-medium"
-                            htmlFor="storeFile"
-                        >
-                            Upload image:
-                        </label>
-                        <input
-                            id="storeFile"
-                            type="file"
-                            style={inputStyle}
-                            onChange={(event) => setSelectedFile(event.target.files[0])}
                         />
                     </div>
 

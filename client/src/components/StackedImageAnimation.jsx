@@ -84,7 +84,7 @@ export const StackedImageAnimation = () => {
     }, [activeIndex, cardImages]);
 
     const navigate = useNavigate();
-
+  
     return (
         <>
 
@@ -117,11 +117,12 @@ export const StackedImageAnimation = () => {
                                         <div className="flex flex-col gap-5 items-center justify-center m-5 h-[200px]">
                                             <img src={imageObj.logoUrl} alt={`Logo ${i}`} className='h-14 w-14 rounded-lg' />
                                             <img src={cardStores[activeIndex]?.thumbnail} alt={`Thumbnail ${i}`} className='rounded-sm' />
+                                            <p className='text-xl'>{cardStores[activeIndex]?.content} </p>
                                         </div>
-                                        <p className='text-sm'>{cardStores[activeIndex]?.content}</p>
+
                                         <GrNext className="absolute bottom-5 right-5 text-white z-10 p-3 bg-green-400 rounded-full cursor-pointer" onClick={handleNextClick}></GrNext>
                                         <button
-                                            className='absolute bottom-5 left-5 bg-blue-600 text-white z-10 text-xl p-3 px-5 rounded-lg hover:bg-blue-700'
+                                            className='absolute bottom-5 left-5 bg-blue-600 text-white z-10 text-lg duration-200 p-1 px-5 rounded-lg hover:bg-blue-700'
                                             onClick={() => {
                                                 navigate(
                                                     `/Stores/${imageObj.name}`,
