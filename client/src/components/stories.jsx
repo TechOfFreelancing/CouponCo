@@ -52,7 +52,7 @@ const Stories = () => {
 
 
     return (
-        <div className="lg:mx-28 mx-5 h-fit max-h-[100vh]">
+        <div className="lg:px-28 px-5 h-fit max-h-[100vh] bg-[#FAF9F6] py-5">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between mt-10">
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Feature Store</span>

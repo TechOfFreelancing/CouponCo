@@ -11,7 +11,7 @@ import {
 import { IoMdClose } from "react-icons/io";
 import { Link } from 'react-scroll';
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate,Link as Link1 } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FcAbout } from "react-icons/fc";
 import { motion } from 'framer-motion'
@@ -21,6 +21,7 @@ import { MdTipsAndUpdates } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
+
 
 const Store = () => {
     const [open, setOpen] = useState(false);
@@ -369,27 +370,27 @@ const Store = () => {
             <Toaster position="top-center"></Toaster>
             <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
                 <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm">
-                    <div className="bg-white p-4 flex items-center flex-wrap">
+                    <div className="bg-[#FAF9F5] p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
-                                <a href="/" className="text-gray-600 hover:text-red-500">
+                                <Link1 to="/" className="text-gray-600 hover:text-[#B33D53]">
                                     <svg className="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
-                                </a>
+                                </Link1>
 
                                 <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                             </li>
 
                             <li className="inline-flex items-center">
-                                <a href="/Stores" className="text-gray-600 hover:text-red-500 whitespace-nowrap">
+                                <Link1 to="/Stores" className="text-gray-600 hover:text-[#B33D53] whitespace-nowrap">
                                     Stores
-                                </a>
+                                </Link1>
                                 <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                             </li>
 
                             <li className="inline-flex items-center">
-                                <a href={`/Stores/${str?.name}`} className="text-gray-600 hover:text-red-500 whitespace-nowrap">
+                                <span  className="text-gray-600 hover:text-[#B33D53] whitespace-nowrap cursor-pointer">
                                     {str?.name}
-                                </a>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -416,8 +417,8 @@ const Store = () => {
                             validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
                                 return (
 
-                                    <div key={index} className="flex gap-3 w-full cursor-pointer" onClick={() => handleOpen(ele)}>
-                                        <div className="w-[30%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col "><img src={str?.logo_url} alt="H" className="rounded-full" /></div></div>
+                                    <div key={index} className="flex gap-3 w-full cursor-pointer bg-white p-3 rounded-lg" onClick={() => handleOpen(ele)}>
+                                        <div className="w-[33%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="rounded-full w-14 h-14 " /></div></div>
                                         <div className="flex flex-col justify-start">
                                             <div className="font-semibold">{ele.title}</div>
                                             <div>{ele.description.slice(0, 50)}...</div>
@@ -451,9 +452,9 @@ const Store = () => {
                             <span>{couponCounts.sales}</span>
                         </div>
                         <hr />
-                        <div className="flex justify-between items-center bg-red-50 px-5 py-2">
+                        <div className="flex justify-between items-center bg-[#F2F0E6] px-5 py-2">
                             <span className="text-lg text-black">Total Offers</span>
-                            <span className="text-red-600 text-lg">{validCoupons?.length}</span>
+                            <span className="text-[#B33D53] text-lg">{validCoupons?.length}</span>
                         </div>
                         <List>
                             <div className="w-full lg:w-80 card">
@@ -463,7 +464,7 @@ const Store = () => {
                                 <div className="moreaboutcompany flex flex-col gap-2 text-black ">
                                     <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
                                     <div
-                                        className="underline text-red-500 cursor-pointer"
+                                        className="underline text-[#B33D53] cursor-pointer"
                                         onClick={toggleDescription}
                                     >
                                         {lessAbout}
@@ -562,7 +563,7 @@ const Store = () => {
                     </div>
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
-                    <Tabs value={activeTab} className="p-5">
+                    <Tabs value={activeTab} className="p-5 ">
                         <div className="flex flex-col gap-3 justify-evenly mt-5 ">
                             <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">{str?.title}</div>
                             <div className="text-sm font-semibold uppercase">
@@ -570,7 +571,7 @@ const Store = () => {
                             </div>
                         </div>
                         <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-5 mt-3 pr-10">
-                            <TabsHeader className="lg:w-full flex lg:gap-4 " style={{ zIndex: 10 }}>
+                            <TabsHeader className="lg:w-full flex lg:gap-4 bg-[#FAF9F5]" style={{ zIndex: 10 }}>
                                 <Tab
                                     value="all"
                                     className={activeTab === 'all' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
@@ -582,7 +583,7 @@ const Store = () => {
                                 </Tab>
                                 <Tab
                                     value="Deals"
-                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000] " : ""}
                                     onClick={() => handleTabChange('deal')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2">
@@ -600,7 +601,7 @@ const Store = () => {
                                 </Tab>
 
                             </TabsHeader>
-                            <div className="flex items-start text-red-600 hover:underline cursor-pointer" onClick={() => {
+                            <div className="flex items-start text-[#B33D53] hover:underline cursor-pointer" onClick={() => {
                                 navigate('/submitcoupon', { state: { storeId: sId } });
                             }}>
                                 <div className="inline">Submit a coupon</div>
@@ -614,21 +615,21 @@ const Store = () => {
                                 return (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
                                         <span
-                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-red-700' : 'text-white'
+                                            className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-[#B33D53]' : 'text-white'
                                                 }`}
                                             onClick={() => handleLikeClick(index, ele.coupon_id)}
                                         >
                                             <FaHeart className="cursor-pointer text-xl duration-300" />
                                         </span>
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[104px] w-[104px] rounded-lg" /><span className="bg-blue-100 text-center w-full">DEAL</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
 
                                                 <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
                                                 <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>
@@ -661,14 +662,14 @@ const Store = () => {
                     </div>
                     {
                         expiredCoupons && (
-                            <div className="flex flex-col mt-5 gap-5 items-start lg:mx-5">
+                            <div className=" flex flex-col mt-5 gap-5 items-start lg:mx-5">
                                 <div className="text-xl text-black font-semibold">
                                     Recently Expired {str?.name} Discount Codes & Deals
                                 </div>
                                 {expiredCoupons?.map((ele, index) => (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
 
                                         <div className="flex w-full">
                                             <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
@@ -676,7 +677,7 @@ const Store = () => {
 
                                                 <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-red-700 w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                 </div>
                                                 <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>

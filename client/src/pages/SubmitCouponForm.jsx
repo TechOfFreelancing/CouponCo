@@ -77,11 +77,11 @@ const SubmitCouponForm = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="lg:w-1/2 flex flex-col gap-5 text-black lg:mx-auto mt-20 lg:mt-32 p-10 border">
-                <h1 className="font-bold text-xl text-center">Submit A Coupon & Help Millions Save! </h1>
+            <div className="lg:w-1/2 flex flex-col gap-5 text-black lg:mx-auto mt-20 lg:mt-32 p-10 border bg-white">
+                {/* <h1 className="font-bold text-xl text-center">Submit A Coupon & Help Millions Save! </h1> */}
                 <div className="rounded-lg overflow-clip flex-col border">
                     <div className="flex w-full gap-0 h-[3rem]">
-                        <div className={`w-full border flex items-center justify-center font-semibold  bg-red-500 text-white duration-300 cursor-pointer `}>Add Coupons</div>
+                        <div className={`w-full border flex items-center justify-center font-semibold  bg-[#B33D53] text-white duration-300 cursor-pointer `}>Submit A Coupon & Help Millions Save!</div>
                     </div>
                     <div className="form flex flex-col gap-5 bg-white lg:px-10 lg:py-5">
                         <form onSubmit={handleSubmit}>
@@ -95,21 +95,22 @@ const SubmitCouponForm = () => {
                                     name="title"
                                     value={formData.title}
                                     onChange={handleInputChange}
-                                    className="bg-gray-100"
+                                    className="bg-[#FAF9F5]"
                                     style={inputStyle}
                                 />
                             </div>
 
                             <div className="mb-4">
                                 <label htmlFor="type" className="block mb-1 font-medium">
-                                    Type:
+                                    
+                                    Select an Offer Type:
                                 </label>
                                 <select
                                     id="type"
                                     name="type"
                                     value={formData.type}
                                     onChange={handleInputChange}
-                                    className="w-full border border-black rounded-lg p-3 bg-gray-100"
+                                    className="w-full border border-black rounded-lg p-3 bg-[#FAF9F5]"
                                     style={inputStyle}
                                 >
                                     <option>Sale</option>
@@ -127,7 +128,7 @@ const SubmitCouponForm = () => {
                                     name="couponCode"
                                     value={formData.couponCode}
                                     onChange={handleInputChange}
-                                    className="bg-gray-100"
+                                    className="bg-[#FAF9F5]"
                                     style={inputStyle}
                                 />
                             </div>
@@ -142,7 +143,7 @@ const SubmitCouponForm = () => {
                                     name="dueDate"
                                     value={formData.dueDate}
                                     onChange={handleInputChange}
-                                    className="bg-gray-100"
+                                    className="bg-[#FAF9F5]"
                                     style={inputStyle}
                                 />
                             </div>
@@ -157,7 +158,7 @@ const SubmitCouponForm = () => {
                                     name="link"
                                     value={formData.link}
                                     onChange={handleInputChange}
-                                    className="bg-gray-100"
+                                    className="bg-[#FAF9F5]"
                                     style={inputStyle}
                                 />
                             </div>
@@ -172,13 +173,13 @@ const SubmitCouponForm = () => {
                                     name="description"
                                     value={formData.description}
                                     onChange={handleInputChange}
-                                    className="bg-gray-100"
+                                    className="bg-[#FAF9F5]"
                                     style={inputStyle}
                                 />
                             </div>
 
                             <div className="flex justify-center mb-4">
-                                <button type="submit" className="py-2 px-4 hover:bg-[#800000] bg-red-700 duration-300 text-white rounded-md outline-none">
+                                <button type="submit" className="py-2 px-4 hover:bg-[#800000] bg-[#B33D53] duration-300 text-white rounded-md outline-none">
                                     Submit
                                 </button>
                             </div>

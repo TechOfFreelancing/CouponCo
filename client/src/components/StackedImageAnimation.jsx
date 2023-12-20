@@ -114,10 +114,10 @@ export const StackedImageAnimation = () => {
                                             transition: `z-index 0.6s ease, transform 0.6s ease${isPreviousActiveIndex ? ", right 0.3s ease" : ""}`
                                         }}
                                     >
-                                        <div className="flex flex-col gap-5 items-center justify-center m-5 h-[200px]">
+                                        <div className="flex flex-col gap-5 items-center justify-center m-5 h-[250px]">
                                             <img src={imageObj.logoUrl} alt={`Logo ${i}`} className='h-14 w-14 rounded-lg' />
-                                            <img src={cardStores[activeIndex]?.thumbnail} alt={`Thumbnail ${i}`} className='rounded-sm' />
-                                            <p className='text-xl'>{cardStores[activeIndex]?.content} </p>
+                                            <img src={cardStores[activeIndex]?.thumbnail} alt={`Thumbnail ${i}`} className='rounded-sm h-[100px] w-auto' />
+                                            <p className='text-xl h-16 overflow-hidden'>{cardStores[activeIndex]?.content} </p>
                                         </div>
                                        
                                         <GrNext className="absolute bottom-5 right-5 text-white z-10 p-3 bg-green-400 rounded-full cursor-pointer" onClick={handleNextClick}></GrNext>
