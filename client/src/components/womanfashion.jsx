@@ -23,14 +23,39 @@ const Womanfashion = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
 
-    const handleLikeClick = (index) => {
-        // Check if the item is already liked
-        if (!likedItems.includes(index)) {
-            // If not liked, add it to the likedItems state
-            setLikedItems([...likedItems, index]);
-        } else {
-            // If already liked, remove it from the likedItems state
-            setLikedItems(likedItems.filter((item) => item !== index));
+    const handleLikeClick = async (index, cId) => {
+        const token = localStorage.getItem('token');
+
+        // Check if token is present
+        if (!token) {
+            window.location.href = '/login'; // Redirect to login page if token is not present
+            return;
+        }
+
+        try {
+            const userId = localStorage.getItem('id')
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+
+            const updatedLikedItems = [...likedItems];
+
+            if (!likedItems.includes(cId)) {
+                updatedLikedItems.push(cId);
+
+                setLikedItems(updatedLikedItems);
+
+                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+            } else {
+                const filteredItems = updatedLikedItems.filter((item) => item !== cId);
+                setLikedItems(filteredItems);
+
+                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+            }
+        } catch (error) {
+            console.error('Error occurred:', error);
         }
     };
 
@@ -52,6 +77,7 @@ const Womanfashion = () => {
         return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
     };
 
+    const correctedRefLink = selectedCoupon?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
 
     const formatUserCount = (count) => {
         if (count >= 10000000) {
@@ -102,6 +128,27 @@ const Womanfashion = () => {
                     setCop(coupon);
 
                     setFeaturedImages(fetchedImagesWithId);
+
+                    const userId = localStorage.getItem('id');
+
+                    if (userId) {
+                        try {
+                            const token = localStorage.getItem('token');
+                            const config = {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            };
+
+                            const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                            const savedCouponsData = response.data.savedCoupons || [];
+                            const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
+
+                            setLikedItems(likedCouponIds);
+                        } catch (error) {
+                            console.error('Error fetching saved coupons:', error);
+                        }
+                    }
                 }
 
             } catch (error) {
@@ -171,7 +218,7 @@ const Womanfashion = () => {
                             {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                             <div className="text-lg">
                                 Copy and paste this code at {""}
-                                <a href={`http://${selectedCoupon?.ref_link}`} target="_blank" onClick={() => { handleUse(selectedCoupon.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
+                                <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedCoupon.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                     {name}
                                 </a>
                             </div>
@@ -207,9 +254,8 @@ const Womanfashion = () => {
                                 className="cursor-pointer w-full h-1/2"
                             />
                             <span
-                                className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(index) ? 'text-red-700' : 'text-white'
-                                    }`}
-                                onClick={() => handleLikeClick(index)}
+                                className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
+                                onClick={() => handleLikeClick(index, item.cId)}
                             >
                                 <FaHeart className="cursor-pointer text-3xl duration-300" />
                             </span>
