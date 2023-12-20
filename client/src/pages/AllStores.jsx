@@ -17,7 +17,6 @@ const AllStores = () => {
     const navigate = useNavigate();
 
     const type = location.state?.type;
-    console.log(location.state?.type);
     const keyword = location.state?.keyword;
 
     const isFestival = location.state?.isFestival;

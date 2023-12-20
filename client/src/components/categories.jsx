@@ -15,7 +15,7 @@ const Categories = () => {
                     All Categories
                 </Link>
             </div>
-            <div className="gap-5 lg:gap-10 my-5 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide h-[12rem] lg:h-[18rem]">
+            <div className="gap-5 lg:gap-10 my-5 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide h-[12rem]  lg:h-[18rem]">
                 {
                     categories.map((ele, index) => {
                         return (

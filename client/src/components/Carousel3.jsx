@@ -97,7 +97,7 @@ const Carousel = () => {
     }, [index]);
 
     return (
-        <div className='container overflow-clip rounded-xl lg:rounded-xl h-[200px] lg:h-[350px]' >
+        <div className='container overflow-clip rounded-xl lg:rounded-[3rem] h-[200px] lg:h-[350px]' >
             {
                 featuredImages[index] ? (
                     <div className='slideshow group lg:w-[860px] w-screen my-0 lg:my-auto mx-auto'>

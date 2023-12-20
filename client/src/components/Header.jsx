@@ -28,9 +28,6 @@ export function Header() {
     const OpenSidebar = () => setopenSidebar(true);
     const CloseSidebar = () => setopenSidebar(false);
 
-
-
-
     const navigate = useNavigate();
 
     const handleKeyPress = (e) => {
@@ -99,7 +96,7 @@ export function Header() {
                     </Link>
                     <div className="hidden lg:block">{navList}</div>
                     <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[25rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search on Retailmenot' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
+                        <input type="search" placeholder='Search on Coupon Co' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
                             <ImSearch className="h-6 w-6" />
                         </button>
@@ -161,7 +158,7 @@ export function Header() {
                         </IconButton>
                     </div>
                     <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search on Retailmenot' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
+                        <input type="search" placeholder='Search on Coupon Co' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
                             <ImSearch className="h-6 w-6" />
                         </button>

@@ -221,3 +221,26 @@ exports.resetPassPost = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Unable to proceed ", 400));
     }
 });
+
+// Get User Details with Saved Coupons Data
+exports.getUserDetailsWithCoupons = catchAsyncErrors(async (req, res, next) => {
+    const { userId } = req.params; 
+    try {
+        const getCouponsForUserSql = `
+            SELECT c.* FROM coupons c
+            INNER JOIN saved_coupons sc ON c.coupon_id = sc.coupon_id
+            WHERE sc.user_id = ?;
+        `;
+        const couponsData = await db.query(getCouponsForUserSql, [userId]);
+
+        // Fetch user details from the 'users' table
+        const getUserDetailsSql = `SELECT * FROM users WHERE user_id = ?`;
+        const userDetails = await db.query(getUserDetailsSql, [userId]);
+        const user = userDetails[0]; 
+
+        res.status(200).json({ user, savedCoupons: couponsData[0] });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch user details with saved coupons", 400));
+    }
+});
