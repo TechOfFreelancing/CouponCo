@@ -247,10 +247,10 @@ const Womanfashion = () => {
                                 className="cursor-pointer w-full h-1/2"
                             />
                             <span
-                                className={`p-2 absolute right-1 top-1 rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
+                                className={`p-2 absolute right-1 top-1 backdrop-blur-sm bg-white/30 border border-gray-800  rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
                                 onClick={() => handleLikeClick(index, item.cId)}
                             >
-                                <FaHeart className="cursor-pointer text-3xl duration-300" />
+                                <FaHeart className="cursor-pointer text-xl duration-300" />
                             </span>
 
                             <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
