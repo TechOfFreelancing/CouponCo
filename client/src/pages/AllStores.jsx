@@ -7,6 +7,7 @@ const AllStores = () => {
 
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [stores, setStores] = useState([]);
+    // const [updateTrigger, setUpdateTrigger] = useState(false);
 
     const location = useLocation();
 
@@ -21,6 +22,117 @@ const AllStores = () => {
     const keyword = location.state?.keyword;
 
     const isFestival = location.state?.isFestival;
+
+    // Fetch stores based on the festival or regular conditions
+    // const fetchStores = useCallback(async () => {
+    //     try {
+    //         let fetchedStores = [];
+
+    //         if (isFestival) {
+    //             const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
+    //                 headers: { "Content-Type": "application/json" }
+    //             });
+
+    //             const storeDetailsPromises = response.data.data.map(async (store) => {
+    //                 if (store.storeId) {
+    //                     const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
+    //                     return response.data.store;
+    //                 }
+    //                 return null;
+    //             });
+
+    //             const storeDetails = await Promise.all(storeDetailsPromises);
+    //             fetchedStores = storeDetails.filter(Boolean);
+    //         } else {
+    //             let apiUrl = `http://localhost:4000/api/getAllStore?`;
+
+    //             if (type) {
+    //                 apiUrl += `&type=${type}`;
+    //             }
+
+    //             if (keyword) {
+    //                 apiUrl += `&keyword=${keyword}`;
+    //             }
+
+    //             const response = await axios.get(apiUrl, { headers: { "Content-Type": "application/json" } });
+    //             fetchedStores = response.data.stores;
+    //         }
+
+    //         setStores(fetchedStores);
+    //     } catch (error) {
+    //         console.error("Failed to fetch stores:", error);
+    //     }
+    // }, [isFestival, type, keyword]);
+
+
+    // const updateStoreCounts = useCallback(async () => {
+    //     try {
+    //         const updatedStores = await Promise.all(stores.map(async (store) => {
+    //             try {
+    //                 const couponsResponse = await axios.get(`http://localhost:4000/api/coupons/${store.id}`);
+    //                 const coupons = couponsResponse.data.coupons;
+
+    //                 if (coupons.length > 0) {
+    //                     const expiredCoupons = coupons.filter(
+    //                         (coupon) => new Date(coupon.due_date) < new Date()
+    //                     );
+
+    //                     const expiredOffers = expiredCoupons.filter(
+    //                         (coupon) => coupon.type.toLowerCase() === 'deal' || coupon.type.toLowerCase() === 'offers'
+    //                     );
+
+    //                     const couponsCount = expiredCoupons.length;
+    //                     const offersCount = expiredOffers.length;
+
+    //                     const decreaseData = JSON.stringify({
+    //                         couponsCount: couponsCount.toString(),
+    //                         offersCount: offersCount.toString(),
+    //                     });
+
+    //                     // Make a PATCH request to decrease counts in the backend
+    //                     await axios.patch(`http://localhost:4000/api/decreaseCount/${store.id}`, decreaseData);
+
+    //                     // Update the store with new counts
+    //                     return {
+    //                         ...store,
+    //                         coupons: Math.max(store.coupons - couponsCount, 0),
+    //                         offers: Math.max(store.offers - offersCount, 0),
+    //                     };
+    //                 }
+
+    //                 // If no coupons, return the store as is
+    //                 return store;
+    //             } catch (error) {
+    //                 console.error(`Error updating store ${store.id} counts:`, error);
+    //                 return store;
+    //             }
+    //         }));
+
+    //         setStores(updatedStores);
+    //     } catch (error) {
+    //         console.error("Error updating store counts:", error);
+    //     }
+    // }, [stores]);
+
+    // // Initial fetch
+    // useEffect(() => {
+    //     fetchStores();
+    // }, []);
+
+    // // Update store counts based on conditions
+    // useEffect(() => {
+    //     if (stores.length > 0 && updateTrigger) {
+    //         updateStoreCounts();
+    //         setUpdateTrigger(false);
+    //     }
+    // }, [stores, updateTrigger, updateStoreCounts]);
+
+    // // Set updateTrigger to true when stores change
+    // useEffect(() => {
+    //     if (stores.length > 0 && !updateTrigger) {
+    //         setUpdateTrigger(true);
+    //     }
+    // }, [stores, updateTrigger]);
 
     useEffect(() => {
         const fetchStores = async () => {
@@ -101,9 +213,9 @@ const AllStores = () => {
                     Array.from([...firstLatter, '0-9']).map((letter, index) => {
                         const filteredStores = stores.filter((store) => {
                             if (letter === '0-9') {
-                                return /\d/.test(store.name.charAt(0));
+                                return /\d/.test(store?.name?.charAt(0));
                             } else {
-                                return store.name.charAt(0).toLowerCase() === letter.toLowerCase();
+                                return store?.name?.charAt(0).toLowerCase() === letter.toLowerCase();
                             }
                         });
 
@@ -127,7 +239,7 @@ const AllStores = () => {
                                                 <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                 <div className="flex flex-col justify-evenly">
                                                     <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                    <div className=" text-sm text-gray-800">{ele.stock} coupons</div>
+                                                    <div className=" text-sm text-gray-800">10 coupons | 5 offers</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +256,7 @@ const AllStores = () => {
                                 <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                                 <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
                                     {stores
-                                        .filter((store) => store.name.charAt(0) === letter)
+                                        .filter((store) => store?.name?.charAt(0) === letter)
                                         .map((ele) => (
                                             <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer" onClick={() => {
                                                 navigate(
@@ -155,7 +267,7 @@ const AllStores = () => {
                                                     <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                     <div className="flex flex-col justify-evenly">
                                                         <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                        <div className=" text-sm text-gray-800">{ele.stock} coupons</div>
+                                                        <div className=" text-sm text-gray-800">10 coupons | 5 offers</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,7 +283,7 @@ const AllStores = () => {
                             <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                             <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
                                 {stores
-                                    .filter((store) => store.name.charAt(0).toLocaleLowerCase() === selectedCategory.toLocaleLowerCase())
+                                    .filter((store) => store?.name?.charAt(0).toLocaleLowerCase() === selectedCategory.toLocaleLowerCase())
                                     .map((ele) => (
                                         <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer" onClick={() => {
                                             navigate(
@@ -182,7 +294,7 @@ const AllStores = () => {
                                                 <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                 <div className="flex flex-col justify-evenly">
                                                     <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                    <div className=" text-sm text-gray-800">{ele.stock} coupons</div>
+                                                    <div className=" text-sm text-gray-800">10 coupons | 5 offers</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,4 +308,3 @@ const AllStores = () => {
     )
 }
 export default AllStores
-

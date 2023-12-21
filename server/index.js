@@ -10,8 +10,8 @@ const path = require('path');
 
 
 var corsOptions = {
-    origin: ['http://127.0.0.1:5173', 'http://localhost:5173' , 'https://coupon-co.vercel.app'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'https://coupon-co.vercel.app'],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
     credentials: true
 };
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static('public'));
-app.set('views', path.join(__dirname, 'src' , 'views'));
+app.set('views', path.join(__dirname, 'src', 'views'));
 
 app.set('view engine', 'ejs');
 
@@ -40,7 +40,7 @@ app.get('/', async (req, res) => {
     res.status(200).json("All Okay!");
 })
 
-app.use('/api',authRoute,couponsRoute,festRoute);
+app.use('/api', authRoute, couponsRoute, festRoute);
 
 const server = app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);

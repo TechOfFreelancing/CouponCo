@@ -1,5 +1,5 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, getStoreDisplay, deleteFromDisplay, addToTodaysTop, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds, incrementUserCount, saveCouponForUser, unsaveCouponForUser, getUnverifiedCoupons } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard, getStoreDisplay, deleteFromDisplay, addToTodaysTop, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds, incrementUserCount, saveCouponForUser, unsaveCouponForUser, getUnverifiedCoupons, decreaseCouponsOffers } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 const { isAdmin } = require('../middleware/auth');
@@ -31,11 +31,11 @@ router.route("/admin/getUnverifed").get(getUnverifiedCoupons);
 
 router.route("/coupons").get(getCouponsBy);
 router.route("/clouser").get(getAllStoreIds);
-router.route("/inCount/:cId").put(incrementUserCount);
+router.route("/inCount/:cId").patch(incrementUserCount);
 router.route("/saveCoupon/:cId").post(saveCouponForUser);
 router.route("/unsaveCoupon/:cId").delete(unsaveCouponForUser);
 
-
+router.route("/decreaseCount/:storeId").patch(decreaseCouponsOffers);
 router.route("/admin/:cId").put(isAdmin,updateCoupon).delete(isAdmin,deleteCoupon);
 
 router.route("/addRatings/:storeId").put(addStoreRating);

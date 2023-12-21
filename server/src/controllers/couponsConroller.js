@@ -404,17 +404,48 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
         const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, dueDate, isVerified, description]);
 
         // Updating the stock count in the store table
-        const updateStockSql = `
-            UPDATE store 
-            SET stock = stock + 1
-            WHERE id = ?
+        const updateCouponsOffersSql = `
+         UPDATE store 
+         SET 
+         coupons = coupons + 1,
+          offers = CASE 
+           WHEN LOWER(?) = 'deal' THEN offers + 1
+           WHEN LOWER(?) = 'offer' THEN offers + 1
+           ELSE offers
+           END
+           WHERE id = ?
         `;
-        await db.query(updateStockSql, [storeId]);
+        await db.query(updateCouponsOffersSql, [type, type, storeId]);
 
         res.status(201).json({ message: 'Coupon added successfully' });
     } catch (err) {
         console.error('Error adding coupon:', err);
         return next(new ErrorHandler('Internal server error', 400));
+    }
+});
+
+//decrease Coupons count of store
+exports.decreaseCouponsOffers = catchAsyncErrors(async (req, res, next) => {
+    const { couponsCount, offersCount } = req.body;
+    const { storeId } = req.params;
+
+    try {
+        if (typeof couponsCount == null  || typeof offersCount == null) {
+            return res.status(400).json({ error: 'Invalid input' });
+        }
+
+        const decreaseCouponsSql = `
+            UPDATE store 
+            SET coupons = GREATEST(coupons - ?, 0),
+            offers = GREATEST(offers - ?, 0)
+            WHERE id = ?
+        `;
+        await db.query(decreaseCouponsSql, [couponsCount, offersCount, storeId]);
+
+        res.status(200).json({ message: 'Coupons and Offers counts updated successfully' });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -635,7 +666,12 @@ exports.deleteCoupon = catchAsyncErrors(async (req, res, next) => {
 
         // Update the stock count in the store table (assuming there's a stock field)
         const storeId = couponResult[0].store_id;
-        await db.query('UPDATE store SET stock = stock - 1 WHERE id = ?', [storeId]);
+        await db.query('UPDATE store SET coupons = coupons - 1 WHERE id = ?', [storeId]);
+
+        // Decrease offers count only if the deleted coupon was of type 'deal' or 'offer'
+        if (couponResult[0].type && (couponResult[0].type.toLowerCase() === 'deal' || couponResult[0].type.toLowerCase() === 'offer')) {
+            await db.query('UPDATE store SET offers = GREATEST(offers - 1, 0) WHERE id = ?', [storeId]);
+        }
 
         res.status(200).json({ message: `Coupon with ID ${cId} deleted successfully` });
     } catch (err) {

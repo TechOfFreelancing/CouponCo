@@ -14,7 +14,8 @@ class Coupons {
             faq JSON, 
             total_ratings BIGINT DEFAULT 0,
             ratings_count INT DEFAULT 0,
-            stock INT DEFAULT 0
+            coupons INT DEFAULT 0,
+            offers INT DEFAULT 0 
         )`;
 
         try {

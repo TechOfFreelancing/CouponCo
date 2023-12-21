@@ -193,7 +193,7 @@ const Store = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.put(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -670,7 +670,7 @@ const Store = () => {
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
 
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">DEAL</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
 
                                                 <div className="flex justify-between w-full mt-10 ">
