@@ -185,7 +185,7 @@ const Womanfashion = () => {
     };
 
     return (
-        <>
+        <div className="bg-[#F2F0E6] lg:py-5">
             <Dialog open={openDialog} handler={handleOpenDialog} >
                 <DialogHeader className="flex justify-between items-center">
                     <Button variant="text" color="blue-gray" onClick={handleOpenDialog}>
@@ -241,7 +241,7 @@ const Womanfashion = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-4">
                     {featuredImages.map((item, index) => (
                         <div key={index}
-                            className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5">
+                            className="group flex flex-col gap-2 items-center justify-start relative h-[325px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-5 pb-5 bg-white">
                             <img
                                 src={item.thumbnail}
                                 className="cursor-pointer w-full h-1/2"
@@ -273,7 +273,7 @@ const Womanfashion = () => {
                     )).slice(0, 8)}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

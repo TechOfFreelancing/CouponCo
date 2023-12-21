@@ -1,14 +1,12 @@
 import Ourcodes from '../assets/images/our-coders/Our-Codes.jpg'
 import acceptable from '../assets/images/our-coders/Acceptable-Codes.png'
-import sale_offer from '../assets/images/our-coders/Sale-Offers.png'
-import view_offer from '../assets/images/our-coders/View-Offers.png'
 import NewsLetter from '../components/newsletter'
 
 const OurCodes = () => {
     return (
         <>
-        <div className="lg:w-[75vw] mx-auto flex flex-col gap-10 text-black border mt-20 lg:mt-32 lg:p-10 px-10">
-            <div className='flex lg:flex-row flex-col gap-5 items-center justify-center'>
+        <div className="lg:w-[80vw] mx-auto flex flex-col gap-20 text-black border mt-20 lg:mt-32 lg:p-10 px-10">
+            <div className='flex lg:flex-row flex-col gap-10 items-center justify-center'>
                 <div className='flex flex-col lg:w-3/5 text-justify items-center gap-5'>
                     <span className='text-3xl font-bold'>Gift Card, If Not Code</span>
                     <div>Isn’t it annoying when you spend time searching for codes and they don’t work? We know how irritating that is and we also know the value of your time.</div>
@@ -23,7 +21,7 @@ const OurCodes = () => {
             </div>
             <div className='flex flex-col gap-8 '>
                 <div className='text-3xl font-bold'>How you can get a gift card if the code doesn’t work? </div>
-                <div className='flex flex-col lg:flex-row items-center justify-center gap-16'>
+                <div className='flex flex-col lg:flex-row items-start justify-center gap-16'>
                     <div className='flex flex-col gap-3'>
                         <div className='text-xl'>1. Reveal the Code </div>
                         <div>Click on the “Get Code” button to claim the coupon code then shop whatever the product meets the terms of the code. Remember to doble check the coupon description below the code if you arn’t sure.</div>
@@ -48,7 +46,7 @@ const OurCodes = () => {
                 </div>
             </div>
 
-            <div className='flex flex-col lg:flex-row gap-5 items-center justify-center'>
+            <div className='flex flex-col lg:flex-row gap-10 items-center justify-center '>
                 <div className='lg:w-2/5 flex flex-col items-center justify-center gap-8'>
                     <span className='text-xl font-bold'>Acceptable Codes</span>
                     <div>Our 100% working codes guarantee covers online coupon codes only. You can identify codes in one of two ways:</div>
@@ -72,7 +70,7 @@ const OurCodes = () => {
                 <div>The following types of code are not eligible under “our code” guarantee:</div>
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-5 my-10">
                     <div className='lg:w-3/5'>
-                        <img src={view_offer} alt="view_offer" />
+                        <img src={acceptable} alt="view_offer" />
                     </div>
                     <div className='flex flex-col lg:w-2/5 gap-5'>
                         <div className='text-xl'>1. Discount Offers </div>
@@ -84,7 +82,7 @@ const OurCodes = () => {
 
             <div className="flex flex-col lg:flex-row-reverse gap-5 my-10">
                 <div className='lg:w-3/5'>
-                    <img src={sale_offer} alt="view_offer" />
+                    <img src={acceptable} alt="view_offer" />
                 </div>
                 <div className='flex flex-col lg:w-2/5 gap-5'>
                     <div className='text-xl'>2. Sale Offers </div>
