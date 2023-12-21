@@ -235,7 +235,7 @@ const Womanfashion = () => {
             <div className='lg:mx-28 mx-5'>
                 <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between my-10">
                     <div className="flex flex-col gap-1 lg:gap-5">
-                        <span className="font-semibold text-lg lg:text-3xl">Today&apos;s Top Woman fashion Offers</span>
+                        <span className="font-semibold text-lg lg:text-3xl">Today&apos;s Top Offers</span>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4">
@@ -247,7 +247,7 @@ const Womanfashion = () => {
                                 className="cursor-pointer w-full h-1/2"
                             />
                             <span
-                                className={`p-2 absolute right-1 top-1 backdrop-blur-sm bg-white/30 border border-gray-800  rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
+                                className={`p-2 absolute right-1 top-1 backdrop-blur-sm bg-gray-300 border border-gray-600  rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
                                 onClick={() => handleLikeClick(index, item.cId)}
                             >
                                 <FaHeart className="cursor-pointer text-xl duration-300" />

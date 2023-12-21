@@ -11,7 +11,7 @@ import {
 import { IoMdClose } from "react-icons/io";
 import { Link } from 'react-scroll';
 import axios from "axios";
-import { useLocation, useNavigate,Link as Link1 } from "react-router-dom";
+import { useLocation, useNavigate, Link as Link1 } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FcAbout } from "react-icons/fc";
 import { motion } from 'framer-motion'
@@ -355,7 +355,7 @@ const Store = () => {
         }
     };
 
-    const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:/]+)/, "$1$2:");
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
@@ -390,7 +390,7 @@ const Store = () => {
                             </li>
 
                             <li className="inline-flex items-center">
-                                <span  className="text-gray-600 hover:text-[#B33D53] whitespace-nowrap cursor-pointer">
+                                <span className="text-gray-600 hover:text-[#B33D53] whitespace-nowrap cursor-pointer">
                                     {str?.name}
                                 </span>
                             </li>
@@ -420,7 +420,7 @@ const Store = () => {
                                 return (
 
                                     <div key={index} className="flex gap-3 w-full cursor-pointer bg-white p-3 rounded-lg" onClick={() => handleOpen(ele)}>
-                                        <div className="w-[33%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="rounded-full w-14 h-14 " /></div></div>
+                                        <div className="w-[40%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="rounded-full w-14 h-14 m-2" /></div></div>
                                         <div className="flex flex-col justify-start">
                                             <div className="font-semibold">{ele.title}</div>
                                             <div>{ele.description.slice(0, 50)}...</div>
@@ -610,13 +610,13 @@ const Store = () => {
                             </div>
                         </div>
                     </Tabs>
-                    <div className="flex flex-col gap-5 items-start lg:mx-5">
+                    <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2">
                         {
                             filteredCoupons && filteredCoupons.map((ele, index) => {
                                 return (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative flex flex-col border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
                                         <span
                                             className={`p-2 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                 }`}
@@ -624,37 +624,41 @@ const Store = () => {
                                         >
                                             <FaHeart className="cursor-pointer text-xl duration-300" />
                                         </span>
-                                        <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
-                                            <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
+                                        <div className="flex flex-col w-full">
+                                            <div className="flex">
+                                                <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center "><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[104px] lg:w-[104px] rounded-lg m-2" /><span className="bg-blue-100 text-center w-full">{ele.type}</span></div></div>
+                                                <div className="flex flex-col lg:w-[85%] w-[75%] lg:mx-5 justify-between gap-5">
 
-                                                <div className="flex justify-between w-full mt-10 ">
-                                                    <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl lg:h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
-                                                </div>
-                                                <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
-                                                    <div>
-                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                    <div className="flex justify-between w-full mt-10 ">
+                                                        <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
+                                                        <div className="bg-[#B33D53] w-[10rem] lg:w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                    </div>
+                                                    <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
+
+                                                        <div className="flex whitespace-nowrap lg:gap-5 lg:mr-[4rem]">
+                                                            <span className="flex justify-center items-center lg:gap-2"><GoVerified className="text-blue-800" />Verified</span>
+                                                            <span className="flex justify-center items-center lg:gap-2">
+                                                                <CiUser></CiUser>
+                                                                {formatUserCount(ele.user_count)} Uses
+                                                            </span>
                                                         </div>
-                                                        {detailsVisibility[index] && (
-                                                            <div className="details flex flex-col">
-                                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                                <span>{ele.description}</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex whitespace-nowrap gap-5 lg:mr-[4rem]">
-                                                        <span className="flex justify-center items-center gap-2"><GoVerified className="text-blue-800" />Verified</span>
-                                                        <span className="flex justify-center items-center gap-2">
-                                                            <CiUser></CiUser>
-                                                            {formatUserCount(ele.user_count)} Uses
-                                                        </span>
+
                                                     </div>
 
                                                 </div>
-
                                             </div>
+                                            <div>
+                                                <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                </div>
+                                                {detailsVisibility[index] && (
+                                                    <div className="details flex flex-col">
+                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                        <span>{ele.description}</span>
+                                                    </div>
+                                                )}
+                                            </div>
+
                                         </div>
                                     </motion.div>
                                 )
@@ -663,45 +667,48 @@ const Store = () => {
                     </div>
                     {
                         expiredCoupons && (
-                            <div className=" flex flex-col mt-5 gap-5 items-start lg:mx-5">
+                            <div className=" flex flex-col mt-5 gap-5 items-start lg:mx-5 mx-2">
                                 <div className="text-xl text-black font-semibold">
                                     Recently Expired {str?.name} Discount Codes & Deals
                                 </div>
                                 {expiredCoupons?.map((ele, index) => (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative group flex border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
 
-                                        <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
-                                            <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
+                                        <div className="flex flex-col w-full">
+                                            <div className="flex">
+                                                <div className="lg:w-[15%] w-[25%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[104px] lg:w-[104px] rounded-lg m-2" /><span className="bg-blue-100 text-center w-full">{ele.type}</span></div></div>
+                                                <div className="flex flex-col lg:w-[85%] w-[75%] lg:mx-5 justify-center gap-5 ">
 
-                                                <div className="flex justify-between w-full mt-10 ">
-                                                    <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
-                                                </div>
-                                                <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
-                                                    <div>
-                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
-                                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                    <div className="flex justify-between w-full mt-10 ">
+                                                        <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
+                                                        <div className="bg-[#B33D53] w-[10rem] lg:w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
+                                                    </div>
+                                                    <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
+
+                                                        <div className="flex whitespace-nowrap gap-2 lg:gap-5 lg:mr-[4rem]">
+                                                            <span className="flex justify-center items-center lg:gap-2"><MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
+                                                            <span className="flex justify-center items-center lg:gap-2">
+                                                                <CiUser></CiUser>
+                                                                {formatUserCount(ele.user_count)} Uses
+                                                            </span>
                                                         </div>
-                                                        {detailsVisibility[index] && (
-                                                            <div className="details flex flex-col">
-                                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                                <span>{ele.description}</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex whitespace-nowrap gap-5 lg:mr-[4rem]">
-                                                        <span className="flex justify-center items-center gap-2"><MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
-                                                        <span className="flex justify-center items-center gap-2">
-                                                            <CiUser></CiUser>
-                                                            {formatUserCount(ele.user_count)} Uses
-                                                        </span>
+
                                                     </div>
 
                                                 </div>
-
+                                            </div>
+                                            <div>
+                                                <div className="flex gap-1 items-center text-sm cursor-pointer whitespace-nowrap" onClick={() => toggleDetails(index)}>
+                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                </div>
+                                                {detailsVisibility[index] && (
+                                                    <div className="details flex flex-col">
+                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                        <span>{ele.description}</span>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </motion.div>
