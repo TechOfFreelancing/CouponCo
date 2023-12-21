@@ -700,10 +700,10 @@ const Store = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <div className="flex gap-1 items-center text-sm cursor-pointer whitespace-nowrap" onClick={() => toggleDetails(index)}>
-                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                                </div>
-                                                {detailsVisibility[index] && (
+                                                <button onClick={() => toggleDetails(index + validCoupons.length)}>
+                                                    Toggle Details
+                                                </button>
+                                                {detailsVisibility[index + validCoupons.length] && (
                                                     <div className="details flex flex-col">
                                                         <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
                                                         <span>{ele.description}</span>
