@@ -84,7 +84,7 @@ export const StackedImageAnimation = () => {
     }, [activeIndex, cardImages]);
 
     const navigate = useNavigate();
-
+  
     return (
         <>
 
@@ -119,7 +119,7 @@ export const StackedImageAnimation = () => {
                                             <img src={cardStores[activeIndex]?.thumbnail} alt={`Thumbnail ${i}`} className='rounded-sm h-[100px] w-auto' />
                                             <p className='text-xl h-16 overflow-hidden'>{cardStores[activeIndex]?.content} </p>
                                         </div>
-                                       
+
                                         <GrNext className="absolute bottom-5 right-5 text-white z-10 p-3 bg-green-400 rounded-full cursor-pointer" onClick={handleNextClick}></GrNext>
                                         <button
                                             className='absolute bottom-5 left-5 bg-blue-600 text-white z-10 text-lg duration-200 p-1 px-5 rounded-lg hover:bg-blue-700'

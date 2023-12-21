@@ -68,8 +68,9 @@ const Store = () => {
 
                 const truncated = res.data.store.description?.slice(0, 100);
                 setDesc(truncated || '...');
-                setCoupons(coup.data.coupons);
+                const verifiedCoupons = coup.data.coupons.filter(coupon => coupon.isVerified);
 
+                setCoupons(verifiedCoupons);
 
                 const response = await axios.get('http://localhost:4000/api/clouser');
 
@@ -194,7 +195,7 @@ const Store = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.put(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -354,7 +355,7 @@ const Store = () => {
         }
     };
 
-    // const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:\/]+)/, "$1$2:");
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
@@ -583,15 +584,6 @@ const Store = () => {
                                     </div>
                                 </Tab>
                                 <Tab
-                                    value="Deals"
-                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000] " : ""}
-                                    onClick={() => handleTabChange('deal')}
-                                >
-                                    <div className="flex items-center gap-2 lg:mx-2">
-                                        Deals({couponCounts.deals})
-                                    </div>
-                                </Tab>
-                                <Tab
                                     value="codes"
                                     className={activeTab === 'code' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
                                     onClick={() => handleTabChange('code')}
@@ -600,7 +592,15 @@ const Store = () => {
                                         Codes({couponCounts.exclusive})
                                     </div>
                                 </Tab>
-
+                                <Tab
+                                    value="Deals"
+                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('deal')}
+                                >
+                                    <div className="flex items-center gap-2 lg:mx-2">
+                                        Deals({couponCounts.deals})
+                                    </div>
+                                </Tab>
                             </TabsHeader>
                             <div className="flex items-start text-[#B33D53] hover:underline cursor-pointer" onClick={() => {
                                 navigate('/submitcoupon', { state: { storeId: sId } });
@@ -625,8 +625,8 @@ const Store = () => {
                                             <FaHeart className="cursor-pointer text-xl duration-300" />
                                         </span>
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[104px] w-[104px] rounded-lg my-2" /><span className="bg-blue-100 text-center w-full">DEAL</span></div></div>
-                                            <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
+                                            <div className="flex flex-col w-[85%] mx-5 justify-between gap-5">
 
                                                 <div className="flex justify-between w-full mt-10 ">
                                                     <div className="font-bold text-xl">{ele.title}</div>
@@ -673,7 +673,7 @@ const Store = () => {
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="bg-white relative group flex border border-gray-500 rounded-lg p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300 ">
 
                                         <div className="flex w-full">
-                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[104px] w-[104px] rounded-lg my-2" /><span className="bg-blue-100 text-center w-full">DEAL</span></div></div>
+                                            <div className="w-[15%] h-auto flex flex-col"><div className="border border-black flex flex-col "><img src={str?.logo_url} alt="H" className="h-[104px] rounded-lg" /><span className="bg-blue-100 text-center">{ele.type}</span></div></div>
                                             <div className="flex flex-col w-[85%] mx-5 justify-center gap-5 ">
 
                                                 <div className="flex justify-between w-full mt-10 ">
@@ -785,7 +785,7 @@ const Store = () => {
                         {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
                         <div className="text-lg">
                             Copy and paste this code at {""}
-                            <a href={`http://${selectedProduct.ref_link}`} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
+                            <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
                                 {str?.name}
                             </a>
                         </div>

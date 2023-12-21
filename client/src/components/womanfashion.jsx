@@ -161,7 +161,7 @@ const Womanfashion = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.put(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }

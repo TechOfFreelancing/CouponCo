@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
+import typesData from "../../api/AllTypes";
+
 
 function AddStores() {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const initialValues = {
         name: "",
-        title:"",
+        title: "",
         description: "",
         moreAbout: "",
         hint: "",
@@ -64,6 +66,21 @@ function AddStores() {
                 <h1 className="text-center mb-6 text-2xl font-bold">Add New Store</h1>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     <Form>
+                        <div className="my-5">
+                            <label
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                htmlFor="storeFile"
+                            >
+                                Upload image:
+                            </label>
+                            <input
+                                id="storeFile"
+                                type="file"
+                                style={inputStyle}
+                                onChange={(event) => setSelectedFile(event.target.files[0])}
+                            />
+                        </div>
+
                         <div className="mb-4">
                             <label htmlFor="name" className="block mb-1 font-medium">
                                 Name:
@@ -86,6 +103,25 @@ function AddStores() {
                                 name="title"
                                 style={inputStyle}
                             />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="type" className="block mb-1 font-medium">
+                                Type:
+                            </label>
+                            <Field
+                                as="select"
+                                id="type"
+                                name="type"
+                                style={inputStyle}
+                            >
+                                <option value="">Select Type</option>
+                                {typesData.map((type, index) => (
+                                    <option key={index} value={type}>
+                                        {type}
+                                    </option>
+                                ))}
+                            </Field>
                         </div>
 
                         <div className="mb-4">
@@ -148,33 +184,6 @@ function AddStores() {
                                     resize: 'vertical',
                                 }}
                                 rows={4}
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label htmlFor="type" className="block mb-1 font-medium">
-                                Type:
-                            </label>
-                            <Field
-                                type="text"
-                                id="type"
-                                name="type"
-                                style={inputStyle}
-                            />
-                        </div>
-
-                        <div className="my-5">
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                htmlFor="storeFile"
-                            >
-                                Upload image:
-                            </label>
-                            <input
-                                id="storeFile"
-                                type="file"
-                                style={inputStyle}
-                                onChange={(event) => setSelectedFile(event.target.files[0])}
                             />
                         </div>
 

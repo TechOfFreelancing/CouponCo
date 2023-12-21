@@ -5,6 +5,7 @@ import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AdminFestival from '../components/Admin/AdminFestival';
+import CouponReq from '../components/Admin/couponReq';
 
 
 
@@ -73,9 +74,17 @@ const AdminPanel = () => {
                 >
                     Festival
                 </button>
+                <button
+                    className={`bg-white py-2 px-5 m-2 md:m-4 hover:text-black hover:border-2 hover:border-black duration-400 
+          ${selectedButton === 'User Coupons' ? 'text-black border-2 border-black' : 'text-gray-800 border-2 border-transparent'}  
+          `}
+                    onClick={() => handleButtonClick('User Coupons')}
+                >
+                    User Coupons
+                </button>
             </div>
             {
-                selectedButton === 'Stores' ? <AdminStores /> : (selectedButton === 'Coupons' ? <AdminCoupons /> : <AdminFestival />)
+                selectedButton === 'Stores' ? <AdminStores /> : (selectedButton === 'Coupons' ? <AdminCoupons /> : (selectedButton === 'festival' ? <AdminFestival /> : <CouponReq />))
             }
         </div>
     )
