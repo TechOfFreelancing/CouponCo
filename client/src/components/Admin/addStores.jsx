@@ -42,7 +42,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                "process.env.URL/api/admin/addStore",
+                "http://13.201.29.102:3000/api/admin/addStore",
                 formData,
                 {
                     headers: {

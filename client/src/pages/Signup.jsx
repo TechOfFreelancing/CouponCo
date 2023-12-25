@@ -15,19 +15,16 @@ import { AiFillInstagram } from 'react-icons/ai'
 
 
 export default function Register() {
-
     const navigate = useNavigate();
-
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
         try {
             console.log(name, email, password);
-            const response = await axios.post('process.env.URL/api/register', {
+            const response = await axios.post(`http://13.201.29.102:3000/api/register`, {
                 name,
                 email,
                 password,

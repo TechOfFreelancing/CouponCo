@@ -26,14 +26,14 @@ const AllStores = () => {
         const fetchStores = async () => {
             try {
                 if (isFestival) {
-                    const response = await axios.get(`process.env.URL/api/festStoreDisplay`, {
+                    const response = await axios.get(`http://13.201.29.102:3000/api/festStoreDisplay`, {
                         headers: {
                             "Content-Type": "application/json",
                         }
                     })
                     const storeDetailsPromises = response.data.data.map(async (store) => {
                         if (store.storeId) {
-                            const response = await axios.get(`process.env.URL/api/getStore/${store.storeId}`);
+                            const response = await axios.get(`http://13.201.29.102:3000/api/getStore/${store.storeId}`);
                             return response.data.store;
                         }
                         return null; // Cases where storeId is null or undefined
@@ -45,7 +45,7 @@ const AllStores = () => {
                 }
 
                 else {
-                    let apiUrl = `process.env.URL/api/getAllStore?page=${count}`;
+                    let apiUrl = `http://13.201.29.102:3000/api/getAllStore?page=${count}`;
 
                     if (type) {
                         apiUrl += `&type=${type}`;
@@ -66,7 +66,6 @@ const AllStores = () => {
                     setLoading(false);
                 }, 1000);
             } catch (error) {
-                alert(error.response?.data?.message || "Failed to fetch Store.");
                 console.error("Failed to fetch Stores:", error);
             }
         };

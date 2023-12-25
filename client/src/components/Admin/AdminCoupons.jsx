@@ -18,7 +18,7 @@ const AdminCoupons = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `process.env.URL/api/coupons?page=${count}`,
+          `http://13.201.29.102:3000/api/coupons?page=${count}`,
           {
             withCredentials: true,
             headers: {
@@ -42,7 +42,7 @@ const AdminCoupons = () => {
 
   const handleCouponDelete = async (cId) => {
     try {
-      await axios.delete(`process.env.URL/api/admin/${cId}`, {
+      await axios.delete(`http://13.201.29.102:3000/api/admin/${cId}`, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`
         },
