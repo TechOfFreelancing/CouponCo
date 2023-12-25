@@ -686,7 +686,6 @@ const Store = () => {
                                                         <div className="bg-[#B33D53] w-[10rem] lg:w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                     </div>
                                                     <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
-
                                                         <div className="flex whitespace-nowrap gap-2 lg:gap-5 lg:mr-[4rem]">
                                                             <span className="flex justify-center items-center lg:gap-2"><MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
                                                             <span className="flex justify-center items-center lg:gap-2">
@@ -769,7 +768,7 @@ const Store = () => {
                         )
                     }
                 </div>
-            </div>
+            </div >
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>

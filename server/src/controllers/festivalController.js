@@ -84,7 +84,7 @@ exports.deleteStoreFromFestival = catchAsyncErrors(async (req, res, next) => {
 exports.getfestStoreDisplay = catchAsyncErrors(async (req, res, next) => {
 
     try {
-        const sql = `select * from festivalShowcase`;
+        const sql = `select * from festivalshowcase`;
 
         const result = await db.query(sql);
 

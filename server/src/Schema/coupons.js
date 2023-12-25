@@ -112,7 +112,7 @@ class Coupons {
     }
 
     static async createFestivalShowcaseTable() {
-        const sql = `CREATE TABLE IF NOT EXISTS festivalShowcase (
+        const sql = `CREATE TABLE IF NOT EXISTS festivalshowcase (
             id INT AUTO_INCREMENT PRIMARY KEY,
             festival_name VARCHAR(255) NOT NULL,
             discount INT DEFAULT 0,
