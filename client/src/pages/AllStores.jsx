@@ -29,13 +29,13 @@ const AllStores = () => {
     //         let fetchedStores = [];
 
     //         if (isFestival) {
-    //             const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
+    //             const response = await axios.get(`process.env.URL/api/festStoreDisplay`, {
     //                 headers: { "Content-Type": "application/json" }
     //             });
 
     //             const storeDetailsPromises = response.data.data.map(async (store) => {
     //                 if (store.storeId) {
-    //                     const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
+    //                     const response = await axios.get(`process.env.URL/api/getStore/${store.storeId}`);
     //                     return response.data.store;
     //                 }
     //                 return null;
@@ -44,7 +44,7 @@ const AllStores = () => {
     //             const storeDetails = await Promise.all(storeDetailsPromises);
     //             fetchedStores = storeDetails.filter(Boolean);
     //         } else {
-    //             let apiUrl = `http://localhost:4000/api/getAllStore?`;
+    //             let apiUrl = `process.env.URL/api/getAllStore?`;
 
     //             if (type) {
     //                 apiUrl += `&type=${type}`;
@@ -69,7 +69,7 @@ const AllStores = () => {
     //     try {
     //         const updatedStores = await Promise.all(stores.map(async (store) => {
     //             try {
-    //                 const couponsResponse = await axios.get(`http://localhost:4000/api/coupons/${store.id}`);
+    //                 const couponsResponse = await axios.get(`process.env.URL/api/coupons/${store.id}`);
     //                 const coupons = couponsResponse.data.coupons;
 
     //                 if (coupons.length > 0) {
@@ -90,7 +90,7 @@ const AllStores = () => {
     //                     });
 
     //                     // Make a PATCH request to decrease counts in the backend
-    //                     await axios.patch(`http://localhost:4000/api/decreaseCount/${store.id}`, decreaseData);
+    //                     await axios.patch(`process.env.URL/api/decreaseCount/${store.id}`, decreaseData);
 
     //                     // Update the store with new counts
     //                     return {
@@ -138,14 +138,14 @@ const AllStores = () => {
         const fetchStores = async () => {
             try {
                 if (isFestival) {
-                    const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
+                    const response = await axios.get(`process.env.URL/api/festStoreDisplay`, {
                         headers: {
                             "Content-Type": "application/json",
                         }
                     })
                     const storeDetailsPromises = response.data.data.map(async (store) => {
                         if (store.storeId) {
-                            const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
+                            const response = await axios.get(`process.env.URL/api/getStore/${store.storeId}`);
                             return response.data.store;
                         }
                         return null; // Cases where storeId is null or undefined
@@ -157,7 +157,7 @@ const AllStores = () => {
                 }
 
                 else {
-                    let apiUrl = `http://localhost:4000/api/getAllStore?`;
+                    let apiUrl = `process.env.URL/api/getAllStore?`;
 
                     if (type) {
                         apiUrl += `&type=${type}`;

@@ -134,7 +134,7 @@ exports.forgotPassPost = catchAsyncErrors(async (req, res, next) => {
 
         const token = jwt.sign(payload, secret, { expiresIn: '10m' });
 
-        const link = `http://localhost:4000/api/reset-password/${user.user_id}/${token}`;
+        const link = `process.env.URL/api/reset-password/${user.user_id}/${token}`;
         console.log(link);
 
         const to = user.email;

@@ -12,7 +12,7 @@ const Profile = () => {
 
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`);
+                const response = await axios.get(`process.env.URL/api/getDetails/${userId}`);
                 if (response.data) {
                     setUserData(response.data.user[0] || {}); // Set user data
 

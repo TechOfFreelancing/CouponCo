@@ -17,14 +17,14 @@ const Stories = () => {
     useEffect(() => {
         const fetchStores = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/api/storeDisplay');
+                const response = await axios.get('process.env.URL/api/storeDisplay');
                 if (response.data && response.data.data) {
                     const filteredStores = response.data.data.filter(store => store.show_in_fetured === 1);
                     setCount(filteredStores);
 
                     const storeDetails = await Promise.all(filteredStores.map(async store => {
                         try {
-                            const storeDetailsResponse = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
+                            const storeDetailsResponse = await axios.get(`process.env.URL/api/getStore/${store.store_id}`);
                             return {
                                 name: storeDetailsResponse.data.store.name || null, // Add the name attribute
                                 storeId: store.store_id,
