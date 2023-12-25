@@ -134,7 +134,7 @@ exports.forgotPassPost = catchAsyncErrors(async (req, res, next) => {
 
         const token = jwt.sign(payload, secret, { expiresIn: '10m' });
 
-        const link = `process.env.URL/api/reset-password/${user.user_id}/${token}`;
+        const link = `http://13.201.29.102:3000/api/reset-password/${user.user_id}/${token}`;
         console.log(link);
 
         const to = user.email;

@@ -43,7 +43,7 @@ export function Header() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get('process.env.URL/api/logout', {
+            const response = await axios.get('http://13.201.29.102:3000/api/logout', {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -73,7 +73,7 @@ export function Header() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`process.env.URL/api/festStoreDisplay`);
+                const res = await axios.get(`http://13.201.29.102:3000/api/festStoreDisplay`);
                 if (res.data && res.data.data.length > 1) setIsOffer(true);
             } catch (error) {
                 console.error('Error fetching festival details:', error);

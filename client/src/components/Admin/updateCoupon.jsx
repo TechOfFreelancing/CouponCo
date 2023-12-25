@@ -65,7 +65,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `process.env.URL/api/admin/${cId}`,
+                url: `http://13.201.29.102:3000/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,10 +89,10 @@ const UpdateCoupons = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`process.env.URL/api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`process.env.URL/api/getStore/${sId}`);
+                const response = await axios.get(`http://13.201.29.102:3000/api/coupons/${sId}/${cId}`);
+                const storeData = await axios.get(`http://13.201.29.102:3000/api/getStore/${sId}`);
 
-                const result = await axios.get(`process.env.URL/api/storeDisplay`);
+                const result = await axios.get(`http://13.201.29.102:3000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
 
@@ -130,7 +130,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId",cId);
 
             await axios.post(
-                `process.env.URL/api/admin/addToOffer/${sId}`,
+                `http://13.201.29.102:3000/api/admin/addToOffer/${sId}`,
                 formdata,
                 {
                     headers: {
@@ -149,7 +149,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`process.env.URL/api/storeDisplay/${sId}`, {
+            await axios.delete(`http://13.201.29.102:3000/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
