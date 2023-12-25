@@ -680,46 +680,47 @@ const Store = () => {
                                             <div className="flex">
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col"><div className="border border-black flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[104px] lg:w-[104px] rounded-lg m-2" /><span className="bg-blue-100 text-center w-full">{ele.type}</span></div></div>
                                                 <div className="flex flex-col lg:w-[85%] w-[75%] lg:mx-5 justify-center gap-5 ">
-                                                <div className="flex justify-between w-full mt-10 ">
-                                                    <div className="font-bold text-xl">{ele.title}</div>
-                                                    <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
-                                                </div>
-                                                <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
-                                                    <div>
-                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index + expiredCoupons.length)}>
-                                                            See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                                        </div>
-                                                        {detailsVisibility[index] && (
-                                                            <div className="details flex flex-col">
-                                                                <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                                <span>{ele.description}</span>
-                                                            </div>
-                                                        )}
+                                                    <div className="flex justify-between w-full mt-10 ">
+                                                        <div className="font-bold text-xl">{ele.title}</div>
+                                                        <div className="bg-[#B33D53] w-[20rem] text-center p-2 rounded-xl text-white cursor-pointer whitespace-nowrap hover:shadow-xl h-[40px]" onClick={() => handleOpen(ele)}>Get Deal</div>
                                                     </div>
                                                     <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
+                                                        <div>
+                                                            <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index + expiredCoupons.length)}>
+                                                                See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                            </div>
+                                                            {detailsVisibility[index] && (
+                                                                <div className="details flex flex-col">
+                                                                    <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                                    <span>{ele.description}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
 
-                                                        <div className="flex whitespace-nowrap gap-2 lg:gap-5 lg:mr-[4rem]">
-                                                            <span className="flex justify-center items-center lg:gap-2"><MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
-                                                            <span className="flex justify-center items-center lg:gap-2">
-                                                                <CiUser></CiUser>
-                                                                {formatUserCount(ele.user_count)} Uses
-                                                            </span>
+                                                            <div className="flex whitespace-nowrap gap-2 lg:gap-5 lg:mr-[4rem]">
+                                                                <span className="flex justify-center items-center lg:gap-2"><MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
+                                                                <span className="flex justify-center items-center lg:gap-2">
+                                                                    <CiUser></CiUser>
+                                                                    {formatUserCount(ele.user_count)} Uses
+                                                                </span>
+                                                            </div>
+
                                                         </div>
 
                                                     </div>
-
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <button onClick={() => toggleDetails(index + validCoupons.length)}>
-                                                    Toggle Details
-                                                </button>
-                                                {detailsVisibility[index + validCoupons.length] && (
-                                                    <div className="details flex flex-col">
-                                                        <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                        <span>{ele.description}</span>
-                                                    </div>
-                                                )}
+                                                <div>
+                                                    <button onClick={() => toggleDetails(index + validCoupons.length)}>
+                                                        Toggle Details
+                                                    </button>
+                                                    {detailsVisibility[index + validCoupons.length] && (
+                                                        <div className="details flex flex-col">
+                                                            <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                            <span>{ele.description}</span>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </motion.div>
