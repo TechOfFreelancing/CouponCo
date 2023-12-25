@@ -43,7 +43,7 @@ const Carousel2 = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/api/storeDisplay');
+                const response = await axios.get('process.env.URL/api/storeDisplay');
                 if (response.data && response.data.data) {
                     const fetchedImages = response.data.data
                         .filter(item => item.show_in_carousel === 1 && item.thumbnail)

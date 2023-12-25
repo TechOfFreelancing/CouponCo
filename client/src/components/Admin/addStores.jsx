@@ -42,7 +42,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                "http://localhost:4000/api/admin/addStore",
+                "process.env.URL/api/admin/addStore",
                 formData,
                 {
                     headers: {

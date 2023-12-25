@@ -42,7 +42,7 @@ function AddCoupons() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
+            url: `process.env.URL/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',

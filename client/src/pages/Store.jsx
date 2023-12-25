@@ -62,8 +62,8 @@ const Store = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
-                const coup = await axios.get(`http://localhost:4000/api/coupons/${sId}`);
+                const res = await axios.get(`process.env.URL/api/getStore/${sId}`);
+                const coup = await axios.get(`process.env.URL/api/coupons/${sId}`);
                 setStr(res.data.store);
 
                 const truncated = res.data.store.description?.slice(0, 100);
@@ -72,7 +72,7 @@ const Store = () => {
 
                 setCoupons(verifiedCoupons);
 
-                const response = await axios.get('http://localhost:4000/api/clouser');
+                const response = await axios.get('process.env.URL/api/clouser');
 
                 const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
                 const popularStores = response.data.data.filter(item => item.store_type === 'popular' && item.store_id == sId);
@@ -80,7 +80,7 @@ const Store = () => {
                 const getStoreInfo = async stores => {
                     return await Promise.all(
                         stores.map(async store => {
-                            const res = await axios.get(`http://localhost:4000/api/getStore/${store.sId}`);
+                            const res = await axios.get(`process.env.URL/api/getStore/${store.sId}`);
                             return { id: store.sId, name: res.data.store.name };
                         })
                     );
@@ -112,7 +112,7 @@ const Store = () => {
                         },
                     };
 
-                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`process.env.URL/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -195,7 +195,7 @@ const Store = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`process.env.URL/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -264,7 +264,7 @@ const Store = () => {
         });
 
         try {
-            await axios.put(`http://localhost:4000/api/addRatings/${sId}`, data, {
+            await axios.put(`process.env.URL/api/addRatings/${sId}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -303,7 +303,7 @@ const Store = () => {
                 setLikedItems(updatedLikedItems);
 
                 // API call to save the coupon
-                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`process.env.URL/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
 
@@ -311,7 +311,7 @@ const Store = () => {
                 setLikedItems(filteredItems);
 
                 // API call to unsave the coupon
-                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`process.env.URL/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error('Error occurred:', error);
@@ -682,7 +682,7 @@ const Store = () => {
                                                 </div>
                                                 <div className="flex w-full justify-between items-start h-[5rem] overflow-y-scroll scrollbar-hide">
                                                     <div>
-                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                                        <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index + expiredCoupons.length)}>
                                                             See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                                         </div>
                                                         {detailsVisibility[index] && (
