@@ -8,7 +8,7 @@ exports.addfestival_Discount = catchAsyncErrors(async (req, res, next) => {
     const { festival, discount } = req.body;
 
     try {
-        const sql = `INSERT INTO festivalshowcase (festival_name, discount) VALUES (?, ?)`;
+        const sql = `INSERT INTO festivalShowcase (festival_name, discount) VALUES (?, ?)`;
 
         const result = await db.query(sql, [festival, discount]);
 
@@ -25,7 +25,7 @@ exports.addStoreToFestival = catchAsyncErrors(async (req, res, next) => {
 
     try {
         // Check if the festival exists
-        const festivalExistsQuery = `select * from festivalshowcase where storeId is null`;
+        const festivalExistsQuery = `select * from festivalShowcase where storeId is null`;
         const existingFestival = await db.query(festivalExistsQuery);
 
         if (existingFestival.length < 2) {
@@ -34,7 +34,7 @@ exports.addStoreToFestival = catchAsyncErrors(async (req, res, next) => {
 
         const { festival_name, discount } = existingFestival[0][0];
 
-        const associateStoreQuery = `INSERT INTO festivalshowcase ( festival_name,discount,storeId) VALUES (?, ?, ?)`;
+        const associateStoreQuery = `INSERT INTO festivalShowcase ( festival_name,discount,storeId) VALUES (?, ?, ?)`;
         await db.query(associateStoreQuery, [festival_name, discount, storeId]);
 
         res.status(201).json({ message: "Store associated with festival and offer successfully" });
@@ -49,7 +49,7 @@ exports.updateFestivalDetails = catchAsyncErrors(async (req, res, next) => {
     const { festival, discount } = req.body;
 
     try {
-        const updateDetailsQuery = `UPDATE festivalshowcase SET festival_name = ?, discount = ? WHERE id > 0`;
+        const updateDetailsQuery = `UPDATE festivalShowcase SET festival_name = ?, discount = ? WHERE id > 0`;
 
         await db.query(updateDetailsQuery, [festival, discount]);
 
@@ -65,7 +65,7 @@ exports.deleteStoreFromFestival = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
 
     try {
-        const deleteStoreQuery = `DELETE FROM festivalshowcase WHERE storeId = ?`;
+        const deleteStoreQuery = `DELETE FROM festivalShowcase WHERE storeId = ?`;
 
         const [result] = await db.query(deleteStoreQuery, [storeId]);
 
@@ -100,7 +100,7 @@ exports.getfestStoreDisplay = catchAsyncErrors(async (req, res, next) => {
 //Delete festival offer(clear all data)
 exports.deleteOffer = catchAsyncErrors(async (req, res, next) => {
     try {
-        const sql = `delete from festivalshowcase`;
+        const sql = `delete from festivalShowcase`;
 
         const result = await db.query(sql);
 
