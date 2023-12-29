@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import SignUp from './pages/Signup';
 import Login from './pages/Login';
-import MobileFooter from './components/MobileFooter'
-import Footer from './components/Footer';
+// import MobileFooter from './components/MobileFooter'
+// import Footer from './components/Footer';
 import NoMatch from './pages/NoMatch';
 import Home from './pages/Home';
 import { Header } from './components/Header';
@@ -192,8 +192,8 @@ function App() {
               <>
                 <Header></Header>
                 <NoMatch />
-                <MobileFooter />
-                <Footer />
+                {/* <MobileFooter /> */}
+                {/* <Footer /> */}
               </>
             }
           ></Route>

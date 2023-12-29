@@ -1,6 +1,6 @@
 .button.has-code{
     position: relative;
-    width: 15rem;
+    width: 12rem;
     font-weight: 700;
   }
   
@@ -14,7 +14,7 @@
     text-align: right;
     padding: 0 15px;
     background-color: #fdfde7;
-    outline: 1px dashed green;
+    outline: 2px dashed rgb(132, 23, 83);
     letter-spacing: 2px;
     color: #666;
     border-radius: 10px;
@@ -27,9 +27,9 @@
     z-index: 5;
     height: 2.1rem;
     line-height: 2.1rem;
-    background-color: greenyellow;
+    background-color: #B33D53;
     transition: width .5s; 
-    color: black;
+    color: white;
     border-radius: 10px;
   }
   
@@ -56,8 +56,8 @@
       -webkit-transform: rotate(20deg) translateY(-10px) scaleX(.8);
       -ms-transform: rotate(20deg) translateY(-10px) scaleX(.8);
       transform: rotate(20deg) translateY(-10px) scaleX(.8);
-      background: -webkit-linear-gradient(52deg,#75b008,#6cbb33 49%,hsla(80,71%,73%,0) 50%,hsla(0,0%,100%,0));
-      background: linear-gradient(38deg,#13c303,#1cb00e 49%,hsla(80,71%,73%,0) 50%,hsla(0,0%,100%,0));
+      background: -webkit-linear-gradient(52deg,#b0086a,#b0086a 49%,hsla(80,71%,73%,0) 50%,hsla(0,0%,100%,0));
+      background: linear-gradient(38deg,#b0086a,#b0086a 49%,hsla(80,71%,73%,0) 50%,hsla(0,0%,100%,0));
       background-position: 0 4px;
       background-repeat: no-repeat;
       z-index: 13;
@@ -69,7 +69,7 @@
       content: " ";
       width: 23px;
       height: 10px;
-      background-color: #08e800;
+      background-color: #e800aa;
       position: absolute;
       z-index: 12;
       right: -14px;

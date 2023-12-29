@@ -1,4 +1,4 @@
-import SITEMAP from "../api/Footer";
+import { SITEMAP, ICONS } from "../api/Footer";
 import { Typography } from "@material-tailwind/react";
 
 import { useState } from "react";
@@ -95,7 +95,7 @@ export default function MobileFooter() {
                     )
                 })
             }
-        
+
         </div>
     );
 }

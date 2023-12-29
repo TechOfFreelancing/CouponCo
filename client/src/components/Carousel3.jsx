@@ -55,7 +55,7 @@ const Carousel = () => {
     }
 
     function prevStep() {
-        setDirection(-1)
+        setDirection(1)
         if (index === 0) {
             setIndex(featuredImages.length - 1)
             return

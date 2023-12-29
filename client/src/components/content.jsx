@@ -2,7 +2,7 @@
 
 const Content = () => {
     return (
-        <div className="flex flex-col items-center justify-center mx-10 lg:mx-28">
+        <div className="flex flex-col items-center justify-center px-10 lg:px-28 lg:pb-10 bg-white">
             <h1 className="text-xl lg:text-2xl font-bold my-10">Save your hard earned money with CodeSpotr Codes</h1>
             <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-14">
                 <div className="text-justify">We trust your choice of choosing qualitative products like clothing, footwear, home decoration, beauty products, health care and many more, but now its your time to trust us in getting those products at lowest rate possible. Let us spin our magic wheel and give you the best hand tested coupon codes and discount offers.</div>

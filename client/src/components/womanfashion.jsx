@@ -247,7 +247,7 @@ const Womanfashion = () => {
                                 className="cursor-pointer w-full h-1/2"
                             />
                             <span
-                                className={`p-2 absolute right-1 top-1 backdrop-blur-sm bg-gray-300 border border-gray-600  rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
+                                className={`hidden group-hover:inline-flex p-2 absolute right-1 top-1 backdrop-blur-sm bg-transparent border border-transparent  rounded-lg ${likedItems.includes(item.cId) ? 'text-red-700' : 'text-white'}`}
                                 onClick={() => handleLikeClick(index, item.cId)}
                             >
                                 <FaHeart className="cursor-pointer text-xl duration-300" />
