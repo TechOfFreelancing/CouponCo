@@ -1,5 +1,5 @@
 import { Typography } from "@material-tailwind/react";
-import SITEMAP from "../api/Footer";
+import {SITEMAP} from "../api/Footer";
 
 
 export default function Footer() {

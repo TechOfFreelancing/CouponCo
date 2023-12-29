@@ -95,8 +95,8 @@ export function Header() {
                         Logo
                     </Link>
                     <div className="hidden lg:block">{navList}</div>
-                    <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[25rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search on Coupon Co' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
+                    <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[20rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
+                        <input type="search" placeholder='Search for brands, categories' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
                             <ImSearch className="h-6 w-6" />
                         </button>
@@ -123,14 +123,14 @@ export function Header() {
 
                         </div>
                     ) : (
-                        <>
-                            <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 hover:text-red-500">
+                        <div className="flex gap-5 items-center justify-center">
+                            <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white px-4 py-2  rounded-md border border-black">
                                 Log In
                             </Link>
                             <Link to="/signup" className="hidden lg:inline-block whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
                                 Sign Up
                             </Link>
-                        </>
+                        </div>
                     )}
                     <GiHamburgerMenu
                         onClick={OpenSidebar} className="cursor-pointer scale-125 hover:scale-150 duration-200 sm:hidden" />
@@ -157,8 +157,8 @@ export function Header() {
                             </svg>
                         </IconButton>
                     </div>
-                    <div className="seachbar flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search on Coupon Co' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
+                    <div className="seachbar flex p-3 h-3 border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
+                        <input type="search" placeholder='Search for brands, categories' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
                             <ImSearch className="h-6 w-6" />
                         </button>

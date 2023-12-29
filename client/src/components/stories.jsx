@@ -11,7 +11,7 @@ const Stories = () => {
 
     // console.log(count);
 
-  
+
 
 
     useEffect(() => {
@@ -55,16 +55,16 @@ const Stories = () => {
         <div className="lg:px-28 px-5 h-fit max-h-[100vh] bg-[#FAF9F6] py-5">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between mt-10">
                 <div className="flex flex-col gap-1 lg:gap-5">
-                    <span className="font-semibold text-lg lg:text-3xl">Feature Store</span>
+                    <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
                 <Link to="/AllCategories" className="hover:underline h-7 duration-300 underline">
-                    All Categories
+                    All Stores
                 </Link>
             </div>
             <div className="flex gap-5 lg:grid lg:grid-cols-8 lg:overflow-hidden overflow-auto overflow-y-hidden scroll-snap-type-x mandatory scrollbar-hide">
-                {featured.slice(0,8).map((ele, index) => (
+                {featured.slice(0, 8).map((ele, index) => (
                     <div key={index} className={`flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 hover:z-${index * 10} item flex-shrink-0 scroll-snap-align-start`}>
-                        <div style={{ backgroundColor: `${ele.background}` }} className="h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center shadow-inner border overflow-hidden">
+                        <div style={{ backgroundColor: `${ele.background}` }} className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] p-5 rounded-full flex items-center justify-center shadow-inner border overflow-hidden">
                             <img
                                 src={images[index]}
                                 alt={`Logo ${index}`}

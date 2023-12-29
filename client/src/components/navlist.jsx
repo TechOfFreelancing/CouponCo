@@ -39,6 +39,15 @@ const navList = (
             variant="small"
             className="p-1 font-normal font-[Poppins]"
         >
+            <Link to="/events" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:border-b-2 hover:border-red-500">
+                Events
+            </Link>
+        </Typography>
+        <Typography
+            as="li"
+            variant="small"
+            className="p-1 font-normal font-[Poppins]"
+        >
             <Link to="#" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:border-red-500 hover:border-b-2">
                 Blog
             </Link>
