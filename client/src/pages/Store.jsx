@@ -1,12 +1,16 @@
 import { MdLocalOffer } from "react-icons/md";
 import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
     Dialog, List, ListItem,
     Tabs,
     TabsHeader,
     Tab,
+    Input,
+    Button,
+    Typography,
+    Card
 } from "@material-tailwind/react";
 import { IoMdClose } from "react-icons/io";
 import { Link } from 'react-scroll';
@@ -23,10 +27,14 @@ import { CiUser } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
 import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
 import "../components/couponsbutton.css";
+import Footer from "../components/newsletter";
+import AuthContext from "../components/AuthContext";
 
 
 const Store = () => {
     const [open, setOpen] = useState(false);
+    const [openlogin, setOpenlogin] = useState(false);
+    const [openregister, setOpenregister] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState('');
     const [copySuccess, setCopySuccess] = useState(false);
     const [userRating, setUserRating] = useState(0);
@@ -37,9 +45,16 @@ const Store = () => {
     const [similarStoreNames, setSimilarStoreNames] = useState([]);
     const [popularStoreNames, setPopularStoreNames] = useState([]);
     const [savedCoupons, setSavedCoupons] = useState({});
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name1, setName1] = useState('');
+    const [email1, setEmail1] = useState('');
+    const [password1, setPassword1] = useState('');
+
+
 
     const navigate = useNavigate();
-
+    const { updateUserRole } = useContext(AuthContext);
     const location = useLocation();
 
     const [str, setStr] = useState(null);
@@ -58,6 +73,65 @@ const Store = () => {
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
+    };
+
+    const handleOpenlogin = () => setOpenlogin(!openlogin);
+    const handleOpenregister = () => setOpenregister(!openregister);
+
+    const closeboth = () => {
+        setOpenlogin(false);
+        setOpenregister(false);
+    }
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(name, email, password);
+            const response = await axios.post(`http://13.201.29.102:3000/api/register`, {
+                name,
+                email,
+                password,
+            });
+
+            toast.success('Registration successful');
+            console.log(response);
+
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000)
+
+
+        } catch (error) {
+            toast(error.response.statusText);
+            console.error('Registration failed:', error);
+        }
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await axios.post("http://13.201.29.102:3000/api/login", {
+                email,
+                password
+            })
+
+            const { message, token, user } = res.data;
+
+            toast.success(message);
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('id', user.user_id);
+            localStorage.setItem('role', user.role)
+            updateUserRole(user.role);
+            setTimeout(() => {
+                user.role === "Admin" ? navigate('/Admin') : navigate('/')
+            }, 1200)
+
+        } catch (error) {
+            toast.error(error.response.statusText);
+            console.error('Login failed:', error);
+        }
     };
 
     useEffect(() => {
@@ -283,8 +357,9 @@ const Store = () => {
 
         // Check if token is present
         if (!token) {
-            window.location.href = '/login'; // Redirect to login page if token is not present
-            return;
+            // window.location.href = '/login'; // Redirect to login page if token is not present
+            // return;
+            handleOpenlogin();
         }
 
         try {
@@ -401,7 +476,7 @@ const Store = () => {
                         <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
                     </div>
 
-                    <div className="text-2xl text-center font-bold inline">{str?.name}</div>
+                    <Link to="" className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer">Visit Store {str?.name}</Link>
                     <div className="flex flex-col gap-5 items-center justify-center">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
@@ -413,81 +488,61 @@ const Store = () => {
                             </span>
                         </div>
                     </div>
-                    <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
 
-                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s shoppers also like</div>
+                    <div className="min-w-full flex flex-col gap-2 w-86">
+                        <div className="w-full lg:w-80 card">
+                            <div className="font-semibold text-xl my-3 text-black">
+                                About {str?.name?.toUpperCase()}
+                            </div>
+                            <div className="moreaboutcompany flex flex-col gap-2 text-black ">
+                                <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
+                                <div
+                                    className="underline text-[#B33D53] cursor-pointer"
+                                    onClick={toggleDescription}
+                                >
+                                    {lessAbout}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">Today&apos;s Top {str?.name} Coupon Codes</div>
                         {
                             validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
                                 return (
 
-                                    <div key={index} className="flex gap-3 w-full cursor-pointer bg-white p-3 rounded-lg" onClick={() => handleOpen(ele)}>
-                                        <div className="w-[40%] h-auto flex flex-col border border-gray-700 rounded-lg "><div className="flex flex-col items-center justify-center"><img src={str?.logo_url} alt="H" className="rounded-full w-14 h-14 m-2" /></div></div>
-                                        <div className="flex flex-col justify-start">
-                                            <div className="font-semibold">{ele.title}</div>
-                                            <div>{ele.description.slice(0, 50)}...</div>
-                                        </div>
-
+                                    <div key={index} className="w-full cursor-pointer bg-white p-2 rounded-lg flex items-center justify-start gap-3">
+                                        <span>•</span>
+                                        <div className="font-semibold">{ele.title}</div>
                                     </div>
-
                                 )
                             })
                         }
                     </div>
-                    <div className="min-w-full flex flex-col gap-2 pt-5 w-86">
-                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">{str?.name}&apos;s Active Voucher Codes</div>
-                        <div className="flex justify-between items-center px-5">
-                            <span className="text-lg text-black">Exclusive codes</span>
-                            <span>{couponCounts.exclusive}</span>
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center px-5">
-                            <span className="text-lg text-black">Rewards</span>
-                            <span>{couponCounts.rewards}</span>
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center px-5">
-                            <span className="text-lg text-black">Deals</span>
-                            <span>{couponCounts.deals}</span>
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center px-5">
-                            <span className="text-lg text-black">Sales</span>
-                            <span>{couponCounts.sales}</span>
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center bg-[#F2F0E6] px-5 py-2">
-                            <span className="text-lg text-black">Total Offers</span>
-                            <span className="text-[#B33D53] text-lg">{validCoupons?.length}</span>
-                        </div>
-                        <List>
-                            <div className="w-full lg:w-80 card">
-                                <div className="font-semibold text-xl my-3 text-black">
-                                    About {str?.name?.toUpperCase()}
-                                </div>
-                                <div className="moreaboutcompany flex flex-col gap-2 text-black ">
-                                    <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
-                                    <div
-                                        className="underline text-[#B33D53] cursor-pointer"
-                                        onClick={toggleDescription}
-                                    >
-                                        {lessAbout}
-                                    </div>
-                                </div>
+                    <div className="min-w-full flex flex-col gap-2 w-86">
+                        <div className="bg-white flex flex-col gap-2">
+                            <div className="flex justify-between items-center px-5">
+                                <span className="text-lg text-black">Total Offers</span>
+                                <span>{validCoupons?.length}</span>
                             </div>
-                            {
-                                str?.moreAbout && (
-                                    <Link
-                                        className="text-initial"
-                                        to="more_about"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
-                                    >
-                                        <ListItem className="flex gap-5 justify-between">More About <FcAbout /> </ListItem>
-                                    </Link>
-                                )
-                            }
+                            <hr />
+                            <div className="flex justify-between items-center px-5">
+                                <span className="text-lg text-black">Total Codes</span>
+                                <span>{couponCounts.exclusive}</span>
+                            </div>
+                            <hr />
+                            <div className="flex justify-between items-center px-5">
+                                <span className="text-lg text-black">Best Offer</span>
+                                <span>40% Off</span>
+                            </div>
+                            <hr />
+                            <div className="flex justify-between items-center px-5">
+                                <span className="text-lg text-black">Average Discount</span>
+                                <span>25 %</span>
+                            </div>
+                            <hr />
+                        </div>
+
+                        <List>
                             {
                                 str?.faq && (
                                     <Link
@@ -516,8 +571,20 @@ const Store = () => {
                                     </Link>
                                 )
                             }
-
-
+                            {
+                                str?.moreAbout && (
+                                    <Link
+                                        className="text-initial"
+                                        to="more_about"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
+                                    >
+                                        <ListItem className="flex gap-5 justify-between">More About <FcAbout /> </ListItem>
+                                    </Link>
+                                )
+                            }
                         </List>
                         <div className="w-80">
                             <List>
@@ -639,7 +706,7 @@ const Store = () => {
 
                                                         <div className="flex flex-col gap-5">
                                                             <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[4rem]">
-                                                                <span className="flex justify-center items-center lg:gap-2 text-blue-800">
+                                                                <span className="flex justify-center items-center lg:gap-2 text-green-800">
                                                                     <GoVerified className="font-bold" />Verified</span>
                                                                 <span className="flex justify-center items-center lg:gap-2">
                                                                     <CiUser></CiUser>
@@ -648,7 +715,7 @@ const Store = () => {
                                                             </div>
                                                             <button className="button has-code" onClick={() => handleOpen(ele)} >
                                                                 <span className="is-code">74
-                                                                {ele.coupon_code}</span>
+                                                                    {ele.coupon_code}</span>
                                                                 <span className="is-code-text"><em>GET CODE</em></span>
                                                             </button>
                                                         </div>
@@ -729,17 +796,6 @@ const Store = () => {
                         )
                     }
                     {
-                        str?.moreAbout && (
-                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="more_about">
-                                <div className="font-semibold lg:text-4xl text-2xl my-3">More About {str?.name}</div>
-                                <div className="moreaboutcompany flex flex-col gap-2">
-                                    <div className="flex flex-col text-justify">{str?.moreAbout}</div>
-                                </div>
-
-                            </div>
-                        )
-                    }
-                    {
                         str?.faq && (
                             <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
@@ -779,8 +835,22 @@ const Store = () => {
                             </div>
                         )
                     }
+                    {
+                        str?.moreAbout && (
+                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="more_about">
+                                <div className="font-semibold lg:text-4xl text-2xl my-3">More About {str?.name}</div>
+                                <div className="moreaboutcompany flex flex-col gap-2">
+                                    <div className="flex flex-col text-justify">{str?.moreAbout}</div>
+                                </div>
+
+                            </div>
+                        )
+                    }
+
+
                 </div>
             </div>
+            <Footer></Footer>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>
@@ -822,6 +892,108 @@ const Store = () => {
                     </div>
 
                 </div>
+            </Dialog>
+            <Dialog open={openlogin} handler={handleOpenlogin} className="relative ">
+                <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => closeboth()}>
+                    <IoMdClose></IoMdClose>
+                </span>
+
+                <Card color="transparent" className="h-full flex flex-col justify-center items-center" shadow={false}>
+                    <div className="text-2xl text-black font-semibold mb-2 mt-10 lg:mt-20">Login</div>
+                    <div className="mt-4 mx-auto font-normal text-black my-2">
+                        <span>  New customer?  <span className="underline font-medium text-red-500 transition-colors hover:text-red-800 cursor-pointer" onClick={() => handleOpenregister()}>
+                            Create your account
+                        </span></span>
+
+                    </div>
+                    <div className="bg-white p-10 rounded-xl border flex flex-col gap-5 my-10">
+
+                        <form className="w-56 max-w-screen-lg lg:w-96 mx-auto">
+                            <div className="mb-4 flex flex-col gap-6  items-center justify-center">
+                                <Input type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    size="lg" color="black" label={
+                                        <>
+                                            Email <span className="text-red-500">*</span>
+                                        </>
+                                    } />
+                                <Input
+                                    size="lg"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    color="black"
+                                    label={
+                                        <>
+                                            Password <span className="text-red-500">*</span>
+                                        </>
+                                    }
+                                />
+                            </div>
+                            <Typography color="gray" className="mt-2 mx-auto font-normal">
+                                <Link to="http://13.201.29.102:3000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                    Forgot your password?
+                                </Link>
+                            </Typography>
+                            <Button className="mt-6 bg-[#800000]" type="submit" onClick={handleLogin} fullWidth>
+                                SIGN IN
+                            </Button>
+                            <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
+                        </form>
+                    </div>
+                </Card>
+            </Dialog>
+            <Dialog open={openregister} handler={handleOpenregister} className="relative ">
+                <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => { closeboth() }}>
+                    <IoMdClose></IoMdClose>
+                </span>
+
+                <Card color="transparent" className="h-full flex justify-center items-center" shadow={false}>
+                    <div className="text-4xl text-black font-semibold mb-2 mt-10 lg:mt-20">Join Now</div>
+                    <div className="mt-4 mx-auto font-normal text-black my-2 cursor-pointer">
+                        <span>  Already have an account?  <span className="underline font-medium text-red-500 transition-colors hover:text-red-800" onClick={() => { handleOpenregister(); openlogin() }}>
+                            Log In
+                        </span></span>
+
+                    </div>
+                    <div className="bg-white p-10 rounded-xl my-5 flex flex-col gap-5">
+                        <form className="w-56 max-w-screen-lg lg:w-96 mx-auto">
+                            <div className="mb-4 flex flex-col gap-6  items-center justify-center">
+                                <Input type="text" size="lg" value={name1}
+                                    onChange={(e) => setName1(e.target.value)}
+                                    color="black" label="Name" />
+                                <Input type="email"
+                                    value={email1}
+                                    onChange={(e) => setEmail1(e.target.value)}
+                                    size="lg" color="black" label={
+                                        <>
+                                            Email <span className="text-red-500">*</span>
+                                        </>
+                                    } />
+                                <Input
+                                    size="lg"
+                                    type="password"
+                                    value={password1}
+                                    onChange={(e) => setPassword1(e.target.value)}
+                                    color="black"
+                                    label={
+                                        <>
+                                            Password <span className="text-red-500">*</span>
+                                        </>
+                                    }
+                                />
+                                <span className="text-sm text-gray-500">Password must be 8 characters or more, Don&apos;t use any part of your email, Don&apos;t use a common password</span>
+                            </div>
+                            <Button className="mt-6 bg-[#800000] rounded-full cursor-pointer" type="submit" onClick={handleRegister} fullWidth >
+                                Register
+                            </Button>
+                            <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
+                        </form>
+                    </div>
+                </Card>
             </Dialog>
         </>
     )

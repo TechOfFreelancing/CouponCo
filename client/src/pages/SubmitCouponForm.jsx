@@ -58,6 +58,16 @@ const SubmitCouponForm = () => {
             .then((response) => {
                 toast.success("Coupon Will be Added Soon After Approval!");
                 console.log(response.data);
+
+                // Reset the form data after successful submission
+                setFormData({
+                    title: '',
+                    type: 'Sale',
+                    couponCode: '',
+                    dueDate: '',
+                    link: '',
+                    description: ''
+                });
             })
             .catch((error) => {
                 toast.error(error.response.data.message);
@@ -78,11 +88,12 @@ const SubmitCouponForm = () => {
         <>
             <Toaster position="top-center"></Toaster>
             <div className="lg:w-1/2 flex flex-col gap-5 text-black lg:mx-auto mt-20 lg:mt-32 p-10 border bg-white">
-                {/* <h1 className="font-bold text-xl text-center">Submit A Coupon & Help Millions Save! </h1> */}
-                <div className="rounded-lg overflow-clip flex-col border">
+
+                <div className="rounded-lg overflow-clip flex flex-col gap-5 border">
                     <div className="flex w-full gap-0 h-[3rem]">
                         <div className={`w-full border flex items-center justify-center font-semibold  bg-[#B33D53] text-white duration-300 cursor-pointer `}>Submit A Coupon & Help Millions Save!</div>
                     </div>
+                    <h1 className="text-gray-600 text-sm text-start mx-5">To submit a coupon, simply fill out our form below. Our team will carefully review and approve it before sharing it with the public. Thank you for your commitment to helping everyone save money!</h1>
                     <div className="form flex flex-col gap-5 bg-white lg:px-10 lg:py-5">
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
@@ -102,7 +113,7 @@ const SubmitCouponForm = () => {
 
                             <div className="mb-4">
                                 <label htmlFor="type" className="block mb-1 font-medium">
-                                    
+
                                     Select an Offer Type:
                                 </label>
                                 <select
