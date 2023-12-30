@@ -280,6 +280,9 @@ const Store = () => {
     const handleOpen = (product) => {
         setSelectedProduct(product);
         setOpen(true);
+        // console.log(correctedRefLink);
+        window.open(correctedRefLink, '_blank');
+       
     };
 
     const handleClose = () => {
