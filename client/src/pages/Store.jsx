@@ -482,7 +482,7 @@ const Store = () => {
                             <Rating value={userRating} onChange={handleRatingChange} />
                             <span className="font-bold whitespace-nowrap"><span>{userRating}</span> RATING </span>
                         </div>
-                        <div className="flex gap-5 items-center ">
+                        <div className="flex gap-5 items-center">
                             <span className="whitespace-nowrap">
                                 Avg Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
                             </span>
