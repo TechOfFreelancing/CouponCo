@@ -24,6 +24,8 @@ import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
 import OurCodes from './pages/OurCodes';
 import Profile from './pages/Profile';
+import Event from './pages/Event';
+import EventDetails from './pages/EventDetails';
 
 
 
@@ -183,6 +185,24 @@ function App() {
               <>
                 <Header></Header>
                 <Profile></Profile>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/events"
+            element={
+              <>
+                <Header></Header>
+                <Event></Event>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/eventdetails"
+            element={
+              <>
+                <Header></Header>
+                <EventDetails></EventDetails>
               </>
             }
           ></Route>
