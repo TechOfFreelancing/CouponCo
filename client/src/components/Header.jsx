@@ -12,6 +12,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import navList from "./navlist";
 import "../components/header.css";
 import { FaUserCircle } from "react-icons/fa";
+import logo from '../assets/images/used/logo.png'
 
 export function Header() {
     const [openSidebar, setopenSidebar] = React.useState(false);
@@ -43,7 +44,7 @@ export function Header() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get('http://13.201.29.102:3000/api/logout', {
+            const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -73,7 +74,7 @@ export function Header() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://13.201.29.102:3000/api/festStoreDisplay`);
+                const res = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/festStoreDisplay`);
                 if (res.data && res.data.data.length > 1) setIsOffer(true);
             } catch (error) {
                 console.error('Error fetching festival details:', error);
@@ -92,7 +93,7 @@ export function Header() {
                         <ImSearch className="h-6 w-6" />
                     </button>
                     <Link to="/" className="cursor-pointer font-medium">
-                        Logo
+                        <img src={logo} alt="Qwik Savings" className="h-14 w-auto"/>
                     </Link>
                     <div className="hidden lg:block">{navList}</div>
                     <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[20rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>

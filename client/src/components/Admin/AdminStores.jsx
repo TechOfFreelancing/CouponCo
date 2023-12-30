@@ -16,7 +16,7 @@ const AdminStores = () => {
         const fetchStores = async () => {
             try {
                 const response = await axios.get(
-                    `http://13.201.29.102:3000/api/getAllStore?page=${count}`,
+                    `${import.meta.env.VITE_LOCAL_SERVER}/api/getAllStore?page=${count}`,
                     {
                         headers: {
                             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const AdminStores = () => {
 
     const handleStoreDelete = async (storeId) => {
         try {
-            await axios.delete(`http://13.201.29.102:3000/api/admin/delete/${storeId}`, {
+            await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/admin/delete/${storeId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

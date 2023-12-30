@@ -87,7 +87,7 @@ const Store = () => {
         e.preventDefault();
         try {
             console.log(name, email, password);
-            const response = await axios.post(`http://13.201.29.102:3000/api/register`, {
+            const response = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/register`, {
                 name,
                 email,
                 password,
@@ -111,7 +111,7 @@ const Store = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://13.201.29.102:3000/api/login", {
+            const res = await axios.post("${import.meta.env.VITE_LOCAL_SERVER}/api/login", {
                 email,
                 password
             })
@@ -137,8 +137,8 @@ const Store = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://13.201.29.102:3000/api/getStore/${sId}`);
-                const coup = await axios.get(`http://13.201.29.102:3000/api/coupons/${sId}`);
+                const res = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${sId}`);
+                const coup = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${sId}`);
                 setStr(res.data.store);
 
                 const truncated = res.data.store.description?.slice(0, 100);
@@ -147,7 +147,7 @@ const Store = () => {
 
                 setCoupons(verifiedCoupons);
 
-                const response = await axios.get('http://13.201.29.102:3000/api/clouser');
+                const response = await axios.get('${import.meta.env.VITE_LOCAL_SERVER}/api/clouser');
 
                 const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
                 const popularStores = response.data.data.filter(item => item.store_type === 'popular' && item.store_id == sId);
@@ -155,7 +155,7 @@ const Store = () => {
                 const getStoreInfo = async stores => {
                     return await Promise.all(
                         stores.map(async store => {
-                            const res = await axios.get(`http://13.201.29.102:3000/api/getStore/${store.sId}`);
+                            const res = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${store.sId}`);
                             return { id: store.sId, name: res.data.store.name };
                         })
                     );
@@ -187,7 +187,7 @@ const Store = () => {
                         },
                     };
 
-                    const response = await axios.get(`http://13.201.29.102:3000/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -270,7 +270,7 @@ const Store = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`http://13.201.29.102:3000/api/inCount/${cId}`);
+            await axios.patch(`${import.meta.env.VITE_LOCAL_SERVER}/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -339,7 +339,7 @@ const Store = () => {
         });
 
         try {
-            await axios.put(`http://13.201.29.102:3000/api/addRatings/${sId}`, data, {
+            await axios.put(`${import.meta.env.VITE_LOCAL_SERVER}/api/addRatings/${sId}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -379,7 +379,7 @@ const Store = () => {
                 setLikedItems(updatedLikedItems);
 
                 // API call to save the coupon
-                await axios.post(`http://13.201.29.102:3000/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
 
@@ -387,7 +387,7 @@ const Store = () => {
                 setLikedItems(filteredItems);
 
                 // API call to unsave the coupon
-                await axios.delete(`http://13.201.29.102:3000/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error('Error occurred:', error);
@@ -932,7 +932,7 @@ const Store = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="http://13.201.29.102:3000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="${import.meta.env.VITE_LOCAL_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

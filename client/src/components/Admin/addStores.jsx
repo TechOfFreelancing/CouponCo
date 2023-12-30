@@ -42,7 +42,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                "http://13.201.29.102:3000/api/admin/addStore",
+                `${import.meta.env.VITE_LOCAL_SERVER}/api/admin/addStore`,
                 formData,
                 {
                     headers: {

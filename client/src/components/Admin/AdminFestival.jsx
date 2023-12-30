@@ -26,7 +26,7 @@ function AdminFestival() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://13.201.29.102:3000/api/festStoreDisplay');
+                const response = await axios.get('${import.meta.env.VITE_LOCAL_SERVER}/api/festStoreDisplay');
                 if (response.data.data.length > 0 && response.data.data[0].storeId === null) {
                     const { festival_name, discount } = response.data.data[0];
                     setCurrentFestival({ festival: festival_name, discount });
@@ -45,7 +45,7 @@ function AdminFestival() {
     const handleDelete = async () => {
 
         try {
-            const res = await axios.delete("http://13.201.29.102:3000/api/deleteOffer", {
+            const res = await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/deleteOffer`, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -76,8 +76,8 @@ function AdminFestival() {
             };
 
             const apiUrl = isUpdate
-                ? 'http://13.201.29.102:3000/api/updateDetails'
-                : 'http://13.201.29.102:3000/api/admin/addFest&Disc';
+                ? '${import.meta.env.VITE_LOCAL_SERVER}/api/updateDetails'
+                : '${import.meta.env.VITE_LOCAL_SERVER}/api/admin/addFest&Disc';
 
             await axios[isUpdate ? 'put' : 'post'](apiUrl, data, config);
 

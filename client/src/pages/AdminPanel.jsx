@@ -20,7 +20,7 @@ const AdminPanel = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get('http://13.201.29.102:3000/api/logout', {
+            const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

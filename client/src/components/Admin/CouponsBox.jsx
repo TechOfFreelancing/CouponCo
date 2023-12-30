@@ -18,7 +18,7 @@ export function CouponsBox({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const couponsData = await axios.get(`http://13.201.29.102:3000/api/coupons/${storeId}`);
+                const couponsData = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${storeId}`);
                 setCoupons(couponsData.data.coupons);
             } catch (error) {
                 alert(error.response ? error.response.statusText : 'Failed to fetch data');
