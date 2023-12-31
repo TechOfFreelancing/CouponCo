@@ -195,7 +195,7 @@ const AllStores = () => {
     return (
         <>
             <div className="flex">
-                <div className="hidden lg:w-[25vw] lg:flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
+                {/* <div className="hidden lg:w-[25vw] lg:flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
                     <div className="bg-white p-5 shadow-sm">
                         <div className="text-xl font-bold my-2">Related Categories</div>
                         <div className="flex flex-wrap gap-2">
@@ -238,7 +238,7 @@ const AllStores = () => {
                         </div>
                     </div>
 
-                </div>
+                </div> */}
                 <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
                     <span className="text-2xl font-semibold">All Brands & Stores A-Z</span>
                     <div className="border-2 border-gray-400">

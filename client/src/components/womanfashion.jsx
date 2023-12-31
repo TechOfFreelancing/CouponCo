@@ -236,7 +236,7 @@ const Womanfashion = () => {
             <div className='lg:mx-28 mx-5'>
                 <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between my-10">
                     <div className="flex flex-col gap-1 lg:gap-5">
-                        <span className="font-semibold text-lg lg:text-3xl">Today&apos;s Top Offers</span>
+                        <span className="font-semibold text-lg lg:text-3xl">Today’s Top Clothing Offers</span>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4">

@@ -3,7 +3,7 @@ import img2 from '../assets/images/content2/2.jpg';
 
 const Content2 = () => {
     return (
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-20 lg:mx-28 mx-5 my-20">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-20 lg:px-10 lg:py-20 bg-white">
             <div className="flex flex-col gap-5 items-center justify-center px-5">
                 <img src={img1} alt="" className='h-[10rem] w-auto'/>
                 <div className="text-2xl font-bold">

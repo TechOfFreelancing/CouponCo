@@ -7,6 +7,7 @@ import NewsLetter from "../components/newsletter";
 import Stories from "../components/stories";
 import Womanfashion from "../components/womanfashion";
 import Carousel from "../components/Carousel3";
+import CategoriesbasedCoupons from "../components/CategoriesbasedCoupons";
 
 
 export default function Home() {
@@ -18,8 +19,9 @@ export default function Home() {
             </div>
             <Content></Content>
             <Stories></Stories>
-            <Womanfashion></Womanfashion>
-            <Content2></Content2>
+            {/* <Womanfashion></Womanfashion> */}
+            <CategoriesbasedCoupons></CategoriesbasedCoupons>
+            {/* <Content2></Content2> */}
             <About></About>
             <NewsLetter></NewsLetter>
         </div>
