@@ -76,7 +76,8 @@ const Womanfashion = () => {
         return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
     };
 
-    const correctedRefLink = selectedCoupon?.ref_link?.replace(/(https?:\/\/)([^:/]+)/, "$1$2:");
+    const correctedRefLink = selectedCoupon?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
+
 
     const formatUserCount = (count) => {
         if (count >= 10000000) {

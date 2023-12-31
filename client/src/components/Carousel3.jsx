@@ -83,7 +83,7 @@ const Carousel = () => {
             }
         };
         fetchImages();
-    }, [index]);
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {

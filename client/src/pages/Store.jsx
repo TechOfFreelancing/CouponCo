@@ -147,7 +147,7 @@ const Store = () => {
 
                 setCoupons(verifiedCoupons);
 
-                const response = await axios.get('${import.meta.env.VITE_LOCAL_SERVER}/api/clouser');
+                const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/clouser`);
 
                 const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
                 const popularStores = response.data.data.filter(item => item.store_type === 'popular' && item.store_id == sId);
@@ -434,7 +434,8 @@ const Store = () => {
         }
     };
 
-    const correctedRefLink = selectedProduct?.ref_link?.replace(/(https?:\/\/)([^:/]+)/, "$1$2:");
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
+
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
