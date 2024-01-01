@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../components/couponsbutton.css";
 import { FaHeart } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Womanfashion = () => {
 
@@ -238,6 +239,9 @@ const Womanfashion = () => {
                     <div className="flex flex-col gap-1 lg:gap-5">
                         <span className="font-semibold text-lg lg:text-3xl">Today’s Top Clothing Offers</span>
                     </div>
+                    <Link to="" className="hover:underline h-7 duration-300 underline">
+                    View All Traveling Offers
+                </Link>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4">
                     {featuredImages.map((item, index) => (

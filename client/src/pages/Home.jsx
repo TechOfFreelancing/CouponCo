@@ -19,7 +19,7 @@ export default function Home() {
             </div>
             <Content></Content>
             <Stories></Stories>
-            {/* <Womanfashion></Womanfashion> */}
+            <Womanfashion></Womanfashion>
             <CategoriesbasedCoupons></CategoriesbasedCoupons>
             {/* <Content2></Content2> */}
             <About></About>
