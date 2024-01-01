@@ -26,6 +26,7 @@ import OurCodes from './pages/OurCodes';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
+import CategoriesStore from './pages/CategoriesStore';
 
 
 
@@ -203,6 +204,15 @@ function App() {
               <>
                 <Header></Header>
                 <EventDetails></EventDetails>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/categoriesStore"
+            element={
+              <>
+                <Header></Header>
+                <CategoriesStore></CategoriesStore>
               </>
             }
           ></Route>

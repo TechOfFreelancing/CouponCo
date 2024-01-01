@@ -1,6 +1,5 @@
 import Footer from "../components/newsletter";
 import { Link } from "react-router-dom";
-import bg from '../assets/images/event/eventbg.jpg';
 import { eventDetails } from "../api/event";
 import { useState } from "react";
 import { GoVerified } from 'react-icons/go';
@@ -8,8 +7,12 @@ import { CiUser } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa6';
 import { IoAddOutline } from "react-icons/io5";
 import "../components/couponsbutton.css";
+import category from '../assets/images/categories/category.png'
+import { Rating } from "@material-tailwind/react";
+import { IoIosPeople } from "react-icons/io";
+import { FaArrowRight } from "react-icons/fa6";
 
-const EventDetails = () => {
+const CategoriesStore = () => {
     const [showFullContent, setShowFullContent] = useState(false);
     const [detailsVisibility, setDetailsVisibility] = useState([]);
 
@@ -41,20 +44,31 @@ const EventDetails = () => {
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
-                                Events
+                                All Brands
                             </Link>
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
-                                Christmas Deals Online
+                                Category Name
                             </Link>
                         </li>
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
-                        <img src={bg} alt="" className="w-full h-[160px]" />
-                        <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
-                            <div className='p-4 text-xl font-bold text-white z-10'>Browse Top Shopping Events</div>
+                        <div className="w-1/3 lg:w-2/12">
+                            <img src={category} alt="" className="h-[90px] w-[90px] lg:h-[130px] lg:w-[130px] rounded-full" />
+                        </div>
+                        <div className="flex flex-col justify-between w-2/3 lg:w-8/12 gap-3">
+                            <div className="text-lg lg:text-xl font-bold">Autodoc Voucher Codes January 2024</div>
+                            <div className="font-sm lg:font-normal">Save money with these 5 Autodoc voucher codes & deals</div>
+                            <div className="flex lg:flex-row flex-col gap-5">
+                                <Rating value={4} />
+                                <span className="font-bold whitespace-nowrap"> Rated <span>4</span> from 1 votes </span>
+                            </div>
+                        </div>
+                        <div className="hidden lg:flex flex-col gap-2 lg:w-2/12">
+                            <div className="flex items-center justify-center gap-2 p-2 rounded-lg bg-red-100"><IoIosPeople className="text-xl" />6.3K</div>
+                            <div className="flex items-center justify-center gap-2 p-2 rounded-lg bg-gray-200"><FaArrowRight className="text-xl" />Visit Site</div>
                         </div>
                     </div>
                     <div className="flex flex-col-reverse lg:flex-row">
@@ -109,7 +123,7 @@ const EventDetails = () => {
                                     return (
                                         <div key={index} className="group w-full lg:w-[45rem] bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 hover:shadow-lg duration-300">
                                             <span
-                                                className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 }`}
+                                                className={`p-2 hidden group-hover:inline-block duration-300 absolute right-5 top-5 lg:right-1 lg:top-1 rounded-lg bg-gray-300/80 }`}
                                             >
                                                 <FaHeart className="cursor-pointer text-xl duration-300" />
                                             </span>
@@ -171,4 +185,4 @@ const EventDetails = () => {
     )
 }
 
-export default EventDetails
+export default CategoriesStore;

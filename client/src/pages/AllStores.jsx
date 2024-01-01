@@ -287,7 +287,8 @@ const AllStores = () => {
                                                     key={ele.id}
                                                     className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer"
                                                     onClick={() => {
-                                                        navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } });
+                                                        // navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } });
+                                                        navigate(`/categoriesStore`);
                                                     }}
                                                 >
                                                     <div className="flex gap-4">
@@ -313,11 +314,13 @@ const AllStores = () => {
                                             {stores
                                                 .filter((store) => store?.name?.charAt(0) === letter)
                                                 .map((ele) => (
-                                                    <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer" onClick={() => {
-                                                        navigate(
-                                                            `/Stores/${ele.name}`, { state: { sId: ele.id } }
-                                                        )
-                                                    }}>
+                                                    <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer"
+                                                        onClick={() => {
+                                                            // navigate(
+                                                            //     `/Stores/${ele.name}`, { state: { sId: ele.id } }
+                                                            // )
+                                                            navigate(`/categoriesStore`);
+                                                        }}>
                                                         <div className="flex gap-4">
                                                             <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                             <div className="flex flex-col justify-evenly">
@@ -341,9 +344,10 @@ const AllStores = () => {
                                             .filter((store) => store?.name?.charAt(0).toLocaleLowerCase() === selectedCategory.toLocaleLowerCase())
                                             .map((ele) => (
                                                 <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer" onClick={() => {
-                                                    navigate(
-                                                        `/Stores/${ele.name}`, { state: { sId: ele.id } }
-                                                    )
+                                                    // navigate(
+                                                    //     `/Stores/${ele.name}`, { state: { sId: ele.id } }
+                                                    // )
+                                                    navigate(`/categoriesStore`);
                                                 }}>
                                                     <div className="flex gap-4">
                                                         <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
