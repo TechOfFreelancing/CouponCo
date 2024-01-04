@@ -430,7 +430,7 @@ exports.decreaseCouponsOffers = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
 
     try {
-        if (typeof couponsCount == null  || typeof offersCount == null) {
+        if (typeof couponsCount == null || typeof offersCount == null) {
             return res.status(400).json({ error: 'Invalid input' });
         }
 
@@ -727,5 +727,21 @@ exports.getAllStoreIds = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to retrieve store IDs", 500));
+    }
+});
+
+exports.getCategoryCoupons = catchAsyncErrors(async (req, res, next) => {
+    const { category } = req.params;
+    // console.log(category);
+    try {
+        const getCoupons = `
+           SELECT * FROM store AS S INNER JOIN coupons AS C WHERE S.id = C.store_id && category = ?
+        `;
+        const coupons = await db.query(getCoupons, [category]);
+
+        res.status(200).json({ data: coupons[0] });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to retrieve coupons", 500));
     }
 });

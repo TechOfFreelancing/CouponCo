@@ -65,7 +65,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `${import.meta.env.VITE_LOCAL_SERVER}/api/admin/${cId}`,
+                url: `http://localhost:4000/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,10 +89,10 @@ const UpdateCoupons = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${sId}`);
+                const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
+                const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
 
-                const result = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/storeDisplay`);
+                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
 
@@ -130,7 +130,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId",cId);
 
             await axios.post(
-                `${import.meta.env.VITE_LOCAL_SERVER}/api/admin/addToOffer/${sId}`,
+                `http://localhost:4000/api/admin/addToOffer/${sId}`,
                 formdata,
                 {
                     headers: {
@@ -149,7 +149,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/storeDisplay/${sId}`, {
+            await axios.delete(`http://localhost:4000/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

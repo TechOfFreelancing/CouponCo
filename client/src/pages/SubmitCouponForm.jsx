@@ -45,7 +45,7 @@ const SubmitCouponForm = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${import.meta.env.VITE_LOCAL_SERVER}/api/admin/addCoupons/${sId}`,
+            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',

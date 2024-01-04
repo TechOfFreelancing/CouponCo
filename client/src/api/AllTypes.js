@@ -16,7 +16,7 @@ const typesData = [
     "Department Store",
     "E Cigarettes",
     "Education",
-    "Electronic",
+    "Electronics",
     "Entertainment",
     "Foods Beverages",
     "Footwear",

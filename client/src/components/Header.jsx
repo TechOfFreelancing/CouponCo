@@ -44,7 +44,7 @@ export function Header() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/logout`, {
+            const response = await axios.get(`http://localhost:4000/api/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -74,7 +74,7 @@ export function Header() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/festStoreDisplay`);
+                const res = await axios.get(`http://localhost:4000/api/festStoreDisplay`);
                 if (res.data && res.data.data.length > 1) setIsOffer(true);
             } catch (error) {
                 console.error('Error fetching festival details:', error);
