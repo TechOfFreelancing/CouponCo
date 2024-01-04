@@ -5,7 +5,7 @@ import {
     CardBody,
     CardFooter,
 } from "@material-tailwind/react";
-import { useFormik } from "formik";
+import { useFormik} from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
@@ -83,6 +83,7 @@ const UpdateCoupons = () => {
             let data = JSON.stringify({
                 "title": values.title,
                 "type": values.type,
+                "category":values.category,
                 "coupon_code": values.coupon_code,
                 "due_date": values.due_date,
                 "ref_link": values.ref_link,
@@ -367,6 +368,7 @@ const UpdateCoupons = () => {
                             onChange={formik.handleChange}
                             value={formik.values.due_date}
                             onBlur={formik.handleBlur}
+                            value={formik.values.due_date}
                         />
                     </div>
 

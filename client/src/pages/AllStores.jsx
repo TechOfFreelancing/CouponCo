@@ -127,6 +127,7 @@ const AllStores = () => {
                         {selectedCategory === "All" ? (
                             Array.from([...firstLatter, '0-9']).map((letter, index) => {
                                 const filteredStores = stores.filter((store) => {
+                                    console.log(store);
                                     if (letter === '0-9') {
                                         return /\d/.test(store?.name?.charAt(0));
                                     } else {

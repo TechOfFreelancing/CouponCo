@@ -921,6 +921,7 @@ exports.getAllStoreIds = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// Get coupons of particular category
 exports.getCategoryCoupons = catchAsyncErrors(async (req, res, next) => {
     const { category } = req.params;
     // console.log(category);
