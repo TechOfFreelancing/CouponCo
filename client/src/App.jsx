@@ -26,7 +26,8 @@ import OurCodes from './pages/OurCodes';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
-import CategoriesStore from './pages/CategoriesStore';
+import CategoriesDetails from './pages/CategoriesDetails';
+import CategoryStores from './pages/CategoryStores';
 
 
 
@@ -136,7 +137,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/Stores"
+            path="/allstores"
             element={
               <>
                 <Header></Header>
@@ -145,7 +146,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/AllCategories"
+            path="/allcategories"
             element={
               <>
                 <Header></Header>
@@ -172,7 +173,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/Ourcodes"
+            path="/ourcodes"
             element={
               <>
                 <Header></Header>
@@ -208,11 +209,20 @@ function App() {
             }
           ></Route>
           <Route
+            path="/categoriesdetails"
+            element={
+              <>
+                <Header></Header>
+                <CategoriesDetails></CategoriesDetails>
+              </>
+            }
+          ></Route>
+          <Route
             path="/categoriesStore"
             element={
               <>
                 <Header></Header>
-                <CategoriesStore></CategoriesStore>
+                <CategoryStores></CategoryStores>
               </>
             }
           ></Route>

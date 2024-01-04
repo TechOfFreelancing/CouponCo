@@ -9,7 +9,7 @@ import Skeleton from './Skeleton';
 const variants = {
     initial: direction => {
         return {
-            x: direction > 0 ? 1000 : -1000,
+            x: direction > 0 ? 1000 : 1000,
             opacity: 0,
             scale: 0.5,
         }

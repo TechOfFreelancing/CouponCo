@@ -30,15 +30,15 @@ const HealthFitnessBased = () => {
                             </span>
 
                             <img src={item.logo} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
-                            <div className="ml-24 flex w-3/5 justify-between items-center text-gray-700">
-                                {item.Verified && <span className="text-black bg-blue-200 p-1 rounded-md text-[12px]">Verified</span>}
-                            </div>
+                            <div className="ml-24 flex w-[50%] justify-end items-center text-gray-700">
+                            {item.Verified && <span className="text-black bg-blue-200 p-1 rounded-md text-[12px]">Verified</span>}
+                        </div>
                             <div className="mx-2">
-                                <span className="text-red-600 mr-2">{item.title}</span>
+                                <span className="text-black mr-2">{item.title}</span>
                             </div>
-                            <div className="flex justify-between w-full text-sm px-2">
-                                <span>{item.used} Used</span>
-                            </div>
+                            <div className="flex justify-center items-center w-full text-sm px-2">
+                            <span>{item.used} Used</span>
+                        </div>
                             <div className="flex flex-col items-center justify-between">
                                 <button className="button has-code">
                                     <span className="is-code">{item.coupon}</span>

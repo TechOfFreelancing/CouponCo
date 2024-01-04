@@ -4,7 +4,7 @@ import {SITEMAP} from "../api/Footer";
 
 export default function Footer() {
   return (
-    <footer className="hidden md:block bg-black text-white w-screen -z-10">
+    <footer className="hidden md:block bg-black text-white w-screen -z-10 border-2 ">
       <div className="w-full p-6">
         <div className="flex flex-wrap -mt-1 ts:-mx-2">
           <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">

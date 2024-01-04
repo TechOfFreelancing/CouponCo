@@ -12,9 +12,10 @@ import { Rating } from "@material-tailwind/react";
 import { IoIosPeople } from "react-icons/io";
 import { FaArrowRight } from "react-icons/fa6";
 
-const CategoriesStore = () => {
+const CategoriesDetails = () => {
     const [showFullContent, setShowFullContent] = useState(false);
     const [detailsVisibility, setDetailsVisibility] = useState([]);
+    const [showAllEvents, setShowAllEvents] = useState(false);
 
 
     const truncatedContent = eventDetails.about.length > 200 ? `${eventDetails.about.substring(0, 200)}...` : eventDetails.about;
@@ -31,6 +32,10 @@ const CategoriesStore = () => {
             return newVisibility;
         });
     };
+    const eventsToShow = showAllEvents ? eventDetails.Events.length : 25;
+    const toggleShowAllEvents = () => {
+        setShowAllEvents((prev) => !prev);
+    };
     return (
         <>
             <div className="lg:w-[75vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
@@ -43,7 +48,7 @@ const CategoriesStore = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-                            <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                            <Link to="/categoriesStore" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 All Brands
                             </Link>
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
@@ -59,35 +64,36 @@ const CategoriesStore = () => {
                             <img src={category} alt="" className="h-[90px] w-[90px] lg:h-[130px] lg:w-[130px] rounded-full" />
                         </div>
                         <div className="flex flex-col justify-between w-2/3 lg:w-8/12 gap-3">
-                            <div className="text-lg lg:text-xl font-bold">Autodoc Voucher Codes January 2024</div>
-                            <div className="font-sm lg:font-normal">Save money with these 5 Autodoc voucher codes & deals</div>
-                            <div className="flex lg:flex-row flex-col gap-5">
+                            <div className="text-lg lg:text-3xl font-bold">Autodoc Voucher Codes January 2024</div>
+                            {/* <div className="font-sm lg:font-normal">Save money with these 5 Autodoc voucher codes & deals</div> */}
+                            {/* <div className="flex lg:flex-row flex-col gap-5">
                                 <Rating value={4} />
                                 <span className="font-bold whitespace-nowrap"> Rated <span>4</span> from 1 votes </span>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="hidden lg:flex flex-col gap-2 lg:w-2/12">
+                        {/* <div className="hidden lg:flex flex-col gap-2 lg:w-2/12">
                             <div className="flex items-center justify-center gap-2 p-2 rounded-lg bg-red-100"><IoIosPeople className="text-xl" />6.3K</div>
                             <div className="flex items-center justify-center gap-2 p-2 rounded-lg bg-gray-200"><FaArrowRight className="text-xl" />Visit Site</div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="flex flex-col-reverse lg:flex-row">
                         <div className="w-screen lg:w-[25vw] lg:flex flex-col gap-2 text-black border lg:mx-auto lg:p-5">
-                            <div className="bg-white p-3 shadow-sm">
+                            {/* <div className="bg-white p-3 shadow-sm">
                                 <div className="text-xl font-bold my-2">Related Categories</div>
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         eventDetails.relatedCategories.map((ele, index) => <div key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md">{ele}</div>)
                                     }
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="bg-white p-3 shadow-sm">
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
-                                    <p>{showFullContent ? eventDetails.about : truncatedContent}</p>
+                                    {/* <p>{showFullContent ? eventDetails.about : truncatedContent}</p>
                                     <button onClick={toggleAbout} className="text-blue-500">
                                         {showFullContent ? 'Less About' : 'More About'}
-                                    </button>
+                                    </button> */}
+                                    <p>{eventDetails.about}</p>
                                 </div>
                             </div>
                             <div className="bg-white p-3 shadow-sm">
@@ -119,7 +125,7 @@ const CategoriesStore = () => {
                         <div className="lg:w-[75vw] lg:flex flex-col gap-2 text-black border lg:mx-auto lg:p-5">
 
                             {
-                                eventDetails.Events.map((ele, index) => {
+                                eventDetails.Events.slice(0, eventsToShow).map((ele, index) => {
                                     return (
                                         <div key={index} className="group w-full lg:w-[45rem] bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 hover:shadow-lg duration-300">
                                             <span
@@ -174,15 +180,21 @@ const CategoriesStore = () => {
                                     )
                                 })
                             }
-
+                            <div className="flex items-center justify-center lg:w-[45rem]">
+                                {eventDetails.Events.length > 25 && (
+                                    <button onClick={toggleShowAllEvents} className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
+                                        {showAllEvents ? 'Show Less' : 'Show More'}
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </div>
 
                 </div>
-            </div>
+            </div >
             <Footer></Footer>
         </>
     )
 }
 
-export default CategoriesStore;
+export default CategoriesDetails;

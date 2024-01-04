@@ -337,6 +337,66 @@ export const eventDetails = {
             user: 10,
             type: "coupon"
         },
+        {
+            id: 25,
+            img: couponimg,
+            title: "50% Off for Friends",
+            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            enddate: "January 1, 2024",
+            verified: true,
+            user: 10,
+            type: "coupon"
+        },
+        {
+            id: 26,
+            img: couponimg,
+            title: "50% Off for Friends",
+            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            enddate: "January 1, 2024",
+            verified: true,
+            user: 10,
+            type: "coupon"
+        },
+        {
+            id: 27,
+            img: couponimg,
+            title: "50% Off for Friends",
+            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            enddate: "January 1, 2024",
+            verified: true,
+            user: 10,
+            type: "coupon"
+        },
+        {
+            id: 28,
+            img: couponimg,
+            title: "50% Off for Friends",
+            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            enddate: "January 1, 2024",
+            verified: true,
+            user: 10,
+            type: "coupon"
+        },
+        {
+            id: 29,
+            img: couponimg,
+            title: "50% Off for Friends",
+            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            enddate: "January 1, 2024",
+            verified: true,
+            user: 10,
+            type: "coupon"
+        },
+        {
+            id: 30,
+            img: couponimg,
+            title: "50% Off for Friends",
+            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            enddate: "January 1, 2024",
+            verified: true,
+            user: 10,
+            type: "coupon"
+        },
 
     ],
     about: "Driving a car with qualitative accessories get you out of problematic life. It is always hard to find out cheap and advance vehicles accessories. Today it is nearly impossible to have an enjoyable drive in low cost without compromising on quality. But this problem is being solved by automotive coupon codes available at Top Vouchers Code. Here you can avail discounts through different deals on different types of Vehicles’ parts and accessories i.e. Tires, Mirrors, Seats and Staring etc.You will find ATS Euromaster voucher codes at TVC through which you can get your vehicle’s battery changed at extremely low cost. These and other types of discount deals, that Top Vouchers Code is featuring, has brought a revolutionary and dramatic type of change in automotive Industry. Accept this now you can top up your wallet by receiving Motoquipe discount codes on car accessories. To sell customers LED lights and other parts in competitive prices here you can find Led Equipped Voucher codes.So driving with joy and pleasure, spending less amount of money, is now a piece of cake. There was a time when people used to be passionate about driving but not now it’s not. Because it’s really hard to get as much discounts on goods, especially on cars and bikes. But now these discount offers by TVC has let people buy bikes and cars more. Here you can find tremendous ways of saving money so that you can save up for a dinner with the family or a night out with your mates rather than spending on vehicles. These are the incredible changes which have been made due to TVC’s Automotive Promo codes by which you are able to manage your expenses properly. Hope these discount deals will help you find what you need at huge discounts.",

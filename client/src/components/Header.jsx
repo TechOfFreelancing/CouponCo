@@ -9,7 +9,7 @@ import AuthContext from "./AuthContext";
 import axios from "axios";
 import { ImSearch } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
-import navList from "./navlist";
+import NavList from "./navlist";
 import "../components/header.css";
 import { FaUserCircle } from "react-icons/fa";
 import logo from '../assets/images/used/logo.png'
@@ -95,7 +95,7 @@ export function Header() {
                     <Link to="/" className="cursor-pointer font-medium">
                         <img src={logo} alt="Qwik Savings" className="h-14 w-auto"/>
                     </Link>
-                    <div className="hidden lg:block">{navList}</div>
+                    <div className="hidden lg:block"><NavList></NavList></div>
                     <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[20rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
                         <input type="search" placeholder='Search for brands, categories' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
@@ -185,7 +185,7 @@ export function Header() {
                             </>
                         )}
                     </div>
-                    <div className="-my-5">{navList}</div>
+                    <div className="-my-5"><NavList></NavList></div>
 
 
                 </Drawer>

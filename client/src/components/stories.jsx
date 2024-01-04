@@ -57,7 +57,7 @@ const Stories = () => {
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
-                <Link to="/AllCategories" className="hover:underline h-7 duration-300 underline">
+                <Link to="/allstores" className="hover:underline h-7 duration-300 underline">
                     All Stores
                 </Link>
             </div>

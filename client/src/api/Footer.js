@@ -13,23 +13,23 @@ const SITEMAP = [
         links: [
             { text: "About QS", href: "/account", },
             { text: "Our Codes", href: "/account" },
-            { text: "Savings Events", href: "https://looknbookart.com/pages/faq" },
-            { text: "Blog", href: "https://looknbookart.com/pages/faq" },
-            { text: "How it Works", href: "https://looknbookart.com/pages/faq" },
-            { text: "FAQ", href: "https://looknbookart.com/pages/faq" },
+            { text: "Savings Events", href: "" },
+            { text: "Blog", href: "" },
+            { text: "How it Works", href: "" },
+            { text: "FAQ", href: "" },
             { text: "Submit a Coupon", href: "/submitcoupon" },
 
         ],
     },
     {
         id: "2",
-        title: "On Legal Menu",
+        title: "Legal Menu",
         links: [
             { text: "Contact Us", href: "/account", },
             { text: "Partner With Us", href: "/account" },
-            { text: "Privacy Policy", href: "https://looknbookart.com/pages/faq" },
-            { text: "Terms of Service", href: "https://looknbookart.com/pages/faq" },
-            { text: "Sitemap", href: "https://looknbookart.com/pages/faq" },
+            { text: "Privacy Policy", href: "" },
+            { text: "Terms of Service", href: "" },
+            { text: "Sitemap", href: "" },
         ],
     },
 ];
@@ -38,17 +38,17 @@ const ICONS = [
     {
         id: "1",
         icon: AiFillInstagram,
-        link: "https://www.instagram.com/codespotr/"
+        link: ""
     },
     {
         id: "2",
         icon: BsTwitter,
-        link: "https://twitter.com/CodeSpotr"
+        link: ""
     },
     {
         id: "3",
         icon: BsLinkedin,
-        link: "https://www.linkedin.com/company/codespotr/"
+        link: ""
     },
     {
         id: "4",
@@ -63,12 +63,12 @@ const ICONS = [
     {
         id: "6",
         icon: FaPinterest,
-        link: "https://www.pinterest.com/codespotr/"
+        link: ""
     },
     {
         id: "7",
         icon: FaFacebook,
-        link: "https://www.facebook.com/profile.php?id=100089116364410"
+        link: ""
     },
 ]
 

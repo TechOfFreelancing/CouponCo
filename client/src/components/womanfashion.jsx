@@ -240,8 +240,8 @@ const Womanfashion = () => {
                         <span className="font-semibold text-lg lg:text-3xl">Today’s Top Clothing Offers</span>
                     </div>
                     <Link to="" className="hover:underline h-7 duration-300 underline">
-                    View All Traveling Offers
-                </Link>
+                        View All Traveling Offers
+                    </Link>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4">
                     {featuredImages.map((item, index) => (
@@ -259,11 +259,11 @@ const Womanfashion = () => {
                             </span>
 
                             <img src={store[index]?.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border border-white bg-white rounded-full" />
-                            <div className="ml-24 flex w-3/5 justify-between items-center text-gray-700">
-                                <span className="text-black bg-blue-200 p-1 rounded-md text-[12px]">Verified</span>
-                            </div>
+                           <div className="ml-24 flex w-[50%] justify-end items-center text-gray-700">
+                            {item.Verified && <span className="text-black bg-blue-200 p-1 rounded-md text-[12px]">Verified</span>}
+                        </div>
                             <div className="mx-2">
-                                <span className="text-red-600 mr-2">{cop[index]?.title} </span>
+                                <span className="text-black mr-2">{cop[index]?.title} </span>
                             </div>
                             <div className="flex justify-between w-full text-sm px-2">
                                 <span>{formatUserCount(cop[index]?.user_count)} Used</span>
