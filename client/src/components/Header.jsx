@@ -93,7 +93,7 @@ export function Header() {
                         <ImSearch className="h-6 w-6" />
                     </button>
                     <Link to="/" className="cursor-pointer font-medium">
-                        <img src={logo} alt="Qwik Savings" className="h-14 w-auto"/>
+                        <img src={logo} alt="Qwik Savings" className="h-14 w-auto" />
                     </Link>
                     <div className="hidden lg:block"><NavList></NavList></div>
                     <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[20rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
