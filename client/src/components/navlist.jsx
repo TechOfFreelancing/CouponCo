@@ -2,18 +2,11 @@ import {
     Typography,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import '../components/navlist.css';
 
 
 
 const navList = (
-    
-
-
-
-
-    return (
-        <ul className="mx-10 py-5 mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
+    <ul className="mx-10 py-5 mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
         <Typography
             as="li"
             variant="small"
@@ -194,7 +187,6 @@ const navList = (
             </Link>
         </Typography>
     </ul>
-    )
-}
+);
 
-export default Navlist;
+export default navList;
