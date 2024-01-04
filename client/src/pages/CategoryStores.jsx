@@ -78,6 +78,7 @@ const CategoryStores = () => {
                                                     </div>
                                                 </div>
                                             </Link>
+                                            
                                         ))}
                                 </div>
                             </div>
