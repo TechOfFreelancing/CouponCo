@@ -1,6 +1,6 @@
 import Ourcodes from '../assets/images/our-coders/Our-Codes.jpg'
 import acceptable from '../assets/images/our-coders/Acceptable-Codes.png'
-import NewsLetter from '../components/newsletter';
+import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 
 const OurCodes = () => {
@@ -118,7 +118,7 @@ const OurCodes = () => {
                     </ul>
                 </div>
             </div>
-            <NewsLetter></NewsLetter>
+            <Footer></Footer>
         </>
     )
 }

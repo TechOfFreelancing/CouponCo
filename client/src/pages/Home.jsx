@@ -2,26 +2,38 @@
 import { StackedImageAnimation } from "../components/StackedImageAnimation";
 import About from "../components/about";
 import Content from "../components/content";
-import NewsLetter from "../components/newsletter";
-import Stories from "../components/stories";
-import Womanfashion from "../components/womanfashion";
+import Footer from "../components/Footer";
+import Featured_Stores from "../components/FeaturedStores";
+// import Womanfashion from "../components/womanfashion";
 import Carousel from "../components/Carousel3";
 import CategoriesbasedCoupons from "../components/CategoriesbasedCoupons";
 
 
 export default function Home() {
     return (
-        <div className="bg-[#FAF9F5]">
-            <div className="mt-20 lg:mt-32 md:w-[80vw] lg:w-[90vw] mx-auto flex flex-col lg:flex-row text-5xl items-center justify-center lg:pr-[10rem] px-5">
-                <Carousel></Carousel>
-                <StackedImageAnimation></StackedImageAnimation>
+        <>
+            <div className="border-b-[1px] border-b-[#B33D53]">
+                <div className="bg-[#FAF9F5] lg:px-28 mt-20 lg:mt-36  mx-auto flex flex-col lg:flex-row text-5xl items-center justify-center">
+
+                    <Carousel></Carousel>
+                    <StackedImageAnimation></StackedImageAnimation>
+
+                </div>
+                <div className="bg-white px-10 lg:px-28">
+                    <Content></Content>
+                </div>
+                <div className="px-10 lg:px-28">
+                    <Featured_Stores></Featured_Stores>
+                </div>
+                {/* <Womanfashion></Womanfashion> */}
+                <CategoriesbasedCoupons></CategoriesbasedCoupons>
+
+                <div className="bg-white px-10 lg:px-28">
+                    <About></About>
+                </div>
+
             </div>
-            <Content></Content>
-            <Stories></Stories>
-            <Womanfashion></Womanfashion>
-            <CategoriesbasedCoupons></CategoriesbasedCoupons>
-            <About></About>
-            <NewsLetter></NewsLetter>
-        </div>
+            <Footer></Footer>
+        </>
     )
 }

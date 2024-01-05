@@ -1,4 +1,4 @@
-import Footer from "../components/newsletter";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import bg from '../assets/images/event/eventbg.jpg';
 import { eventDetails } from "../api/event";

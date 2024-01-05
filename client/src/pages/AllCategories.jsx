@@ -1,7 +1,7 @@
 import Categories from "../api/categories";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/newsletter";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 
@@ -64,11 +64,9 @@ const AllCategories = () => {
                                         .map((category, i) => (
                                             <div key={i}
                                                 onClick={() => {
-                                                    // navigate("/Stores", { state: { type: category.name } })
-                                                    // navigate("/allstores", { state: { type: category.name } })
-                                                    navigate("/categoriesStore", { state: { type: category.name } })
+                                                    navigate("/categoriesdetails")
                                                 }}
-                                                className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0">
+                                                className="px-5 py-3 font-thin bg-gray-200 mb-3">
                                                 <div className="flex gap-4 justify-between">
                                                     <div className="flex flex-col justify-evenly">
                                                         <div className="whitespace-nowrap">{category.name}</div>
@@ -88,7 +86,11 @@ const AllCategories = () => {
                                     {Categories
                                         .filter((store) => store.filter[0].toUpperCase() === selectedCategory)
                                         .map((category, i) => (
-                                            <div key={i} onClick={() => { navigate("/Stores", { state: { type: category.name } }) }} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0">
+                                            <div key={i}
+                                                onClick={() => {
+                                                    navigate("/categoriesdetails")
+                                                }}
+                                                className="px-5 py-3 font-thin bg-gray-200 mb-3">
                                                 <div className="flex gap-4 justify-between">
                                                     <div className="flex flex-col justify-evenly">
                                                         <div className="whitespace-nowrap">{category.name}</div>

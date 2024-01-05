@@ -100,7 +100,7 @@ export const eventDetails = {
         {
             id: 1,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "A 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -110,7 +110,7 @@ export const eventDetails = {
         {
             id: 2,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "B 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -120,7 +120,7 @@ export const eventDetails = {
         {
             id: 3,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "C 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -130,7 +130,7 @@ export const eventDetails = {
         {
             id: 4,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "D 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -140,7 +140,7 @@ export const eventDetails = {
         {
             id: 5,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "E 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -150,7 +150,7 @@ export const eventDetails = {
         {
             id: 6,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "F 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -160,7 +160,7 @@ export const eventDetails = {
         {
             id: 7,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "G 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -170,7 +170,7 @@ export const eventDetails = {
         {
             id: 8,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "H 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -180,7 +180,7 @@ export const eventDetails = {
         {
             id: 9,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "I 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -190,7 +190,7 @@ export const eventDetails = {
         {
             id: 10,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "J 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -200,7 +200,7 @@ export const eventDetails = {
         {
             id: 11,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "K 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -210,7 +210,7 @@ export const eventDetails = {
         {
             id: 12,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "L 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -220,8 +220,8 @@ export const eventDetails = {
         {
             id: 13,
             img: couponimg,
-            title: "50% Off for Friends",
-            detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
+            title: "M 50% Off for Friends",
+            detils: "M DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
             user: 10,
@@ -230,7 +230,7 @@ export const eventDetails = {
         {
             id: 14,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "N 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -240,7 +240,7 @@ export const eventDetails = {
         {
             id: 15,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "O 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -250,7 +250,7 @@ export const eventDetails = {
         {
             id: 16,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "P 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -260,7 +260,7 @@ export const eventDetails = {
         {
             id: 17,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "Q 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -270,7 +270,7 @@ export const eventDetails = {
         {
             id: 18,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "R 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -280,7 +280,7 @@ export const eventDetails = {
         {
             id: 19,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "S 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -290,7 +290,7 @@ export const eventDetails = {
         {
             id: 20,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "T 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -300,7 +300,7 @@ export const eventDetails = {
         {
             id: 21,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "U 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -310,7 +310,7 @@ export const eventDetails = {
         {
             id: 22,
             img: couponimg,
-            title: "50% Off for Friends",
+            title: "V 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,

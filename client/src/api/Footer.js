@@ -23,7 +23,7 @@ const SITEMAP = [
     },
     {
         id: "2",
-        title: "Legal Menu",
+        title: "Legal",
         links: [
             { text: "Contact Us", href: "/account", },
             { text: "Partner With Us", href: "/account" },

@@ -12,16 +12,22 @@ import Content2 from "./content2";
 
 const CategoriesbasedCoupons = () => {
     return (
-        <div className='lg:mx-28 mx-5'>
-            <ClothingBased></ClothingBased>
-            <Content2></Content2>
-            <TravelBased></TravelBased>
-            <HealthFitnessBased></HealthFitnessBased>
-            <ElectronicsBased></ElectronicsBased>
-            <HomeGardenBased></HomeGardenBased>
-            <BeautyBased></BeautyBased>
-            <FoodBeveragesBased></FoodBeveragesBased>
-            <AccessoriesBased></AccessoriesBased>
+        <div>
+            <div className="px-10 lg:px-28">
+                <ClothingBased></ClothingBased>
+            </div>
+            <div className="px-10 lg:px-28 bg-white py-10">
+                <Content2></Content2>
+            </div>
+            <div className="px-10 lg:px-28">
+                <TravelBased></TravelBased>
+                <HealthFitnessBased></HealthFitnessBased>
+                <ElectronicsBased></ElectronicsBased>
+                <HomeGardenBased></HomeGardenBased>
+                <BeautyBased></BeautyBased>
+                <FoodBeveragesBased></FoodBeveragesBased>
+                <AccessoriesBased></AccessoriesBased>
+            </div>
         </div>
     )
 }

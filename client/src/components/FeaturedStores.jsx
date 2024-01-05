@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const Stories = () => {
+const Featured_Stores = () => {
 
     const [featured, setFeatured] = useState([]);
     const [images, setImages] = useState([]);
@@ -52,8 +52,8 @@ const Stories = () => {
 
 
     return (
-        <div className="lg:px-28 px-5 h-fit max-h-[100vh] bg-[#FAF9F6] py-5">
-            <div className="flex flex-col justify-center lg:flex-row lg:justify-between mt-10">
+        <div className="h-fit max-h-[100vh] bg-[#FAF9F6] py-5">
+            <div className="flex flex-col items-center justify-center lg:flex-row lg:justify-between h-[5rem]">
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
@@ -87,4 +87,4 @@ const Stories = () => {
     )
 }
 
-export default Stories;
+export default Featured_Stores;

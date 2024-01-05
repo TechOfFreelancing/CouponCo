@@ -27,7 +27,7 @@ import { CiUser } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
 import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
 import "../components/couponsbutton.css";
-import Footer from "../components/newsletter";
+import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
 
 
@@ -111,7 +111,7 @@ const Store = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post("${import.meta.env.VITE_LOCAL_SERVER}/api/login", {
+            const res = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/login`, {
                 email,
                 password
             })

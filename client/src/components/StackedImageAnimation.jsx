@@ -90,7 +90,7 @@ export const StackedImageAnimation = () => {
 
             {
                 cardImages ? (
-                    <div className="w-[255px] h-[355px] relative p-2 m-5 hidden lg:inline-block">
+                    <div className="w-[255px] h-[350px] relative pl-1 m-5 hidden lg:inline-block">
                         {
                             cardImages.map((imageObj, i) => {
                                 const factor = size - 1 - map.get(i);

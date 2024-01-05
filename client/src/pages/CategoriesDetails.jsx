@@ -1,4 +1,4 @@
-import Footer from "../components/newsletter";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { eventDetails } from "../api/event";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { CiUser } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa6';
 import { IoAddOutline } from "react-icons/io5";
 import "../components/couponsbutton.css";
-import category from '../assets/images/categories/category.png'
+import Electronic from '../assets/images/categories/Electronic.png'
 import { Rating } from "@material-tailwind/react";
 import { IoIosPeople } from "react-icons/io";
 import { FaArrowRight } from "react-icons/fa6";
@@ -61,10 +61,10 @@ const CategoriesDetails = () => {
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
                         <div className="w-1/3 lg:w-2/12">
-                            <img src={category} alt="" className="h-[90px] w-[90px] lg:h-[130px] lg:w-[130px] rounded-full" />
+                            <img src={Electronic} alt="" className="h-[90px] w-[90px] lg:h-[130px] lg:w-[130px] rounded-full border border-gray-800" />
                         </div>
                         <div className="flex flex-col justify-between w-2/3 lg:w-8/12 gap-3">
-                            <div className="text-lg lg:text-3xl font-bold">Autodoc Voucher Codes January 2024</div>
+                            <div className="text-lg lg:text-3xl font-bold">Electronic Coupons and Deals</div>
                             {/* <div className="font-sm lg:font-normal">Save money with these 5 Autodoc voucher codes & deals</div> */}
                             {/* <div className="flex lg:flex-row flex-col gap-5">
                                 <Rating value={4} />

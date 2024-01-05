@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import Footer from "../components/newsletter";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 const firstLatter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -248,7 +248,7 @@ const AllStores = () => {
                                             {filteredStores.map((ele) => (
                                                 <div
                                                     key={ele.id}
-                                                    className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer"
+                                                    className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-3 cursor-pointer"
                                                     onClick={() => {
                                                         navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } });
                                                         // navigate(`/categoriesStore`);
@@ -277,7 +277,7 @@ const AllStores = () => {
                                             {stores
                                                 .filter((store) => store?.name?.charAt(0) === letter)
                                                 .map((ele) => (
-                                                    <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer"
+                                                    <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3  cursor-pointer"
                                                         onClick={() => {
                                                             navigate(
                                                                 `/Stores/${ele.name}`, { state: { sId: ele.id } }
@@ -306,7 +306,7 @@ const AllStores = () => {
                                         {stores
                                             .filter((store) => store?.name?.charAt(0).toLocaleLowerCase() === selectedCategory.toLocaleLowerCase())
                                             .map((ele) => (
-                                                <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0 cursor-pointer" onClick={() => {
+                                                <div key={ele.id} className="px-5 py-3 font-thin bg-gray-200 mb-3  cursor-pointer" onClick={() => {
                                                     navigate(
                                                         `/Stores/${ele.name}`, { state: { sId: ele.id } }
                                                     )
