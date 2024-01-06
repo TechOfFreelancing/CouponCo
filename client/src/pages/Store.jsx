@@ -455,7 +455,7 @@ const Store = () => {
 
 
     console.log(validCoupons);
-    
+
 
     return (
         <>
@@ -488,7 +488,8 @@ const Store = () => {
                     </div>
                     <div className="h-[208px] w-[208px] bg-white rounded-full flex items-center justify-center shadow-lg mt-5 mx-auto overflow-hidden">
                         <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
-                   
+                    </div>
+
                     <a
                         href={`https://www.${str?.name}.in/`}
                         className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer"
@@ -496,8 +497,9 @@ const Store = () => {
                         rel="noopener noreferrer"
                     >
                         Visit Store {str?.name}
-         
-              <div className="flex flex-col gap-5 items-center justify-center">
+                    </a>
+
+                    <div className="flex flex-col gap-5 items-center justify-center">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
                             <span className="font-bold whitespace-nowrap"><span>{userRating}</span> Rating </span>
