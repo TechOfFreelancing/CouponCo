@@ -448,7 +448,7 @@ const Store = () => {
     const lessAbout = showFullDescription ? 'Less' : 'More';
 
     console.log(validCoupons);
-    
+
 
     return (
         <>
@@ -483,7 +483,15 @@ const Store = () => {
                         <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
                     </div>
 
-                    <Link to="" className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer">Visit Store {str?.name}</Link>
+                    <a
+                        href={`https://www.${str?.name}.in/`}
+                        className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Visit Store {str?.name}
+                    </a>
+
                     <div className="flex flex-col gap-5 items-center justify-center">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
