@@ -10,7 +10,6 @@ import "../components/couponsbutton.css";
 import Categories from "../api/categories";
 import axios from "axios";
 
-
 const CategoriesDetails = () => {
     const [showFullContent, setShowFullContent] = useState(false);
     const [detailsVisibility, setDetailsVisibility] = useState([]);
