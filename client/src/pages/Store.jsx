@@ -710,7 +710,7 @@ const Store = () => {
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                     <div className="border border-black flex flex-col items-center justify-center">
                                                         <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
-                                                        <span className="bg-blue-100 text-center w-full">{ele.type}</span>
+                                                        <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
@@ -731,7 +731,7 @@ const Store = () => {
                                                         <button className="button has-code" onClick={() => handleOpen(ele)} >
                                                             <span className="is-code">74
                                                                 {ele.coupon_code}</span>
-                                                            <span className="is-code-text"><em>GET CODE</em></span>
+                                                            <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
                                                         </button>
                                                     </div> </div>
                                             </div>
@@ -768,7 +768,7 @@ const Store = () => {
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                     <div className="border border-black flex flex-col items-center justify-center">
                                                         <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2 contrast-50 grayscale" />
-                                                        <span className="bg-blue-100 text-center w-full">{ele.type}</span>
+                                                        <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
@@ -789,7 +789,7 @@ const Store = () => {
                                                         <button className="button has-code !grayscale " onClick={() => handleOpen(ele)} >
                                                             <span className="is-code">74
                                                                 {ele.coupon_code}</span>
-                                                            <span className="is-code-text"><em>GET CODE</em></span>
+                                                            <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
                                                         </button>
                                                     </div> </div>
                                             </div>
