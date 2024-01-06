@@ -111,7 +111,7 @@ const Store = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/login`, {
+            const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
                 password
             })
@@ -409,9 +409,9 @@ const Store = () => {
 
     useEffect(() => {
         const counts = {
-            exclusive: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('code')).length,
+            exclusive: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('codes')).length,
             rewards: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('reward')).length,
-            deals: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('deal')).length,
+            deals: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('deals')).length,
             sales: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('sale')).length,
         };
 
@@ -446,6 +446,9 @@ const Store = () => {
         : truncatedDescription;
 
     const lessAbout = showFullDescription ? 'Less' : 'More';
+
+    console.log(validCoupons);
+    
 
     return (
         <>
@@ -657,8 +660,8 @@ const Store = () => {
                                 </Tab>
                                 <Tab
                                     value="codes"
-                                    className={activeTab === 'code' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('code')}
+                                    className={activeTab === 'codes' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('codes')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap">
                                         Codes ({couponCounts.exclusive})
@@ -666,8 +669,8 @@ const Store = () => {
                                 </Tab>
                                 <Tab
                                     value="Deals"
-                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('deal')}
+                                    className={activeTab === 'deals' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('deals')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap">
                                         Deals ({couponCounts.deals})

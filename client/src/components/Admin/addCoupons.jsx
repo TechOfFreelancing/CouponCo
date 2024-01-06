@@ -2,12 +2,14 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
+import typesData from "../../api/AllTypes";
 
 function AddCoupons() {
 
     const initialValues = {
         title: "",
         type: "",
+        category:"",
         couponCode: "",
         dueDate: "",
         link: "",
@@ -32,6 +34,7 @@ function AddCoupons() {
         let data = JSON.stringify({
             "title": values.title,
             "type": values.type,
+            "category":values.category,
             "couponCode": values.couponCode,
             "dueDate": values.dueDate,
             "isVerified": true,
@@ -91,6 +94,25 @@ function AddCoupons() {
                                 name="type"
                                 style={inputStyle}
                             />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="category" className="block mb-1 font-medium">
+                                Category:
+                            </label>
+                            <Field
+                                as="select"
+                                id="category"
+                                name="category"
+                                style={inputStyle}
+                            >
+                                <option value="">Select Category</option>
+                                {typesData.map((category, index) => (
+                                    <option key={index} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </Field>
                         </div>
 
                         <div className="mb-4">

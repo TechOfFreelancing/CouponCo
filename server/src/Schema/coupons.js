@@ -94,6 +94,7 @@ class Coupons {
             title VARCHAR(255) NOT NULL,
             coupon_code VARCHAR(50) NOT NULL,
             type VARCHAR(255),
+            category VARCHAR(255),
             ref_link VARCHAR(1000),
             due_date DATETIME,
             user_count INT DEFAULT 0,

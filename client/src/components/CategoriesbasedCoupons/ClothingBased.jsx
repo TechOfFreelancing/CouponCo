@@ -76,7 +76,7 @@ const ClothingBased = () => {
         e.preventDefault();
         try {
             console.log(name, email, password);
-            const response = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/register`, {
+            const response = await axios.post(`http://localhost:4000/api/register`, {
                 name,
                 email,
                 password,
@@ -100,7 +100,7 @@ const ClothingBased = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/login`, {
+            const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
                 password
             })
@@ -288,7 +288,7 @@ const ClothingBased = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="${import.meta.env.VITE_LOCAL_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

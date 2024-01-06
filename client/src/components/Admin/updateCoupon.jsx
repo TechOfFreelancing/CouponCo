@@ -11,6 +11,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Avatar } from "@material-tailwind/react";
+import typesData from "../../api/AllTypes";
 
 const UpdateCoupons = () => {
 
@@ -43,6 +44,7 @@ const UpdateCoupons = () => {
         initialValues: {
             title: coupons.title || '',
             type: coupons.type || '',
+            category: coupons.category || '',
             coupon_code: coupons.couponCode || '',
             due_date: formattedDate || '',
             ref_link: coupons.ref_link || '',
@@ -102,6 +104,7 @@ const UpdateCoupons = () => {
                 formik.setValues({
                     title: response.data.coupon.title || '',
                     type: response.data.coupon.type || '',
+                    category: response.data.coupon.category || '',
                     coupon_code: response.data.coupon.coupon_code || '',
                     due_date: response.data.coupon.due_date.substring(0, 10) || '',
                     ref_link: response.data.coupon.ref_link || '',
@@ -200,6 +203,27 @@ const UpdateCoupons = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.type}
                         />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="category" className="block mb-1 font-medium">
+                            Category:
+                        </label>
+                        <select
+                            id="type"
+                            name="category"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.category}
+                        >
+                            <option value="">Select Category</option>
+                            {typesData.map((category, index) => (
+                                <option key={index} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="mb-4">

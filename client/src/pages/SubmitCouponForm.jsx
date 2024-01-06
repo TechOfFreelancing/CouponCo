@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
+import typesData from "../api/AllTypes";
+
 
 const SubmitCouponForm = () => {
 
@@ -11,7 +13,8 @@ const SubmitCouponForm = () => {
 
     const [formData, setFormData] = useState({
         title: '',
-        type: 'Sale',
+        type: 'Codes',
+        category: '',
         couponCode: '',
         dueDate: '',
         link: '',
@@ -30,11 +33,12 @@ const SubmitCouponForm = () => {
 
         e.preventDefault();
 
-        const { title, type, couponCode, dueDate, link, description } = formData;
+        const { title, type, category, couponCode, dueDate, link, description } = formData;
 
         const data = {
             title,
             type,
+            category,
             couponCode,
             dueDate,
             link,
@@ -62,7 +66,8 @@ const SubmitCouponForm = () => {
                 // Reset the form data after successful submission
                 setFormData({
                     title: '',
-                    type: 'Sale',
+                    type: 'Codes',
+                    category: '',
                     couponCode: '',
                     dueDate: '',
                     link: '',
@@ -83,7 +88,7 @@ const SubmitCouponForm = () => {
         boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
         outline: 'none',
     };
-
+    
     return (
         <>
             <Toaster position="top-center"></Toaster>
@@ -124,10 +129,32 @@ const SubmitCouponForm = () => {
                                     className="w-full border border-black rounded-lg p-3 bg-[#FAF9F5]"
                                     style={inputStyle}
                                 >
-                                    <option>Sale</option>
-                                    <option>Code</option>
+                                    <option>Codes</option>
+                                    <option>Deals</option>
                                 </select>
                             </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="category" className="block mb-1 font-medium">
+                                    Category:
+                                </label>
+                                <select
+                                    id="category"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleInputChange}
+                                    style={inputStyle}
+                                >
+                                    <option value="">Select Category</option>
+                                    {typesData.map((category, index) => (
+                                        <option key={index} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+
 
                             <div className="mb-4">
                                 <label htmlFor="couponCode" className="block mb-1 font-medium">
