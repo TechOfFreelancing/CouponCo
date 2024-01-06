@@ -37,7 +37,7 @@ const EventDetails = () => {
     return (
         <>
             <div className="lg:w-[75vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
-                <div className="bg-white p-4 flex flex-col items-start flex-wrap gap-5">
+                <div className="p-4 flex flex-col items-start flex-wrap gap-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
@@ -108,63 +108,59 @@ const EventDetails = () => {
                             </div>
 
                         </div> */}
-                        <div className="lg:w-[75vw] lg:flex flex-col items-center justify-center gap-2 text-black border lg:mx-auto lg:p-5">
+                        <div className="lg:w-[75vw] lg:flex flex-col items-center justify-center gap-5 text-black  lg:mx-auto lg:p-5">
                             {
                                 eventDetails.Events.slice(0, eventsToShow).map((ele, index) => {
                                     return (
-                                        <>
-                                            <div key={index} className="group w-full lg:w-[45rem] bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 hover:shadow-lg duration-300">
-                                                <span
-                                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 }`}
-                                                >
-                                                    <FaHeart className="cursor-pointer text-xl duration-300" />
-                                                </span>
-                                                <div className="flex flex-col w-full gap-2">
-                                                    <div className="flex gap-5">
-                                                        <div className="lg:w-[15%] w-[10%] h-auto flex flex-col items-center justify-center ">
-                                                            <div className="border border-black flex flex-col items-center justify-center">
-                                                                <img src={ele.img} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
-                                                                <span className="bg-blue-100 text-center w-full">{ele.type}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex flex-col lg:w-[85%] w-[75%] lg:mx-5 justify-between gap-2">
-                                                            <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
-                                                                <div className="font-bold text-sm lg:text-xl">{ele.title} {ele.id}</div>
-
-                                                                <div className="flex flex-col gap-5">
-                                                                    <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[4rem]">
-                                                                        <span className="flex justify-center items-center lg:gap-2 text-green-800">
-                                                                            <GoVerified className="font-bold" />Verified</span>
-                                                                        <span className="flex justify-center items-center lg:gap-2">
-                                                                            <CiUser></CiUser>
-                                                                            {(ele.user_count)} Uses
-                                                                        </span>
-                                                                    </div>
-                                                                    <button className="button has-code" >
-                                                                        <span className="is-code">745
-                                                                            {ele.coupon_code}</span>
-                                                                        <span className="is-code-text"><em>GET CODE</em></span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                        <div key={index}
+                                            className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+                                            <span className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80
+                                            }`}>
+                                                <FaHeart className="cursor-pointer text-xl duration-300" />
+                                            </span>
+                                            <div className="flex flex-col w-full gap-2">
+                                                <div className="flex gap-5 lg:gap-0">
+                                                    <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
+                                                        <div className="border border-black flex flex-col items-center justify-center">
+                                                            <img src={ele.img} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
+                                                            <span className="bg-blue-100 text-center w-full">{ele.type}</span>
                                                         </div>
                                                     </div>
-                                                    <div className="flex gap-1 items-center text-sm cursor-pointer"
-                                                        onClick={() => toggleDetails(index)}
-                                                    >
-                                                        See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                                    </div>
-                                                    {detailsVisibility[index] && (
-                                                        <div className="details flex flex-col w-screen lg:w-auto">
-                                                            <span className="font-bold">Ends {(ele.enddate)}</span>
-                                                            <span>{ele.detils}</span>
+                                                    <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
+                                                        <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
+                                                            <div className="font-bold text-sm lg:text-xl">{ele.title} {ele.id}</div>
                                                         </div>
-                                                    )}
-
+                                                    </div>
+                                                    <div className="flex flex-col lg:w-[30%] w-[75%] lg:mx-5 pt-5 justify-between gap-2">
+                                                        <div className="flex flex-col gap-5">
+                                                            <div className="flex text-lg whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between">
+                                                                <span className="flex justify-center items-center lg:gap-2 text-green-800">
+                                                                    <GoVerified className="font-bold" />Verified
+                                                                </span>
+                                                                <span className="flex justify-center items-center lg:gap-2">
+                                                                    <CiUser></CiUser>
+                                                                    {(ele.user_count)} Uses
+                                                                </span>
+                                                            </div>
+                                                            <button className="button has-code1" >
+                                                                <span className="is-code1">745
+                                                                    {ele.coupon_code}</span>
+                                                                <span className="is-code-text1"><em>GET CODE</em></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <div className="flex gap-1 items-center text-sm cursor-pointer ml-4 mt-2" onClick={() => toggleDetails(index)}>
+                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                </div>
+                                                {detailsVisibility[index] && (
+                                                    <div className="details flex flex-col w-screen lg:w-auto ml-4">
+                                                        <span className="font-bold">Ends {(ele.enddate)}</span>
+                                                        <span>{ele.detils}</span>
+                                                    </div>
+                                                )}
                                             </div>
-
-                                        </>
+                                        </div>
 
                                     )
                                 })
