@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { eventDetails } from "../api/event";
 import { useEffect, useState } from "react";
 import { GoVerified } from 'react-icons/go';
@@ -15,8 +15,13 @@ const CategoriesDetails = () => {
     const [detailsVisibility, setDetailsVisibility] = useState([]);
     const [showAllEvents, setShowAllEvents] = useState(false);
     const [couponDetails, setCouponDetails] = useState([]);
+    const [openlogin, setOpenlogin] = useState(false);
+    const [likedItems, setLikedItems] = useState([]);
+
 
     const location = useLocation();
+
+    const navigate = useNavigate();
 
     const category = location.state.category;
 
@@ -42,6 +47,52 @@ const CategoriesDetails = () => {
         setShowAllEvents((prev) => !prev);
     };
 
+    const handleOpenlogin = () => setOpenlogin(!openlogin);
+
+    const handleLikeClick = async (index, cId) => {
+        const token = localStorage.getItem('token');
+
+        // Check if token is present
+        if (!token) {
+            // window.location.href = '/login'; // Redirect to login page if token is not present
+            // return;
+            handleOpenlogin();
+        }
+
+        try {
+            const userId = localStorage.getItem('id')
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+
+            const updatedLikedItems = [...likedItems]; // Make a copy of the liked items array
+
+            if (!likedItems.includes(cId)) {
+                updatedLikedItems.push(cId); // Add the coupon ID to the liked items list
+
+                // Update state immediately for smooth UI
+                setLikedItems(updatedLikedItems);
+
+                // API call to save the coupon
+                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+            } else {
+                const filteredItems = updatedLikedItems.filter((item) => item !== cId);
+
+                // Update state immediately for smooth UI
+                setLikedItems(filteredItems);
+
+                // API call to unsave the coupon
+                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+            }
+        } catch (error) {
+            console.error('Error occurred:', error);
+        }
+    };
+
+
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`http://localhost:4000/api/coupon/${category}`);
@@ -54,7 +105,7 @@ const CategoriesDetails = () => {
         fetchData();
     }, [category]);
 
-    console.log(couponDetails);
+    // console.log(couponDetails);
 
     return (
         <>
@@ -75,7 +126,7 @@ const CategoriesDetails = () => {
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
-                                Category Name
+                                {category}
                             </Link>
                         </li>
                     </ul>
@@ -121,15 +172,18 @@ const CategoriesDetails = () => {
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         Categories.slice(0, 20).map((ele, index) => (
-                                            <div key={index} className="text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md">
-                                              {ele.name}
+                                            <div key={index} className="text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                                onClick={() => {
+                                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
+                                                }}>
+                                                {ele.name}
                                             </div>
-                                          ))                                          
+                                        ))
                                     }
                                 </div>
                             </div>
                             <div className="bg-white p-3 shadow-sm">
-                                <div className="text-xl font-bold my-2">Brows By Store</div>
+                                <div className="text-xl font-bold my-2">Browse By Store</div>
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         firstLatter.map((ele, index) => <div key={index} className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md">{ele}</div>)
@@ -140,7 +194,10 @@ const CategoriesDetails = () => {
                                 <div className="text-xl font-bold my-2">Popular Store</div>
                                 <div className="flex flex-wrap gap-2">
                                     {
-                                        couponDetails.map((ele, index) => <div key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md">{ele.name}</div>)
+                                        couponDetails.map((ele, index) => <div key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
+                                            onClick={() => {
+                                                navigate(`/Stores/${ele.name}`, { state: { sId: ele.store_id } });
+                                            }}>{ele.name}</div>)
                                     }
                                 </div>
                             </div>
@@ -153,7 +210,9 @@ const CategoriesDetails = () => {
                                     return (
                                         <div key={index} className="group w-full lg:w-[45rem] bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 hover:shadow-lg duration-300">
                                             <span
-                                                className={`p-2 hidden group-hover:inline-block duration-300 absolute right-5 top-5 lg:right-1 lg:top-1 rounded-lg bg-gray-300/80 }`}
+                                                className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
+                                                    }`}
+                                                onClick={() => handleLikeClick(index, ele.coupon_id)}
                                             >
                                                 <FaHeart className="cursor-pointer text-xl duration-300" />
                                             </span>

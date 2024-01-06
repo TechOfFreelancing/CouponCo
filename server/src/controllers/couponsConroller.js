@@ -384,7 +384,7 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const { title, couponCode, type, ref_link, category, dueDate, description, isVerified } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     try {
         // Check if the store exists
         const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
