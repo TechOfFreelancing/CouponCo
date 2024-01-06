@@ -1,10 +1,10 @@
-.button.has-code {
+.button.has-code1 {
   position: relative;
   width: 15rem;
   font-weight: 700;
 }
 
-.has-code .is-code {
+.has-code1 .is-code1{
   position: absolute;
   right: 0;
   top: 0;
@@ -20,7 +20,7 @@
   border-radius: 10px;
   overflow: hidden;
 }
-.is-code-text {
+.is-code-text1 {
   position: absolute;
   left: 0;
   top: 0;
@@ -34,18 +34,18 @@
   border-radius: 10px;
 }
 
-.is-code-text em {
+.is-code-text1 em {
   position: relative;
   width: 100%;
   display: block;
   font-style: normal;
 }
 
-.button.has-code:hover .is-code-text {
+.button.has-code1:hover .is-code-text1 {
   width: 75%;
 }
 
-.is-code-text em::after {
+.is-code-text1 em::after {
   content: " ";
   display: block;
   width: 56px;
@@ -76,7 +76,7 @@
   z-index: 13;
 }
 
-.is-code-text em::before {
+.is-code-text1 em::before {
   display: block;
   content: " ";
   width: 23px;
