@@ -29,7 +29,7 @@ const EventDetails = () => {
     };
     return (
         <>
-            <div className="lg:w-[90vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
+            <div className="lg:w-[75vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
                 <div className="p-4 flex flex-col items-start flex-wrap gap-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
@@ -106,9 +106,8 @@ const EventDetails = () => {
                                 </div>
                             </div>
 
-                        </div>
-                        <div className="lg:w-3/4 lg:flex flex-col items-start justify-center gap-5 text-black  lg:mx-auto lg:p-5">
-                            <div className='p-4 pt-0 pl-0 text-3xl font-bold'>Browse Top Christmas Shopping Events</div>
+                        </div> 
+                        <div className="lg:w-[75vw] lg:flex flex-col items-center justify-center gap-5 text-black  lg:mx-auto lg:p-5">
                             {
                                 eventDetails.Events.slice(0, eventsToShow).map((ele, index) => {
                                     return (
