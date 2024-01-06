@@ -739,10 +739,10 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        <button className="button has-code" onClick={() => handleOpen(ele)} >
-                                                            <span className="is-code">74
+                                                        <button className="button has-code1" onClick={() => handleOpen(ele)} >
+                                                            <span className="is-code1">74
                                                                 {ele.coupon_code}</span>
-                                                            <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
+                                                            <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
                                                         </button>
                                                     </div> </div>
                                             </div>
@@ -797,10 +797,10 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        <button className="button has-code !grayscale " onClick={() => handleOpen(ele)} >
-                                                            <span className="is-code">74
+                                                        <button className="button has-code1 !grayscale " onClick={() => handleOpen(ele)} >
+                                                            <span className="is-code1">74
                                                                 {ele.coupon_code}</span>
-                                                            <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
+                                                            <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
                                                         </button>
                                                     </div> </div>
                                             </div>
