@@ -277,11 +277,16 @@ const Store = () => {
     }
 
 
-    const handleOpen = (product) => {
+    const handleOpen = async (product) => {
         setSelectedProduct(product);
         setOpen(true);
         // console.log(correctedRefLink);
-        window.open(correctedRefLink, '_blank');
+        setTimeout(() => {
+            handleCopyClick();
+        }, 1000);
+        setTimeout(() => {
+            window.open(correctedRefLink, '_blank');
+        }, 2000);
 
     };
 
@@ -314,6 +319,14 @@ const Store = () => {
         const textToCopy = document.querySelector('.copy-text');
 
         if (textToCopy) {
+            // Save the current selection range
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(textToCopy);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Copy the selected text to the clipboard
             const text = textToCopy.textContent || textToCopy.innerText;
             navigator.clipboard.writeText(text)
                 .then(() => {
@@ -322,9 +335,15 @@ const Store = () => {
                 .catch((err) => {
                     console.error('Unable to copy text to clipboard', err);
                     setCopySuccess(false);
+                })
+                .finally(() => {
+                    // Restore the original selection
+                    selection.removeAllRanges();
+                    selection.addRange(range);
                 });
         }
     };
+
 
     const handleRatingChange = (value) => {
         setUserRating(value);
@@ -862,9 +881,9 @@ const Store = () => {
                         <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
                             <img src={str?.logo_url} alt="logo" className='h-auto w-auto px-5' />
                         </div>
-                        <div className="flex flex-col lg:flex-row gap-5 justify-center items-center">
-                            <div className="text-2xl font-bold">{str?.name.toUpperCase()}</div>
-                            <div className="text-2xl font-bold text-black">{selectedProduct.title}</div></div>
+                        <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
+                            <div className="text-2xl font-bold whitespace-nowrap">{str?.name.toUpperCase()}</div>
+                            <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
                         <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
                             <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
@@ -875,13 +894,13 @@ const Store = () => {
                                 Copy
                             </button>
                         </div>
-                        {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
-                        <div className="text:sm lg:text-lg">
+                        {copySuccess && <div className="text:sm lg:text-lg text-green-800">
                             Copy and paste this code at {""}
                             <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
-                                {str?.name}
+                                {/* {str?.name} */}{correctedRefLink}
                             </a>
-                        </div>
+                        </div>}
+
                         <div className="flex gap-2 lg:gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
                             <span className="text-sm lg:text-lg text-[#800000] whitespace-nowrap">
                                 Did the coupon work?
