@@ -21,7 +21,7 @@ const CustomForm = ({ status, message, onValidated }) => {
                     ref={(node) => (email = node)}
                     type="email"
                     placeholder="Enter Your Email Address Here"
-                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 w-52 lg:w-full"
+                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 w-52 lg:w-80"
                 />
 
                 <button
@@ -54,7 +54,7 @@ export default function NewsLetter() {
                         Qwik Savings, as the name suggests, is your go-to destination for quick savings. It helps you save faster than other websites in the market by providing hand-tested coupon codes or offers. We guarantee that each of our codes works; if it doesn{`'`}t, we{`'`}ll give you a gift card so you can treat yourself on us.
                     </p>
                 </div>
-                <div className="flex flex-col lg:flex-row gap-10 lg:gap-28">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-start">
                     {
                         SITEMAP.map((ele, index) => {
                             return (
@@ -73,26 +73,27 @@ export default function NewsLetter() {
                         })
 
                     }
+                    <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col items-start justify-center gap-2">
+                        <h2 className="text-xl tracking-tight text-black whitespace-nowrap font-semibold"> Join Our Newsletter</h2>
+                        <p className=" text-gray-600">
+                            To get the verified and hand tested Coupons or deals alerts.
+                        </p>
+                        <MailchimpSubscribe
+                            url={import.meta.env.VITE_PUBLIC_MAILCHIMP_URL}
+                            render={({ subscribe, status, message }) => (
+                                <CustomForm
+                                    status={status}
+                                    message={message}
+                                    onValidated={(formData) => subscribe(formData)}
+                                />
+                            )}
+                        />
+                        <p className="text-gray-600 cursor-pointer">
+                            We{`'`}ll never share your details. See our <Link to='/privacypolicy'>Privacy Policy.</Link>
+                        </p>
+                    </div>
                 </div>
-                <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col items-start justify-center gap-2">
-                    <h2 className="text-xl tracking-tight text-black whitespace-nowrap font-semibold"> Join Our Newsletter</h2>
-                    <p className=" text-gray-600">
-                        To get the verified and hand tested Coupons or deals alerts.
-                    </p>
-                    <MailchimpSubscribe
-                        url={import.meta.env.VITE_PUBLIC_MAILCHIMP_URL}
-                        render={({ subscribe, status, message }) => (
-                            <CustomForm
-                                status={status}
-                                message={message}
-                                onValidated={(formData) => subscribe(formData)}
-                            />
-                        )}
-                    />
-                    <p className="text-gray-600">
-                        We{`'`}ll never share your details. See our <Link to='/privacypolicy'>Privacy Policy.</Link>
-                    </p>
-                </div>
+
             </div>
             <div className="flex icons gap-5 text-black  text-xl justify-center items-center my-10">
                 {

@@ -3,7 +3,7 @@ import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
 import { useContext, useEffect, useState } from "react";
 import {
-    Dialog, List, ListItem,
+    Dialog,
     Tabs,
     TabsHeader,
     Tab,
@@ -24,7 +24,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
-import { FaHeart, FaSpaghettiMonsterFlying } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
 import "../components/couponsbutton1.css";
 import Footer from "../components/Footer";
@@ -40,8 +40,6 @@ const Store = () => {
     const [userRating, setUserRating] = useState(0);
     const [ratingcount, setratingcount] = useState(0);
     const [activeTab, setActiveTab] = useState('all');
-    const [truncatedDescription, setDesc] = useState('...');
-    const [showFullDescription, setShowFullDescription] = useState(false);
     const [similarStoreNames, setSimilarStoreNames] = useState([]);
     const [popularStoreNames, setPopularStoreNames] = useState([]);
     const [savedCoupons, setSavedCoupons] = useState({});
@@ -141,8 +139,7 @@ const Store = () => {
                 const coup = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${sId}`);
                 setStr(res.data.store);
 
-                const truncated = res.data.store.description?.slice(0, 100);
-                setDesc(truncated || '...');
+
                 const verifiedCoupons = coup.data.coupons.filter(coupon => coupon.isVerified);
 
                 setCoupons(verifiedCoupons);
@@ -456,15 +453,6 @@ const Store = () => {
     const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
 
 
-    const toggleDescription = () => {
-        setShowFullDescription(!showFullDescription);
-    };
-
-    const descriptionToShow = showFullDescription
-        ? str?.description
-        : truncatedDescription;
-
-    const lessAbout = showFullDescription ? 'Less About' : 'More About';
 
     return (
         <>
@@ -517,13 +505,7 @@ const Store = () => {
                                 About {str?.name}
                             </div>
                             <div className="moreaboutcompany flex flex-col gap-2 text-black">
-                                <div className="text-justify">{descriptionToShow}{showFullDescription ? null : <span>...</span>}</div>
-                                <div
-                                    className="underline text-[#B33D53] cursor-pointer"
-                                    onClick={toggleDescription}
-                                >
-                                    {lessAbout} {str?.name}
-                                </div>
+                                <div className="text-justify">{str?.description}</div>
                             </div>
 
                         </div>
@@ -533,9 +515,9 @@ const Store = () => {
                                 validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
                                     return (
 
-                                        <div key={index} className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3">
-                                            <div className="font-semibold text-[12px]">{ele.title}</div>
-                                        </div>
+                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3">
+                                            <li className="font-semibold text-[12px]">{ele.title}</li>
+                                        </ul>
                                     )
                                 })
                             }
@@ -560,71 +542,79 @@ const Store = () => {
                         </div>
 
                         <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
-                                {
-                                    str?.faq && (
-                                        <Link
-                                            className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                            to="faqs"
-                                            spy={true}
-                                            smooth={true}
-                                            offset={-150}
-                                            duration={800}
+                            {
+                                (str?.faq || str?.hint || str?.moreAbout) &&
+                                <div className="font-semibold text-xl text-black">
+                                    Quick Links
+                                </div>
+                            }
+                            {
+                                str?.faq && (
+                                    <Link
+                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                        to="faqs"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
 
-                                        >
-                                            <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
-                                        </Link>
-                                    )
-                                }
-                                {
-                                    str?.hint && (
-                                        <Link
-                                            className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                            to="hints_tips"
-                                            spy={true}
-                                            smooth={true}
-                                            offset={-150}
-                                            duration={800}
-                                        >
-                                            <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
-                                        </Link>
-                                    )
-                                }
-                                {
-                                    str?.moreAbout && (
-                                        <Link
-                                            className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                            to="more_about"
-                                            spy={true}
-                                            smooth={true}
-                                            offset={-150}
-                                            duration={800}
-                                        >
-                                            <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
-                                        </Link>
-                                    )
-                                }
+                                    >
+                                        <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
+                                    </Link>
+                                )
+                            }
+                            {
+                                str?.hint && (
+                                    <Link
+                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                        to="hints_tips"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
+                                    >
+                                        <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
+                                    </Link>
+                                )
+                            }
+                            {
+                                str?.moreAbout && (
+                                    <Link
+                                        className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                        to="more_about"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-150}
+                                        duration={800}
+                                    >
+                                        <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
+                                    </Link>
+                                )
+                            }
                         </div>
                         <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
 
                             <div className="font-semibold text-xl text-black">
                                 Similar Stores
                             </div>
-                            {similarStoreNames && similarStoreNames.length > 0 ? (
-                                similarStoreNames.map((store, index) => (
-                                    <motion.div variants={variants} initial="hidden"
-                                        animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className=" cursor-pointer border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        onClick={() => {
-                                            navigate(
-                                                `/Stores/${store.name}`, { state: { sId: store.id } }
-                                            )
-                                        }}>
-                                        <span>{store.name}</span>
-                                    </motion.div>
-                                ))
-                            ) : (
-                                <div>No similar stores found</div>
-                            )}
+                            <div className="flex flex-wrap gap-2">
+                                {similarStoreNames && similarStoreNames.length > 0 ? (
+                                    similarStoreNames.map((store, index) => (
+                                        <motion.div variants={variants} initial="hidden"
+                                            animate="visible"
+                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+                                            onClick={() => {
+                                                navigate(
+                                                    `/Stores/${store.name}`, { state: { sId: store.id } }
+                                                )
+                                            }}>
+                                            <span>{store.name}</span>
+                                        </motion.div>
+                                    ))
+                                ) : (
+                                    <div>No similar stores found</div>
+                                )}
+                            </div>
 
                         </div>
                         <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
@@ -632,12 +622,13 @@ const Store = () => {
                             <div className="font-semibold text-xl text-black">
                                 Popular Stores
                             </div>
+                            <div className="flex flex-wrap gap-2">
                             {popularStoreNames && popularStoreNames.length > 0 ? (
                                 popularStoreNames.map((store, index) => (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+
                                         onClick={() => {
                                             navigate(
                                                 `/Stores/${store.name}`, { state: { sId: store.id } }
@@ -649,6 +640,7 @@ const Store = () => {
                             ) : (
                                 <div>No popular stores found</div>
                             )}
+                            </div>
 
                         </div>
                     </div>
@@ -820,7 +812,7 @@ const Store = () => {
                     }
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
@@ -840,7 +832,7 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="hints_tips">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="hints_tips">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
@@ -860,7 +852,7 @@ const Store = () => {
                     }
                     {
                         str?.moreAbout && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="more_about">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="more_about">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">More About {str?.name}</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     <div className="moreaboutcompany flex flex-col gap-2">
