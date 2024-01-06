@@ -10,6 +10,7 @@ import "../components/couponsbutton.css";
 import Categories from "../api/categories";
 import axios from "axios";
 
+
 const CategoriesDetails = () => {
     const [showFullContent, setShowFullContent] = useState(false);
     const [detailsVisibility, setDetailsVisibility] = useState([]);
@@ -158,13 +159,13 @@ const CategoriesDetails = () => {
                                 </div>
                             </div> */}
                             <div className="bg-white p-3 shadow-sm">
-                                <div className="text-xl font-bold my-2">About</div>
+                                <div className="text-xl font-bold mb-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
                                     {/* <p>{showFullContent ? eventDetails.about : truncatedContent}</p>
                                     <button onClick={toggleAbout} className="text-blue-500">
                                         {showFullContent ? 'Less About' : 'More About'}
                                     </button> */}
-                                    <p>{eventDetails.about}</p>
+                                    <p className="text-justify">{eventDetails.about}</p>
                                 </div>
                             </div>
                             <div className="bg-white p-3 shadow-sm">
@@ -203,7 +204,7 @@ const CategoriesDetails = () => {
                             </div>
 
                         </div>
-                        <div className="lg:w-[75vw] lg:flex flex-col gap-2 text-black border lg:mx-auto lg:p-5">
+                        <div className="lg:w-[75vw] lg:flex flex-col gap-5 text-black border lg:mx-auto lg:p-5">
 
                             {
                                 couponDetails.slice(0, eventsToShow).map((ele, index) => {
@@ -246,10 +247,15 @@ const CategoriesDetails = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex gap-1 items-center text-sm cursor-pointer"
-                                                    onClick={() => toggleDetails(index)}
-                                                >
-                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
+                                                <hr />
+                                                <div className="flex gap-1 items-center text-sm cursor-pointer justify-between">
+                                                    <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
+                                                    <span className="flex gap-5 items-center text-sm cursor-pointer mr-5">
+                                                        <span>41 % Success</span>
+                                                        <span className="flex items-center justify-center gap-1"> <FaRegThumbsUp></FaRegThumbsUp>
+                                                            <FaRegThumbsDown></FaRegThumbsDown></span>
+
+                                                    </span>
                                                 </div>
                                                 {detailsVisibility[index] && (
                                                     <div className="details flex flex-col w-screen lg:w-auto">

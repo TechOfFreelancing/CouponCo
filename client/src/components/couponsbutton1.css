@@ -1,0 +1,94 @@
+.button.has-code {
+  position: relative;
+  width: 15rem;
+  font-weight: 700;
+}
+
+.has-code .is-code {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 3rem;
+  line-height: 3rem;
+  width: 100%;
+  text-align: right;
+  padding: 0 15px;
+  background-color: #fdfde7;
+  outline: 2px dashed rgb(132, 23, 83);
+  letter-spacing: 2px;
+  color: #666;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.is-code-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 90%;
+  z-index: 5;
+  height: 3rem;
+  line-height: 3rem;
+  background-color: #b33d53;
+  transition: width 0.5s;
+  color: white;
+  border-radius: 10px;
+}
+
+.is-code-text em {
+  position: relative;
+  width: 100%;
+  display: block;
+  font-style: normal;
+}
+
+.button.has-code:hover .is-code-text {
+  width: 75%;
+}
+
+.is-code-text em::after {
+  content: " ";
+  display: block;
+  width: 56px;
+  height: 100%;
+  position: absolute;
+  border-radius: 0 0 4px 4px;
+  right: -38px;
+  top: 11px;
+  -webkit-transform: rotate(20deg) translateY(-10px) scaleX(0.8);
+  -ms-transform: rotate(20deg) translateY(-10px) scaleX(0.8);
+  transform: rotate(20deg) translateY(-10px) scaleX(0.8);
+  background: -webkit-linear-gradient(
+    52deg,
+    #b0086a,
+    #b0086a 49%,
+    hsla(80, 71%, 73%, 0) 50%,
+    hsla(0, 0%, 100%, 0)
+  );
+  background: linear-gradient(
+    38deg,
+    #b0086a,
+    #b0086a 49%,
+    hsla(80, 71%, 73%, 0) 50%,
+    hsla(0, 0%, 100%, 0)
+  );
+  background-position: 0 4px;
+  background-repeat: no-repeat;
+  z-index: 13;
+}
+
+.is-code-text em::before {
+  display: block;
+  content: " ";
+  width: 23px;
+  height: 10px;
+  background-color: #e800aa;
+  position: absolute;
+  z-index: 12;
+  right: -14px;
+  bottom: -2px;
+  -webkit-transform: skew(12deg);
+  -ms-transform: skew(12deg);
+  transform: skew(12deg);
+}
+
+

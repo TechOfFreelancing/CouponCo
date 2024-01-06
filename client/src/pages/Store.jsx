@@ -3,7 +3,7 @@ import { Rating } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
 import { useContext, useEffect, useState } from "react";
 import {
-    Dialog, List, ListItem,
+    Dialog,
     Tabs,
     TabsHeader,
     Tab,
@@ -26,7 +26,7 @@ import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
 import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
-import "../components/couponsbutton.css";
+import "../components/couponsbutton1.css";
 import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
 
@@ -40,8 +40,6 @@ const Store = () => {
     const [userRating, setUserRating] = useState(0);
     const [ratingcount, setratingcount] = useState(0);
     const [activeTab, setActiveTab] = useState('all');
-    const [truncatedDescription, setDesc] = useState('...');
-    const [showFullDescription, setShowFullDescription] = useState(false);
     const [similarStoreNames, setSimilarStoreNames] = useState([]);
     const [popularStoreNames, setPopularStoreNames] = useState([]);
     const [savedCoupons, setSavedCoupons] = useState({});
@@ -141,8 +139,7 @@ const Store = () => {
                 const coup = await axios.get(`http://localhost:4000/api/coupons/${sId}`);
                 setStr(res.data.store);
 
-                const truncated = res.data.store.description?.slice(0, 100);
-                setDesc(truncated || '...');
+
                 const verifiedCoupons = coup.data.coupons.filter(coupon => coupon.isVerified);
 
                 setCoupons(verifiedCoupons);
@@ -277,11 +274,16 @@ const Store = () => {
     }
 
 
-    const handleOpen = (product) => {
+    const handleOpen = async (product) => {
         setSelectedProduct(product);
         setOpen(true);
         // console.log(correctedRefLink);
-        window.open(correctedRefLink, '_blank');
+        setTimeout(() => {
+            handleCopyClick();
+        }, 1000);
+        setTimeout(() => {
+            window.open(correctedRefLink, '_blank');
+        }, 2000);
 
     };
 
@@ -314,6 +316,14 @@ const Store = () => {
         const textToCopy = document.querySelector('.copy-text');
 
         if (textToCopy) {
+            // Save the current selection range
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(textToCopy);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Copy the selected text to the clipboard
             const text = textToCopy.textContent || textToCopy.innerText;
             navigator.clipboard.writeText(text)
                 .then(() => {
@@ -322,9 +332,15 @@ const Store = () => {
                 .catch((err) => {
                     console.error('Unable to copy text to clipboard', err);
                     setCopySuccess(false);
+                })
+                .finally(() => {
+                    // Restore the original selection
+                    selection.removeAllRanges();
+                    selection.addRange(range);
                 });
         }
     };
+
 
     const handleRatingChange = (value) => {
         setUserRating(value);
@@ -437,15 +453,6 @@ const Store = () => {
     const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
 
 
-    const toggleDescription = () => {
-        setShowFullDescription(!showFullDescription);
-    };
-
-    const descriptionToShow = showFullDescription
-        ? str?.description
-        : truncatedDescription;
-
-    const lessAbout = showFullDescription ? 'Less' : 'More';
 
     console.log(validCoupons);
 
@@ -453,7 +460,7 @@ const Store = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" onClick={handleOutsideClick}>
+            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 " onClick={handleOutsideClick}>
                 <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm">
                     <div className="bg-[#FAF9F5] p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
@@ -481,8 +488,7 @@ const Store = () => {
                     </div>
                     <div className="h-[208px] w-[208px] bg-white rounded-full flex items-center justify-center shadow-lg mt-5 mx-auto overflow-hidden">
                         <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
-                    </div>
-
+                   
                     <a
                         href={`https://www.${str?.name}.in/`}
                         className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer"
@@ -490,160 +496,161 @@ const Store = () => {
                         rel="noopener noreferrer"
                     >
                         Visit Store {str?.name}
-                    </a>
-
-                    <div className="flex flex-col gap-5 items-center justify-center">
+         
+              <div className="flex flex-col gap-5 items-center justify-center">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
-                            <span className="font-bold whitespace-nowrap"><span>{userRating}</span> RATING </span>
+                            <span className="font-bold whitespace-nowrap"><span>{userRating}</span> Rating </span>
                         </div>
                         <div className="flex gap-5 items-center">
-                            <span className="whitespace-nowrap">
-                                Avg Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
+                            <span className="whitespace-nowrap text-lg font-bold">
+                                Average Rating : {isNaN((str?.total_ratings / str?.ratings_count).toFixed(1)) ? 0 : (str?.total_ratings / str?.ratings_count).toFixed(1)}
                             </span>
                         </div>
                     </div>
-
-                    <div className="min-w-full flex flex-col gap-2 w-86">
-                        <div className="w-full lg:w-80 card">
+                    <div className="flex flex-col gap-5">
+                        <div className="min-w-full flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
                             <div className="font-semibold text-xl my-3 text-black">
-                                About {str?.name?.toUpperCase()}
+                                About {str?.name}
                             </div>
-                            <div className="moreaboutcompany flex flex-col gap-2 text-black ">
-                                <div className="flex flex-col text-justify w-64">{descriptionToShow}</div>
-                                <div
-                                    className="underline text-[#B33D53] cursor-pointer"
-                                    onClick={toggleDescription}
-                                >
-                                    {lessAbout}
+                            <div className="moreaboutcompany flex flex-col gap-2 text-black">
+                                <div className="text-justify">{str?.description}</div>
+                            </div>
+
+                        </div>
+                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                            <div className="text-xl" style={{ fontWeight: 600 }}>Today{`'`}s Top {str?.name} Coupon Codes</div>
+                            {
+                                validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
+                                    return (
+
+                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3">
+                                            <li className="font-semibold text-[12px]">{ele.title}</li>
+                                        </ul>
+                                    )
+                                })
+                            }
+                            <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Total Offers</span>
+                                    <span>{validCoupons?.length}</span>
+                                </div>
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Total Codes</span>
+                                    <span>{couponCounts.exclusive}</span>
+                                </div>
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Best Offer</span>
+                                    <span>40% Off</span>
+                                </div>
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Average Discount</span>
+                                    <span>25 %</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="text-base text-black font-semibold whitespace-nowrap overflow-hidden text-overflow-ellipsis max-w-full">Today&apos;s Top {str?.name} Coupon Codes</div>
-                        {
-                            validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
-                                return (
-
-                                    <div key={index} className="w-full cursor-pointer bg-white p-2 rounded-lg flex items-center justify-start gap-3">
-                                        <span>•</span>
-                                        <div className="font-semibold">{ele.title}</div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className="min-w-full flex flex-col gap-2 w-86">
-                        <div className="bg-white flex flex-col gap-2">
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black">Total Offers</span>
-                                <span>{validCoupons?.length}</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black">Total Codes</span>
-                                <span>{couponCounts.exclusive}</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black">Best Offer</span>
-                                <span>40% Off</span>
-                            </div>
-                            <hr />
-                            <div className="flex justify-between items-center px-5">
-                                <span className="text-lg text-black">Average Discount</span>
-                                <span>25 %</span>
-                            </div>
-                            <hr />
-                        </div>
-
-                        <List>
+                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                            {
+                                (str?.faq || str?.hint || str?.moreAbout) &&
+                                <div className="font-semibold text-xl text-black">
+                                    Quick Links
+                                </div>
+                            }
                             {
                                 str?.faq && (
                                     <Link
-                                        className="text-initial"
+                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
                                         to="faqs"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}
+
                                     >
-                                        <ListItem className="flex gap-5 justify-between">FAQS  <FaQuestionCircle></FaQuestionCircle></ListItem>
+                                        <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
                                     </Link>
                                 )
                             }
                             {
                                 str?.hint && (
                                     <Link
-                                        className="text-initial"
+                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
                                         to="hints_tips"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}
                                     >
-                                        <ListItem className="flex gap-5 justify-between">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></ListItem>
+                                        <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
                                     </Link>
                                 )
                             }
                             {
                                 str?.moreAbout && (
                                     <Link
-                                        className="text-initial"
+                                        className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
                                         to="more_about"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}
                                     >
-                                        <ListItem className="flex gap-5 justify-between">More About <FcAbout /> </ListItem>
+                                        <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
                                     </Link>
                                 )
                             }
-                        </List>
-                        <div className="w-80">
-                            <List>
-                                <div className="font-semibold text-xl my-3 text-black">
-                                    Similar Stores
-                                </div>
+                        </div>
+                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+
+                            <div className="font-semibold text-xl text-black">
+                                Similar Stores
+                            </div>
+                            <div className="flex flex-wrap gap-2">
                                 {similarStoreNames && similarStoreNames.length > 0 ? (
                                     similarStoreNames.map((store, index) => (
                                         <motion.div variants={variants} initial="hidden"
                                             animate="visible"
-                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-initial"
+                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
                                             onClick={() => {
                                                 navigate(
                                                     `/Stores/${store.name}`, { state: { sId: store.id } }
                                                 )
                                             }}>
-                                            <ListItem>{store.name}</ListItem>
+                                            <span>{store.name}</span>
                                         </motion.div>
                                     ))
                                 ) : (
                                     <div>No similar stores found</div>
                                 )}
-                            </List>
-                            <List>
-                                <div className="font-semibold text-xl my-3 text-black">
-                                    Popular Stores
-                                </div>
-                                {popularStoreNames && popularStoreNames.length > 0 ? (
-                                    popularStoreNames.map((store, index) => (
-                                        <motion.div variants={variants} initial="hidden"
-                                            animate="visible"
-                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-initial"
-                                            onClick={() => {
-                                                navigate(
-                                                    `/Stores/${store.name}`, { state: { sId: store.id } }
-                                                )
-                                            }}>
-                                            <ListItem>{store.name}</ListItem>
-                                        </motion.div>
-                                    ))
-                                ) : (
-                                    <div>No popular stores found</div>
-                                )}
-                            </List>
+                            </div>
+
+                        </div>
+                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+
+                            <div className="font-semibold text-xl text-black">
+                                Popular Stores
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                            {popularStoreNames && popularStoreNames.length > 0 ? (
+                                popularStoreNames.map((store, index) => (
+                                    <motion.div variants={variants} initial="hidden"
+                                        animate="visible"
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+
+                                        onClick={() => {
+                                            navigate(
+                                                `/Stores/${store.name}`, { state: { sId: store.id } }
+                                            )
+                                        }}>
+                                        <span>{store.name}</span>
+                                    </motion.div>
+                                ))
+                            ) : (
+                                <div>No popular stores found</div>
+                            )}
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -693,7 +700,7 @@ const Store = () => {
                             </div>
                         </div>
                     </Tabs>
-                    <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2">
+                    <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2 mb-10">
                         {
                             filteredCoupons && filteredCoupons.map((ele, index) => {
                                 return (
@@ -712,36 +719,36 @@ const Store = () => {
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                     <div className="border border-black flex flex-col items-center justify-center">
                                                         <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
-                                                        <span className="bg-blue-100 text-center w-full">{ele.type}</span>
+                                                        <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col lg:w-[85%] w-[75%] lg:mx-5 justify-between gap-2">
+                                                <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
                                                     <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
                                                         <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
-
-                                                        <div className="flex flex-col gap-5">
-                                                            <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[4rem]">
-                                                                <span className="flex justify-center items-center lg:gap-2 text-green-800">
-                                                                    <GoVerified className="font-bold" />Verified</span>
-                                                                <span className="flex justify-center items-center lg:gap-2">
-                                                                    <CiUser></CiUser>
-                                                                    {formatUserCount(ele.user_count)} Uses
-                                                                </span>
-                                                            </div>
-                                                            <button className="button has-code" onClick={() => handleOpen(ele)} >
-                                                                <span className="is-code">74
-                                                                    {ele.coupon_code}</span>
-                                                                <span className="is-code-text"><em>GET CODE</em></span>
-                                                            </button>
-                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div className="flex flex-col lg:w-[30%] w-[75%] lg:mx-5 pt-5 justify-between gap-2">
+                                                    <div className="flex flex-col gap-5">
+                                                        <div className="flex text-lg whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between">
+                                                            <span className="flex justify-center items-center lg:gap-2 text-green-800">
+                                                                <GoVerified className="font-bold" />Verified</span>
+                                                            <span className="flex justify-center items-center lg:gap-2">
+                                                                <CiUser></CiUser>
+                                                                {formatUserCount(ele.user_count)} Uses
+                                                            </span>
+                                                        </div>
+                                                        <button className="button has-code" onClick={() => handleOpen(ele)} >
+                                                            <span className="is-code">74
+                                                                {ele.coupon_code}</span>
+                                                            <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
+                                                        </button>
+                                                    </div> </div>
                                             </div>
-                                            <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}>
+                                            <div className="flex gap-1 items-center text-sm cursor-pointer ml-4 mt-2" onClick={() => toggleDetails(index)}>
                                                 See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                             </div>
                                             {detailsVisibility[index] && (
-                                                <div className="details flex flex-col">
+                                                <div className="details flex flex-col ml-4">
                                                     <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
                                                     <span>{ele.description}</span>
                                                 </div>
@@ -753,9 +760,10 @@ const Store = () => {
                             })
                         }
                     </div>
+
                     {
                         expiredCoupons && (
-                            <div className=" flex flex-col mt-5 gap-5 items-start lg:mx-5 mx-2">
+                            <div className="flex flex-col mt-14  my-5 gap-5 items-start lg:mx-5 mx-2">
                                 <div className="text-xl text-black font-semibold">
                                     Recently Expired {str?.name} Discount Codes & Deals
                                 </div>
@@ -768,41 +776,42 @@ const Store = () => {
                                             <div className="flex gap-5 lg:gap-0">
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                     <div className="border border-black flex flex-col items-center justify-center">
-                                                        <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
-                                                        <span className="bg-blue-100 text-center w-full">{ele.type}</span>
+                                                        <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2 contrast-50 grayscale" />
+                                                        <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col lg:w-[85%] w-[75%] lg:mx-5 justify-between gap-2">
+                                                <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
                                                     <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
                                                         <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
-
-                                                        <div className="flex flex-col gap-5">
-                                                            <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[4rem]">
-                                                                <span className="flex justify-center items-center lg:gap-2 text-red-800">
-                                                                    <MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
-                                                                <span className="flex justify-center items-center lg:gap-2">
-                                                                    <CiUser></CiUser>
-                                                                    {formatUserCount(ele.user_count)} Uses
-                                                                </span>
-                                                            </div>
-                                                            <button className="button has-code" onClick={() => handleOpen(ele)}>
-                                                                <span className="is-code">74
-                                                                    {ele.coupon_code}</span>
-                                                                <span className="is-code-text"><em>GET CODE</em></span>
-                                                            </button>
-                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div className="flex flex-col lg:w-[30%] w-[75%] lg:mx-5 mt-5 justify-between gap-2">
+                                                    <div className="flex flex-col gap-5">
+                                                        <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between">
+                                                            <span className="flex justify-center items-center lg:gap-2 text-red-800">
+                                                                <MdOutlineSentimentDissatisfied className="text-xl" />Expired</span>
+                                                            <span className="flex justify-center items-center lg:gap-2">
+                                                                <CiUser></CiUser>
+                                                                {formatUserCount(ele.user_count)} Uses
+                                                            </span>
+                                                        </div>
+                                                        <button className="button has-code !grayscale " onClick={() => handleOpen(ele)} >
+                                                            <span className="is-code">74
+                                                                {ele.coupon_code}</span>
+                                                            <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
+                                                        </button>
+                                                    </div> </div>
                                             </div>
-                                            <div className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index + validCoupons.length)}>
+                                            <div className="flex gap-1 items-center text-sm cursor-pointer ml-4 mt-2" onClick={() => toggleDetails(index + validCoupons.length)}>
                                                 See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                             </div>
                                             {detailsVisibility[index + validCoupons.length] && (
-                                                <div className="details flex flex-col">
+                                                <div className="details flex flex-col ml-4">
                                                     <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
                                                     <span>{ele.description}</span>
                                                 </div>
                                             )}
+
                                         </div>
                                     </motion.div>
                                 )
@@ -812,7 +821,7 @@ const Store = () => {
                     }
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
@@ -820,7 +829,7 @@ const Store = () => {
                                             return (
                                                 <motion.div variants={variants} initial="hidden"
                                                     animate="visible"
-                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-2">
+                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-2 text-justify">
                                                     <div className="font-bold text-2xl">{ele.question}</div>
                                                     <div>{ele.answer}</div>
                                                 </motion.div>)
@@ -832,7 +841,7 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5" id="hints_tips">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="hints_tips">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
@@ -852,10 +861,22 @@ const Store = () => {
                     }
                     {
                         str?.moreAbout && (
-                            <div className="w-full lg:w-[50rem] lg:mx-10 p-5" id="more_about">
+                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="more_about">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">More About {str?.name}</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
-                                    <div className="flex flex-col text-justify">{str?.moreAbout}</div>
+                                    <div className="moreaboutcompany flex flex-col gap-2">
+                                        {str?.moreAbout?.includes('\n') ? (
+                                            str?.moreAbout?.split('\n').map((line, index) => (
+                                                <motion.div className="flex flex-col text-justify" key={index} variants={variants} initial="hidden"
+                                                    animate="visible"
+                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }}>
+                                                    {line}
+                                                </motion.div>
+                                            ))
+                                        ) : (
+                                            <div className="flex flex-col text-justify">{str?.moreAbout}</div>
+                                        )}
+                                    </div>
                                 </div>
 
                             </div>
@@ -873,9 +894,9 @@ const Store = () => {
                         <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
                             <img src={str?.logo_url} alt="logo" className='h-auto w-auto px-5' />
                         </div>
-                        <div className="flex flex-col lg:flex-row gap-5 justify-center items-center">
-                            <div className="text-2xl font-bold">{str?.name.toUpperCase()}</div>
-                            <div className="text-2xl font-bold text-black">{selectedProduct.title}</div></div>
+                        <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
+                            <div className="text-2xl font-bold whitespace-nowrap">{str?.name.toUpperCase()}</div>
+                            <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
                         <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
                             <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
@@ -886,13 +907,13 @@ const Store = () => {
                                 Copy
                             </button>
                         </div>
-                        {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
-                        <div className="text:sm lg:text-lg">
+                        {copySuccess && <div className="text:sm lg:text-lg text-green-800">
                             Copy and paste this code at {""}
                             <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
-                                {str?.name}
+                                {/* {str?.name} */}{correctedRefLink}
                             </a>
-                        </div>
+                        </div>}
+
                         <div className="flex gap-2 lg:gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
                             <span className="text-sm lg:text-lg text-[#800000] whitespace-nowrap">
                                 Did the coupon work?

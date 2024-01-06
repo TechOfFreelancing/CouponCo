@@ -1,0 +1,15 @@
+/* Select the first paragraph and apply font weight 600 */
+.flex-col > div > div:nth-child(2) {
+    font-weight: 500;
+}
+
+/* Select the second paragraph and apply font weight 500 (100 less than 600) */
+.flex-col > div > div:nth-child(3) {
+    font-weight: 300;
+}
+.flex-col > div > div:nth-child(4) {
+    font-weight: 300;
+}
+.flex-col > div > div:nth-child(5) {
+    font-weight: 300;
+}
