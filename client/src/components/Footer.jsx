@@ -16,18 +16,18 @@ const CustomForm = ({ status, message, onValidated }) => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <div className="flex max-w-md flex-row items-center justify-center w-full rounded-full border border-red-800 overflow-clip">
+            <div className="flex max-w-md flex-row items-center justify-center w-full rounded-full border border-red-800 overflow-clip h-[50px]">
                 <input
                     ref={(node) => (email = node)}
                     type="email"
                     placeholder="Enter Your Email Address Here"
-                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 w-52 lg:w-80"
+                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 w-52 lg:w-80 h-full"
                 />
 
                 <button
                     type="submit"
                     onClick={submit}
-                    className="flex-none bg-[#B33D53] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 max-w-fit"
+                    className="flex-none bg-[#B33D53] px-3.5 h-full text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 max-w-fit"
                 >
                     Subscribe
                 </button>
@@ -73,7 +73,7 @@ export default function NewsLetter() {
                         })
 
                     }
-                    <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col items-start justify-center gap-2">
+                    <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col gap-3 items-start justify-center">
                         <h2 className="text-xl tracking-tight text-black whitespace-nowrap font-semibold"> Join Our Newsletter</h2>
                         <p className=" text-gray-600">
                             To get the verified and hand tested Coupons or deals alerts.
@@ -89,7 +89,7 @@ export default function NewsLetter() {
                             )}
                         />
                         <p className="text-gray-600 cursor-pointer">
-                            We{`'`}ll never share your details. See our <Link to='/privacypolicy'>Privacy Policy.</Link>
+                            We{`'`}ll never share your details. See our <Link to='/privacypolicy' className='text-gray-900'>Privacy Policy.</Link>
                         </p>
                     </div>
                 </div>
