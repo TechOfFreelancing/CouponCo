@@ -80,7 +80,7 @@ const Events = [
         id: 8,
         img: img8,
         button: "Sale",
-        title: "Back to School",
+        title: "Labor Day",
     },
     {
         id: 11,
@@ -101,51 +101,28 @@ const Events = [
         title: "Mother's Day Vouchers",
     },
     {
-        id: 12,
-        img: img8,
-        button: "Sale",
-        title: "Halloween",
-    },
-    {
-        id: 13,
-        img: img14,
+        id: 10,
+        img: img10,
         button: "Offer",
-        title: "Thanksgiving Day",
+        title: "Cyber Monday",
     },
     {
         id: 14,
         img: img5,
         button: "Deals",
-        title: "Cyber Monday",
+        title: "Mother's Day Vouchers",
     },
     {
-        id: 15,
-        img: img3,
-        button: "Deals",
-        title: "Black Friday",
-    }, {
-        id: 16,
-        img: img16,
-        button: "Offer",
-        title: "Student Discounts",
+        id: 12,
+        img: img12,
+        button: "Sale",
+        title: "Father's Day",
     },
     {
-        id: 14,
-        img: img14,
+        id: 13,
+        img: img13,
         button: "Offer",
-        title: "Thanksgiving Day",
-    },
-    {
-        id: 15,
-        img: img15,
-        button: "Offer",
-        title: "Valentine’s Day",
-    },
-    {
-        id: 16,
-        img: img16,
-        button: "Offer",
-        title: "Veterans Day",
+        title: "Boxing Day Sale",
     },
 ]
 
@@ -154,7 +131,7 @@ export const eventDetails = {
         {
             id: 1,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code And Long Text",
+            title: "A 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -164,7 +141,7 @@ export const eventDetails = {
         {
             id: 2,
             img: couponimg,
-            title: "Up to $85 Off with Amazon Coupon Code",
+            title: "B 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -174,7 +151,7 @@ export const eventDetails = {
         {
             id: 3,
             img: couponimg,
-            title: "Up to $526 Off with Amazon Coupon Code",
+            title: "C 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -184,7 +161,7 @@ export const eventDetails = {
         {
             id: 4,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "D 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -194,7 +171,7 @@ export const eventDetails = {
         {
             id: 5,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "E 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -204,7 +181,7 @@ export const eventDetails = {
         {
             id: 6,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "F 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -214,7 +191,7 @@ export const eventDetails = {
         {
             id: 7,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "G 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -224,7 +201,7 @@ export const eventDetails = {
         {
             id: 8,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "H 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -234,7 +211,7 @@ export const eventDetails = {
         {
             id: 9,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "I 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -244,7 +221,7 @@ export const eventDetails = {
         {
             id: 10,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "J 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -254,7 +231,7 @@ export const eventDetails = {
         {
             id: 11,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "K 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -264,7 +241,7 @@ export const eventDetails = {
         {
             id: 12,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "L 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -274,7 +251,7 @@ export const eventDetails = {
         {
             id: 13,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "M 50% Off for Friends",
             detils: "M DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -284,7 +261,7 @@ export const eventDetails = {
         {
             id: 14,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "N 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -294,7 +271,7 @@ export const eventDetails = {
         {
             id: 15,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "O 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -304,7 +281,7 @@ export const eventDetails = {
         {
             id: 16,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "P 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -314,7 +291,7 @@ export const eventDetails = {
         {
             id: 17,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "Q 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -324,7 +301,7 @@ export const eventDetails = {
         {
             id: 18,
             img: couponimg,
-            title: "R Up to $30 Off with Amazon Coupon Code",
+            title: "R 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -334,7 +311,7 @@ export const eventDetails = {
         {
             id: 19,
             img: couponimg,
-            title: "S Up to $30 Off with Amazon Coupon Code",
+            title: "S 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -344,7 +321,7 @@ export const eventDetails = {
         {
             id: 20,
             img: couponimg,
-            title: "T Up to $30 Off with Amazon Coupon Code",
+            title: "T 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -354,7 +331,7 @@ export const eventDetails = {
         {
             id: 21,
             img: couponimg,
-            title: "U Up to $30 Off with Amazon Coupon Code",
+            title: "U 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -364,7 +341,7 @@ export const eventDetails = {
         {
             id: 22,
             img: couponimg,
-            title: "V Up to $30 Off with Amazon Coupon Code",
+            title: "V 50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -374,7 +351,7 @@ export const eventDetails = {
         {
             id: 23,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -384,7 +361,7 @@ export const eventDetails = {
         {
             id: 24,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -394,7 +371,7 @@ export const eventDetails = {
         {
             id: 25,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -404,7 +381,7 @@ export const eventDetails = {
         {
             id: 26,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -414,7 +391,7 @@ export const eventDetails = {
         {
             id: 27,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -424,7 +401,7 @@ export const eventDetails = {
         {
             id: 28,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -434,7 +411,7 @@ export const eventDetails = {
         {
             id: 29,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
@@ -444,7 +421,7 @@ export const eventDetails = {
         {
             id: 30,
             img: couponimg,
-            title: "Up to $30 Off with Amazon Coupon Code",
+            title: "50% Off for Friends",
             detils: "DETAILS Ends 08/01/2030 Tap offer to copy the coupon code. Remember to paste code when you check out. Online only.",
             enddate: "January 1, 2024",
             verified: true,
