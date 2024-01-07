@@ -1,16 +1,20 @@
-import img1 from '../assets/images/event/Black Friday-Icon.png'
-import img2 from '../assets/images/event/Boxing Day-Icon.png'
-import img3 from '../assets/images/event/Christmas-Icon.png'
-import img4 from '../assets/images/event/CyberMonday-Icon.png'
-import img5 from '../assets/images/event/Easter Day-Icon.png'
-import img6 from '../assets/images/event/Fathers Day-Icon.png'
-import img7 from '../assets/images/event/Halloween-Icon.png'
-import img8 from '../assets/images/event/Labor Day-Icon.png'
-import img9 from '../assets/images/event/MonthlyDiscount-Icon(1).png'
-import img10 from '../assets/images/event/Mothers Day-Icon.png'
-import img11 from '../assets/images/event/Student-Icon.png'
-import img12 from '../assets/images/event/Thanksgiving Day.png'
-import img13 from '../assets/images/event/Valentine Day-Icon.png'
+
+import img1 from '../assets/images/event/4th of July.jpg'
+import img2 from '../assets/images/event/Back to School.jpg'
+import img3 from '../assets/images/event/Black Friday.jpg'
+import img4 from '../assets/images/event/Christmas.jpg'
+import img5 from '../assets/images/event/Cyber Monday.jpg'
+import img6 from '../assets/images/event/Easter.jpg'
+import img7 from '../assets/images/event/Father’s Day.jpg'
+import img8 from '../assets/images/event/Halloween.jpg'
+import img9 from '../assets/images/event/Labor Day.jpg'
+import img10 from '../assets/images/event/Memorial Day.jpg'
+import img11 from '../assets/images/event/Mother’s Day.jpg'
+import img12 from '../assets/images/event/President’s Day.jpg'
+import img13 from '../assets/images/event/Student Discounts.jpg'
+import img14 from '../assets/images/event/Thanksgiving Day.jpg'
+import img15 from '../assets/images/event/Valentine’s Day.jpg'
+import img16 from '../assets/images/event/Veterans Day.jpg'
 import couponimg from '../assets/images/event/eventcoupon.png'
 
 
@@ -49,12 +53,7 @@ const Events = [
         id: 6,
         img: img11,
         button: "Deals",
-<<<<<<< HEAD
-        title: "Mother’s Day",
-
-=======
-        title: "Valentine's Day Deals",
->>>>>>> 606de5e (Revert "event page complete")
+        title: "Easter",
     },
     {
         id: 7,
@@ -66,7 +65,7 @@ const Events = [
         id: 8,
         img: img8,
         button: "Sale",
-        title: "Back to School",
+        title: "Labor Day",
     },
     {
         id: 11,
@@ -87,55 +86,28 @@ const Events = [
         title: "Mother's Day Vouchers",
     },
     {
-        id: 12,
-        img: img8,
-        button: "Sale",
-        title: "Halloween",
-    },
-    {
-        id: 13,
-        img: img14,
+        id: 10,
+        img: img10,
         button: "Offer",
-<<<<<<< HEAD
-        title: "Student Discounts",
-    },
-    {
-        id: 14,
-        img: img14,
-        button: "Offer",
-        title: "Thanksgiving Day",
-    },
-    {
-        id: 15,
-        img: img15,
-        button: "Offer",
-        title: "Valentine’s Day",
-    },
-    {
-        id: 16,
-        img: img16,
-        button: "Offer",
-        title: "Veterans Day",
-=======
-        title: "Thanksgiving Day",
+        title: "Cyber Monday",
     },
     {
         id: 14,
         img: img5,
         button: "Deals",
-        title: "Cyber Monday",
+        title: "Mother's Day Vouchers",
     },
     {
-        id: 15,
-        img: img3,
-        button: "Deals",
-        title: "Black Friday",
-    }, {
-        id: 16,
-        img: img16,
+        id: 12,
+        img: img12,
+        button: "Sale",
+        title: "Father's Day",
+    },
+    {
+        id: 13,
+        img: img13,
         button: "Offer",
         title: "Boxing Day Sale",
->>>>>>> 606de5e (Revert "event page complete")
     },
 ]
 
