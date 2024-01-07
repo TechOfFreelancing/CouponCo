@@ -20,7 +20,7 @@ const AdminPanel = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/logout`, {
+            const response = await axios.get(`http://localhost:4000/api/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

@@ -18,7 +18,7 @@ const AdminCoupons = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_LOCAL_SERVER}/api/coupons?page=${count}`,
+          `http://localhost:4000/api/coupons?page=${count}`,
           {
             withCredentials: true,
             headers: {
@@ -42,7 +42,7 @@ const AdminCoupons = () => {
 
   const handleCouponDelete = async (cId) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/admin/${cId}`, {
+      await axios.delete(`http://localhost:4000/api/admin/${cId}`, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`
         },
@@ -85,7 +85,7 @@ const AdminCoupons = () => {
                     <div key={index} className="border border-gray-300 cursor-pointer rounded-lg p-4 mb-4 group relative" onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}>
                       <div className="flex justify-between items-center mb-2">
                         <div className="text-xl font-bold mr-3">{coupon.title}</div>
-                        <span className={`py-1 px-2 rounded-full font-bold ${coupon.type.toLowerCase() === 'code' ? 'bg-yellow-500 text-white' : 'bg-blue-500 text-white'}`}>{coupon.type}</span>
+                        <span className={`py-1 px-2 rounded-full font-bold ${coupon.type.toLowerCase() === 'codes' ? 'bg-yellow-500 text-white' : 'bg-blue-500 text-white'}`}>{coupon.type}</span>
                         <div className="text-sm text-gray-600 mb-2">Due: {new Date(coupon.due_date).toLocaleDateString('en-GB', options)}</div>
                       </div>
                       <div className="text-md text-gray-600 mb-2">{coupon.user_count} uses today</div>

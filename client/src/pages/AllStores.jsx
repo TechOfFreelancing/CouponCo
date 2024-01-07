@@ -32,13 +32,13 @@ const AllStores = () => {
     //         let fetchedStores = [];
 
     //         if (isFestival) {
-    //             const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/festStoreDisplay`, {
+    //             const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
     //                 headers: { "Content-Type": "application/json" }
     //             });
 
     //             const storeDetailsPromises = response.data.data.map(async (store) => {
     //                 if (store.storeId) {
-    //                     const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${store.storeId}`);
+    //                     const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
     //                     return response.data.store;
     //                 }
     //                 return null;
@@ -47,7 +47,7 @@ const AllStores = () => {
     //             const storeDetails = await Promise.all(storeDetailsPromises);
     //             fetchedStores = storeDetails.filter(Boolean);
     //         } else {
-    //             let apiUrl = `${import.meta.env.VITE_LOCAL_SERVER}/api/getAllStore?`;
+    //             let apiUrl = `http://localhost:4000/api/getAllStore?`;
 
     //             if (type) {
     //                 apiUrl += `&type=${type}`;
@@ -72,7 +72,7 @@ const AllStores = () => {
     //     try {
     //         const updatedStores = await Promise.all(stores.map(async (store) => {
     //             try {
-    //                 const couponsResponse = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${store.id}`);
+    //                 const couponsResponse = await axios.get(`http://localhost:4000/api/coupons/${store.id}`);
     //                 const coupons = couponsResponse.data.coupons;
 
     //                 if (coupons.length > 0) {
@@ -93,7 +93,7 @@ const AllStores = () => {
     //                     });
 
     //                     // Make a PATCH request to decrease counts in the backend
-    //                     await axios.patch(`${import.meta.env.VITE_LOCAL_SERVER}/api/decreaseCount/${store.id}`, decreaseData);
+    //                     await axios.patch(`http://localhost:4000/api/decreaseCount/${store.id}`, decreaseData);
 
     //                     // Update the store with new counts
     //                     return {
@@ -141,14 +141,14 @@ const AllStores = () => {
         const fetchStores = async () => {
             try {
                 if (isFestival) {
-                    const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/festStoreDisplay`, {
+                    const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
                         headers: {
                             "Content-Type": "application/json",
                         }
                     })
                     const storeDetailsPromises = response.data.data.map(async (store) => {
                         if (store.storeId) {
-                            const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${store.storeId}`);
+                            const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
                             return response.data.store;
                         }
                         return null; // Cases where storeId is null or undefined
@@ -160,7 +160,7 @@ const AllStores = () => {
                 }
 
                 else {
-                    let apiUrl = `${import.meta.env.VITE_LOCAL_SERVER}/api/getAllStore?`;
+                    let apiUrl = `http://localhost:4000/api/getAllStore?`;
 
                     if (type) {
                         apiUrl += `&type=${type}`;
@@ -251,14 +251,13 @@ const AllStores = () => {
                                                     className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-3 cursor-pointer"
                                                     onClick={() => {
                                                         navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } });
-                                                        // navigate(`/categoriesStore`);
                                                     }}
                                                 >
                                                     <div className="flex gap-4">
                                                         <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                         <div className="flex flex-col justify-evenly">
                                                             <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                            <div className=" text-sm text-gray-800">10 coupons | 5 offers</div>
+                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -288,7 +287,7 @@ const AllStores = () => {
                                                             <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                             <div className="flex flex-col justify-evenly">
                                                                 <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                                <div className=" text-sm text-gray-800">10 coupons | 5 offers</div>
+                                                                <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -310,13 +309,12 @@ const AllStores = () => {
                                                     navigate(
                                                         `/Stores/${ele.name}`, { state: { sId: ele.id } }
                                                     )
-                                                    // navigate(`/categoriesStore`);
                                                 }}>
                                                     <div className="flex gap-4">
                                                         <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={ele.logo_url} alt={ele.name} /></div>
                                                         <div className="flex flex-col justify-evenly">
                                                             <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                            <div className=" text-sm text-gray-800">10 coupons | 5 offers</div>
+                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
                                                         </div>
                                                     </div>
                                                 </div>

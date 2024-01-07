@@ -64,7 +64,7 @@ const AllCategories = () => {
                                         .map((category, i) => (
                                             <div key={i}
                                                 onClick={() => {
-                                                    navigate("/categoriesdetails")
+                                                    navigate("/categoriesdetails", { state: { category: category.name, category_icon: category.icon } })
                                                 }}
                                                 className="px-5 py-3 font-thin bg-gray-200 mb-3">
                                                 <div className="flex gap-4 justify-between">
@@ -88,7 +88,7 @@ const AllCategories = () => {
                                         .map((category, i) => (
                                             <div key={i}
                                                 onClick={() => {
-                                                    navigate("/categoriesdetails")
+                                                    navigate("/categoriesdetails", { state: { category: category.name, category_icon: category.icon } })
                                                 }}
                                                 className="px-5 py-3 font-thin bg-gray-200 mb-3">
                                                 <div className="flex gap-4 justify-between">

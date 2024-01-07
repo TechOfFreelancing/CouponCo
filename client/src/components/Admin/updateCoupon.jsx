@@ -11,6 +11,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Avatar } from "@material-tailwind/react";
+import typesData from "../../api/AllTypes";
 
 const UpdateCoupons = () => {
 
@@ -43,6 +44,7 @@ const UpdateCoupons = () => {
         initialValues: {
             title: coupons.title || '',
             type: coupons.type || '',
+            category: coupons.category || '',
             coupon_code: coupons.couponCode || '',
             due_date: formattedDate || '',
             ref_link: coupons.ref_link || '',
@@ -65,7 +67,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `${import.meta.env.VITE_LOCAL_SERVER}/api/admin/${cId}`,
+                url: `http://localhost:4000/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,10 +91,10 @@ const UpdateCoupons = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${sId}`);
+                const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
+                const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
 
-                const result = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/storeDisplay`);
+                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
 
@@ -102,6 +104,7 @@ const UpdateCoupons = () => {
                 formik.setValues({
                     title: response.data.coupon.title || '',
                     type: response.data.coupon.type || '',
+                    category: response.data.coupon.category || '',
                     coupon_code: response.data.coupon.coupon_code || '',
                     due_date: response.data.coupon.due_date.substring(0, 10) || '',
                     ref_link: response.data.coupon.ref_link || '',
@@ -130,7 +133,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId",cId);
 
             await axios.post(
-                `${import.meta.env.VITE_LOCAL_SERVER}/api/admin/addToOffer/${sId}`,
+                `http://localhost:4000/api/admin/addToOffer/${sId}`,
                 formdata,
                 {
                     headers: {
@@ -149,7 +152,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/storeDisplay/${sId}`, {
+            await axios.delete(`http://localhost:4000/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -200,6 +203,27 @@ const UpdateCoupons = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.type}
                         />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="category" className="block mb-1 font-medium">
+                            Category:
+                        </label>
+                        <select
+                            id="type"
+                            name="category"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.category}
+                        >
+                            <option value="">Select Category</option>
+                            {typesData.map((category, index) => (
+                                <option key={index} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="mb-4">

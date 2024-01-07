@@ -1,7 +1,8 @@
 import Allstores from "../api/Allstories";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from '../assets/images/Store/1.webp';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const firstLatter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
@@ -9,9 +10,28 @@ const CategoryStores = () => {
 
     const [selectedCategory, setSelectedCategory] = useState('All');
 
+    const [coupons, setCoupons] = useState([]);
+
+    const location = useLocation();
+
+    const category = location.state.type;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`http://localhost:4000/api/coupon/${category}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            setCoupons(response.data.data);
+        }
+        fetchData();
+    }, [category])
+
+    // console.log(coupons);
+
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
-        // console.log(category);
     }
     return (
         <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
@@ -52,29 +72,30 @@ const CategoryStores = () => {
                 </div>
             </div>
             <div>
-                {selectedCategory === "All" ? (
+                {selectedCategory === "All" && coupons ? (
                     Array.from([...firstLatter, '0-9']).map(
                         (letter, index) => (
                             <div key={index} className="border-2 border-gray-400 mb-3">
                                 <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                                 <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
-                                    {Allstores
-                                        .filter((store) => {
+                                    {coupons
+                                        .filter((coupon) => {
+                                            // console.log(coupon);
                                             if (letter === '0-9') {
                                                 // Filter for numbers
-                                                return /\d/.test(store.charAt(0));
+                                                return /\d/.test(coupon.name.charAt(0));
                                             } else {
-                                                return store.charAt(0).toUpperCase() === letter;
+                                                return coupon.name.charAt(0).toUpperCase() === letter;
                                             }
                                         })
                                         .map((ele, index) => (
+                                            // console.log(ele)
                                             <Link to="/categoriesdetails" key={index} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0">
                                                 <div className="flex gap-4">
                                                     <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={logo} alt={ele} /></div>
                                                     <div className="flex flex-col justify-evenly">
-                                                        <div className="whitespace-pre-wrap">{ele}</div>
+                                                        <div className="whitespace-pre-wrap">{ele.name}</div>
                                                         <div className=" text-sm text-gray-800">7 Offers | 9 Coupns</div>
-
                                                     </div>
                                                 </div>
                                             </Link>
@@ -91,14 +112,14 @@ const CategoryStores = () => {
                             <div key={index} className="border-2 border-gray-400 mb-3">
                                 <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                                 <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
-                                    {Allstores
-                                        .filter((store) => store.charAt(0) === letter)
+                                    {coupons
+                                        .filter((coupon) => coupon.name.charAt(0) === letter)
                                         .map((ele, index) => (
                                             <Link to="/categoriesdetails" key={index} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0">
                                                 <div className="flex gap-4">
                                                     <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={logo} alt={ele} /></div>
                                                     <div className="flex flex-col justify-evenly">
-                                                        <div className="whitespace-pre-wrap">{ele}</div>
+                                                        <div className="whitespace-pre-wrap">{ele.name}</div>
                                                         <div className=" text-sm text-gray-800">7 Offers | 9 Coupns</div>
 
                                                     </div>
@@ -114,14 +135,14 @@ const CategoryStores = () => {
                         <div key={index} className={`border-2 border-gray-400 mb-3 ${selectedCategory === letter ? '' : 'hidden'}`}>
                             <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                             <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
-                                {Allstores
-                                    .filter((store) => store.charAt(0) === selectedCategory)
+                                {coupons
+                                    .filter((coupon) => coupon.name.charAt(0) === selectedCategory)
                                     .map((ele, index) => (
                                         <Link to="/categoriesdetails" key={index} className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-0">
                                             <div className="flex gap-4">
                                                 <div className="border border-black p-1 h-[75px] w-[75px] rounded-full overflow-clip object-cover flex flex-wrap items-center justify-center"><img src={logo} alt={ele} /></div>
                                                 <div className="flex flex-col justify-evenly">
-                                                    <div className="whitespace-pre-wrap">{ele}</div>
+                                                    <div className="whitespace-pre-wrap">{ele.name}</div>
                                                     <div className=" text-sm text-gray-800">7 Offers | 9 Coupns</div>
 
                                                 </div>

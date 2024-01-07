@@ -85,7 +85,7 @@ const Store = () => {
         e.preventDefault();
         try {
             console.log(name, email, password);
-            const response = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/register`, {
+            const response = await axios.post(`http://localhost:4000/api/register`, {
                 name,
                 email,
                 password,
@@ -109,7 +109,7 @@ const Store = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/login`, {
+            const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
                 password
             })
@@ -135,8 +135,8 @@ const Store = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${sId}`);
-                const coup = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/coupons/${sId}`);
+                const res = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
+                const coup = await axios.get(`http://localhost:4000/api/coupons/${sId}`);
                 setStr(res.data.store);
 
 
@@ -144,7 +144,7 @@ const Store = () => {
 
                 setCoupons(verifiedCoupons);
 
-                const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/clouser`);
+                const response = await axios.get(`http://localhost:4000/api/clouser`);
 
                 const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
                 const popularStores = response.data.data.filter(item => item.store_type === 'popular' && item.store_id == sId);
@@ -152,7 +152,7 @@ const Store = () => {
                 const getStoreInfo = async stores => {
                     return await Promise.all(
                         stores.map(async store => {
-                            const res = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getStore/${store.sId}`);
+                            const res = await axios.get(`http://localhost:4000/api/getStore/${store.sId}`);
                             return { id: store.sId, name: res.data.store.name };
                         })
                     );
@@ -184,7 +184,7 @@ const Store = () => {
                         },
                     };
 
-                    const response = await axios.get(`${import.meta.env.VITE_LOCAL_SERVER}/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -267,7 +267,7 @@ const Store = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`${import.meta.env.VITE_LOCAL_SERVER}/api/inCount/${cId}`);
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -358,7 +358,7 @@ const Store = () => {
         });
 
         try {
-            await axios.put(`${import.meta.env.VITE_LOCAL_SERVER}/api/addRatings/${sId}`, data, {
+            await axios.put(`http://localhost:4000/api/addRatings/${sId}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -398,7 +398,7 @@ const Store = () => {
                 setLikedItems(updatedLikedItems);
 
                 // API call to save the coupon
-                await axios.post(`${import.meta.env.VITE_LOCAL_SERVER}/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
 
@@ -406,7 +406,7 @@ const Store = () => {
                 setLikedItems(filteredItems);
 
                 // API call to unsave the coupon
-                await axios.delete(`${import.meta.env.VITE_LOCAL_SERVER}/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error('Error occurred:', error);
@@ -425,9 +425,9 @@ const Store = () => {
 
     useEffect(() => {
         const counts = {
-            exclusive: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('code')).length,
+            exclusive: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('codes')).length,
             rewards: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('reward')).length,
-            deals: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('deal')).length,
+            deals: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('deals')).length,
             sales: validCoupons?.filter((coupon) => coupon.type.toLowerCase().includes('sale')).length,
         };
 
@@ -452,6 +452,9 @@ const Store = () => {
 
     const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
 
+
+
+    console.log(validCoupons);
 
 
     return (
@@ -487,7 +490,15 @@ const Store = () => {
                         <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
                     </div>
 
-                    <Link to="https://www.mi.com/in/store/" className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53]  p-2 rounded-md flex items-center justify-center cursor-pointer">Visit {str?.title}</Link>
+                    <a
+                        href={`https://www.${str?.name}.in/`}
+                        className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Visit Store {str?.name}
+                    </a>
+
                     <div className="flex flex-col gap-5 items-center justify-center">
                         <div className="flex gap-5 items-center">
                             <Rating value={userRating} onChange={handleRatingChange} />
@@ -666,8 +677,8 @@ const Store = () => {
                                 </Tab>
                                 <Tab
                                     value="codes"
-                                    className={activeTab === 'code' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('code')}
+                                    className={activeTab === 'codes' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('codes')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap">
                                         Codes ({couponCounts.exclusive})
@@ -675,8 +686,8 @@ const Store = () => {
                                 </Tab>
                                 <Tab
                                     value="Deals"
-                                    className={activeTab === 'deal' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('deal')}
+                                    className={activeTab === 'deals' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                    onClick={() => handleTabChange('deals')}
                                 >
                                     <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap">
                                         Deals ({couponCounts.deals})
@@ -959,7 +970,7 @@ const Store = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="${import.meta.env.VITE_LOCAL_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>
