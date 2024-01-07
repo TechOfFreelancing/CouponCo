@@ -15,6 +15,9 @@ const EventDetails = () => {
     const [showAllEvents, setShowAllEvents] = useState(false);
 
 
+
+    const firstLatter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
     const toggleDetails = (index) => {
         setDetailsVisibility((prevVisibility) => {
             const newVisibility = [...prevVisibility];
@@ -29,8 +32,8 @@ const EventDetails = () => {
     };
     return (
         <>
-            <div className="lg:w-[75vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
-                <div className="bg-white p-4 flex flex-col items-start flex-wrap gap-5">
+            <div className="lg:w-[90vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
+                <div className="p-4 flex flex-col items-start flex-wrap gap-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
@@ -52,52 +55,76 @@ const EventDetails = () => {
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
                         <img src={bg} alt="" className="w-full h-[160px]" />
-                        {/* <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
+                        <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
                             <div className='p-4 text-3xl font-bold text-white z-10'>Browse Top Shopping Events</div>
-                        </div> */}
+                        </div>
                     </div>
                     <div className="flex flex-col-reverse lg:flex-row ">
                         <div className="w-screen lg:w-1/4 lg:flex flex-col gap-5 text-black border lg:mx-auto lg:p-5">
-                            <div className="bg-white p-5 rounded-lg shadow-boxshadow">
+                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
                                 <div className="text-xl font-bold my-2">About</div>
-                                <div className="flex flex-wrap gap-2 text-sm">
+                                <div className="flex flex-wrap gap-2 text-sm text-justify">
                                     <p>{eventDetails.about}</p>
 
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
-                                <div className="text-xl text-justify" style={{ fontWeight: 700 }}>Today{`'`}s Top Shopping Events</div>
-                                {
-                                    eventDetails.Events && eventDetails.Events?.slice(0, 2).map((ele, index) => {
-                                        return (
+                            <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                            <div className="text-xl text-justify" style={{ fontWeight: 600 }}>Today{`'`}s Top Shopping Events</div>
+                            {
+                                eventDetails.Events && eventDetails.Events?.slice(0, 2).map((ele, index) => {
+                                    return (
 
-                                            <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 text-justify">
-                                                <li className="font-semibold text-[12px] ">{ele.title}</li>
-                                            </ul>
-                                        )
-                                    })
-                                }
-                                <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
-                                    <div className="flex justify-between items-center px-5">
-                                        <span className="text-lg text-black">Total Offers</span>
-                                        <span>{eventDetails.Events?.length}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center px-5">
-                                        <span className="text-lg text-black">Total Codes</span>
-                                        <span>25</span>
-                                    </div>
-                                    <div className="flex justify-between items-center px-5">
-                                        <span className="text-lg text-black">Best Offer</span>
-                                        <span>40% Off</span>
-                                    </div>
-                                    <div className="flex justify-between items-center px-5">
-                                        <span className="text-lg text-black">Average Discount</span>
-                                        <span>25 %</span>
-                                    </div>
+                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 text-justify">
+                                            <li className="font-semibold text-[12px] ">{ele.title}</li>
+                                        </ul>
+                                    )
+                                })
+                            }
+                            <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Total Offers</span>
+                                    <span>{eventDetails.Events?.length}</span>
+                                </div>
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Total Codes</span>
+                                    <span>25</span>
+                                </div>
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Best Offer</span>
+                                    <span>40% Off</span>
+                                </div>
+                                <div className="flex justify-between items-center px-5">
+                                    <span className="text-lg text-black">Average Discount</span>
+                                    <span>25 %</span>
+                                </div>
+                            </div>
+                        </div>
+                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
+                                <div className="text-xl font-bold my-2">Related Categories</div>
+                                <div className="flex flex-wrap gap-2">
+                                    {
+                                        eventDetails.relatedCategories.map((ele, index) => <div key={index} className="text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer">{ele}</div>)
+                                    }
                                 </div>
                             </div>
 
-                            <div className="bg-white p-5 shadow-boxshadow rounded-lg">
+                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
+                                <div className="text-xl font-bold my-2">Today{`'`}s Top Categories</div>
+                                <div className="flex flex-wrap gap-2">
+                                    {
+                                        eventDetails.todaystop.map((ele, index) => <div key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer">{ele}</div>)
+                                    }
+                                </div>
+                            </div>
+                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
+                                <div className="text-xl font-bold my-2">Brows By Store</div>
+                                <div className="flex flex-wrap gap-2">
+                                    {
+                                        firstLatter.map((ele, index) => <div key={index} className="text-sm flex items-center justify-center cursor-pointer h-[28px] w-[28px] p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md">{ele}</div>)
+                                    }
+                                </div>
+                            </div>
+                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
                                 <div className="text-xl font-bold my-2">Popular Store</div>
                                 <div className="flex flex-wrap gap-2">
                                     {
@@ -106,8 +133,8 @@ const EventDetails = () => {
                                 </div>
                             </div>
 
-                        </div> */}
-                        <div className="lg:w-[75vw] lg:flex flex-col items-center justify-center gap-2 text-black border lg:mx-auto lg:p-5">
+                        </div>
+                        <div className="lg:w-3/4 lg:flex flex-col items-center justify-center gap-5 text-black  lg:mx-auto lg:p-5">
                             {
                                 eventDetails.Events.slice(0, eventsToShow).map((ele, index) => {
                                     return (

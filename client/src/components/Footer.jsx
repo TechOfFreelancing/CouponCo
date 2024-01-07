@@ -17,18 +17,18 @@ const CustomForm = ({ status, message, onValidated }) => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <div className="flex max-w-md flex-row items-center justify-center rounded-full border border-red-800 overflow-clip h-[50px] w-96">
+            <div className="flex max-w-md flex-row items-center justify-center w-full rounded-full border border-red-800 overflow-clip h-[50px]">
                 <input
                     ref={(node) => (email = node)}
                     type="email"
                     placeholder="Enter Your Email Address Here"
-                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 h-full"
+                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 w-52 lg:w-80 h-full"
                 />
 
                 <button
                     type="submit"
                     onClick={submit}
-                    className=" flex-none bg-[#B33D53] px-3.5 h-full text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 "
+                    className="flex-none bg-[#B33D53] px-3.5 h-full text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 max-w-fit"
                 >
                     Subscribe
                 </button>
@@ -71,8 +71,7 @@ export default function Footer() {
                         )
                     })
 
-                }
-                <div className='flex flex-col justify-between h-full'>
+                    }
                     <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col gap-3 items-start justify-center">
                         <h2 className="text-xl tracking-tight text-black whitespace-nowrap font-semibold"> Join Our Newsletter</h2>
                         <p className=" text-gray-600">
