@@ -23,7 +23,7 @@ const Event = () => {
                             </Link>
                         </li>
                     </ul>
-                    <div className='p-4 text-xl font-bold'>Browse Top Shopping Events</div>
+                    <div className='font-bold text-lg lg:text-3xl mt-5 ml-2' style={{ fontWeight: 700 }}>Browse Top Saving Events</div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4 bg-[#F2F0E6] gap-4 p-5">
                     {

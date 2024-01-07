@@ -3,7 +3,6 @@ import Footer from "../components/Footer"
 import img from '../assets/images/faqs/faq.png'
 import { IoIosArrowDropright } from 'react-icons/io'
 import faq from '../api/faqs';
-import Accordion from "../components/Accordion";
 
 const FAQS = () => {
     return (
@@ -25,10 +24,10 @@ const FAQS = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">Frequently Asked Questions</span>
+                    <span className="text-2xl font-bold ml-2 mt-5">About Qwik Savings</span>
                 </div>
                 <div className="w-full ml-2 p-5 pt-0 text-lg flex justify-around items-center h-[500px]">
-                    <img className="float-left w-2/5 h-auto m-10 my-0 ml-0 mix-blend-multiply" src={img} />
+                    <img className="float-left w-2/5 h-auto m-10 my-0 ml-0" src={img} />
                     <div className="w-2/5 flex flex-col my-5 gap-5">
                         <span className="text-2xl font-semibold">Need  help?</span>
                         <p className="text-justify text-lg">
@@ -45,9 +44,15 @@ const FAQS = () => {
                 </div>
                 <div className="p-5">
                     <span className="text-2xl font-bold">Common FAQs at Qwik Savings</span>
-                    <ol className="flex flex-col my-10 list-decimal ml-5">
+                    <ol className="flex flex-col gap-10 my-5 list-decimal ml-5">
                         {
-                            faq.map((ele, index) => <Accordion key={index} index={ele.id} q={ele.q} a={ele.a}></Accordion>)
+                            faq?.map((ele, index) => {
+                                return (
+                                    <div key={index} className="flex flex-col gap-3 text-justify ">
+                                        <li className="font-semibold text-2xl">{ele.q}</li>
+                                        <span>{ele.a}</span>
+                                    </div>)
+                            })
                         }
                     </ol>
                 </div>
