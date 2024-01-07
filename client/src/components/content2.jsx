@@ -1,32 +1,27 @@
-import img1 from '../assets/images/content2/1.png';
-import img2 from '../assets/images/content2/2.jpg';
+import { content2 } from '../api/content2';
 
 const Content2 = () => {
     return (
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-20">
-            <div className="flex flex-col gap-5 items-center justify-center px-5 border border-black h-[420px] lg:w-1/2">
-                <img src={img1} alt="" className='h-[10rem] w-auto'/>
-                <div className="text-2xl font-bold">
-                    8,689+
-                </div>
-                <div className="text-2xl font-bold">
-                    Codes added this week
-                </div>
-                <div className=" text-justify">
-                    At CodeSpotr.com, we’ve secured the top codes and offers from leading brands across the USA, ensuring you get the best savings possible.
+        <>
+            <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between mb-10 h-[2rem]">
+                <div className="flex flex-col gap-1 lg:gap-5">
+                    <span className="font-semibold text-lg lg:text-3xl">How to use Qwik Savings</span>
                 </div>
             </div>
-
-            <div className="flex flex-col gap-5 items-center justify-center px-5 border border-black h-[420px] lg:w-1/2">
-                <img src={img2} alt="" className='h-[10rem] w-auto'/>
-                <div className="text-2xl font-bold">
-                    Our Codes
-                </div>
-                <div className=" text-justify">
-                    Our team of code experts meticulously test and verify each and every code, ensuring they deliver the savings you desire. We stand behind our codes with a guarantee.
-                </div>
+            <div className="grid grid-cols-3 justify-items-stretch gap-5">
+                {
+                    content2.map((ele, index) => <div key={index} className="bg-[#FAF9F5] rounded-lg flex flex-col gap-5 items-center justify-center px-5 h-[420px] shadow-sm">
+                        <img src={ele.img} alt="" className='h-1/2 w-auto' />
+                        <div className="h-1/8 text-2xl font-bold">
+                            {ele.id}. {ele.text}
+                        </div>
+                        <div className="h-1/8 text-justify">
+                            {ele.content}
+                        </div>
+                    </div>)
+                }
             </div>
-        </div>
+        </>
     )
 }
 
