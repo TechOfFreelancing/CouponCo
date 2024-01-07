@@ -8,7 +8,9 @@ import { FaHeart } from 'react-icons/fa6';
 import { IoAddOutline } from "react-icons/io5";
 import "../components/couponsbutton.css";
 import Categories from "../api/categories";
+import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import axios from "axios";
+
 
 const CategoriesDetails = () => {
     const [showFullContent, setShowFullContent] = useState(false);
