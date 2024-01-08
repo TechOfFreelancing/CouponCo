@@ -1,6 +1,6 @@
 import img1 from '../assets/images/aboutus/Years of Experience.png';
-import img2 from '../assets/images/aboutus/Amount Saved.png';
-import img3 from '../assets/images/aboutus/Merchant Partners.png';
+import img2 from '../assets/images/aboutus/Merchant Partners.png';
+import img3 from '../assets/images/aboutus/Amount Saved.png';
 
 
 export const aboutus = [

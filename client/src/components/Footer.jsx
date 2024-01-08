@@ -40,7 +40,7 @@ const CustomForm = ({ status, message, onValidated }) => {
     );
 };
 
-export default function NewsLetter() {
+export default function Footer() {
     return (
         <div className="relative isolate overflow-hidden bg-white px-10 pb-16 border-t-[1px] border-t-[#B33D53]">
             <div className="flex lg:flex-row flex-col lg:justify-around items-start justify-start gap-5 my-10">
