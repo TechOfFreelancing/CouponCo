@@ -5,8 +5,8 @@ import event from '../api/event'
 const Event = () => {
     return (
         <>
-            <div className='lg:w-[75vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32'>
-                <div className="bg-white p-4 flex flex-col items-start flex-wrap">
+            <div className='lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32'>
+                <div className="p-4 flex flex-col items-start flex-wrap">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -22,6 +22,7 @@ const Event = () => {
                             </Link>
                         </li>
                     </ul>
+                    <div className='font-bold text-lg lg:text-3xl mt-5 ml-2' style={{ fontWeight: 700 }}>Browse Top Saving Events</div>
                     <div className='p-4 text-xl font-bold'>Browse Top Shopping Events</div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4 bg-[#F2F0E6] gap-4 p-5">

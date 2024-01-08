@@ -28,6 +28,11 @@ import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
 import CategoriesDetails from './pages/CategoriesDetails';
 import CategoryStores from './pages/CategoryStores';
+import ContactUs from './pages/ContactUs';
+import AdvertiseUs from './pages/AdvertiseUs';
+import FAQS from './pages/FAQS';
+import AboutUs from './pages/AboutUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 
 
@@ -227,13 +232,56 @@ function App() {
             }
           ></Route>
           <Route
+            path="/contactus"
+            element={
+              <>
+                <Header></Header>
+                <ContactUs></ContactUs>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/advertisewithus"
+            element={
+              <>
+                <Header></Header>
+                <AdvertiseUs></AdvertiseUs>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/faqs"
+            element={
+              <>
+                <Header></Header>
+                <FAQS></FAQS>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/aboutus"
+            element={
+              <>
+                <Header></Header>
+                <AboutUs></AboutUs>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/privacypolicy"
+            element={
+              <>
+                <Header></Header>
+                <PrivacyPolicy></PrivacyPolicy>
+              </>
+            }
+          ></Route>
+          <Route
             path="*"
             element={
               <>
                 <Header></Header>
                 <NoMatch />
-                {/* <MobileFooter /> */}
-                {/* <Footer /> */}
               </>
             }
           ></Route>
