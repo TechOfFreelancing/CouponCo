@@ -10,7 +10,7 @@ import Categories from "../api/categories";
 
 const Navlist = () => {
     return (
-        <ul className="mx-10 py-5 mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
+        <ul className="py-5  mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
             <Typography
                 as="li"
                 variant="small"

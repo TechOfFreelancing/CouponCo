@@ -29,6 +29,7 @@ import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
 import "../components/couponsbutton1.css";
 import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
+import { TbExternalLink } from "react-icons/tb";
 
 
 const Store = () => {
@@ -48,6 +49,7 @@ const Store = () => {
     const [name1, setName1] = useState('');
     const [email1, setEmail1] = useState('');
     const [password1, setPassword1] = useState('');
+    const [productlink, setProductlink] = useState('');
 
 
 
@@ -275,34 +277,34 @@ const Store = () => {
 
 
     const handleOpen = async (product) => {
-        setSelectedProduct(product);
-        setOpen(true);
-        // console.log(correctedRefLink);
-        setTimeout(() => {
-            handleCopyClick();
-        }, 1000);
-        setTimeout(() => {
-            window.open(correctedRefLink, '_blank');
-        }, 2000);
+        if (open) {
+            setOpen(!open);
+        }
+        else {
+            console.log("clicked")
+            setSelectedProduct(product);
+            setOpen(!open);
+            const correctedRefLink = await selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
+            setProductlink(correctedRefLink);
+            if (productlink) {
 
+                console.log(productlink);
+
+                setTimeout(() => {
+                    handleCopyClick();
+                }, 1000);
+                setTimeout(() => {
+                    window.open(productlink, '_blank');
+                }, 2000);
+            }
+        }
     };
 
     const handleClose = () => {
-        setOpen(!open);
         setCopySuccess(false);
+        setSelectedProduct("");
+        setOpen(!open);
     }
-    const handleOutsideClick = () => {
-        if (open) {
-            setOpen(false);
-        }
-        if (copySuccess) {
-            setCopySuccess(false);
-        }
-    };
-
-    const handleInsideClick = (event) => {
-        event.stopPropagation();
-    };
 
     const toggleDetails = (index) => {
         setDetailsVisibility((prevVisibility) => {
@@ -450,15 +452,15 @@ const Store = () => {
         }
     };
 
-    const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
+
 
 
 
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 " onClick={handleOutsideClick}>
-                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm">
+            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 " >
+                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm items-center">
                     <div className="bg-[#FAF9F5] p-4 flex items-center flex-wrap">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
@@ -483,8 +485,8 @@ const Store = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="h-[208px] w-[208px] bg-white rounded-full flex items-center justify-center shadow-lg mt-5 mx-auto overflow-hidden">
-                        <img src={str?.logo_url} alt="logo" className='h-auto w-auto max-h-full max-w-full' />
+                    <div className="border border-black h-[208px] w-[208px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white">
+                        <img src={str?.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
                     </div>
 
                     <Link to="https://www.mi.com/in/store/" className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53]  p-2 rounded-md flex items-center justify-center cursor-pointer">Visit {str?.title}</Link>
@@ -500,16 +502,16 @@ const Store = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-5">
-                        <div className="min-w-full flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
                             <div className="font-semibold text-xl my-3 text-black">
                                 About {str?.name}
                             </div>
                             <div className="moreaboutcompany flex flex-col gap-2 text-black">
-                                <div className="text-justify">{str?.description}</div>
+                                <div>{str?.description}</div>
                             </div>
 
                         </div>
-                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
                             <div className="text-xl" style={{ fontWeight: 600 }}>Today{`'`}s Top {str?.name} Coupon Codes</div>
                             {
                                 validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
@@ -541,7 +543,7 @@ const Store = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
                             {
                                 (str?.faq || str?.hint || str?.moreAbout) &&
                                 <div className="font-semibold text-xl text-black">
@@ -592,7 +594,7 @@ const Store = () => {
                                 )
                             }
                         </div>
-                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
 
                             <div className="font-semibold text-xl text-black">
                                 Similar Stores
@@ -617,29 +619,29 @@ const Store = () => {
                             </div>
 
                         </div>
-                        <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
 
                             <div className="font-semibold text-xl text-black">
                                 Popular Stores
                             </div>
                             <div className="flex flex-wrap gap-2">
-                            {popularStoreNames && popularStoreNames.length > 0 ? (
-                                popularStoreNames.map((store, index) => (
-                                    <motion.div variants={variants} initial="hidden"
-                                        animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+                                {popularStoreNames && popularStoreNames.length > 0 ? (
+                                    popularStoreNames.map((store, index) => (
+                                        <motion.div variants={variants} initial="hidden"
+                                            animate="visible"
+                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
 
-                                        onClick={() => {
-                                            navigate(
-                                                `/Stores/${store.name}`, { state: { sId: store.id } }
-                                            )
-                                        }}>
-                                        <span>{store.name}</span>
-                                    </motion.div>
-                                ))
-                            ) : (
-                                <div>No popular stores found</div>
-                            )}
+                                            onClick={() => {
+                                                navigate(
+                                                    `/Stores/${store.name}`, { state: { sId: store.id } }
+                                                )
+                                            }}>
+                                            <span>{store.name}</span>
+                                        </motion.div>
+                                    ))
+                                ) : (
+                                    <div>No popular stores found</div>
+                                )}
                             </div>
 
                         </div>
@@ -880,30 +882,30 @@ const Store = () => {
             <Footer></Footer>
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5" >
                 <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
-                <div className="flex flex-col items-center" onClick={handleInsideClick}>
-                    <div className="h-3/4  flex flex-col gap-3 lg:gap-5 items-center">
-                        <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
-                            <img src={str?.logo_url} alt="logo" className='h-auto w-auto px-5' />
+                <div className="flex flex-col items-center">
+                    <div className="flex flex-col gap-3 lg:gap-5 items-center">
+                        <div className="border border-black h-[150px] w-[150px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white">
+                            <img src={str?.logo_url} alt={str?.name} className="h-full w-auto object-cover rounded-full" />
                         </div>
                         <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
-                            <div className="text-2xl font-bold whitespace-nowrap">{str?.name.toUpperCase()}</div>
-                            <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
+                            <div className="text-2xl whitespace-nowrap">{str?.name}</div>
+                            <div className="text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
-                        <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
-                            <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
+                        <div className="flex items-center min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
+                            <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
                             <button
-                                className="bg-[#800000]  max-w-fit p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
                                 onClick={handleCopyClick}
                             >
                                 Copy
                             </button>
                         </div>
-                        {copySuccess && <div className="text:sm lg:text-lg text-green-800">
-                            Copy and paste this code at {""}
-                            <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
-                                {/* {str?.name} */}{correctedRefLink}
+                        {copySuccess ? (<div className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
+                            <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>
+                            <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000] cursor-pointer flex items-center gap-2">
+                                {str?.name} Product <TbExternalLink />
                             </a>
-                        </div>}
+                        </div>) : (<div className="text:sm lg:text-2xl text-[#800000]">Wait for 2 Second...</div>)}
 
                         <div className="flex gap-2 lg:gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
                             <span className="text-sm lg:text-lg text-[#800000] whitespace-nowrap">

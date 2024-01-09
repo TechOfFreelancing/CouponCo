@@ -88,23 +88,23 @@ export function Header() {
         <>
             <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
                 {isOffer && <Alert></Alert>}
-                <nav className=" z-10 h-max rounded-none py-2 flex items-center justify-between gap-14 lg:px-28 w-full px-10 lg:h-[93px]">
+                <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between  lg:px-28 w-full px-10 lg:h-[93px]">
                     <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
                         <ImSearch className="h-6 w-6" />
                     </button>
-                    <Link to="/" className="cursor-pointer font-medium mt-3">
-                        <img src={logo} alt="Qwik Savings" className={`h-20 ${isLoggedIn ? 'w-[15rem]' : 'w-[22rem]'}`} />
+                    <Link to="/" className="cursor-pointer font-medium">
+                        <img src={logo} alt="Qwik Savings" className={`h-20 ${isLoggedIn ? 'w-[15rem]' : 'w-[15rem]'}`} />
 
                     </Link>
                     <div className="hidden lg:block"><NavList></NavList></div>
-                    <div className="seachbar hidden lg:flex p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[20rem]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
+                    <div className="seachbar hidden lg:flex py-0 p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[309px]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
                         <input type="search" placeholder='Search for brands, categories' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
                             <ImSearch className="h-6 w-6" />
                         </button>
                     </div>
                     {isLoggedIn ? (
-                        <div className="hidden lg:flex items-center justify-center">
+                        <div className="hidden lg:flex items-center justify-between gap-5">
                             <div className="action relative">
                                 <div className={`menu ${menuActive ? 'active' : ''}`}>
                                     <div className="flex flex-col items-center justify-center">
@@ -119,13 +119,13 @@ export function Header() {
 
                                 </div>
                                 <div onClick={() => { menuToggle() }} className="profile flex items-center justify-center absolute -top-5">
-                                    <FaUserCircle className="text-4xl"></FaUserCircle>
+                                    <FaUserCircle className="text-5xl"></FaUserCircle>
                                 </div>
                             </div>
 
                         </div>
                     ) : (
-                        <div className="flex gap-5 items-center justify-center">
+                        <div className="flex items-center justify-between gap-5">
                             <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white px-4 py-2  rounded-md border border-black">
                                 Log In
                             </Link>

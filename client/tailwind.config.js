@@ -20,6 +20,9 @@ module.exports = withMT({
       animation: {
         fadeAnim: 'fadeAnim 0.5s ease-out',
       },
+      boxShadow: {
+        boxshadow: '0 0 5px 3px rgba(0,0,0,.07)',
+      },
     },
 
   },

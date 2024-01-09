@@ -31,7 +31,7 @@ const AboutUs = () => {
                     <span className="text-2xl font-bold ml-2 mt-5">About Qwik Savings</span>
                 </div>
                 <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[30%] h-auto m-10 my-0 mr-0" src={img1} />
+                    <img className="float-right w-[45%] h-auto m-10 my-0 mr-0 mix-blend-multiply" src={img1} />
                     <p className="text-justify my-5">
                         True  to  its  name,  Qwik  Savings  is  one  of
                         the  most  trusted  sites  for  all  online
@@ -64,8 +64,8 @@ const AboutUs = () => {
             <div className="px-10 lg:px-28 bg-white flex flex-col justify-center text-black lg:mx-auto items-start h-[calc(100vh-200px)] gap-5 w-full">
                 <div className="grid grid-cols-3 justify-items-stretch gap-5 w-full">
                     {
-                        aboutus.map((ele, index) => <div key={index} className="bg-[#FAF9F5] border rounded-2xl flex flex-col gap-4 items-center justify-center px-5 h-[420px] shadow-sm">
-                            <img src={ele.img} alt="" className='h-1/2 w-auto' />
+                        aboutus.map((ele, index) => <div key={index} className="bg-[#FAF9F5] rounded-2xl flex flex-col gap-4 items-center justify-center px-5 h-[420px] shadow-boxshadow">
+                            <img src={ele.img} alt="" className='h-3/5 w-auto mix-blend-multiply' />
                             <div className="h-1/8 text-2xl font-bold">
                                 {ele.text}
                             </div>
@@ -78,7 +78,7 @@ const AboutUs = () => {
             </div>
             <div className="px-10 lg:px-28 py-10 flex flex-col justify-center text-black lg:mx-auto items-start gap-5 w-full">
                 <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-left w-[30%] h-auto m-10 my-0 ml-0" src={img2} />
+                    <img className="float-left w-[45%] h-auto m-10 ml-0 mix-blend-multiply" src={img2} />
                     <span className="text-2xl font-bold my-5 ">Our Mission & Vision</span>
                     <p className="text-justify my-5">
                         Qwik  Savings  aims  to  be  the  most  fonded
@@ -102,7 +102,7 @@ const AboutUs = () => {
                 </div>
 
                 <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[30%] h-auto m-10 my-0 mr-0" src={img3} />
+                    <img className="float-right w-[45%] h-auto m-10 my-0 mr-0 mix-blend-multiply" src={img3} />
                     <span className="text-2xl font-bold my-5 ">How  We  Make  Money</span>
                     <p className="text-justify my-5">
                         Our  revenue  model  goes  way  beyond  just
@@ -122,9 +122,11 @@ const AboutUs = () => {
                     </p>
 
                 </div>
+            </div>
+            <div className="px-10 lg:px-28 bg-white flex flex-col justify-center text-black lg:mx-auto items-start gap-3 w-full mb-10">
                 <div className="w-full ml-2 p-5 pt-0 text-lg flex justify-between items-start">
-                    <img className="float-left w-2/5 h-auto m-10 my-0 ml-0" src={img4} />
-                    <div className="w-3/5 flex flex-col justify-between my-5 h-full gap-5">
+                    <img className="float-left w-2/5 h-auto m-10 my-0 ml-0 mix-blend-multiply" src={img4} />
+                    <div className="w-3/5 flex flex-col justify-between h-full gap-3 mt-10">
                         <span className="text-2xl font-bold">We’re here to help</span>
                         <p className="text-justify my-5">
                             If you{`'`}re  facing  any  troubles while using

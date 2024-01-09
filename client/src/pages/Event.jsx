@@ -27,7 +27,7 @@ const Event = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-5">
                     {
                         event.map((ele, index) => {
-                            return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-auto border shadow-lg rounded-xl p-5 bg-white'>
+                            return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-auto border duration-300 hover:shadow-boxshadow rounded-xl p-5 bg-white'>
                                 <span className='text-xl font-bold text-center w-3/4 h-1/6'>{ele.title}</span>
                                 <img src={ele.img} alt="" className='w-auto h-1/2 object-cover' />
                                 <Link to="/eventdetails" className='border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'>Reveal Offer</Link>
