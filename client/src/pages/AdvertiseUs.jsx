@@ -29,10 +29,10 @@ const AdvertiseUs = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">About Qwik Savings</span>
+                    <span className="text-2xl font-bold ml-2 mt-5"> Advertise With Us</span>
                 </div>
                 <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[35%] h-auto m-10 mt-0 mr-0" src={img1} />
+                    <img className="float-right w-[50%] h-auto m-10 lg:-mt-24 mr-0" src={img1} />
                     <p className="text-justify">
                         At  Qwik  Savings,  we  offer  prime  advertising
                         opportunities  to  elevate  your  brand  visibility.

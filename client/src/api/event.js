@@ -1,101 +1,99 @@
-import img1 from '../assets/images/event/Black Friday-Icon.png'
-import img2 from '../assets/images/event/Boxing Day-Icon.png'
-import img3 from '../assets/images/event/Christmas-Icon.png'
-import img4 from '../assets/images/event/CyberMonday-Icon.png'
-import img5 from '../assets/images/event/Easter Day-Icon.png'
-import img6 from '../assets/images/event/Fathers Day-Icon.png'
-import img7 from '../assets/images/event/Halloween-Icon.png'
-import img8 from '../assets/images/event/Labor Day-Icon.png'
-import img9 from '../assets/images/event/MonthlyDiscount-Icon(1).png'
-import img10 from '../assets/images/event/Mothers Day-Icon.png'
-import img11 from '../assets/images/event/Student-Icon.png'
-import img12 from '../assets/images/event/Thanksgiving Day.png'
-import img13 from '../assets/images/event/Valentine Day-Icon.png'
+import img1 from '../assets/images/event/4th of July.jpg'
+import img2 from '../assets/images/event/Back to School.jpg'
+import img3 from '../assets/images/event/Black Friday.jpg'
+import img4 from '../assets/images/event/Christmas.jpg'
+import img5 from '../assets/images/event/Cyber Monday.jpg'
+import img6 from '../assets/images/event/Easter.jpg'
+import img7 from '../assets/images/event/Father’s Day.jpg'
+import img8 from '../assets/images/event/Halloween.jpg'
+import img9 from '../assets/images/event/Labor Day.jpg'
+import img10 from '../assets/images/event/Memorial Day.jpg'
+import img11 from '../assets/images/event/Mother’s Day.jpg'
+import img12 from '../assets/images/event/President’s Day.jpg'
+import img13 from '../assets/images/event/Student Discounts.jpg'
+import img14 from '../assets/images/event/Thanksgiving Day.jpg'
+import img15 from '../assets/images/event/Valentine’s Day.jpg'
+import img16 from '../assets/images/event/Veterans Day.jpg'
 import couponimg from '../assets/images/event/eventcoupon.png'
 
 
 const Events = [
     {
         id: 1,
-        img: img1,
-        button: "Deals",
-        title: "Black Friday Deals",
+        img: img13,
+        button: "Offer",
+        title: "Student Discounts",
     },
     {
         id: 2,
-        img: img2,
-        button: "Sale",
-        title: "Thanksgiving Day Coupon Code",
+        img: img4,
+        button: "Offer",
+        title: "Christmas",
     },
     {
         id: 3,
-        img: img3,
-        button: "Deals",
-        title: "STUDENT OFFERS",
+        img: img15,
+        button: "Offer",
+        title: "Valentine’s Day",
     },
     {
         id: 4,
-        img: img4,
-        button: "Offer",
-        title: "Christmas Deals Online",
+        img: img12,
+        button: "Sale",
+        title: "President’s Day",
     },
     {
         id: 5,
-        img: img5,
-        button: "Deals",
-        title: "Monthly Discount Offers",
-    },
-    {
-        id: 6,
         img: img6,
         button: "Deals",
-        title: "Monthly Discount Offers",
+        title: "Easter",
     },
     {
         id: 6,
         img: img11,
         button: "Deals",
-        title: "Valentine's Day Deals",
+        title: "Mother’s Day",
+
     },
     {
         id: 7,
         img: img10,
         button: "Offer",
-        title: "Easter Deals",
+        title: "Memorial Day",
     },
     {
         id: 8,
-        img: img8,
+        img: img7,
+        button: "Offer",
+        title: "Father’s Day",
+    },
+    {
+        id: 9,
+        img: img1,
+        button: "Deals",
+        title: "4th of July",
+    },
+    {
+        id: 10,
+        img: img2,
+        button: "Sale",
+        title: "Back to School",
+    },
+    {
+        id: 11,
+        img: img9,
         button: "Sale",
         title: "Labor Day",
     },
     {
-        id: 9,
-        img: img9,
-        button: "Sale",
-        title: "Halloween Discount Codes",
-    },
-    {
-        id: 10,
-        img: img10,
-        button: "Offer",
-        title: "Cyber Monday",
-    },
-    {
-        id: 11,
-        img: img11,
-        button: "Deals",
-        title: "Mother's Day Vouchers",
-    },
-    {
         id: 12,
-        img: img12,
+        img: img8,
         button: "Sale",
-        title: "Father's Day",
+        title: "Halloween",
     },
     {
         id: 13,
-        img: img13,
+        img: img14,
         button: "Offer",
         title: "Student Discounts",
     },
@@ -111,13 +109,13 @@ const Events = [
         button: "Offer",
         title: "Valentine’s Day",
     },
-    {
         id: 16,
         img: img16,
         button: "Offer",
         title: "Veterans Day",
     },
 ]
+
 
 export const eventDetails = {
     Events: [

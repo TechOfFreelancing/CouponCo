@@ -30,7 +30,7 @@ import "../components/couponsbutton1.css";
 import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
 import { TbExternalLink } from "react-icons/tb";
-import { TbExternalLink } from "react-icons/tb";
+
 
 
 const Store = () => {
@@ -452,8 +452,6 @@ const Store = () => {
             return count.toString();
         }
     };
-
-
 
 
 

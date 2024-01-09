@@ -72,7 +72,8 @@ export default function Footer() {
                         )
                     })
 
-                    }
+                }
+                <div className='flex flex-col justify-between h-full'>
                     <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col gap-3 items-start justify-center">
                         <h2 className="text-xl tracking-tight text-black whitespace-nowrap font-semibold"> Join Our Newsletter</h2>
                         <p className=" text-gray-600">
