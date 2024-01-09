@@ -84,7 +84,7 @@ export const StackedImageAnimation = () => {
     }, [activeIndex, cardImages]);
 
     const navigate = useNavigate();
-  
+
     return (
         <>
 

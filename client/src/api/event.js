@@ -49,22 +49,22 @@ const Events = [
         id: 6,
         img: img6,
         button: "Deals",
-        title: "Valentine's Day Deals",
+        title: "Easter",
     },
     {
         id: 7,
         img: img7,
         button: "Offer",
-        title: "Easter Deals",
+        title: "Father’s Day",
     },
     {
         id: 8,
         img: img8,
         button: "Sale",
-        title: "Labor Day",
+        title: "Back to School",
     },
     {
-        id: 9,
+        id: 11,
         img: img9,
         button: "Sale",
         title: "Halloween Discount Codes",
@@ -83,15 +83,32 @@ const Events = [
     },
     {
         id: 12,
-        img: img12,
+        img: img8,
         button: "Sale",
-        title: "Father's Day",
+        title: "Halloween",
     },
     {
         id: 13,
-        img: img13,
+        img: img14,
         button: "Offer",
-        title: "Boxing Day Sale",
+        title: "Thanksgiving Day",
+    },
+    {
+        id: 14,
+        img: img5,
+        button: "Deals",
+        title: "Cyber Monday",
+    },
+    {
+        id: 15,
+        img: img3,
+        button: "Deals",
+        title: "Black Friday",
+    }, {
+        id: 16,
+        img: img16,
+        button: "Offer",
+        title: "Veterans Day",
     },
 ]
 
