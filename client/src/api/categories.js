@@ -161,7 +161,7 @@ const Categories = [
     {
         "id": 20,
         "filter": "food_beverages",
-        "name": "Food & Beverages",
+        "name": "Foods Beverages",
         "icon": Foods_Beverages
     },
     {
@@ -185,7 +185,7 @@ const Categories = [
     {
         "id": 24,
         "filter": "health_fitness",
-        "name": "Health & Fitness",
+        "name": "Health Fitness",
         "icon": Health_Fitness
     },
     {

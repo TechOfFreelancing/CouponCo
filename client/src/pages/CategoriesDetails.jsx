@@ -1,4 +1,8 @@
 import Footer from "../components/Footer";
+import {
+    Dialog,
+} from "@material-tailwind/react";
+import { IoMdClose } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { eventDetails } from "../api/event";
 import { useEffect, useState } from "react";
@@ -9,6 +13,7 @@ import { IoAddOutline } from "react-icons/io5";
 import "../components/couponsbutton.css";
 import Categories from "../api/categories";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import axios from "axios";
 
 
@@ -19,6 +24,9 @@ const CategoriesDetails = () => {
     const [couponDetails, setCouponDetails] = useState([]);
     const [openlogin, setOpenlogin] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState('');
+    const [copySuccess, setCopySuccess] = useState(false);
 
 
     const location = useLocation();
@@ -50,6 +58,18 @@ const CategoriesDetails = () => {
     };
 
     const handleOpenlogin = () => setOpenlogin(!openlogin);
+
+    const formatDate = (dateString) => {
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString('en-US', options);
+
+        const day = date.getDate();
+        const suffix = (day >= 10 && day <= 20) ? 'th' : ['st', 'nd', 'rd'][day % 10 - 1] || 'th';
+
+        return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
+    };
+
 
     const handleLikeClick = async (index, cId) => {
         const token = localStorage.getItem('token');
@@ -94,6 +114,56 @@ const CategoriesDetails = () => {
     };
 
 
+    const handleCopyClick = () => {
+        const textToCopy = document.querySelector('.copy-text');
+
+        if (textToCopy) {
+            // Save the current selection range
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(textToCopy);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Copy the selected text to the clipboard
+            const text = textToCopy.textContent || textToCopy.innerText;
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    setCopySuccess(true);
+                })
+                .catch((err) => {
+                    console.error('Unable to copy text to clipboard', err);
+                    setCopySuccess(false);
+                })
+                .finally(() => {
+                    // Restore the original selection
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                });
+        }
+    };
+
+    const handleOpen = async (product) => {
+        setSelectedProduct(product);
+        setOpen(true);
+        // console.log(correctedRefLink);
+        setTimeout(() => {
+            handleCopyClick();
+        }, 1000);
+        setTimeout(() => {
+            window.open(correctedRefLink, '_blank');
+        }, 2000);
+
+    };
+
+    const handleClose = () => {
+        setOpen(!open);
+        setCopySuccess(false);
+    }
+
+    const handleInsideClick = (event) => {
+        event.stopPropagation();
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -107,7 +177,9 @@ const CategoriesDetails = () => {
         fetchData();
     }, [category]);
 
-    // console.log(couponDetails);
+    console.log(category);
+
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
 
     return (
         <>
@@ -188,7 +260,15 @@ const CategoriesDetails = () => {
                                 <div className="text-xl font-bold my-2">Browse By Store</div>
                                 <div className="flex flex-wrap gap-2">
                                     {
-                                        firstLatter.map((ele, index) => <div key={index} className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md">{ele}</div>)
+                                        firstLatter.map((ele, index) => (
+                                            <div
+                                                key={index}
+                                                className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                                onClick={() => navigate("/allstores", { state: { letter: ele } })}
+                                            >
+                                                {ele}
+                                            </div>
+                                        ))
                                     }
                                 </div>
                             </div>
@@ -239,10 +319,10 @@ const CategoriesDetails = () => {
                                                                         {(ele.user_count)} Uses
                                                                     </span>
                                                                 </div>
-                                                                <button className="button has-code" >
-                                                                    <span className="is-code">745
+                                                                <button className="button has-code1" onClick={() => handleOpen(ele)} >
+                                                                    <span className="is-code1">74
                                                                         {ele.coupon_code}</span>
-                                                                    <span className="is-code-text"><em>GET CODE</em></span>
+                                                                    <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -283,6 +363,50 @@ const CategoriesDetails = () => {
                 </div>
             </div >
             <Footer></Footer>
+            <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5" >
+                <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
+                <div className="flex flex-col items-center" onClick={handleInsideClick}>
+                    <div className="h-3/4  flex flex-col gap-3 lg:gap-5 items-center">
+                        <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
+                            <img src={couponDetails.length !== 0 && couponDetails.logo_url && couponDetails?.logo_url} alt="logo" className='h-auto w-auto px-5' />
+                        </div>
+                        <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
+                            <div className="text-2xl font-bold whitespace-nowrap">
+                                {couponDetails && couponDetails.length !== 0 && couponDetails.name && couponDetails.name.toUpperCase()}
+                            </div>
+                            <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
+                        <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
+                        <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
+                            <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
+                            <button
+                                className="bg-[#800000]  max-w-fit p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                onClick={handleCopyClick}
+                            >
+                                Copy
+                            </button>
+                        </div>
+                        {copySuccess && <div className="text:sm lg:text-lg text-green-800">
+                            Copy and paste this code at {""}
+                            <a href={correctedRefLink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
+                                {/* {str?.name} */}{correctedRefLink}
+                            </a>
+                        </div>}
+
+                        <div className="flex gap-2 lg:gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
+                            <span className="text-sm lg:text-lg text-[#800000] whitespace-nowrap">
+                                Did the coupon work?
+                            </span>
+                            <button className="border border-green-600 hover:bg-green-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsUp></FaThumbsUp>
+                            </button>
+                            <button className="border border-red-600 hover:bg-red-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsDown></FaThumbsDown>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </Dialog>
         </>
     )
 }

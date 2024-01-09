@@ -46,40 +46,69 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
 exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
     const { couponId } = req.body;
-    const thumbFile = req.file; // Assuming this is a thumbnail for the coupon
+    const thumbFile = req.file;
 
     try {
         // Check if the store exists
         const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
-
         if (storeResult.length === 0) {
-            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
+            return next(new ErrorHandler(`Store with ID ${storeId} not found`, 400));
         }
 
         // Check if the coupon exists
         const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [couponId]);
-
         if (couponResult.length === 0) {
-            return next(new ErrorHandler(`Coupon with ID ${couponId} not found`, 404));
+            return next(new ErrorHandler(`Coupon with ID ${couponId} not found`, 400));
+        }
+
+        // Check if the coupon is already displayed
+        const [isExist] = await db.query('SELECT * FROM store_display WHERE coupon_id = ?', [couponId]);
+        if (isExist.length > 0) {
+            return next(new ErrorHandler(`Coupon with ID ${couponId} is already displayed`, 400));
         }
 
         // Process thumbnail upload (if needed)
         const thumbnailUrl = await uploadAndCreateDocument(thumbFile);
 
-        const sql = `
-            INSERT INTO store_display (store_id, coupon_id, show_in_top, thumbnail) 
-            VALUES (?, ?, ?, ?)
-        `;
+        // Check the category and expiration date of the coupon
+        const [couponInfoResult] = await db.query('SELECT category, due_date FROM coupons WHERE coupon_id = ?', [couponId]);
+        const { category, due_date: dueDate } = couponInfoResult[0];
+        // console.log(category);
 
+        // Check if the coupon is expired
+        if (new Date(dueDate) < new Date()) {
+            return next(new ErrorHandler(`Coupon with ID ${couponId} is expired and cannot be added to today's top offer`, 400));
+        }
+
+        // Check the limit based on the coupon category
+        let maxLimit = (category === 'Clothing') ? 8 : 4;
+
+        // Count valid coupons
+        const [validCouponsCountResult] = await db.query(`
+        SELECT COUNT(*) AS count FROM store_display AS s INNER JOIN coupons AS c ON s.coupon_id = c.coupon_id WHERE c.category = ? AND c.due_date >= CURRENT_TIMESTAMP;
+    `, [category]);
+
+        const validCurrentCount = validCouponsCountResult[0].count;
+
+        // Check the limit
+        if (validCurrentCount >= maxLimit) {
+            return next(new ErrorHandler(`Cannot add more than ${ maxLimit } valid coupons to today's top offer`, 400));
+    }
+
+        // Insert the coupon into today's top
+        const sql = 'INSERT INTO store_display (store_id, coupon_id, show_in_top, thumbnail) VALUES (?, ?, ?, ?)';
         const result = await db.query(sql, [storeId, couponId, true, thumbnailUrl]);
 
-        res.status(200).json({ message: "Success!", rowId: result[0].insertId });
+        res.status(200).json({ message: 'Success!', rowId: result[0].insertId });
 
     } catch (err) {
-        console.error(err);
-        return next(new ErrorHandler("Unable to add this to today's top offer", 400));
-    }
+    console.error(err);
+    return next(new ErrorHandler("Unable to add this to today's top offer", 500));
+}
 });
+
+
+
 
 //add to carousel
 exports.addToCarousel = catchAsyncErrors(async (req, res, next) => {
@@ -465,7 +494,7 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
         let updateSql = 'UPDATE coupons SET ';
         const updateParams = [];
         let updateDate = false;
-        const validFields = ['title', 'coupon_code', 'type', 'ref_link','category', 'due_date', 'description', 'created_at', 'isVerified'];
+        const validFields = ['title', 'coupon_code', 'type', 'ref_link', 'category', 'due_date', 'description', 'created_at', 'isVerified'];
 
         // Update fields provided in the request body
         for (const field of validFields) {
@@ -745,5 +774,24 @@ exports.getCategoryCoupons = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to retrieve coupons", 500));
+    }
+});
+
+
+exports.getStoreDisplayAllData = catchAsyncErrors(async (req, res, next) => {
+    const { category } = req.params;
+    try {
+        const getData = `
+        SELECT * 
+        FROM store_display AS s 
+        INNER JOIN store AS st ON s.store_id = st.id 
+        INNER JOIN coupons AS c ON s.coupon_id = c.coupon_id WHERE c.category = ?
+        `;
+        const data = await db.query(getData, [category]);
+
+        res.status(200).json({ data: data[0] });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to retrieve store display data", 500));
     }
 });

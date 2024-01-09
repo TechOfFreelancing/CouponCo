@@ -1,68 +1,38 @@
-import categoriesBasedCoupons from "../../api/CategoriesBasedCoupons";
-import "../../components/couponsbutton.css";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
 import {
     Button,
     Dialog,
-    DialogHeader,
-    DialogBody,
     Input,
     Typography,
-    Card
+    Card,
 } from "@material-tailwind/react";
-import { FaThumbsUp, FaThumbsDown, FaHeart, FaRegHeart } from 'react-icons/fa6';
-import AuthContext from "../../components/AuthContext";
-import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
+import { FaThumbsUp, FaThumbsDown, FaHeart, FaRegHeart } from "react-icons/fa6";
+import Clothing from '../../assets/images/categories/Clothing.png'
 import { IoMdClose } from "react-icons/io";
-
-
-
+import toast, { Toaster } from "react-hot-toast";
+import AuthContext from "../../components/AuthContext";
+import "../../components/couponsbutton.css";
 
 const ClothingBased = () => {
-
-    const [openDialog, setOpenDialog] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState('');
+    const [selectedProduct, setSelectedProduct] = useState("");
     const [copySuccess, setCopySuccess] = useState(false);
     const [openlogin, setOpenlogin] = useState(false);
     const [openregister, setOpenregister] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name1, setName1] = useState('');
-    const [email1, setEmail1] = useState('');
-    const [password1, setPassword1] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name1, setName1] = useState("");
+    const [email1, setEmail1] = useState("");
+    const [password1, setPassword1] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [clothes, setClothes] = useState([]);
+    const [open, setOpen] = useState(false);
+
+    const { updateUserRole, role } = useContext(AuthContext);
 
     const navigate = useNavigate();
-    const { role } = useContext(AuthContext);
-    // const location = useLocation();
-
-    const handleOpenDialog = () => {
-        // setSelectedProduct(product);
-        if (!openDialog) {
-            setOpenDialog(true);
-        } else {
-            setOpenDialog(false)
-        }
-    };
-
-    const handleLikeClick = (index) => {
-        console.log(isLoggedIn)
-        if (isLoggedIn) {
-            // Check if the item is already liked
-            if (!likedItems.includes(index)) {
-                // If not liked, add it to the likedItems state
-                setLikedItems([...likedItems, index]);
-            } else {
-                // If already liked, remove it from the likedItems state
-                setLikedItems(likedItems.filter((item) => item !== index));
-            }
-        } else {
-            handleOpenlogin();
-        }
-    };
 
     const handleOpenlogin = () => setOpenlogin(!openlogin);
     const handleOpenregister = () => setOpenregister(!openregister);
@@ -70,29 +40,25 @@ const ClothingBased = () => {
     const closeboth = () => {
         setOpenlogin(false);
         setOpenregister(false);
-    }
+    };
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            console.log(name, email, password);
             const response = await axios.post(`http://localhost:4000/api/register`, {
-                name,
+                name: name1,
                 email,
                 password,
             });
 
-            toast.success('Registration successful');
-            console.log(response);
+            toast.success("Registration successful");
 
             setTimeout(() => {
-                navigate('/login');
-            }, 2000)
-
-
+                navigate("/login");
+            }, 2000);
         } catch (error) {
             toast(error.response.statusText);
-            console.error('Registration failed:', error);
+            console.error("Registration failed:", error);
         }
     };
 
@@ -102,51 +68,182 @@ const ClothingBased = () => {
         try {
             const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
-                password
-            })
+                password,
+            });
 
             const { message, token, user } = res.data;
 
             toast.success(message);
 
-            localStorage.setItem('token', token);
-            localStorage.setItem('id', user.user_id);
-            localStorage.setItem('role', user.role)
-            isLoggedIn(true);
-            setTimeout(() => {
-                user.role === "Admin" ? navigate('/Admin') : navigate('/')
-            }, 1200)
+            localStorage.setItem("token", token);
+            localStorage.setItem("id", user.user_id);
+            localStorage.setItem("role", user.role);
+            updateUserRole(user.role);
 
+            setTimeout(() => {
+                user.role === "Admin" ? navigate("/Admin") : navigate("/");
+            }, 1200);
         } catch (error) {
             toast.error(error.response.statusText);
-            console.error('Login failed:', error);
+            console.error("Login failed:", error);
         }
     };
 
+    const formatDate = (dateString) => {
+        const options = { month: "long", day: "numeric", year: "numeric" };
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString("en-US", options);
+
+        const day = date.getDate();
+        const suffix = (day >= 10 && day <= 20) ? "th" : ["st", "nd", "rd"][day % 10 - 1] || "th";
+
+        return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
+    };
+
+    const handleUse = async (cId) => {
+        try {
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleOpen = async (product) => {
+        setSelectedProduct(product);
+        setOpen(true);
+
+        setTimeout(() => {
+            handleCopyClick();
+        }, 1000);
+
+        setTimeout(() => {
+            window.open(correctedRefLink, "_blank");
+        }, 2000);
+    };
+
+    const handleClose = () => {
+        setOpen(!open);
+        setCopySuccess(false);
+    };
+
+    const handleOutsideClick = () => {
+        if (open) {
+            setOpen(false);
+        }
+        if (copySuccess) {
+            setCopySuccess(false);
+        }
+    };
+
+    const handleInsideClick = (event) => {
+        event.stopPropagation();
+    };
+
     const handleCopyClick = () => {
-        const textToCopy = document.querySelector('.copy-text');
+        const textToCopy = document.querySelector(".copy-text");
 
         if (textToCopy) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(textToCopy);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
             const text = textToCopy.textContent || textToCopy.innerText;
             navigator.clipboard.writeText(text)
                 .then(() => {
                     setCopySuccess(true);
                 })
                 .catch((err) => {
-                    console.error('Unable to copy text to clipboard', err);
+                    console.error("Unable to copy text to clipboard", err);
                     setCopySuccess(false);
+                })
+                .finally(() => {
+                    selection.removeAllRanges();
+                    selection.addRange(range);
                 });
         }
     };
+
+    const handleLikeClick = async (index, cId) => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            handleOpenlogin();
+            return;
+        }
+
+        try {
+            const userId = localStorage.getItem("id");
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+
+            const updatedLikedItems = [...likedItems];
+
+            if (!likedItems.includes(cId)) {
+                updatedLikedItems.push(cId);
+                setLikedItems(updatedLikedItems);
+
+                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+            } else {
+                const filteredItems = updatedLikedItems.filter((item) => item !== cId);
+                setLikedItems(filteredItems);
+
+                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    };
+
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
 
     useEffect(() => {
         setIsLoggedIn(role === "General");
     }, [role]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = localStorage.getItem('id');
 
+            if (userId) {
+                try {
+                    const token = localStorage.getItem('token');
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    };
 
+                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                    const savedCouponsData = response.data.savedCoupons || [];
+                    const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
+                    setLikedItems(likedCouponIds);
+                } catch (error) {
+                    console.error('Error fetching saved coupons:', error);
+                }
+            }
+        };
 
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:4000/api/storeDisplay/Clothing");
+                setClothes(response.data.data);
+            } catch (error) {
+                console.log("Unable to get data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -156,99 +253,100 @@ const ClothingBased = () => {
                     <div className="flex flex-col gap-1 lg:gap-5">
                         <span className="font-semibold text-lg lg:text-3xl">Clothings Offers</span>
                     </div>
-                    <Link to="/allcategories" className="hover:underline h-7 duration-300 underline">
+                    <div className="hover:underline h-7 duration-300 underline"
+                        onClick={() => {
+                            navigate("/categoriesdetails", { state: { category: "Clothing", category_icon: Clothing } })
+                        }}>
                         View All Clothing Offers
-                    </Link>
+                    </div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4">
-                    {categoriesBasedCoupons.Clothing.map((item, index) => (
-                        <div key={index}
-                            className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
-
-                            <img
-                                src={item.bg}
-                                className="cursor-pointer w-full h-1/2"
-                            />
-
-                            <span
-                                className={`p-2 hidden group-hover:block absolute right-1 top-1 backdrop-blur-sm bg-transparent border border-transparent  rounded-lg hover:text-[#B33D53] ${likedItems.includes(index) ? 'text-[#B33D53]' : 'text-black'
-                                    }`}
-                                onClick={() => handleLikeClick(index)}
-                            >
-                                {likedItems.includes(index) ? (
-                                    <FaHeart className="cursor-pointer text-3xl duration-300" />
-                                ) : (
-                                    <FaRegHeart className="cursor-pointer text-3xl duration-300" />
-                                )}
-                            </span>
-
-                            <img src={item.logo} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border  bg-white rounded-full" />
-                            <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
-
-                                {item.Verified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
+                    {clothes
+                        .filter(item => new Date(item.due_date) >= new Date())
+                        .slice(0, 8)
+                        .map((item, index) => (
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
+                                <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" />
+                                <span
+                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
+                                        }`}
+                                    onClick={() => handleLikeClick(index, item.coupon_id)}
+                                >
+                                    <FaHeart className="cursor-pointer text-xl duration-300" />
+                                </span>
+                                <img src={item.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border mt-2 bg-white rounded-full" />
+                                <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
+                                    {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
+                                </div>
+                                <div className="mx-2 h-[48px] px-2 text-justify">
+                                    <span className="text-black mr-2">{item.title}</span>
+                                </div>
+                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
+                                    <span>{item.name}</span>
+                                    <span>{item.user_count} Used</span>
+                                </div>
+                                <div className="flex flex-col items-center justify-between">
+                                    <button className="button has-code1" onClick={() => handleOpen(item)} >
+                                        <span className="is-code1">74{item.coupon_code}</span>
+                                        <span className="is-code-text1 uppercase"><em>Get {item.type}</em></span>
+                                    </button>
+                                </div>
                             </div>
-                            <div className="mx-2 h-[48px] px-2 mt-2 text-justify">
-                                <span className="text-black mr-2">{item.title}</span>
-                            </div>
-                            <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
-                                <span>{item.company}</span>
-                                <span>{item.used} Used</span>
-                            </div>
-                            <div className="flex flex-col items-center justify-between">
-                                <button className="button has-code" onClick={() => handleOpenDialog()}>
-                                    <span className="is-code">{item.coupon}</span>
-                                    <span className="is-code-text"><em>GET CODE</em></span>
-                                </button>
-                            </div>
-                        </div>
-                    )).slice(0, 8)}
+                        ))}
                 </div>
             </div>
-            <Dialog open={openDialog} handler={handleOpenDialog} >
-                <DialogHeader className="flex justify-between items-center">
-                    <Button variant="text" color="blue-gray" onClick={handleOpenDialog}>
-                        Close
-                    </Button>
-                </DialogHeader>
-                <DialogBody>
-                    <div className="flex flex-col items-center">
-                        <div className="h-3/4  flex flex-col gap-5 items-center">
-                            <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center mt-5 mx-auto border border-black">
-                                <img src="" alt="logo" className='h-auto w-auto px-5' />
-                            </div>
-                            <div className="flex gap-5 justify-center items-center"> <div className="text-2xl font-bold">Store Name</div>
-                                <div className="text-2xl font-bold text-black">title text</div></div>
-                            <div className="text-lg">Ends 29/2/2034</div>
-                            <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
-                                <span className="copy-text tracking-widest">87$8gr</span>
-                                <button
-                                    className="bg-[#800000]  max-w-fit p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
-                                    onClick={handleCopyClick}>
-                                    Copy
-                                </button>
-                            </div>
-                            {copySuccess && <span style={{ color: 'green' }}>Copied!</span>}
-                            <div className="text-lg">
-                                Copy and paste this code at {""}
-                                <a href="https://www.amazon.in/" target="_blank" rel="noopener noreferrer" className="underline text-[#800000] hover:cursor-pointer">
-                                    website url
+
+            <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5">
+                <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
+                <div className="flex flex-col items-center" onClick={handleInsideClick}>
+                    <div className="h-3/4  flex flex-col gap-3 lg:gap-5 items-center">
+                        <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
+                            <img src={selectedProduct?.logo_url} alt="logo" className='h-auto w-auto px-5' />
+                        </div>
+                        <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
+                            <div className="text-2xl font-bold whitespace-nowrap">{selectedProduct.name && selectedProduct?.name.toUpperCase()}</div>
+                            <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div>
+                        </div>
+                        <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
+                        <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
+                            <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
+                            <button
+                                className="bg-[#800000]  max-w-fit p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                onClick={handleCopyClick}
+                            >
+                                Copy
+                            </button>
+                        </div>
+                        {copySuccess && (
+                            <div className="text:sm lg:text-lg text-green-800">
+                                Copy and paste this code at{" "}
+                                <a
+                                    href={correctedRefLink}
+                                    target="_blank"
+                                    onClick={() => {
+                                        handleUse(selectedProduct.coupon_id);
+                                    }}
+                                    rel="noopener noreferrer"
+                                    className="underline text-[#800000] hover:cursor-pointer"
+                                >
+                                    {correctedRefLink}
                                 </a>
                             </div>
-                            <div className="flex gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
-                                <span className="text-sm lg:text-lg text-[#800000]">
-                                    Did the coupon work?
-                                </span>
-                                <button className="border border-green-600 hover:bg-green-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
-                                    <FaThumbsUp></FaThumbsUp>
-                                </button>
-                                <button className="border border-red-600 hover:bg-red-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
-                                    <FaThumbsDown></FaThumbsDown>
-                                </button>
-                            </div>
+                        )}
+
+                        <div className="flex gap-2 lg:gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
+                            <span className="text-sm lg:text-lg text-[#800000] whitespace-nowrap">Did the coupon work?</span>
+                            <button className="border border-green-600 hover:bg-green-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsUp></FaThumbsUp>
+                            </button>
+                            <button className="border border-red-600 hover:bg-red-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsDown></FaThumbsDown>
+                            </button>
                         </div>
                     </div>
-                </DialogBody>
+                </div>
             </Dialog>
+
             <Dialog open={openlogin} handler={handleOpenlogin} className="relative ">
                 <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => closeboth()}>
                     <IoMdClose></IoMdClose>
