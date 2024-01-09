@@ -21,7 +21,92 @@ const AdvertiseUs = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-semibold ml-2 mt-5">About Qwik Savings</span>
+                    <span className="text-2xl font-bold ml-2 mt-5"> Advertise With Us</span>
+                </div>
+                <div className="w-full ml-2 p-5 pt-0 text-lg">
+                    <img className="float-right w-[50%] h-auto m-10 lg:-mt-24 mr-0" src={img1} />
+                    <p className="text-justify">
+                        At  Qwik  Savings,  we  offer  prime  advertising
+                        opportunities  to  elevate  your  brand  visibility.
+                        Partner  with  us  to  showcase  your  products  or
+                        services  to  our  engaged  audience  of
+                        thousands.
+                    </p>
+                    <div className="text-2xl font-semibold my-5">Why  Advertise  With  Us?</div>
+                    <ul className="ml-5 list-disc text-justify">
+                        {advertise.map((ele, index) => (
+                            <li key={index} className="my-5">
+                                <span className="font-semibold whitespace-nowrap inline">{ele.text}:</span>
+                                <span className="whitespace-wrap"> {ele.content}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="contactform flex justify-between items-center w-fit p-10 border border-gray-600 shadow-xl rounded-lg bg-white mx-5 mt-5 mb-10">
+                    <div className="w-full flex flex-col gap-5">
+                        <div className='text-xl font-semibold'>Ready  to  get  started?</div>
+                        <div className='text-justify'>Fill  out  the  form  below  to  kickstart  your  advertising  journey  with  Qwik
+                            Savings.  Let{`'`}s  collaborate  and  create  impactful  campaigns  that  drive  results.  Your  success  is  our
+                            priority,  and  we{`'`}re  here  to  help  you  achieve  your  advertising  goals.  Join  us  today  to  unlock  a
+                            world  of  advertising  possibilities!</div>
+                        <div className="flex flex-col gap-3">
+                            <span className="text-md flex">Full Name <span>*</span></span>
+                            <input type="text" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <span className="text-md flex">Company Name <span>*</span></span>
+                            <input type="text" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <span className="text-md flex">Website  URL <span>*</span></span>
+                            <input type="text" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <span className="text-md flex">Email Address<span>*</span></span>
+                            <input type="email" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                        </div>
+                        <label className="block">
+                            Are you in an affiliate network?
+                            <div className="mt-2">
+                                <label className="inline-flex items-center">
+                                    <input
+                                        type="radio"
+                                        className="form-radio  checked:bg-[#FAF9F5] text-gray-800 focus:outline-none"
+                                        name="affiliate"
+                                        value="yes"
+                                        onChange={handleAffiliateChange}
+                                    />
+                                    <span className="ml-2">Yes</span>
+                                </label>
+                                <label className="inline-flex items-center ml-6">
+                                    <input
+                                        type="radio"
+                                        className="form-radio checked:bg-[#FAF9F5] text-gray-800 focus:outline-none"
+                                        name="affiliate"
+                                        value="no"
+                                        onChange={handleAffiliateChange}
+                                    />
+                                    <span className="ml-2">No</span>
+                                </label>
+                            </div>
+                        </label>
+                        {
+                            isAffiliate && (<div className="flex flex-col gap-1">
+                                <span className="text-md flex">Name of Affiliate Network</span>
+                                <input type="text" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                            </div>)
+                        }
+                        <div className="flex flex-col gap-1">
+                            <span className="text-md flex">Message <span>*</span></span>
+                            <textarea type="text" className="w-full bg-[#FAF9F5] h-28 outline-none border rounded-lg p-1 " required />
+                        </div>
+                        <div className="inline-flex items-center gap-5">
+                            <input type="checkbox" className=" bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
+                            <span className="text-md flex items-center gap-2">I accept the <span className="font-bold cursor-pointer">Privacy Policy</span> </span>
+                        </div>
+
+                        <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit">Submit Form</button>
+                    </div>
                 </div>
             </div>
             <Footer></Footer>

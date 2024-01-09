@@ -60,16 +60,16 @@ const Events = [
         id: 7,
         img: img10,
         button: "Offer",
-        title: "Easter Deals",
+        title: "Father’s Day",
     },
     {
         id: 8,
         img: img8,
         button: "Sale",
-        title: "Labor Day",
+        title: "Back to School",
     },
     {
-        id: 9,
+        id: 11,
         img: img9,
         button: "Sale",
         title: "Halloween Discount Codes",
@@ -90,7 +90,7 @@ const Events = [
         id: 12,
         img: img8,
         button: "Sale",
-        title: "Father's Day",
+        title: "Halloween",
     },
     {
         id: 13,
