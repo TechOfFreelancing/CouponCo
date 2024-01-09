@@ -32,7 +32,7 @@ const Event = () => {
                             return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-[275px] border shadow-lg rounded-xl p-2 bg-white'>
                                 <span className='text-xl font-bold text-center w-3/4'>{ele.title}</span>
                                 <div className='bg-[#F2F0E6] h-[245px] w-[200px] rounded-lg flex items-center justify-center'>
-                                    <img src={ele.img} alt="" className='h-[100px] w-auto'/>
+                                    <img src={ele.img} alt="" className='h-[100px] w-auto' />
                                 </div>
                                 <Link to="/eventdetails" className='bg-black text-white px-5 py-2 w-[200px] rounded-lg text-center'>{ele.button}</Link>
 
