@@ -17,18 +17,18 @@ const CustomForm = ({ status, message, onValidated }) => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <div className="flex max-w-md flex-row items-center justify-center rounded-full border border-red-800 overflow-clip h-[50px] w-96">
+            <div className="flex max-w-md flex-row items-center justify-center w-full rounded-full border border-red-800 overflow-clip h-[50px]">
                 <input
                     ref={(node) => (email = node)}
                     type="email"
                     placeholder="Enter Your Email Address Here"
-                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 h-full"
+                    className="min-w-0 flex-auto outline-none px-3.5 py-2 text-black shadow-sm text-sm sm:leading-6 w-52 lg:w-80 h-full"
                 />
 
                 <button
                     type="submit"
                     onClick={submit}
-                    className=" flex-none bg-[#B33D53] px-3.5 h-full text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 "
+                    className="flex-none bg-[#B33D53] px-3.5 h-full text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 max-w-fit"
                 >
                     Subscribe
                 </button>
@@ -43,33 +43,34 @@ const CustomForm = ({ status, message, onValidated }) => {
 
 export default function Footer() {
     return (
-        <div className="relative isolate overflow-hidden bg-white p-10 border-t-[1px] border-t-[#B33D53]">
-            <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-start h-[350px] mb-5">
-                <div className='flex flex-col w-full lg:w-1/4 items-center justify-center'>
-                    <img
-                        src={logo}
-                        alt="Qwik Savings"
-                        className="w-1/2 rounded-full m-5"
-                    />
-                    <p className="text-black-300 text-justify">
-                        Qwik Savings, as the name suggests, is your go-to destination for quick savings. It helps you save faster than other websites in the market by providing hand-tested coupon codes or offers. We guarantee that each of our codes works; if it doesn{`'`}t, we{`'`}ll give you a gift card so you can treat yourself on us.
-                    </p>
-                </div>
-                {
-                    SITEMAP.map((ele, index) => {
-                        return (
-                            <div key={index} className='flex flex-col gap-3 items-center lg:items-stretch'>
-                                <div className='font-bold text-xl'>{ele.title}</div>
-                                {
-                                    ele.links.map((ele, index) => {
-                                        return (
-                                            <Link to={ele.href} key={index}>{ele.text}</Link>
-                                        )
-                                    })
-                                }
-                            </div>
-                        )
-                    })
+        <>
+            <div className="relative isolate overflow-hidden bg-white p-10 border-t-[1px] border-t-[#B33D53]">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-start h-[350px] mb-5">
+                    <div className='flex flex-col w-full lg:w-1/4 items-center justify-center'>
+                        <img
+                            src={logo}
+                            alt="Qwik Savings"
+                            className="w-1/2 rounded-full m-5"
+                        />
+                        <p className="text-black-300 text-justify">
+                            Qwik Savings, as the name suggests, is your go-to destination for quick savings. It helps you save faster than other websites in the market by providing hand-tested coupon codes or offers. We guarantee that each of our codes works; if it doesn{`'`}t, we{`'`}ll give you a gift card so you can treat yourself on us.
+                        </p>
+                    </div>
+                    {
+                        SITEMAP.map((ele, index) => {
+                            return (
+                                <div key={index} className='flex flex-col gap-3 items-center lg:items-stretch'>
+                                    <div className='font-bold text-xl'>{ele.title}</div>
+                                    {
+                                        ele.links.map((ele, index) => {
+                                            return (
+                                                <Link to={ele.href} key={index}>{ele.text}</Link>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            )
+                        })
 
                     }
                     <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col gap-3 items-start justify-center">
@@ -111,7 +112,7 @@ export default function Footer() {
                 <div>&copy; {new Date().getFullYear()} QwikSavings.com All rights reserved.</div>
 
             </div>
-        </div>
+        </>
     )
 }
 
