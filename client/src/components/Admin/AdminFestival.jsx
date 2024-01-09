@@ -53,12 +53,10 @@ function AdminFestival() {
             });
 
             if (res.data.message === 'Success!') {
+                setCurrentFestival({ festival: "", discount: "" });
                 toast.success("Offers data deleted!");
-                setCurrentFestival({ festival: '', discount: '' });
             }
-            else {
-                toast.error("Unable to delete!");
-            }
+            else toast.error("Unable to delete!");
         } catch (err) {
             console.error(err);
         }
@@ -85,6 +83,7 @@ function AdminFestival() {
                 : `https://backend.qwiksavings.com/api/admin/addFest&Disc`;
 
             await axios[isUpdate ? 'put' : 'post'](apiUrl, data, config);
+            setCurrentFestival({ festival: data.festival, discount:data.discount });
             toast.success('Festival Details Added successfully');
             setCurrentFestival({ festival: data.festival, discount:data.discount });
         } catch (error) {

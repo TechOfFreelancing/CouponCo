@@ -57,6 +57,18 @@ const AdminCoupons = () => {
     }
   };
 
+  const couponStore = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/api/getStore/${id}`);
+      response.data.store.name;
+    } catch (error) {
+      console.error("Error fetching store:", error);
+      return ""; // Handle error gracefully
+    }
+  };
+
+  let value;
+
   return (
     <>
       <Toaster position="top-center"></Toaster>
@@ -90,6 +102,8 @@ const AdminCoupons = () => {
                       </div>
                       <div className="text-md text-gray-600 mb-2">{coupon.user_count} uses today</div>
                       <div className="bg-gray-100 text-center rounded p-2 mb-2">{coupon.coupon_code}</div>
+                      <div className="bg-gray-100 text-center rounded p-2 mb-2">{coupon.category}</div>
+                      <div className="bg-gray-100 text-center rounded p-2 mb-2">{coupon.store_id}</div>
                       <Tooltip content="Delete Coupon">
                         <button
                           className="absolute top-2 right-2 text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
