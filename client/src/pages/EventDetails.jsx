@@ -58,14 +58,14 @@ const EventDetails = () => {
                     </div>
                     <div className="flex flex-col-reverse lg:flex-row ">
                         <div className="w-screen lg:w-1/4 lg:flex flex-col gap-5 text-black border lg:mx-auto lg:p-5">
-                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
+                            <div className="bg-white p-5 rounded-lg shadow-boxshadow">
                                 <div className="text-xl font-bold my-2">About</div>
-                                <div className="flex flex-wrap gap-2 text-sm text-justify">
+                                <div className="flex flex-wrap gap-2 text-sm">
                                     <p>{eventDetails.about}</p>
 
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-2 border-2 border-gray-500 rounded-lg p-5 bg-white">
+                            <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
                                 <div className="text-xl text-justify" style={{ fontWeight: 700 }}>Today{`'`}s Top Shopping Events</div>
                                 {
                                     eventDetails.Events && eventDetails.Events?.slice(0, 2).map((ele, index) => {
@@ -97,7 +97,7 @@ const EventDetails = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-5 shadow-sm border-2 border-gray-500 rounded-lg">
+                            <div className="bg-white p-5 shadow-boxshadow rounded-lg">
                                 <div className="text-xl font-bold my-2">Popular Store</div>
                                 <div className="flex flex-wrap gap-2">
                                     {

@@ -1,11 +1,3 @@
-
-import { BiSolidMap } from 'react-icons/bi';
-import { FaMobileAlt, FaPinterest, FaFacebook } from 'react-icons/fa';
-import { BsTwitter, BsLinkedin } from 'react-icons/bs'
-import { AiFillInstagram } from 'react-icons/ai'
-
-
-
 const SITEMAP = [
     {
         id: "1",
@@ -34,42 +26,6 @@ const SITEMAP = [
     },
 ];
 
-const ICONS = [
-    {
-        id: "1",
-        icon: AiFillInstagram,
-        link: ""
-    },
-    {
-        id: "2",
-        icon: BsTwitter,
-        link: ""
-    },
-    {
-        id: "3",
-        icon: BsLinkedin,
-        link: ""
-    },
-    {
-        id: "4",
-        icon: FaMobileAlt,
-        link: ""
-    },
-    {
-        id: "5",
-        icon: BiSolidMap,
-        link: ""
-    },
-    {
-        id: "6",
-        icon: FaPinterest,
-        link: ""
-    },
-    {
-        id: "7",
-        icon: FaFacebook,
-        link: ""
-    },
-]
 
-export { SITEMAP, ICONS };
+
+export { SITEMAP };

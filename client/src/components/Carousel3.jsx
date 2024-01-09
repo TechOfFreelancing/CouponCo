@@ -97,7 +97,7 @@ const Carousel = () => {
     }, [index]);
 
     return (
-        <div className='container overflow-clip rounded-xl lg:rounded-[3rem] h-[200px] lg:h-[350px] max-w-fit' >
+        <div className='container overflow-clip rounded-[10px] h-[200px] lg:h-[350px] max-w-fit' >
             {
                 featuredImages[index] ? (
                     <div className='slideshow group lg:w-[1000px] w-screen my-0 lg:my-auto'>
@@ -117,7 +117,7 @@ const Carousel = () => {
                                     exit='exit'
                                     src={featuredImages[index].thumbnail}
                                     alt='slides'
-                                    className='slides object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[1000px] rounded-xl lg:rounded-[3rem]'
+                                    className='slides object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[1000px] rounded-[10px]'
                                     key={featuredImages[index].thumbnail}
                                     custom={direction}
 
