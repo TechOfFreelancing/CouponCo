@@ -1,4 +1,5 @@
-import { FaFacebook, FaInstagram, FaTwitter, FaPinterest, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaPinterest, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { RiTwitterXLine } from "react-icons/ri";
 
 
 const SocialIcon = [
@@ -15,7 +16,7 @@ const SocialIcon = [
     },
     {
         id: 3,
-        icon: FaTwitter,
+        icon: RiTwitterXLine,
         link: ""
     },
     {
