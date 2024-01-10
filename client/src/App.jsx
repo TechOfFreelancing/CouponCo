@@ -1,8 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import SignUp from './pages/Signup';
 import Login from './pages/Login';
-// import MobileFooter from './components/MobileFooter'
-// import Footer from './components/Footer';
 import NoMatch from './pages/NoMatch';
 import Home from './pages/Home';
 import { Header } from './components/Header';
@@ -27,7 +25,6 @@ import Profile from './pages/Profile';
 import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
 import CategoriesDetails from './pages/CategoriesDetails';
-import CategoryStores from './pages/CategoryStores';
 import ContactUs from './pages/ContactUs';
 import AdvertiseUs from './pages/AdvertiseUs';
 import FAQS from './pages/FAQS';
@@ -218,15 +215,6 @@ function App() {
               <>
                 <Header></Header>
                 <CategoriesDetails></CategoriesDetails>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/categoriesStore"
-            element={
-              <>
-                <Header></Header>
-                <CategoryStores></CategoryStores>
               </>
             }
           ></Route>
