@@ -43,6 +43,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 
 export default function Footer() {
     return (
+
         <div className="relative isolate overflow-hidden bg-white p-10 border-t-[1px] border-t-[#B33D53]">
             <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-start h-[350px] mb-5">
                 <div className='flex flex-col w-full lg:w-1/4 items-center justify-center'>
@@ -110,7 +111,6 @@ export default function Footer() {
                     Disclosure: If you buy a product or service through Qwik Savings, we may earn a commission
                 </div>
                 <div>&copy; {new Date().getFullYear()} QwikSavings.com All rights reserved.</div>
-
             </div>
         </div>
     )

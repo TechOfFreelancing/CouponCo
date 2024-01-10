@@ -67,7 +67,7 @@ const AboutUs = () => {
                         aboutus.map((ele, index) => <div key={index} className="bg-[#FAF9F5] rounded-2xl flex flex-col gap-4 items-center justify-center px-5 h-[420px] shadow-boxshadow">
                             <img src={ele.img} alt="" className='h-3/5 w-auto mix-blend-multiply' />
                             <div className="h-1/8 text-2xl font-bold">
-                                {ele.text}
+                                {ele.id}. {ele.text}
                             </div>
                             <div className="h-1/8 text-2xl font-bold">
                                 {ele.content}

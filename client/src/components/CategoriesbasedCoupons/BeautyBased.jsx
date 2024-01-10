@@ -1,92 +1,455 @@
-import categoriesBasedCoupons from "../../api/CategoriesBasedCoupons";
-import "../../components/couponsbutton.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import {
     Button,
     Dialog,
-    DialogHeader,
-    DialogBody,
+    Input,
+    Typography,
+    Card,
 } from "@material-tailwind/react";
-import { FaThumbsUp, FaThumbsDown, FaHeart, FaRegHeart } from 'react-icons/fa6';
+import { FaThumbsUp, FaThumbsDown, FaHeart, FaRegHeart } from "react-icons/fa6";
+import Beauty from '../../assets/images/categories/Beauty.png'
+import { IoMdClose } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
+import AuthContext from "../../components/AuthContext";
+import "../../components/couponsbutton.css";
 
 const BeautyBased = () => {
-
-    const [openDialog, setOpenDialog] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState("");
     const [copySuccess, setCopySuccess] = useState(false);
+    const [openlogin, setOpenlogin] = useState(false);
+    const [openregister, setOpenregister] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name1, setName1] = useState("");
+    const [email1, setEmail1] = useState("");
+    const [password1, setPassword1] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [beauty, setBeauty] = useState([]);
+    const [open, setOpen] = useState(false);
 
-    const handleOpenDialog = () => {
-        // setSelectedProduct(product);
-        if (!openDialog) {
-            setOpenDialog(true);
-        } else {
-            setOpenDialog(false)
+    const { updateUserRole, role } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleOpenlogin = () => setOpenlogin(!openlogin);
+    const handleOpenregister = () => setOpenregister(!openregister);
+
+    const closeboth = () => {
+        setOpenlogin(false);
+        setOpenregister(false);
+    };
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`http://localhost:4000/api/register`, {
+                name: name1,
+                email,
+                password,
+            });
+
+            toast.success("Registration successful");
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
+        } catch (error) {
+            toast(error.response.statusText);
+            console.error("Registration failed:", error);
         }
     };
 
-    const handleLikeClick = (index) => {
-        // Check if the item is already liked
-        if (!likedItems.includes(index)) {
-            // If not liked, add it to the likedItems state
-            setLikedItems([...likedItems, index]);
-        } else {
-            // If already liked, remove it from the likedItems state
-            setLikedItems(likedItems.filter((item) => item !== index));
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await axios.post(`http://localhost:4000/api/login`, {
+                email,
+                password,
+            });
+
+            const { message, token, user } = res.data;
+
+            toast.success(message);
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("id", user.user_id);
+            localStorage.setItem("role", user.role);
+            updateUserRole(user.role);
+
+            setTimeout(() => {
+                user.role === "Admin" ? navigate("/Admin") : navigate("/");
+            }, 1200);
+        } catch (error) {
+            toast.error(error.response.statusText);
+            console.error("Login failed:", error);
         }
     };
+
+    const formatDate = (dateString) => {
+        const options = { month: "long", day: "numeric", year: "numeric" };
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString("en-US", options);
+
+        const day = date.getDate();
+        const suffix = (day >= 10 && day <= 20) ? "th" : ["st", "nd", "rd"][day % 10 - 1] || "th";
+
+        return formattedDate.replace(/(\d+)(?=(st|nd|rd|th))/, `$1${suffix}`);
+    };
+
+    const handleUse = async (cId) => {
+        try {
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleOpen = async (product) => {
+        setSelectedProduct(product);
+        setOpen(true);
+
+        setTimeout(() => {
+            handleCopyClick();
+        }, 1000);
+
+        setTimeout(() => {
+            window.open(correctedRefLink, "_blank");
+        }, 2000);
+    };
+
+    const handleClose = () => {
+        setOpen(!open);
+        setCopySuccess(false);
+    };
+
+    const handleOutsideClick = () => {
+        if (open) {
+            setOpen(false);
+        }
+        if (copySuccess) {
+            setCopySuccess(false);
+        }
+    };
+
+    const handleInsideClick = (event) => {
+        event.stopPropagation();
+    };
+
+    const handleCopyClick = () => {
+        const textToCopy = document.querySelector(".copy-text");
+
+        if (textToCopy) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(textToCopy);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            const text = textToCopy.textContent || textToCopy.innerText;
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    setCopySuccess(true);
+                })
+                .catch((err) => {
+                    console.error("Unable to copy text to clipboard", err);
+                    setCopySuccess(false);
+                })
+                .finally(() => {
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                });
+        }
+    };
+
+    const handleLikeClick = async (index, cId) => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            handleOpenlogin();
+            return;
+        }
+
+        try {
+            const userId = localStorage.getItem("id");
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+
+            const updatedLikedItems = [...likedItems];
+
+            if (!likedItems.includes(cId)) {
+                updatedLikedItems.push(cId);
+                setLikedItems(updatedLikedItems);
+
+                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+            } else {
+                const filteredItems = updatedLikedItems.filter((item) => item !== cId);
+                setLikedItems(filteredItems);
+
+                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    };
+
+    const correctedRefLink = selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
+
+    useEffect(() => {
+        setIsLoggedIn(role === "General");
+    }, [role]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = localStorage.getItem('id');
+
+            if (userId) {
+                try {
+                    const token = localStorage.getItem('token');
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    };
+
+                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                    const savedCouponsData = response.data.savedCoupons || [];
+                    const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
+
+                    setLikedItems(likedCouponIds);
+                } catch (error) {
+                    console.error('Error fetching saved coupons:', error);
+                }
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:4000/api/storeDisplay/Beauty");
+                setBeauty(response.data.data);
+            } catch (error) {
+                console.log("Unable to get data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
-        <div className="clothing mb-5">
-            <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between my-10 ">
-                <div className="flex flex-col gap-1 lg:gap-5">
-                    <span className="font-semibold text-lg lg:text-3xl">Beauty Offers</span>
+        <>
+            <Toaster position="top-center"></Toaster>
+            <div className="clothing mb-5">
+                <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between my-10 h-[2rem]">
+                    <div className="flex flex-col gap-1 lg:gap-5">
+                        <span className="font-semibold text-lg lg:text-3xl">Beauty Offers</span>
+                    </div>
+                    <div className="hover:underline h-7 duration-300 underline"
+                        onClick={() => {
+                            navigate("/categoriesdetails", { state: { category: "Beauty", category_icon: Beauty } })
+                        }}>
+                        View All Beauty Offers
+                    </div>
                 </div>
-                <Link to="" className="hover:underline h-7 duration-300 underline">
-                    View All Beauty Offers
-                </Link>
+                <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4">
+                    {beauty
+                        .filter(item => new Date(item.due_date) >= new Date())
+                        .slice(0, 4)
+                        .map((item, index) => (
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
+                                <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" />
+                                <span
+                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
+                                        }`}
+                                    onClick={() => handleLikeClick(index, item.coupon_id)}
+                                >
+                                    <FaHeart className="cursor-pointer text-xl duration-300" />
+                                </span>
+                                <img src={item.logo_url} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border mt-2 bg-white rounded-full" />
+                                <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
+                                    {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
+                                </div>
+                                <div className="mx-2 h-[48px] px-2 text-justify">
+                                    <span className="text-black mr-2">{item.title}</span>
+                                </div>
+                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
+                                    <span>{item.name}</span>
+                                    <span>{item.user_count} Used</span>
+                                </div>
+                                <div className="flex flex-col items-center justify-between">
+                                    <button className="button has-code1" onClick={() => handleOpen(item)} >
+                                        <span className="is-code1">74{item.coupon_code}</span>
+                                        <span className="is-code-text1 uppercase"><em>Get {item.type}</em></span>
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-4  justify-items-stretch gap-4">
-                {categoriesBasedCoupons.Clothing.map((item, index) => (
-                    <div key={index}
-                        className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
-                        <img
-                            src={item.bg}
-                            className="cursor-pointer w-full h-1/2"
-                        />
-                        <span
-                            className={`p-2 hidden group-hover:block absolute right-1 top-1 backdrop-blur-sm bg-transparent border border-transparent  rounded-lg hover:text-[#B33D53] ${likedItems.includes(index) ? 'text-[#B33D53]' : 'text-black'
-                                }`}
-                            onClick={() => handleLikeClick(index)}
-                        >
-                            {likedItems.includes(index) ? (
-                                <FaHeart className="cursor-pointer text-3xl duration-300" />
-                            ) : (
-                                <FaRegHeart className="cursor-pointer text-3xl duration-300" />
-                            )}
-                        </span>
 
-                        <img src={item.logo} alt="" className="absolute z-10 h-[75px] w-[75px] left-2 bottom-36 border mt-2 bg-white rounded-full" />
-                        <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
+            <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5">
+                <IoMdClose className="text-black h-6 w-6 absolute right-5 top-5 cursor-pointer" onClick={() => handleClose()} />
+                <div className="flex flex-col items-center" onClick={handleInsideClick}>
+                    <div className="h-3/4  flex flex-col gap-3 lg:gap-5 items-center">
+                        <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
+                            <img src={selectedProduct?.logo_url} alt="logo" className='h-auto w-auto px-5' />
+                        </div>
+                        <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
+                            <div className="text-2xl font-bold whitespace-nowrap">{selectedProduct.name && selectedProduct?.name.toUpperCase()}</div>
+                            <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div>
+                        </div>
+                        <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
+                        <div className="flex gap-10 items-center justify-center border border-black rounded-full text-2xl pl-10 p-2 bg-red-50/40">
+                            <span className="copy-text tracking-widest">{selectedProduct.coupon_code}</span>
+                            <button
+                                className="bg-[#800000]  max-w-fit p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                onClick={handleCopyClick}
+                            >
+                                Copy
+                            </button>
+                        </div>
+                        {copySuccess && (
+                            <div className="text:sm lg:text-lg text-green-800">
+                                Copy and paste this code at{" "}
+                                <a
+                                    href={correctedRefLink}
+                                    target="_blank"
+                                    onClick={() => {
+                                        handleUse(selectedProduct.coupon_id);
+                                    }}
+                                    rel="noopener noreferrer"
+                                    className="underline text-[#800000] hover:cursor-pointer"
+                                >
+                                    {correctedRefLink}
+                                </a>
+                            </div>
+                        )}
 
-                            {item.Verified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
-                        </div>
-                        <div className="mx-2 h-[48px] px-2 text-justify">
-                            <span className="text-black mr-2">{item.title}</span>
-                        </div>
-                        <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
-                            <span>{item.company}</span>
-                            <span>{item.used} Used</span>
-                        </div>
-                        <div className="flex flex-col items-center justify-between">
-                            <button className="button has-code" onClick={() => handleOpenDialog()}>
-                                <span className="is-code">{item.coupon}</span>
-                                <span className="is-code-text"><em>GET CODE</em></span>
+                        <div className="flex gap-2 lg:gap-5 border border-[#800000] px-5 py-3 rounded-full items-center justify-center bg-red-50/40">
+                            <span className="text-sm lg:text-lg text-[#800000] whitespace-nowrap">Did the coupon work?</span>
+                            <button className="border border-green-600 hover:bg-green-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsUp></FaThumbsUp>
+                            </button>
+                            <button className="border border-red-600 hover:bg-red-600 text-black hover:text-white duration-150 px-5 py-3 rounded-md focus:outline-none">
+                                <FaThumbsDown></FaThumbsDown>
                             </button>
                         </div>
                     </div>
-                )).slice(0, 4)}
-            </div>
-        </div>
+                </div>
+            </Dialog>
+
+            <Dialog open={openlogin} handler={handleOpenlogin} className="relative ">
+                <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => closeboth()}>
+                    <IoMdClose></IoMdClose>
+                </span>
+
+                <Card color="transparent" className="h-full flex flex-col justify-center items-center" shadow={false}>
+                    <div className="text-2xl text-black font-semibold mb-2 mt-10 lg:mt-20">Login</div>
+                    <div className="mt-4 mx-auto font-normal text-black my-2">
+                        <span>  New customer?  <span className="underline font-medium text-red-500 transition-colors hover:text-red-800 cursor-pointer" onClick={() => handleOpenregister()}>
+                            Create your account
+                        </span></span>
+
+                    </div>
+                    <div className="bg-white p-10 rounded-xl border flex flex-col gap-5 my-10">
+
+                        <form className="w-56 max-w-screen-lg lg:w-96 mx-auto">
+                            <div className="mb-4 flex flex-col gap-6  items-center justify-center">
+                                <Input type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    size="lg" color="black" label={
+                                        <>
+                                            Email <span className="text-red-500">*</span>
+                                        </>
+                                    } />
+                                <Input
+                                    size="lg"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    color="black"
+                                    label={
+                                        <>
+                                            Password <span className="text-red-500">*</span>
+                                        </>
+                                    }
+                                />
+                            </div>
+                            <Typography color="gray" className="mt-2 mx-auto font-normal">
+                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                    Forgot your password?
+                                </Link>
+                            </Typography>
+                            <Button className="mt-6 bg-[#800000]" type="submit" onClick={handleLogin} fullWidth>
+                                SIGN IN
+                            </Button>
+                            <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
+                        </form>
+                    </div>
+                </Card>
+            </Dialog>
+            <Dialog open={openregister} handler={handleOpenregister} className="relative ">
+                <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => { closeboth() }}>
+                    <IoMdClose></IoMdClose>
+                </span>
+
+                <Card color="transparent" className="h-full flex justify-center items-center" shadow={false}>
+                    <div className="text-4xl text-black font-semibold mb-2 mt-10 lg:mt-20">Join Now</div>
+                    <div className="mt-4 mx-auto font-normal text-black my-2 cursor-pointer">
+                        <span>  Already have an account?  <span className="underline font-medium text-red-500 transition-colors hover:text-red-800" onClick={() => { handleOpenregister(); openlogin() }}>
+                            Log In
+                        </span></span>
+
+                    </div>
+                    <div className="bg-white p-10 rounded-xl my-5 flex flex-col gap-5">
+                        <form className="w-56 max-w-screen-lg lg:w-96 mx-auto">
+                            <div className="mb-4 flex flex-col gap-6  items-center justify-center">
+                                <Input type="text" size="lg" value={name1}
+                                    onChange={(e) => setName1(e.target.value)}
+                                    color="black" label="Name" />
+                                <Input type="email"
+                                    value={email1}
+                                    onChange={(e) => setEmail1(e.target.value)}
+                                    size="lg" color="black" label={
+                                        <>
+                                            Email <span className="text-red-500">*</span>
+                                        </>
+                                    } />
+                                <Input
+                                    size="lg"
+                                    type="password"
+                                    value={password1}
+                                    onChange={(e) => setPassword1(e.target.value)}
+                                    color="black"
+                                    label={
+                                        <>
+                                            Password <span className="text-red-500">*</span>
+                                        </>
+                                    }
+                                />
+                                <span className="text-sm text-gray-500">Password must be 8 characters or more, Don&apos;t use any part of your email, Don&apos;t use a common password</span>
+                            </div>
+                            <Button className="mt-6 bg-[#800000] rounded-full cursor-pointer" type="submit" onClick={handleRegister} fullWidth >
+                                Register
+                            </Button>
+                            <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
+                        </form>
+                    </div>
+                </Card>
+            </Dialog>
+        </>
     )
 }
 

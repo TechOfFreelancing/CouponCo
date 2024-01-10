@@ -1,12 +1,13 @@
-import Footer from '../components/Footer';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import event from '../api/event'
+import Footer from '../components/Footer';
+import event from '../api/event';
 
 const Event = () => {
     return (
         <>
-            <div className='lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32'>
-                <div className="p-4 flex flex-col items-start flex-wrap">
+            <div className='lg:w-[75vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32'>
+                <div className="bg-white p-4 flex flex-col items-start flex-wrap">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -22,16 +23,17 @@ const Event = () => {
                             </Link>
                         </li>
                     </ul>
-                    <div className='font-bold text-lg lg:text-3xl mt-5 ml-2' style={{ fontWeight: 700 }}>Browse Top Saving Events</div>
                     <div className='p-4 text-xl font-bold'>Browse Top Shopping Events</div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4 bg-[#F2F0E6] gap-4 p-5">
                     {
                         event.map((ele, index) => {
-                            return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-auto border duration-300 hover:shadow-boxshadow rounded-xl p-5 bg-white'>
-                                <span className='text-xl font-bold text-center w-3/4 h-1/6'>{ele.title}</span>
-                                <img src={ele.img} alt="" className='w-auto h-1/2 object-cover' />
-                                <Link to="/eventdetails" className='border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'>Reveal Offer</Link>
+                            return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-[275px] border shadow-lg rounded-xl p-2 bg-white'>
+                                <span className='text-xl font-bold text-center w-3/4'>{ele.title}</span>
+                                <div className='bg-[#F2F0E6] h-[245px] w-[200px] rounded-lg flex items-center justify-center'>
+                                    <img src={ele.img} alt="" className='h-[100px] w-auto'/>
+                                </div>
+                                <Link to="/eventdetails" className='bg-black text-white px-5 py-2 w-[200px] rounded-lg text-center'>{ele.button}</Link>
 
                             </div>
                         })
@@ -39,12 +41,10 @@ const Event = () => {
                     }
                 </div>
 
-
-
+                <Footer />
             </div>
-            <Footer></Footer>
         </>
-    )
-}
+    );
+};
 
-export default Event
+export default Event;

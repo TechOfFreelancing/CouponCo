@@ -145,8 +145,12 @@ const UpdateCoupons = () => {
             toast.success("Store Added to Top Offer successfully");
             handleOpenDialog();
         } catch (error) {
-            toast.error(error.response.data.message);
-            console.error(error);
+            setOpenDialog(!openDialog);
+            if(error.response.status == 400){
+                return toast.error("Reach maximum limit");
+            }
+            toast.error("Error due to already existance of coupon or anything");
+            console.log(error);
         }
     }
 
@@ -266,6 +270,7 @@ const UpdateCoupons = () => {
                             name="due_date"
                             style={inputStyle}
                             onChange={formik.handleChange}
+                            value={formik.values.due_date}
                             onBlur={formik.handleBlur}
                         />
                     </div>

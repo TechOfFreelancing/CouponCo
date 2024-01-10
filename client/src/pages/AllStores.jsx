@@ -24,6 +24,17 @@ const AllStores = () => {
 
     const isFestival = location.state?.isFestival;
 
+    const selectedLetter = location.state?.letter;
+
+    // console.log(selectedLetter);
+
+    useEffect(() => {
+        const change = () => {
+            setSelectedCategory(selectedLetter);
+        }
+        selectedLetter && change();
+    }, [selectedLetter]);
+
 
 
     // Fetch stores based on the festival or regular conditions
