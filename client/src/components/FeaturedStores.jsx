@@ -64,15 +64,15 @@ const Featured_Stores = () => {
             <div className="flex gap-5 lg:grid lg:grid-cols-8 lg:overflow-hidden overflow-auto overflow-y-hidden scroll-snap-type-x mandatory scrollbar-hide">
                 {featured.slice(0, 8).map((ele, index) => (
                     <div key={index} className={`flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 hover:z-${index * 10} item flex-shrink-0 scroll-snap-align-start`}>
-                        <div style={{ backgroundColor: `${ele.background}` }} className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] p-5 rounded-full flex items-center justify-center shadow-inner border overflow-hidden">
+                        <div
+                            className="h-[9rem] w-[9rem] rounded-full flex flex-wrap items-center justify-center overflow-clip p-3 bg-white shadow-boxshadow">
                             <img
                                 src={images[index]}
                                 alt={`Logo ${index}`}
+                                className="h-full w-auto object-cover rounded-full shadow-boxshadow"
                                 onClick={() => {
                                     navigate(`/Stores/${ele.name}`, { state: { sId: ele.storeId } });
-                                }}
-                                className="h-auto w-auto max-h-full max-w-full object-contain cursor-pointer rounded-full"
-                            />
+                                }} />
                         </div>
                         <div className="hover:underline text-center group-hover:underline">
                             <span className="flex justify-center gap-2 items-center ">

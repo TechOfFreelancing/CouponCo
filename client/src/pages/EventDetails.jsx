@@ -122,7 +122,7 @@ const EventDetails = () => {
                                                 <div className="flex gap-5 lg:gap-0">
                                                     <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                         <div className="border border-black flex flex-col items-center justify-center">
-                                                            <img src={ele.img} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
+                                                            <img src={ele.img} alt="H" className="h-[50px] w-[50px] lg:max-h-[75px] lg:h-auto lg:w-[75px] rounded-lg m-2" />
                                                             <span className="bg-blue-100 text-center w-full">{ele.type}</span>
                                                         </div>
                                                     </div>
