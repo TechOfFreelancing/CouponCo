@@ -368,11 +368,11 @@ const CategoriesDetails = () => {
                 <div className="flex flex-col items-center" onClick={handleInsideClick}>
                     <div className="h-3/4  flex flex-col gap-3 lg:gap-5 items-center">
                         <div className="h-[150px] w-[150px] bg-white rounded-full flex items-center justify-center  mt-5 mx-auto border border-black">
-                            <img src={couponDetails.length !== 0 && couponDetails.logo_url && couponDetails?.logo_url} alt="logo" className='h-auto w-auto px-5' />
+                            <img src={selectedProduct.length !== 0 && selectedProduct.logo_url && selectedProduct?.logo_url} alt="logo" className='h-auto w-auto px-5' />
                         </div>
                         <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
                             <div className="text-2xl font-bold whitespace-nowrap">
-                                {couponDetails && couponDetails.length !== 0 && couponDetails.name && couponDetails.name.toUpperCase()}
+                                {selectedProduct && selectedProduct.length !== 0 && selectedProduct.name && selectedProduct.name.toUpperCase()}
                             </div>
                             <div className="text-xl font-bold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
