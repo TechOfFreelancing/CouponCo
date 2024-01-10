@@ -42,7 +42,7 @@ const Navlist = () => {
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             stores.map((ele, index) => {
-                                return <div key={index} onClick={() => navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } })}>{ele.name}</div>
+                                return <div key={index} onClick={() => navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } })} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline">{ele.name}</div>
                             })
                         }
                     </div>
@@ -60,7 +60,7 @@ const Navlist = () => {
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             Categories.map((ele, index) => {
-                                return <div key={index} onClick={() => {
+                                return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
                                     navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
                                 }}>{ele.name}</div>
                             })

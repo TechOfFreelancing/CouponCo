@@ -38,7 +38,6 @@ const Store = () => {
     const [openlogin, setOpenlogin] = useState(false);
     const [openregister, setOpenregister] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState('');
-    const [copySuccess, setCopySuccess] = useState(false);
     const [userRating, setUserRating] = useState(0);
     const [ratingcount, setratingcount] = useState(0);
     const [activeTab, setActiveTab] = useState('all');
@@ -51,7 +50,7 @@ const Store = () => {
     const [email1, setEmail1] = useState('');
     const [password1, setPassword1] = useState('');
     const [productlink, setProductlink] = useState('');
-
+    const [waiting, setWaiting] = useState(false);
 
 
     const navigate = useNavigate();
@@ -277,32 +276,30 @@ const Store = () => {
     }
 
 
-    const handleOpen = async (product) => {
+    const handleOpen = (product) => {
         if (open) {
-            setOpen(!open);
+            handleClose();
         }
         else {
             console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
-            const correctedRefLink = await selectedProduct?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
+            setWaiting(true)
+            const correctedRefLink = product?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
             setProductlink(correctedRefLink);
-            if (productlink) {
-
-                console.log(productlink);
-
+            if (correctedRefLink) {
                 setTimeout(() => {
                     handleCopyClick();
                 }, 1000);
                 setTimeout(() => {
-                    window.open(productlink, '_blank');
+                    window.open(correctedRefLink, '_blank');
                 }, 2000);
             }
         }
     };
 
     const handleClose = () => {
-        setCopySuccess(false);
+        setWaiting(true);
         setSelectedProduct("");
         setOpen(!open);
     }
@@ -330,11 +327,10 @@ const Store = () => {
             const text = textToCopy.textContent || textToCopy.innerText;
             navigator.clipboard.writeText(text)
                 .then(() => {
-                    setCopySuccess(true);
+                    setWaiting(false);
                 })
                 .catch((err) => {
                     console.error('Unable to copy text to clipboard', err);
-                    setCopySuccess(false);
                 })
                 .finally(() => {
                     // Restore the original selection
@@ -722,7 +718,7 @@ const Store = () => {
                                             <div className="flex gap-5 lg:gap-0">
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                     <div className="border border-black flex flex-col items-center justify-center">
-                                                        <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2" />
+                                                        <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:max-h-[75px] lg:h-auto lg:w-[75px] rounded-lg m-2" />
                                                         <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                     </div>
                                                 </div>
@@ -746,7 +742,8 @@ const Store = () => {
                                                                 {ele.coupon_code}</span>
                                                             <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
                                                         </button>
-                                                    </div> </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="flex gap-1 items-center text-sm cursor-pointer ml-4 mt-2" onClick={() => toggleDetails(index)}>
                                                 See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
@@ -754,7 +751,7 @@ const Store = () => {
                                             {detailsVisibility[index] && (
                                                 <div className="details flex flex-col ml-4">
                                                     <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                    <span>{ele.description}</span>
+                                                    <span className="overflow-x-clip">{ele.description}</span>
                                                 </div>
                                             )}
 
@@ -780,7 +777,7 @@ const Store = () => {
                                             <div className="flex gap-5 lg:gap-0">
                                                 <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                     <div className="border border-black flex flex-col items-center justify-center">
-                                                        <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:h-[75px] lg:w-[75px] rounded-lg m-2 contrast-50 grayscale" />
+                                                        <img src={str?.logo_url} alt="H" className="h-[50px] w-[50px] lg:max-h-[75px] lg:h-auto lg:w-[75px] rounded-lg m-2 contrast-50 grayscale" />
                                                         <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                     </div>
                                                 </div>
@@ -911,10 +908,15 @@ const Store = () => {
                                 Copy
                             </button>
                         </div>
-                        {copySuccess ? (<div className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
+                        {!waiting ? (<div
+                            className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
                             <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>
-                            <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }} rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000] cursor-pointer flex items-center gap-2">
-                                {str?.name} Product <TbExternalLink />
+                            <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }}
+                                rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000]
+                        cursor-pointer flex items-center gap-2">
+                                {selectedProduct.name &&
+                                    selectedProduct?.name.toUpperCase()} Product
+                                <TbExternalLink />
                             </a>
                         </div>) : (<div className="text:sm lg:text-2xl text-[#800000]">Wait for 2 Second...</div>)}
 
