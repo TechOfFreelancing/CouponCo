@@ -30,6 +30,7 @@ import AdvertiseUs from './pages/AdvertiseUs';
 import FAQS from './pages/FAQS';
 import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import HowitWorks from './pages/HowitWorks';
 
 
 
@@ -261,6 +262,15 @@ function App() {
               <>
                 <Header></Header>
                 <PrivacyPolicy></PrivacyPolicy>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/how-it-works"
+            element={
+              <>
+                <Header></Header>
+                <HowitWorks></HowitWorks>
               </>
             }
           ></Route>

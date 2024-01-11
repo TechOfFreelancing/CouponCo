@@ -524,8 +524,8 @@ const Store = () => {
                                 validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
                                     return (
 
-                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3">
-                                            <li className="font-semibold text-[12px]">{ele.title}</li>
+                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 ml-1">
+                                            <li className="font-semibold text-[12px] pl-2">{ele.title}</li>
                                         </ul>
                                     )
                                 })
@@ -545,7 +545,7 @@ const Store = () => {
                                 </div>
                                 <div className="flex justify-between items-center px-5">
                                     <span className="text-lg text-black">Average Discount</span>
-                                    <span>25 %</span>
+                                    <span className="whitespace-nowrap">25 %</span>
                                 </div>
                             </div>
                         </div>

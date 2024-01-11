@@ -47,7 +47,7 @@ const FAQS = () => {
                     <span className="text-2xl font-bold">Common FAQs at Qwik Savings</span>
                     <ol className="flex flex-col my-10 list-decimal ml-5">
                         {
-                            faq.map((ele, index) => <Accordion key={index} index={ele.id} q={ele.q} a={ele.a}></Accordion>)
+                            faq.map((ele, index) => <Accordion key={index} q={ele.q} a={ele.a}></Accordion>)
                         }
                     </ol>
                 </div>

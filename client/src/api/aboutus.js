@@ -12,14 +12,14 @@ export const aboutus = [
     },
     {
         id: 2,
-        text: "500k",
+        text: "$500k",
         content: "Amout Saved.",
-        img: img2
+        img: img3
     },
     {
         id: 3,
         text: "5,000+",
         content: "Merchant Partners.",
-        img: img3
+        img: img2
     },
 ]
