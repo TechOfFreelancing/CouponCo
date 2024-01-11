@@ -13,7 +13,7 @@ import Clothing from '../../assets/images/categories/Clothing.png'
 import { IoMdClose } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../components/AuthContext";
-import "../../components/couponsbutton.css";
+import "../../styles/couponsbutton.css";
 import { TbExternalLink } from 'react-icons/tb'
 
 const ClothingBased = () => {

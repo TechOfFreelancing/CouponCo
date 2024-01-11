@@ -1,6 +1,6 @@
 import ImagesForLeading2 from '../api/Leanding2';
 import { useState, useEffect } from 'react';
-import "./carousel.css";
+import "../styles/carousel.css";
 import { AiOutlineVerticalRight, AiOutlineVerticalLeft } from 'react-icons/ai';
 
 

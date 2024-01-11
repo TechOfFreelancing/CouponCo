@@ -1,5 +1,5 @@
 import about from '../assets/images/about/about.png'
-import '../components/about.css'
+import '../styles/about.css'
 
 const About = () => {
     return (

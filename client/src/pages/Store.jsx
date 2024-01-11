@@ -26,7 +26,7 @@ import { GoVerified } from "react-icons/go";
 import { CiUser } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
 import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
-import "../components/couponsbutton1.css";
+import "../styles/couponsbutton1.css";
 import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
 import { TbExternalLink } from "react-icons/tb";

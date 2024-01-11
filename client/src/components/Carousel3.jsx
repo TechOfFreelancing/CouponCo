@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import "../components/slideshow.css";
+import "../styles/slideshow.css";
 import { useEffect } from 'react';
 import { AiOutlineVerticalLeft, AiOutlineVerticalRight } from 'react-icons/ai';
 import axios from 'axios';

@@ -10,7 +10,7 @@ import { GoVerified } from 'react-icons/go';
 import { CiUser } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa6';
 import { IoAddOutline } from "react-icons/io5";
-import "../components/couponsbutton.css";
+import "../styles/couponsbutton1.css";
 import Categories from "../api/categories";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";

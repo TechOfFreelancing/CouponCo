@@ -13,7 +13,7 @@ import Home_Garden from '../../assets/images/categories/Home_Garden.png'
 import { IoMdClose } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../components/AuthContext";
-import "../../components/couponsbutton.css";
+import "../../styles/couponsbutton.css";
 import { TbExternalLink } from 'react-icons/tb'
 
 const HomeGardenBased = () => {

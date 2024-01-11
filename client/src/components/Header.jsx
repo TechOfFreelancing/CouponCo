@@ -10,7 +10,7 @@ import axios from "axios";
 import { ImSearch } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavList from "./navlist";
-import "../components/header.css";
+import "../styles/header.css"
 import { FaUserCircle } from "react-icons/fa";
 import logo from '../assets/images/used/logo.png'
 

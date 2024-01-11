@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./carousel.css";
+import "../styles/carousel.css";
 import { AiOutlineVerticalRight, AiOutlineVerticalLeft } from 'react-icons/ai';
 
 
