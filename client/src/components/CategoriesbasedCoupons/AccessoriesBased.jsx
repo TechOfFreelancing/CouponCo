@@ -26,7 +26,6 @@ const AccessoriesBased = () => {
     const [name1, setName1] = useState("");
     const [email1, setEmail1] = useState("");
     const [password1, setPassword1] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [accessories, setAccessories] = useState([]);
     const [open, setOpen] = useState(false);
     const [productlink, setProductlink] = useState('');
@@ -52,12 +51,13 @@ const AccessoriesBased = () => {
                 email,
                 password,
             });
-
+            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
-                navigate("/login");
-            }, 2000);
+                setOpenregister(false);
+                setOpenlogin(true)
+            }, 200);
         } catch (error) {
             toast(error.response.statusText);
             console.error("Registration failed:", error);
@@ -66,7 +66,6 @@ const AccessoriesBased = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
@@ -81,9 +80,9 @@ const AccessoriesBased = () => {
             localStorage.setItem("id", user.user_id);
             localStorage.setItem("role", user.role);
             updateUserRole(user.role);
-
+            setOpenlogin(false);
             setTimeout(() => {
-                user.role === "Admin" ? navigate("/Admin") : navigate("/");
+                user.role === navigate("/");
             }, 1200);
         } catch (error) {
             toast.error(error.response.statusText);
@@ -198,10 +197,6 @@ const AccessoriesBased = () => {
     };
 
     useEffect(() => {
-        setIsLoggedIn(role === "General");
-    }, [role]);
-
-    useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
 
@@ -264,7 +259,7 @@ const AccessoriesBased = () => {
                             <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
                                 <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
-                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
+                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
                                         }`}
                                     onClick={() => handleLikeClick(index, item.coupon_id)}
                                 >

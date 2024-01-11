@@ -12,6 +12,7 @@ const Navlist = () => {
     const [stores, setStores] = useState([]);
 
     const navigate = useNavigate();
+    // console.table(Categories);
 
     useEffect(() => {
         const fetchStores = async () => {
