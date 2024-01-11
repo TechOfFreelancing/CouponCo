@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import img1 from '../assets/images/howitworks/How it Works.jpg'
 import howitworks from "../api/howitworks";
+import Footer from "../components/Footer";
 
 const HowitWorks = () => {
     return (
@@ -66,8 +67,8 @@ const HowitWorks = () => {
                         page or by mailing at contact@qwiksavings.com.
                     </p>
                 </div>
-            </div >
-
+            </div>
+            <Footer></Footer>
         </>
     )
 }
