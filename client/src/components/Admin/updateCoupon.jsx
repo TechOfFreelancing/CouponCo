@@ -368,7 +368,6 @@ const UpdateCoupons = () => {
                             onChange={formik.handleChange}
                             value={formik.values.due_date}
                             onBlur={formik.handleBlur}
-                            value={formik.values.due_date}
                         />
                     </div>
 

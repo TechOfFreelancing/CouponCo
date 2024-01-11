@@ -135,6 +135,7 @@ class Coupons {
             console.error("Error in Creating festival Showcase table:", err);
         }
     }
+
 }
 
 module.exports = Coupons;
