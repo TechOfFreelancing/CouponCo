@@ -117,6 +117,25 @@ function AddCoupons() {
                                     ))}
                                 </Field>
                             </div>
+                            <div className="mb-4">
+                                <label htmlFor="event" className="block mb-1 font-medium">
+                                    Events:
+                                </label>
+                                <Field
+                                    as="select"
+                                    id="category"
+                                    name="category"
+                                    style={inputStyle}
+                                    multiple
+                                >
+                                    <option value="">Select Category</option>
+                                    {typesData.map((category, index) => (
+                                        <option key={index} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </Field>
+                            </div>
 
                             <div className="mb-4">
                                 <label htmlFor="couponCode" className="block mb-1 font-medium">
