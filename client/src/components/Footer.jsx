@@ -17,7 +17,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <div className="flex max-w-md flex-row items-center justify-center rounded-full border border-red-800 overflow-clip h-[50px] w-96">
+            <div className="flex max-w-md flex-row items-center justify-center rounded-full border-2 border-red-800 overflow-clip h-[50px] w-96">
                 <input
                     ref={(node) => (email = node)}
                     type="email"

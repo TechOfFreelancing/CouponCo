@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import typesData from "../api/AllTypes";
+import Footer from "../components/Footer";
 
 
 const SubmitCouponForm = () => {
@@ -88,7 +89,7 @@ const SubmitCouponForm = () => {
         boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
         outline: 'none',
     };
-    
+
     return (
         <>
             <Toaster position="top-center"></Toaster>
@@ -231,6 +232,7 @@ const SubmitCouponForm = () => {
                     </div>
                 </div>
             </div>
+            <Footer></Footer>
         </>
     )
 }

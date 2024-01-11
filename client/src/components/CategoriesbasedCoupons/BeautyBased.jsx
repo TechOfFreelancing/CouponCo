@@ -278,7 +278,7 @@ const BeautyBased = () => {
                                 <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
                                     {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
                                 </div>
-                                <div className="mx-2 h-[48px] p-2 text-justify cursor-pointer" onClick={() => handleOpen(item)}>
+                               <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
                                     <span className="text-black mr-2 ">{item.title}</span>
                                 </div>
                                 <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
