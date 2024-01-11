@@ -317,17 +317,17 @@ const CategoriesDetails = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between pt-5">
+                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between pt-5 pl-5 pr-5 w-full">
                                                         <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
-                                                        <span className="flex gap-5 items-center justify-between text-sm cursor-pointer mr-5">
+                                                        <span className="flex lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
                                                             <span className="whitespace-nowrap">41 % Success</span>
-                                                            <span className="flex items-center gap-5 w-full"> <FaRegThumbsUp></FaRegThumbsUp>
-                                                                <FaRegThumbsDown></FaRegThumbsDown></span>
+                                                            <span className="flex items-center gap-7 w-full text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 h-5 w-5"></FaRegThumbsUp>
+                                                                <FaRegThumbsDown className="hover:scale-125 duration-200 h-5 w-5"></FaRegThumbsDown></span>
 
                                                         </span>
                                                     </div>
                                                     {detailsVisibility[index] && (
-                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip">
+                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip px-5">
                                                             <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
                                                             <span>{ele.description}</span>
                                                         </div>

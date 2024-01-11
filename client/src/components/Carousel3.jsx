@@ -97,7 +97,7 @@ const Carousel = () => {
     }, [index]);
 
     return (
-        <div className='container overflow-clip rounded-[10px] h-[200px] lg:h-[350px] max-w-fit' >
+        <div className='container overflow-clip rounded-[20px] h-[200px] lg:h-[350px] max-w-fit' >
             {
                 featuredImages[index] ? (
                     <div className='slideshow group lg:w-[1000px] w-screen my-0 lg:my-auto'>
@@ -107,7 +107,7 @@ const Carousel = () => {
 
                                 target='_blank'
                                 rel="noreferrer"
-                                className='rounded-2xl lg:rounded-none'
+                                className='rounded-[20px] lg:rounded-none'
                             >
 
                                 <motion.img
@@ -117,7 +117,7 @@ const Carousel = () => {
                                     exit='exit'
                                     src={featuredImages[index].thumbnail}
                                     alt='slides'
-                                    className='slides object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[1000px] rounded-[10px]'
+                                    className='slides object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[1000px] rounded-[20px]'
                                     key={featuredImages[index].thumbnail}
                                     custom={direction}
 
