@@ -130,7 +130,7 @@ const UpdateCoupons = () => {
                 formdata.append("thumbFile", selectedFile);
             }
 
-            formdata.append("couponId",cId);
+            formdata.append("couponId", cId);
 
             await axios.post(
                 `http://localhost:4000/api/admin/addToOffer/${sId}`,
@@ -146,7 +146,7 @@ const UpdateCoupons = () => {
             handleOpenDialog();
         } catch (error) {
             setOpenDialog(!openDialog);
-            if(error.response.status == 400){
+            if (error.response.status == 400) {
                 return toast.error("Reach maximum limit");
             }
             toast.error("Error due to already existance of coupon or anything");
@@ -229,6 +229,25 @@ const UpdateCoupons = () => {
                             ))}
                         </select>
                     </div>
+                    <div className="mb-4">
+                        <label htmlFor="event" className="block mb-1 font-medium">
+                            Events:
+                        </label>
+                        <select
+                            id="type"
+                            name="category"
+                            style={inputStyle}
+                            multiple
+                        >
+                            <option value="">Select Category</option>
+                            {typesData.map((category, index) => (
+                                <option key={index} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
 
                     <div className="mb-4">
                         <label htmlFor="description" className="block mb-1 font-medium">
