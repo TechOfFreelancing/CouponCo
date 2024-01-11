@@ -7,7 +7,7 @@ import { GoVerified } from 'react-icons/go';
 import { CiUser } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa6';
 import { IoAddOutline } from "react-icons/io5";
-import "../components/couponsbutton.css";
+import "../styles/couponsbutton1.css";
 
 const EventDetails = () => {
 

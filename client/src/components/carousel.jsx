@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineVerticalRight, AiOutlineVerticalLeft } from 'react-icons/ai';
 import axios from 'axios';
-import "./carousel.css";
+import "../styles/carousel.css";
 
 const CarouselSlider = () => {
     const [featuredImages, setFeaturedImages] = useState([]);
