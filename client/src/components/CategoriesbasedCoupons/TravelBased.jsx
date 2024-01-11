@@ -26,7 +26,6 @@ const TravelBased = () => {
     const [name1, setName1] = useState("");
     const [email1, setEmail1] = useState("");
     const [password1, setPassword1] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [travel, setTravel] = useState([]);
     const [open, setOpen] = useState(false);
     const [productlink, setProductlink] = useState('');
@@ -52,12 +51,13 @@ const TravelBased = () => {
                 email,
                 password,
             });
-
+            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
-                navigate("/login");
-            }, 2000);
+                setOpenregister(false);
+                setOpenlogin(true)
+            }, 200);
         } catch (error) {
             toast(error.response.statusText);
             console.error("Registration failed:", error);
@@ -66,7 +66,6 @@ const TravelBased = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
@@ -81,9 +80,9 @@ const TravelBased = () => {
             localStorage.setItem("id", user.user_id);
             localStorage.setItem("role", user.role);
             updateUserRole(user.role);
-
+            setOpenlogin(false);
             setTimeout(() => {
-                user.role === "Admin" ? navigate("/Admin") : navigate("/");
+                user.role === navigate("/");
             }, 1200);
         } catch (error) {
             toast.error(error.response.statusText);
@@ -197,11 +196,6 @@ const TravelBased = () => {
         }
     };
 
-
-    useEffect(() => {
-        setIsLoggedIn(role === "General");
-    }, [role]);
-
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
@@ -264,23 +258,23 @@ const TravelBased = () => {
                         .slice(0, 4)
                         .map((item, index) => (
                             <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
-                                <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })}/>
+                                <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
-                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
+                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
                                         }`}
                                     onClick={() => handleLikeClick(index, item.coupon_id)}
                                 >
                                     <FaHeart className="cursor-pointer text-xl duration-300" />
                                 </span>
                                 <div
-                                    className="absolute z-10 left-2 bottom-36 mt-2 shadow-boxshadow h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white cursor-pointer" 
+                                    className="absolute z-10 left-2 bottom-36 mt-2 shadow-boxshadow h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white cursor-pointer"
                                     onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })}>
                                     <img src={item.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
                                 </div>
                                 <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
                                     {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
                                 </div>
-                               <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
+                                <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
                                     <span className="text-black mr-2 ">{item.title}</span>
                                 </div>
                                 <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
     Drawer,
     IconButton
@@ -10,21 +10,15 @@ import axios from "axios";
 import { ImSearch } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavList from "./navlist";
-import "../styles/header.css"
-import { FaUserCircle } from "react-icons/fa";
 import logo from '../assets/images/used/logo.png'
+import { ProfileMenu } from "./Header/ProfileMenu";
+
 
 export function Header() {
-    const [openSidebar, setopenSidebar] = React.useState(false);
-    const [keyword, setKeyWord] = React.useState("");
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-    const [isOffer, setIsOffer] = React.useState(false);
-    const { role } = React.useContext(AuthContext);
-    const [menuActive, setMenuActive] = useState(false);
-
-    const menuToggle = () => {
-        setMenuActive(prevMenuActive => !prevMenuActive);
-    };
+    const [openSidebar, setopenSidebar] = useState(false);
+    const [keyword, setKeyWord] = useState("");
+    const [isOffer, setIsOffer] = useState(false);
+    const { role, updateUserRole } = useContext(AuthContext);
 
     const OpenSidebar = () => setopenSidebar(true);
     const CloseSidebar = () => setopenSidebar(false);
@@ -50,9 +44,10 @@ export function Header() {
                 },
             });
             if (response && response.status === 200) {
-                setIsLoggedIn(false);
+                updateUserRole("");
                 alert(response.data.message);
                 localStorage.clear();
+                // console.log("logout headerside", role);
                 navigate("/");
             } else {
                 alert("Logout failed. Please try again.");
@@ -67,9 +62,9 @@ export function Header() {
         }
     }
 
-    useEffect(() => {
-        setIsLoggedIn(role === "General");
-    }, [role]);
+    // useEffect(() => {
+    //     console.log("header side", role);
+    // }, [role]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -93,7 +88,7 @@ export function Header() {
                         <ImSearch className="h-6 w-6" />
                     </button>
                     <Link to="/" className="cursor-pointer font-medium">
-                        <img src={logo} alt="Qwik Savings" className={`h-20 ${isLoggedIn ? 'w-[15rem]' : 'w-[15rem]'}`} />
+                        <img src={logo} alt="Qwik Savings" className="h-20  w-[15rem]" />
 
                     </Link>
                     <div className="hidden lg:block"><NavList></NavList></div>
@@ -103,27 +98,11 @@ export function Header() {
                             <ImSearch className="h-6 w-6" />
                         </button>
                     </div>
-                    {isLoggedIn ? (
-                        <div className="hidden lg:flex items-center justify-between gap-5">
-                            <div className="action relative">
-                                <div className={`menu ${menuActive ? 'active' : ''}`}>
-                                    <div className="flex flex-col items-center justify-center">
-                                        <Link to="/Profile" className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
-                                            Profile
-                                        </Link>
-                                        <hr className="border border-gray-500 w-full" />
-                                        <span onClick={handleLogout} className="hidden cursor-pointer lg:inline-block whitespace-nowrap duration-300 hover:text-red-500">
-                                            Logout
-                                        </span>
-                                    </div>
-
-                                </div>
-                                <div onClick={() => { menuToggle() }} className="profile flex items-center justify-center absolute -top-5">
-                                    <FaUserCircle className="text-5xl"></FaUserCircle>
-                                </div>
-                            </div>
-
+                    {role ? (
+                        <div className="hidden lg:inline-block">
+                            <ProfileMenu></ProfileMenu>
                         </div>
+
                     ) : (
                         <div className="flex items-center justify-between gap-5">
                             <Link to="/login" className="hidden lg:inline-block whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white px-4 py-2  rounded-md border border-black">
@@ -166,7 +145,7 @@ export function Header() {
                         </button>
                     </div>
                     <div className="flex items-center justify-center my-5">
-                        {isLoggedIn ? (
+                        {role ? (
                             <div className="flex justify-between w-full mx-10">
                                 <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
                                     Profile

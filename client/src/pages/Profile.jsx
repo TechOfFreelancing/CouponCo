@@ -1,4 +1,3 @@
-import { CiUser } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -52,14 +51,6 @@ const Profile = () => {
                                     })}</div>
 
                                 </div>
-                                <div className="flex flex-row-reverse gap-2 items-center justify-center">
-                                    <div className="flex gap-1 items-center justify-center">
-                                        <CiUser></CiUser>
-                                        {ele.user_count}
-                                    </div>
-
-                                </div>
-
                             </div>
                         </div>
                     </div>

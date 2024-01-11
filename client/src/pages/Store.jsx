@@ -54,7 +54,7 @@ const Store = () => {
 
 
     const navigate = useNavigate();
-    const { updateUserRole } = useContext(AuthContext);
+    const { role, updateUserRole } = useContext(AuthContext);
     const location = useLocation();
 
     const [str, setStr] = useState(null);
@@ -86,51 +86,47 @@ const Store = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            console.log(name, email, password);
             const response = await axios.post(`http://localhost:4000/api/register`, {
-                name,
+                name: name1,
                 email,
                 password,
             });
-
-            toast.success('Registration successful');
             console.log(response);
+            toast.success("Registration successful");
 
             setTimeout(() => {
-                navigate('/login');
-            }, 2000)
-
-
+                setOpenregister(false);
+                setOpenlogin(true)
+            }, 200);
         } catch (error) {
             toast(error.response.statusText);
-            console.error('Registration failed:', error);
+            console.error("Registration failed:", error);
         }
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
-                password
-            })
+                password,
+            });
 
             const { message, token, user } = res.data;
 
             toast.success(message);
 
-            localStorage.setItem('token', token);
-            localStorage.setItem('id', user.user_id);
-            localStorage.setItem('role', user.role)
+            localStorage.setItem("token", token);
+            localStorage.setItem("id", user.user_id);
+            localStorage.setItem("role", user.role);
             updateUserRole(user.role);
+            setOpenlogin(false);
             setTimeout(() => {
-                user.role === "Admin" ? navigate('/Admin') : navigate('/')
-            }, 1200)
-
+                user.role === navigate("/");
+            }, 1200);
         } catch (error) {
             toast.error(error.response.statusText);
-            console.error('Login failed:', error);
+            console.error("Login failed:", error);
         }
     };
 
@@ -708,7 +704,7 @@ const Store = () => {
                                         animate="visible"
                                         transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
                                         <span
-                                            className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
+                                            className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                 }`}
                                             onClick={() => handleLikeClick(index, ele.coupon_id)}
                                         >

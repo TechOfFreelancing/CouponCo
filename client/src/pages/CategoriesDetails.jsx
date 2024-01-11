@@ -1,11 +1,15 @@
 import Footer from "../components/Footer";
 import {
+    Button,
     Dialog,
+    Input,
+    Typography,
+    Card,
 } from "@material-tailwind/react";
 import { IoMdClose } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { eventDetails } from "../api/event";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GoVerified } from 'react-icons/go';
 import { CiUser } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa6';
@@ -16,19 +20,28 @@ import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import axios from "axios";
 import { TbExternalLink } from "react-icons/tb";
+import AuthContext from "../components/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
+
 
 
 const CategoriesDetails = () => {
-
+    const { role, updateUserRole } = useContext(AuthContext);
     const [detailsVisibility, setDetailsVisibility] = useState([]);
     const [showAllEvents, setShowAllEvents] = useState(false);
     const [couponDetails, setCouponDetails] = useState([]);
     const [openlogin, setOpenlogin] = useState(false);
+    const [openregister, setOpenregister] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
     const [open, setOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState('');
     const [productlink, setProductlink] = useState('');
     const [waiting, setWaiting] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name1, setName1] = useState("");
+    const [email1, setEmail1] = useState("");
+    const [password1, setPassword1] = useState("");
 
 
     const location = useLocation();
@@ -56,6 +69,60 @@ const CategoriesDetails = () => {
     };
 
     const handleOpenlogin = () => setOpenlogin(!openlogin);
+    const handleOpenregister = () => setOpenregister(!openregister);
+
+    const closeboth = () => {
+        setOpenlogin(false);
+        setOpenregister(false);
+    };
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`http://localhost:4000/api/register`, {
+                name: name1,
+                email,
+                password,
+            });
+            console.log(response);
+            toast.success("Registration successful");
+
+            setTimeout(() => {
+                setOpenregister(false);
+                setOpenlogin(true)
+            }, 200);
+        } catch (error) {
+            toast(error.response.statusText);
+            console.error("Registration failed:", error);
+        }
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post(`http://localhost:4000/api/login`, {
+                email,
+                password,
+            });
+
+            const { message, token, user } = res.data;
+
+            toast.success(message);
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("id", user.user_id);
+            localStorage.setItem("role", user.role);
+            updateUserRole(user.role);
+            setOpenlogin(false);
+            setTimeout(() => {
+                user.role === navigate("/");
+            }, 1200);
+        } catch (error) {
+            toast.error(error.response.statusText);
+            console.error("Login failed:", error);
+        }
+    };
+
 
     const formatDate = (dateString) => {
         const options = { month: 'long', day: 'numeric', year: 'numeric' };
@@ -188,10 +255,11 @@ const CategoriesDetails = () => {
         fetchData();
     }, [category]);
 
-    console.log(category);
+
 
     return (
         <>
+            <Toaster position="top-center"></Toaster>
             <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 ">
                 <div className="p-4 flex flex-col items-start justify-center flex-wrap gap-5">
                     <ul className="flex items-center">
@@ -279,7 +347,7 @@ const CategoriesDetails = () => {
                                         return (
                                             <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
                                                 <span
-                                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
+                                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                         }`}
                                                     onClick={() => handleLikeClick(index, ele.coupon_id)}
                                                 >
@@ -404,6 +472,108 @@ const CategoriesDetails = () => {
                     </div>
 
                 </div>
+            </Dialog>
+            <Dialog open={openlogin} handler={handleOpenlogin} className="relative ">
+                <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => closeboth()}>
+                    <IoMdClose></IoMdClose>
+                </span>
+
+                <Card color="transparent" className="h-full flex flex-col justify-center items-center" shadow={false}>
+                    <div className="text-2xl text-black font-semibold mb-2 mt-10 lg:mt-20">Login</div>
+                    <div className="mt-4 mx-auto font-normal text-black my-2">
+                        <span>  New customer?  <span className="underline font-medium text-red-500 transition-colors hover:text-red-800 cursor-pointer" onClick={() => handleOpenregister()}>
+                            Create your account
+                        </span></span>
+
+                    </div>
+                    <div className="bg-white p-10 rounded-xl border flex flex-col gap-5 my-10">
+
+                        <form className="w-56 max-w-screen-lg lg:w-96 mx-auto">
+                            <div className="mb-4 flex flex-col gap-6  items-center justify-center">
+                                <Input type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    size="lg" color="black" label={
+                                        <>
+                                            Email <span className="text-red-500">*</span>
+                                        </>
+                                    } />
+                                <Input
+                                    size="lg"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    color="black"
+                                    label={
+                                        <>
+                                            Password <span className="text-red-500">*</span>
+                                        </>
+                                    }
+                                />
+                            </div>
+                            <Typography color="gray" className="mt-2 mx-auto font-normal">
+                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                    Forgot your password?
+                                </Link>
+                            </Typography>
+                            <Button className="mt-6 bg-[#800000]" type="submit" onClick={handleLogin} fullWidth>
+                                SIGN IN
+                            </Button>
+                            <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
+                        </form>
+                    </div>
+                </Card>
+            </Dialog>
+            <Dialog open={openregister} handler={handleOpenregister} className="relative ">
+                <span className="absolute top-5 right-5 text-3xl cursor-pointer z-10" onClick={() => { closeboth() }}>
+                    <IoMdClose></IoMdClose>
+                </span>
+
+                <Card color="transparent" className="h-full flex justify-center items-center" shadow={false}>
+                    <div className="text-4xl text-black font-semibold mb-2 mt-10 lg:mt-20">Join Now</div>
+                    <div className="mt-4 mx-auto font-normal text-black my-2 cursor-pointer">
+                        <span>  Already have an account?  <span className="underline font-medium text-red-500 transition-colors hover:text-red-800" onClick={() => { handleOpenregister(); openlogin() }}>
+                            Log In
+                        </span></span>
+
+                    </div>
+                    <div className="bg-white p-10 rounded-xl my-5 flex flex-col gap-5">
+                        <form className="w-56 max-w-screen-lg lg:w-96 mx-auto">
+                            <div className="mb-4 flex flex-col gap-6  items-center justify-center">
+                                <Input type="text" size="lg" value={name1}
+                                    onChange={(e) => setName1(e.target.value)}
+                                    color="black" label="Name" />
+                                <Input type="email"
+                                    value={email1}
+                                    onChange={(e) => setEmail1(e.target.value)}
+                                    size="lg" color="black" label={
+                                        <>
+                                            Email <span className="text-red-500">*</span>
+                                        </>
+                                    } />
+                                <Input
+                                    size="lg"
+                                    type="password"
+                                    value={password1}
+                                    onChange={(e) => setPassword1(e.target.value)}
+                                    color="black"
+                                    label={
+                                        <>
+                                            Password <span className="text-red-500">*</span>
+                                        </>
+                                    }
+                                />
+                                <span className="text-sm text-gray-500">Password must be 8 characters or more, Don&apos;t use any part of your email, Don&apos;t use a common password</span>
+                            </div>
+                            <Button className="mt-6 bg-[#800000] rounded-full cursor-pointer" type="submit" onClick={handleRegister} fullWidth >
+                                Register
+                            </Button>
+                            <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
+                        </form>
+                    </div>
+                </Card>
             </Dialog>
         </>
     )
