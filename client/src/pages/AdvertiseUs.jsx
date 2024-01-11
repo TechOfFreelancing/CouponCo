@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom"
 import Footer from "../components/Footer"
+import img1 from '../assets/images/advertise/Advertise With Us.jpg';
+import advertise from "../api/advertise";
+import { useState } from "react";
+import '../styles/advertiseus.css';
 
 const AdvertiseUs = () => {
+    const [isAffiliate, setIsAffiliate] = useState(false);
+    const handleAffiliateChange = (event) => {
+        setIsAffiliate(event.target.value === 'yes');
+    };
     return (
         <>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5 h-screen">
+            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
                 <div className="flex flex-col items-start flex-wrap p-5 pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
@@ -16,15 +24,15 @@ const AdvertiseUs = () => {
                         </li>
 
                         <li className="inline-flex items-center">
-                            <Link to="/aboutus" className="text-black hover:text-[#B33D53] whitespace-nowrap">
-                                About Us
+                            <Link to="/advertisewithus" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                                Advertise With Us
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5"> Advertise With Us</span>
+                    <span className="text-2xl font-bold ml-2 mt-5">Advertise With Us</span>
                 </div>
                 <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[50%] h-auto m-10 lg:-mt-24 mr-0" src={img1} />
+                    <img className="float-right w-[45%] h-auto m-10 mt-0 mr-0" src={img1} />
                     <p className="text-justify">
                         At  Qwik  Savings,  we  offer  prime  advertising
                         opportunities  to  elevate  your  brand  visibility.

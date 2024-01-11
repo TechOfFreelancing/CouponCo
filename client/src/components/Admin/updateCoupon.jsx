@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 import typesData from "../../api/AllTypes";
+import Events from "../../api/event";
 
 const UpdateCoupons = () => {
 
@@ -173,10 +174,10 @@ const UpdateCoupons = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
+            <div className="w-1/2 mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Coupon</h1>
                 <div className="flex items-center justify-center">
-                    {coupons && <Avatar src={store.logo_url} size="xxl" className="h-auto w-auto" alt="avatar"></Avatar>}
+                    {coupons && <Avatar src={store.logo_url} size="xxl" className="h-auto w-[150px]" alt="avatar"></Avatar>}
                 </div>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="mb-4">
@@ -230,22 +231,17 @@ const UpdateCoupons = () => {
                         </select>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="event" className="block mb-1 font-medium">
+                        <label htmlFor="category" className="block mb-1 font-medium">
                             Events:
                         </label>
-                        <select
-                            id="type"
-                            name="category"
-                            style={inputStyle}
-                            multiple
-                        >
-                            <option value="">Select Category</option>
-                            {typesData.map((category, index) => (
-                                <option key={index} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
+                            {
+                                Events.map((event, index) => <div key={index} className="inline-flex items-center gap-5">
+                                    <input type="checkbox" className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
+                                    <span className="text-md flex items-center gap-2">{event.title} </span>
+                                </div>)
+                            }
+                        </div>
                     </div>
 
 

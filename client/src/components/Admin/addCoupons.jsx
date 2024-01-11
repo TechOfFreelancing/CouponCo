@@ -4,6 +4,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import typesData from "../../api/AllTypes";
 import { useState } from "react";
+import Events from '../../api/event';
 
 function AddCoupons() {
 
@@ -70,7 +71,7 @@ function AddCoupons() {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
+            <div className="w-1/2 mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Add New Coupon</h1>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     {({ values }) => (
@@ -118,23 +119,17 @@ function AddCoupons() {
                                 </Field>
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="event" className="block mb-1 font-medium">
+                                <label htmlFor="category" className="block mb-1 font-medium">
                                     Events:
                                 </label>
-                                <Field
-                                    as="select"
-                                    id="category"
-                                    name="category"
-                                    style={inputStyle}
-                                    multiple
-                                >
-                                    <option value="">Select Category</option>
-                                    {typesData.map((category, index) => (
-                                        <option key={index} value={category}>
-                                            {category}
-                                        </option>
-                                    ))}
-                                </Field>
+                                <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
+                                    {
+                                        Events.map((event, index) => <div key={index} className="inline-flex items-center gap-5">
+                                            <input type="checkbox" className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
+                                            <span className="text-md flex items-center gap-2">{event.title} </span>
+                                        </div>)
+                                    }
+                                </div>
                             </div>
 
                             <div className="mb-4">

@@ -29,6 +29,7 @@ import ContactUs from './pages/ContactUs';
 import AdvertiseUs from './pages/AdvertiseUs';
 import FAQS from './pages/FAQS';
 import AboutUs from './pages/AboutUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 
 
@@ -251,6 +252,15 @@ function App() {
               <>
                 <Header></Header>
                 <AboutUs></AboutUs>
+              </>
+            }
+          ></Route>
+          <Route
+            path="/privacypolicy"
+            element={
+              <>
+                <Header></Header>
+                <PrivacyPolicy></PrivacyPolicy>
               </>
             }
           ></Route>
