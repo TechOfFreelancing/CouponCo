@@ -12,6 +12,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import NavList from "./navlist";
 import logo from '../assets/images/used/logo.png'
 import { ProfileMenu } from "./Header/ProfileMenu";
+import SearchBar from "./Header/SearchBox";
 
 
 export function Header() {
@@ -92,12 +93,13 @@ export function Header() {
 
                     </Link>
                     <div className="hidden lg:block"><NavList></NavList></div>
-                    <div className="seachbar hidden lg:flex py-0 p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[309px]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
+                    <SearchBar></SearchBar>
+                    {/* <div className="seachbar hidden lg:flex py-0 p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[309px]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
                         <input type="search" placeholder='Search for brands, categories' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
                         <button className="searchIcon text-red-900 cursor-pointer">
                             <ImSearch className="h-6 w-6" />
                         </button>
-                    </div>
+                    </div> */}
                     {role ? (
                         <div className="hidden lg:inline-block">
                             <ProfileMenu></ProfileMenu>

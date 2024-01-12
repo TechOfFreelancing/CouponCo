@@ -270,15 +270,15 @@ const CategoriesDetails = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-                            <Link to="/categoriesStore" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
-                                All Brands
+                            <Link to="/allcategories" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                                All Categories
                             </Link>
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-                            <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                            <span  className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap cursor-pointer">
                                 {category}
-                            </Link>
+                            </span>
                         </li>
                     </ul>
 
