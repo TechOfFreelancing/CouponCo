@@ -818,7 +818,7 @@ const Store = () => {
                     }
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
@@ -838,7 +838,7 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="hints_tips">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="hints_tips">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
@@ -858,7 +858,7 @@ const Store = () => {
                     }
                     {
                         str?.moreAbout && (
-                            <div className="w-full lg:w-[60rem] lg:mx-10 p-5 bg-white my-2" id="more_about">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="more_about">
                                 <div className="font-semibold lg:text-4xl text-2xl my-3">More About {str?.name}</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     <div className="moreaboutcompany flex flex-col gap-2">
