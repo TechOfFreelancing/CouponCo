@@ -92,8 +92,8 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
 
         // Check the limit
         if (validCurrentCount >= maxLimit) {
-            return next(new ErrorHandler(`Cannot add more than ${ maxLimit } valid coupons to today's top offer`, 400));
-    }
+            return next(new ErrorHandler(`Cannot add more than ${maxLimit} valid coupons to today's top offer`, 400));
+        }
 
         // Insert the coupon into today's top
         const sql = 'INSERT INTO store_display (store_id, coupon_id, show_in_top, thumbnail) VALUES (?, ?, ?, ?)';
@@ -102,9 +102,9 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
         res.status(200).json({ message: 'Success!', rowId: result[0].insertId });
 
     } catch (err) {
-    console.error(err);
-    return next(new ErrorHandler("Unable to add this to today's top offer", 500));
-}
+        console.error(err);
+        return next(new ErrorHandler("Unable to add this to today's top offer", 500));
+    }
 });
 
 
@@ -426,12 +426,25 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
             return res.status(400).json({ error: 'Incomplete data' });
         }
 
+
         // Inserting the coupon into the coupons table
         const insertCouponSql = `
-            INSERT INTO coupons (store_id, title, coupon_code, type, ref_link,category, due_date, isVerified, description,created_at)
-            VALUES (?, ?, ?, ?, ?, ?,?,? , ?,NOW())
+        INSERT INTO coupons (store_id, title, coupon_code, type, ref_link,category, due_date, isVerified, description,created_at)
+        VALUES (?, ?, ?, ?, ?, ?,?,? , ?,NOW())
         `;
         const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, category, dueDate, isVerified, description]);
+
+        if (req.body.events) {
+            await Promise.all(
+                req.body.events.map(async (e) => {
+                    const [existingEvent] = await db.query('SELECT * FROM events WHERE coupon_id = ? AND store_id = ? AND event_name = ?', [result.insertId, storeId, e]);
+
+                    if (existingEvent.length === 0) {
+                        await db.query('INSERT INTO events (coupon_id,store_id,event_name) VALUES (?,?,?)', [result.insertId, storeId, e]);
+                    }
+                })
+            );
+        }
 
         // Updating the stock count in the store table
         const updateCouponsOffersSql = `
@@ -482,13 +495,43 @@ exports.decreaseCouponsOffers = catchAsyncErrors(async (req, res, next) => {
 // Update a coupon
 exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
     const { cId } = req.params;
-    // console.log(req.body);
     try {
         // Check if the coupon exists
         const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [cId]);
 
         if (couponResult.length === 0) {
             return next(new ErrorHandler(`Coupon with ID ${cId} not found`, 404));
+        }
+
+        if (req.body.events) {
+            // Get the current list of events associated with the coupon from the database
+            const [currentEvents] = await db.query('SELECT * FROM events WHERE coupon_id = ?', [cId]);
+
+            // Identify events to be removed
+            const eventsToRemove = currentEvents.map((event) => event.event_name).filter((event) => !req.body.events.includes(event));
+
+            // Identify events to be added
+            const eventsToAdd = req.body.events.filter((event) => !currentEvents.map((e) => e.event_name).includes(event));
+
+            // Remove events
+            await Promise.all(
+                eventsToRemove.map(async (event) => {
+                    await db.query('DELETE FROM events WHERE coupon_id = ? AND event_name = ?', [cId, event]);
+                })
+            );
+
+            // Add new events
+            await Promise.all(
+                eventsToAdd.map(async (event) => {
+                    // Check if the coupon is already associated with the event
+                    const [existingEvent] = await db.query('SELECT * FROM events WHERE coupon_id = ? AND store_id = ? AND event_name = ?', [coupon_id, store_id, event]);
+
+                    if (existingEvent.length === 0) {
+                        // Insert the event only if it does not exist
+                        await db.query('INSERT INTO events (coupon_id, store_id, event_name) VALUES (?, ?, ?)', [coupon_id, store_id, event]);
+                    }
+                })
+            );
         }
 
         let updateSql = 'UPDATE coupons SET ';
@@ -523,6 +566,24 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Unable to update coupon", 500));
     }
 });
+
+exports.getEventsForCoupons = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+
+    try {
+        // Fetch the single coupon for the store based on cId
+        const [couponResult] = await db.query('SELECT * FROM events WHERE coupon_id = ?', [cId]);
+
+        if (couponResult.length === 0) {
+            return next(new ErrorHandler(`Coupon with ID ${cId} not found`, 404));
+        }
+
+        res.status(200).json({ message: `Coupon with ID ${cId} fetched successfully`, coupons: couponResult });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch coupon", 500));
+    }
+})
 
 // Get single coupon for a specific store
 exports.getSingleCoupon = catchAsyncErrors(async (req, res, next) => {

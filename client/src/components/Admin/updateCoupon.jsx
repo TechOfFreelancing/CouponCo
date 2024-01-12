@@ -17,6 +17,7 @@ import Events from "../../api/event";
 const UpdateCoupons = () => {
 
     const [coupons, setCoupons] = useState([]);
+    const [currentCoupons, setCurrentCoupons] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -94,10 +95,11 @@ const UpdateCoupons = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
                 const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
-
+                const eventName = await axios.get(`http://localhost:4000/api/eventcoupon/${cId}`);
                 const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
+                setCurrentCoupons(eventName.data.coupons);
 
                 const presentInHomePage = result.data.data.some(item => item.coupon_id === cId);
                 isPresentInHomePage.current = presentInHomePage;
@@ -171,6 +173,7 @@ const UpdateCoupons = () => {
         }
     }
 
+    console.log(currentCoupons);
     return (
         <>
             <Toaster position="top-center"></Toaster>
@@ -230,19 +233,25 @@ const UpdateCoupons = () => {
                             ))}
                         </select>
                     </div>
+
                     <div className="mb-4">
                         <label htmlFor="category" className="block mb-1 font-medium">
                             Events:
                         </label>
                         <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
-                            {
-                                Events.map((event, index) => <div key={index} className="inline-flex items-center gap-5">
-                                    <input type="checkbox" className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
-                                    <span className="text-md flex items-center gap-2">{event.title} </span>
-                                </div>)
-                            }
+                            {Events.map((event, index) => (
+                                <div key={index} className="inline-flex items-center gap-5">
+                                    <input
+                                        type="checkbox"
+                                        className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
+                                        checked={currentCoupons.length !== 0 && currentCoupons.some(coupon => coupon.event_name === event.title)}
+                                    />
+                                    <span className="text-md flex items-center gap-2">{event.title}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
+
 
 
                     <div className="mb-4">
