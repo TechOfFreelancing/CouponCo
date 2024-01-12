@@ -25,10 +25,12 @@ const Featured_Stores = () => {
                     const storeDetails = await Promise.all(filteredStores.map(async store => {
                         try {
                             const storeDetailsResponse = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
+                            // console.log(storeDetailsResponse);
                             return {
                                 name: storeDetailsResponse.data.store.name || null, // Add the name attribute
                                 storeId: store.store_id,
-                                logoUrl: storeDetailsResponse.data.store.logo_url || null
+                                logoUrl: storeDetailsResponse.data.store.logo_url || null,  
+                                coupons:storeDetailsResponse.data.store.coupons
                             };
                         } catch (error) {
                             console.error('Error fetching store details:', error);
@@ -49,6 +51,8 @@ const Featured_Stores = () => {
     }, []);
 
     const navigate = useNavigate();
+
+    // console.log(featured);
 
 
     return (
@@ -76,7 +80,7 @@ const Featured_Stores = () => {
                         </div>
                         <div className="hover:underline text-center group-hover:underline">
                             <span className="flex justify-center gap-2 items-center ">
-                                <span>{count[index]?.coupons_count}</span>
+                                <span>{ele.coupons}</span>
                                 <span>coupons</span>
                             </span>
                         </div>
