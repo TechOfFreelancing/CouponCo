@@ -17,7 +17,7 @@ import Events from "../../api/event";
 const UpdateCoupons = () => {
 
     const [coupons, setCoupons] = useState([]);
-    const [currentCoupons, setCurrentCoupons] = useState([]);
+    // const [currentCoupons, setCurrentCoupons] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -95,11 +95,11 @@ const UpdateCoupons = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
                 const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
-                const eventName = await axios.get(`http://localhost:4000/api/eventcoupon/${cId}`);
+                // const eventName = await axios.get(`http://localhost:4000/api/eventcoupon/${cId}`);
                 const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
-                setCurrentCoupons(eventName.data.coupons);
+                // setCurrentCoupons(eventName.data.coupons);
 
                 const presentInHomePage = result.data.data.some(item => item.coupon_id === cId);
                 isPresentInHomePage.current = presentInHomePage;
@@ -173,7 +173,7 @@ const UpdateCoupons = () => {
         }
     }
 
-    console.log(currentCoupons);
+    // console.log(currentCoupons);
     return (
         <>
             <Toaster position="top-center"></Toaster>
@@ -244,7 +244,7 @@ const UpdateCoupons = () => {
                                     <input
                                         type="checkbox"
                                         className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
-                                        checked={currentCoupons.length !== 0 && currentCoupons.some(coupon => coupon.event_name === event.title)}
+                                        // checked={currentCoupons.length !== 0 && currentCoupons.some(coupon => coupon.event_name === event.title)}
                                     />
                                     <span className="text-md flex items-center gap-2">{event.title}</span>
                                 </div>
