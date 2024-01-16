@@ -15,6 +15,11 @@ import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../components/AuthContext";
 import "../../styles/couponsbutton.css";
 import { TbExternalLink } from 'react-icons/tb'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../../styles/slickslider.css"
+import settings from './Settings'
 
 const ClothingBased = () => {
     const [likedItems, setLikedItems] = useState([]);
@@ -199,7 +204,6 @@ const ClothingBased = () => {
         }
     };
 
-
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
@@ -255,12 +259,14 @@ const ClothingBased = () => {
                         View All Clothing Offers
                     </div>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4">
+                {/* <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4"> */}
+                
+                <Slider {...settings}>
                     {clothes
                         .filter(item => new Date(item.due_date) >= new Date())
                         .slice(0, 8)
                         .map((item, index) => (
-                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 bg-white">
                                 <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
@@ -280,7 +286,7 @@ const ClothingBased = () => {
                                 <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
                                     <span className="text-black mr-2 ">{item.title}</span>
                                 </div>
-                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
+                                <div className="flex justify-between items-center w-full text-sm p-3 text-[10px]">
                                     <span>{item.name}</span>
                                     <span>{item.user_count} Used</span>
                                 </div>
@@ -292,7 +298,8 @@ const ClothingBased = () => {
                                 </div>
                             </div>
                         ))}
-                </div>
+                </Slider>
+                {/* </div> */}
             </div>
 
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5">

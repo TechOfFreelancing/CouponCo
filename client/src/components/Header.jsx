@@ -7,35 +7,24 @@ import Alert from "./alert";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "./AuthContext";
 import axios from "axios";
-import { ImSearch } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavList from "./navlist";
 import logo from '../assets/images/used/logo.png'
+import mobile_logo from '../assets/images/used/favicon.png'
 import { ProfileMenu } from "./Header/ProfileMenu";
 import SearchBar from "./Header/SearchBox";
 
 
 export function Header() {
-    const [openSidebar, setopenSidebar] = useState(false);
-    const [keyword, setKeyWord] = useState("");
+    const [openSidebar, setOpenSidebar] = useState(false);
     const [isOffer, setIsOffer] = useState(false);
     const { role, updateUserRole } = useContext(AuthContext);
 
-    const OpenSidebar = () => setopenSidebar(true);
-    const CloseSidebar = () => setopenSidebar(false);
+    const OpenSidebar = () => setOpenSidebar(true);
+    const CloseSidebar = () => setOpenSidebar(false);
 
     const navigate = useNavigate();
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleSearch();
-        }
-    };
-
-    const handleSearch = () => {
-        CloseSidebar();
-        navigate("/Stores", { state: { keyword: keyword } })
-    }
 
     const handleLogout = async () => {
         try {
@@ -84,12 +73,12 @@ export function Header() {
         <>
             <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
                 {isOffer && <Alert></Alert>}
-                <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between  lg:px-28 w-full px-10 lg:h-[93px]">
-                    <button className="searchIconcursor-pointer sm:hidden" onClick={OpenSidebar}>
-                        <ImSearch className="h-6 w-6" />
-                    </button>
+                <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between lg:px-28 w-full px-5 lg:h-[93px]">
                     <Link to="/" className="cursor-pointer font-medium">
-                        <img src={logo} alt="Qwik Savings" className="h-20 w-[15rem]" />
+                        <img src={logo} alt="Qwik Savings" className="h-20 w-[15rem] hidden lg:inline-block" />
+                    </Link>
+                    <Link to="/" className="cursor-pointer font-medium">
+                        <img src={mobile_logo} alt="Qwik Savings" className="h-10 w-10 inline-block lg:hidden" />
                     </Link>
                     <div className="hidden lg:block"><NavList></NavList></div>
                     <SearchBar></SearchBar>
@@ -111,56 +100,52 @@ export function Header() {
                     <GiHamburgerMenu
                         onClick={OpenSidebar} className="cursor-pointer scale-125 hover:scale-150 duration-200 sm:hidden" />
                 </nav>
-                <Drawer open={openSidebar} onClose={CloseSidebar} placement="right" className="p-4">
-                    <div className="mb-2 flex items-center justify-between ">
-                        <Link className="cursor-pointer font-medium">
-                            Logo
-                        </Link>
-                        <IconButton variant="text" color="blue-gray" onClick={CloseSidebar}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={2}
-                                stroke="currentColor"
-                                className="h-5 w-5"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        </IconButton>
-                    </div>
-                    <div className="seachbar flex p-3 h-3 border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search for brands, categories' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
-                        <button className="searchIcon text-red-900 cursor-pointer">
-                            <ImSearch className="h-6 w-6" />
-                        </button>
-                    </div>
-                    <div className="flex items-center justify-center my-5">
-                        {role ? (
-                            <div className="flex justify-between w-full mx-10">
-                                <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
-                                    Profile
-                                </Link>
-                                <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
-                                    Logout
+                <Drawer placement="right" open={openSidebar} onClose={CloseSidebar} className="lg:hidden p-5" overlay={false}>
+                    <div className="flex flex-col bg-white">
+                        <div className="mb-2 flex items-center justify-between">
+                            <Link to="/" className="cursor-pointer font-medium">
+                                <img src={logo} alt="Qwik Savings" className="h-auto w-[10rem]" />
+                            </Link>
+                            <IconButton variant="text" color="blue-gray" onClick={CloseSidebar}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    className="h-5 w-5"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </IconButton>
+                        </div>
+                        <div className="flex items-center justify-center my-5">
+                            {role ? (
+                                <div className="flex justify-between w-full mx-10">
+                                    <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
+                                        Profile
+                                    </Link>
+                                    <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
+                                        Logout
+                                    </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <>
-                                <Link to="/login" className="whitespace-nowrap text-black">
-                                    Log In
-                                </Link>
-                                <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md">
-                                    Sign Up
-                                </Link>
-                            </>
-                        )}
+                            ) : (
+                                <>
+                                    <Link to="/login" className="whitespace-nowrap text-black" onClick={() => setOpenSidebar(!openSidebar)}>
+                                        Log In
+                                    </Link>
+                                    <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md" onClick={() => setOpenSidebar(!openSidebar)}>
+                                        Sign Up
+                                    </Link>
+                                </>
+                            )}
+                        </div>
+                        <div className="-my-5"><NavList></NavList></div>
                     </div>
-                    <div className="-my-5"><NavList></NavList></div>
                 </Drawer>
             </div>
         </>

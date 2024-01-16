@@ -13,22 +13,22 @@ export default function Home() {
     return (
         <>
             <div className="border-b-[1px] border-b-[#B33D53]">
-                <div className="bg-[#FAF9F5] lg:px-28 mt-20 lg:mt-36 lg:mb-4  mx-auto flex flex-col lg:flex-row text-5xl items-center justify-center">
+                <div className="bg-[#FAF9F5] px-5 lg:px-28 mt-28 lg:mt-36 lg:mb-4  mx-auto flex flex-col lg:flex-row text-5xl items-center justify-center">
 
                     <Carousel></Carousel>
                     <StackedImageAnimation></StackedImageAnimation>
 
                 </div>
-                <div className="bg-white px-10 lg:px-28">
+                <div className="bg-white px-5 lg:px-28">
                     <Content></Content>
                 </div>
-                <div className="px-10 lg:px-28">
+                <div className="px-5 lg:px-28">
                     <Featured_Stores></Featured_Stores>
                 </div>
                 {/* <Womanfashion></Womanfashion> */}
                 <CategoriesbasedCoupons></CategoriesbasedCoupons>
 
-                <div className="bg-white px-10 lg:px-28">
+                <div className="bg-white px-5 lg:px-28">
                     <About></About>
                 </div>
 
