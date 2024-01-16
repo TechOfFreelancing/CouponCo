@@ -97,10 +97,10 @@ const Carousel = () => {
     }, [index]);
 
     return (
-        <div className='container overflow-clip rounded-[20px] h-[200px] lg:h-[350px] max-w-fit' >
+        <div className='container overflow-clip rounded-[20px] h-[125px] lg:h-[350px] w-screen lg:w-full' >
             {
                 featuredImages[index] ? (
-                    <div className='slideshow group lg:w-[1000px] w-screen my-0 lg:my-auto'>
+                    <div className='slideshow group lg:w-[1000px] w-screen my-0 lg:my-auto mx-5'>
                         <AnimatePresence initial={false} custom={direction}>
                             <a
                                 href={featuredImages[index].ref_link && (featuredImages[index].ref_link.startsWith('https://') ? featuredImages[index].ref_link : `https://${featuredImages[index].ref_link}`)}
@@ -117,25 +117,25 @@ const Carousel = () => {
                                     exit='exit'
                                     src={featuredImages[index].thumbnail}
                                     alt='slides'
-                                    className='slides object-cover w-[340px] h-[192px] lg:h-[350px] lg:w-[1000px] rounded-[20px]'
+                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[1000px] rounded-[20px] '
                                     key={featuredImages[index].thumbnail}
                                     custom={direction}
 
                                 />
                             </a>
                         </AnimatePresence>
-                        <div className="absolute top-1/2 lg:top-[11rem] transform -translate-y-1/2 flex justify-between items-start px-3 lg:px-10 w-full">
+                        <div className="absolute top-[53.5px] lg:top-[11rem] transform -translate-y-1/2 flex justify-between items-start px-3 lg:px-10 w-full">
                             <button
                                 onClick={prevStep}
                                 className="hidden bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-left  animate-right duration-300 hover:scale-125"
                             >
-                                <AiOutlineVerticalRight className='h-6 w-6 ' />
+                                <AiOutlineVerticalRight className='w-4 h-4 lg:h-6 lg:w-6 ' />
                             </button>
                             <button
                                 onClick={nextStep}
                                 className="hidden bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition group-hover:block group-hover:animate-right  animate-left duration-300 hover:scale-125"
                             >
-                                <AiOutlineVerticalLeft className='h-6 w-6' />
+                                <AiOutlineVerticalLeft className='w-4 h-4 lg:h-6 lg:w-6' />
                             </button>
                         </div>
                     </div>

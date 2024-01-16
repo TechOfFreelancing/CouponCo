@@ -13,13 +13,13 @@ import Content2 from "./content2";
 const CategoriesbasedCoupons = () => {
     return (
         <div>
-            <div className="px-10 lg:px-28">
+            <div className="px-5 lg:px-28">
                 <ClothingBased></ClothingBased>
             </div>
-            <div className="px-10 lg:px-28 bg-white py-10">
+            <div className="px-5 lg:px-28 bg-white py-10">
                 <Content2></Content2>
             </div>
-            <div className="px-10 lg:px-28">
+            <div className="px-5 lg:px-28">
                 <TravelBased></TravelBased>
                 <HealthFitnessBased></HealthFitnessBased>
                 <ElectronicsBased></ElectronicsBased>

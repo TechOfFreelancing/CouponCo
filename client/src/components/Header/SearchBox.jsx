@@ -79,8 +79,8 @@ const SearchBar = () => {
     }, []);
 
     return (
-        <div className='flex flex-col relative bg-white w-[309px] border-red-700 border-solid border-2 rounded-full' ref={searchContainerRef}>
-            <div className="searchbar hidden lg:flex p-3 justify-between">
+        <div className='flex flex-col relative bg-white w-[200px] h-[43px] lg:h-[48px] lg:w-[309px] border-red-700 border-solid border-2 rounded-full' ref={searchContainerRef}>
+            <div className="searchbar flex p-2 lg:p-3 justify-between text-xs lg:text-lg">
                 <input
                     type="search"
                     placeholder="Search for brands, categories"
@@ -94,7 +94,7 @@ const SearchBar = () => {
                 </button>
             </div>
             {Object.keys(suggestions).length > 0 && (
-                <div className='bg-white absolute top-10 left-0 w-[309px] rounded-xl min-h-min max-h-[272px] overflow-scroll -z-10 p-5 flex flex-col gap-3'>
+                <div className='bg-white absolute top-10 left-0 w-[200px] lg:w-[309px] rounded-xl min-h-min max-h-[250px] lg:max-h-[272px] overflow-scroll -z-10 p-5 flex flex-col gap-3'>
                     {suggestions.categories.length > 0 && (
                         <>
                             <span className='font-semibold'>

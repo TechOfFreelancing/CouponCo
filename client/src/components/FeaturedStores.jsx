@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../styles/slickslider.css"
 
 const Featured_Stores = () => {
 
@@ -9,9 +13,49 @@ const Featured_Stores = () => {
     const [images, setImages] = useState([]);
     const [count, setCount] = useState([]);
 
-    // console.log(count);
+    //settings for slider
 
-
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 8,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 480, // Mobile
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 768, // Tablet
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 1200, // Laptop
+                settings: {
+                    slidesToShow: 7,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 1600, // Desktop
+                settings: {
+                    slidesToShow: 8,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+        ]
+    };
 
 
     useEffect(() => {
@@ -37,6 +81,7 @@ const Featured_Stores = () => {
                     }));
 
                     setFeatured(storeDetails); // Update state with the modified data
+                    console.log(featured);
                     const logoUrls = storeDetails.map(detail => detail.logoUrl); // Extract logoUrls
                     setImages(logoUrls);
                 }
@@ -53,19 +98,20 @@ const Featured_Stores = () => {
 
     return (
         <div className="h-fit max-h-[100vh] bg-[#FAF9F6] py-5">
-            <div className="flex flex-col items-center justify-center lg:flex-row lg:justify-between h-[5rem]">
+            <div className="flex items-center justify-between h-[5rem]">
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
-                <Link to="/allstores" className="hover:underline h-7 duration-300 underline">
+                <Link to="/allstores" className="hover:underline h-7 duration-300">
                     All Stores
                 </Link>
             </div>
-            <div className="flex gap-5 lg:grid lg:grid-cols-8 lg:overflow-hidden overflow-auto overflow-y-hidden scroll-snap-type-x mandatory scrollbar-hide">
-                {featured.slice(0, 8).map((ele, index) => (
-                    <div key={index} className={`flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 hover:z-${index * 10} item flex-shrink-0 scroll-snap-align-start`}>
+            <Slider {...settings}>
+
+                {featured.slice(0, 10).map((ele, index) => (
+                    <div key={index} className={`flex flex-col gap-2 w-full h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 mt-2 p-2`}>
                         <div
-                            className="h-[9rem] w-[9rem] rounded-full flex flex-wrap items-center justify-center overflow-clip p-3 bg-white shadow-boxshadow">
+                            className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] rounded-full p-1 lg:p-3 bg-white hover:shadow-boxshadow">
                             <img
                                 src={images[index]}
                                 alt={`Logo ${index}`}
@@ -74,15 +120,16 @@ const Featured_Stores = () => {
                                     navigate(`/Stores/${ele.name}`, { state: { sId: ele.storeId } });
                                 }} />
                         </div>
-                        <div className="hover:underline text-center group-hover:underline">
-                            <span className="flex justify-center gap-2 items-center ">
-                                <span>{count[index]?.coupons_count}</span>
-                                <span>coupons</span>
-                            </span>
-                        </div>
+
+                        <span className="flex justify-center gap-2 items-center hover:underline group-hover:underline">
+                            <span>{count[index]?.coupons_count}</span>
+                            <span>coupons</span>
+                        </span>
+
                     </div>
                 ))}
-            </div>
+
+            </Slider>
         </div>
     )
 }
