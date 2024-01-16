@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../styles/slickslider.css"
 
 const Featured_Stores = () => {
 
@@ -10,7 +13,49 @@ const Featured_Stores = () => {
     const [images, setImages] = useState([]);
     const [count, setCount] = useState([]);
 
+    //settings for slider
 
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 8,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 480, // Mobile
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 768, // Tablet
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 1200, // Laptop
+                settings: {
+                    slidesToShow: 7,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 1600, // Desktop
+                settings: {
+                    slidesToShow: 8,
+                    slidesToScroll: 1,
+                    dots: true,
+                },
+            },
+        ]
+    };
 
 
     useEffect(() => {
@@ -65,9 +110,10 @@ const Featured_Stores = () => {
                     All Stores
                 </Link>
             </div>
-            <div className="flex gap-5 lg:grid lg:grid-cols-8 lg:overflow-hidden overflow-auto overflow-y-hidden scroll-snap-type-x mandatory scrollbar-hide">
-                {featured.slice(0, 8).map((ele, index) => (
-                    <div key={index} className={`flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 hover:z-${index * 10} item flex-shrink-0 scroll-snap-align-start`}>
+            <Slider {...settings}>
+
+                {featured.slice(0, 10).map((ele, index) => (
+                    <div key={index} className={`flex flex-col gap-2 w-full h-[10rem] lg:h-[15rem] cursor-pointer group items-center justify-center hover:scale-105 duration-300 mt-2 p-2`}>
                         <div
                             className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] rounded-full p-1 lg:p-3 bg-white hover:shadow-boxshadow">
                             <img
@@ -86,8 +132,8 @@ const Featured_Stores = () => {
                         </div>
                     </div>
                 ))}
-            </div>
 
+            </Slider>
         </div>
     )
 }
