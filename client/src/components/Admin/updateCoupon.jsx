@@ -20,6 +20,7 @@ const UpdateCoupons = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedEvents, setSelectedEvents] = useState([]);
 
     const inputStyle = {
         width: '100%',
@@ -36,6 +37,8 @@ const UpdateCoupons = () => {
 
     const cId = location.state?.cId;
 
+    // console.log(cId);
+
     const formattedDate = coupons?.due_date?.substring(0, 10)
     const isPresentInHomePage = useRef(false);
 
@@ -50,6 +53,7 @@ const UpdateCoupons = () => {
             due_date: formattedDate || '',
             ref_link: coupons.ref_link || '',
             description: coupons.description || '',
+            events: selectedEvents || []
         },
 
         onSubmit: async (values) => {
@@ -60,7 +64,8 @@ const UpdateCoupons = () => {
                 "coupon_code": values.coupon_code,
                 "due_date": values.due_date,
                 "ref_link": values.ref_link,
-                "description": values.description
+                "description": values.description,
+                "events": values.events
             });
 
             console.log(data);
@@ -94,11 +99,13 @@ const UpdateCoupons = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
                 const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
-
+                const eventName = await axios.get(`http://localhost:4000/api/eventcoupon/${cId}`);
+                // console.log(eventName);
                 const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
-
+                const events = eventName.length !== 0 && eventName.data.coupons.map((e) => e.event_name);
+                setSelectedEvents(events);
                 const presentInHomePage = result.data.data.some(item => item.coupon_id === cId);
                 isPresentInHomePage.current = presentInHomePage;
 
@@ -110,6 +117,7 @@ const UpdateCoupons = () => {
                     due_date: response.data.coupon.due_date.substring(0, 10) || '',
                     ref_link: response.data.coupon.ref_link || '',
                     description: response.data.coupon.description || '',
+                    events: events || []
                 });
 
             } catch (error) {
@@ -117,8 +125,12 @@ const UpdateCoupons = () => {
                 console.error('Error Occurred!', error);
             }
         };
+
         fetchData();
     }, [cId]);
+
+
+    // console.log(formik.values.events);
 
     const handleOpenDialog = () => {
         setOpenDialog(!openDialog);
@@ -170,6 +182,17 @@ const UpdateCoupons = () => {
             console.error('Failed to delete store:', error);
         }
     }
+
+    const handleCheckboxChange = (event, eventName) => {
+        const isChecked = event.target.checked;
+
+        formik.setFieldValue(
+            'events',
+            isChecked
+                ? [...formik.values.events, eventName]
+                : formik.values.events.filter((event) => event !== eventName)
+        );
+    };
 
     return (
         <>
@@ -243,6 +266,27 @@ const UpdateCoupons = () => {
                             }
                         </div>
                     </div>
+
+
+                    <div className="mb-4">
+                        <label htmlFor="category" className="block mb-1 font-medium">
+                            Events:
+                        </label>
+                        <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
+                            {Events.map((event, index) => (
+                                <div key={index} className="inline-flex items-center gap-5">
+                                    <input
+                                        type="checkbox"
+                                        className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
+                                        checked={formik.values.events.includes(event.title)}
+                                        onChange={(e) => handleCheckboxChange(e, event.title)}
+                                    />
+                                    <span className="text-md flex items-center gap-2">{event.title}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
 
 
                     <div className="mb-4">

@@ -224,7 +224,7 @@ exports.resetPassPost = catchAsyncErrors(async (req, res, next) => {
 
 // Get User Details with Saved Coupons Data
 exports.getUserDetailsWithCoupons = catchAsyncErrors(async (req, res, next) => {
-    const { userId } = req.params; 
+    const { userId } = req.params;
     try {
         const getCouponsForUserSql = `
             SELECT c.* FROM coupons c
@@ -236,7 +236,7 @@ exports.getUserDetailsWithCoupons = catchAsyncErrors(async (req, res, next) => {
         // Fetch user details from the 'users' table
         const getUserDetailsSql = `SELECT * FROM users WHERE user_id = ?`;
         const userDetails = await db.query(getUserDetailsSql, [userId]);
-        const user = userDetails[0]; 
+        const user = userDetails[0];
 
         res.status(200).json({ user, savedCoupons: couponsData[0] });
     } catch (err) {
@@ -244,3 +244,63 @@ exports.getUserDetailsWithCoupons = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Unable to fetch user details with saved coupons", 400));
     }
 });
+
+exports.addContacts = catchAsyncErrors(async (req, res, next) => {
+    const { uId } = req.params;
+    const { name, email, message } = req.body;
+    try {
+
+        if (!name || !email || !message) {
+            return next(new ErrorHandler("Fill all details", 400));
+        }
+
+        const [resObj] = await db.query('SELECT * FROM users WHERE user_id = ?', [uId]);
+
+        if (resObj.length == 0) {
+            return next(new ErrorHandler("User not found", 400));
+        }
+
+        const [result] = await db.query('INSERT INTO contacts (user_id, fullname, email, message,isAccepted) VALUES (?, ?, ?, ?,?)', [uId, name, email, message, 1]);
+
+
+        return res.status(201).json({ message: "Contact Details Send Successfully", user: uId });
+    } catch (err) {
+        console.log(err);
+        return next(new ErrorHandler("Unable to proceed", 400));
+    }
+})
+
+exports.addAdvertise = catchAsyncErrors(async (req, res, next) => {
+    const { uId } = req.params;
+    const { name, company, url, email, affiliate, message, affiliate_network } = req.body;
+
+    try {
+        const [user] = await db.query('SELECT * FROM users WHERE user_id = ?', [uId]);
+
+        if (user.length === 0) {
+            return res.status(404).send("User not found");
+        }
+
+        if (!name || !company || !url || !email || !affiliate || !message) {
+            return res.status(401).send("Fill All Details");
+        }
+
+        const insertColumns = ['user_id', 'fullname', 'company', 'website_url', 'email', 'affiliate', 'message', 'isAccepted'];
+        const insertValues = [uId, name, company, url, email, affiliate, message, '1'];
+
+        if (affiliate_network) {
+            insertColumns.push('affiliate_network');
+            insertValues.push(affiliate_network);
+        }
+
+        const placeholders = Array(insertColumns.length).fill('?').join(', ');
+        const query = `INSERT INTO advertise (${insertColumns.join(', ')}) VALUES (${placeholders})`;
+        const [result] = await db.query(query, insertValues);
+
+        return res.status(201).json({ message: "Data Send Successfully", user: uId });
+    } catch (err) {
+        console.log(err);
+        return next(new ErrorHandler("Unable to proceed", 400));
+    }
+});
+
