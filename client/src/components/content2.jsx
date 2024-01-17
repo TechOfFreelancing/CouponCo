@@ -8,7 +8,7 @@ const Content2 = () => {
                     <span className="font-semibold text-lg lg:text-3xl">How to use Qwik Savings</span>
                 </div>
             </div>
-            <div className="grid grid-cols-3 justify-items-stretch gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 justify-items-stretch gap-5">
                 {
                     content2.map((ele, index) => <div key={index} className="bg-[#FAF9F5] rounded-lg flex flex-col gap-5 items-center justify-center px-5 h-[420px] shadow-boxshadow" >
                         <img src={ele.img} alt="" className='h-1/2 w-auto' />

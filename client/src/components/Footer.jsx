@@ -17,7 +17,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <div className="flex max-w-md flex-row items-center justify-center rounded-full border-2 border-red-800 overflow-clip h-[50px] w-96">
+            <div className="flex max-w-md flex-row items-center justify-center rounded-full border-2 border-red-800 overflow-clip h-[50px] w-72 lg:w-96">
                 <input
                     ref={(node) => (email = node)}
                     type="email"
@@ -44,8 +44,8 @@ const CustomForm = ({ status, message, onValidated }) => {
 export default function Footer() {
     return (
 
-        <div className="relative isolate overflow-hidden bg-white p-10 border-t-[1px] border-t-[#B33D53]">
-            <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-start h-[350px] mb-5">
+        <div className="relative isolate overflow-hidden bg-white p-5 lg:p-10 border-t-[1px] border-t-[#B33D53]">
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-center lg:items-start h-full lg:h-[350px] mb-5">
                 <div className='flex flex-col w-full lg:w-1/4 items-center justify-center'>
                     <img
                         src={logo}
@@ -59,7 +59,7 @@ export default function Footer() {
                 {
                     SITEMAP.map((ele, index) => {
                         return (
-                            <div key={index} className='flex flex-col gap-3 items-center lg:items-stretch'>
+                            <div key={index} className='flex flex-col gap-3 items-start lg:items-stretch'>
                                 <div className='font-bold text-xl'>{ele.title}</div>
                                 {
                                     ele.links.map((ele, index) => {
