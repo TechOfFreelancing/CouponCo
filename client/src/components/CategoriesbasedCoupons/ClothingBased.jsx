@@ -204,6 +204,7 @@ const ClothingBased = () => {
         }
     };
 
+
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
@@ -259,14 +260,12 @@ const ClothingBased = () => {
                         View All Clothing Offers
                     </div>
                 </div>
-                {/* <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4"> */}
-                
-                <Slider {...settings}>
+                <div className="lg:grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide">
                     {clothes
                         .filter(item => new Date(item.due_date) >= new Date())
-                        .slice(4, 8)
+                        .slice(0, 4)
                         .map((item, index) => (
-                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 bg-white">
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-fit border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start">
                                 <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
@@ -286,7 +285,7 @@ const ClothingBased = () => {
                                 <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
                                     <span className="text-black mr-2 ">{item.title}</span>
                                 </div>
-                                <div className="flex justify-between items-center w-full text-sm p-3 text-[10px]">
+                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
                                     <span>{item.name}</span>
                                     <span>{item.user_count} Used</span>
                                 </div>
@@ -298,8 +297,45 @@ const ClothingBased = () => {
                                 </div>
                             </div>
                         ))}
-                </Slider>
-                {/* </div> */}
+                </div>
+                <div className="lg:grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide">
+                    {clothes
+                        .filter(item => new Date(item.due_date) >= new Date())
+                        .slice(4, 8)
+                        .map((item, index) => (
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-fit border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start">
+                                <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
+                                <span
+                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
+                                        }`}
+                                    onClick={() => handleLikeClick(index, item.coupon_id)}
+                                >
+                                    <FaHeart className="cursor-pointer text-xl duration-300" />
+                                </span>
+                                <div
+                                    className="absolute z-10 left-2 bottom-36 mt-2 shadow-boxshadow h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white cursor-pointer"
+                                    onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })}>
+                                    <img src={item.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
+                                </div>
+                                <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
+                                    {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
+                                </div>
+                                <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
+                                    <span className="text-black mr-2 ">{item.title}</span>
+                                </div>
+                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
+                                    <span>{item.name}</span>
+                                    <span>{item.user_count} Used</span>
+                                </div>
+                                <div className="flex flex-col items-center justify-between">
+                                    <button className="button has-code" onClick={() => handleOpen(item)} >
+                                        <span className="is-code">74{item.coupon_code}</span>
+                                        <span className="is-code-text uppercase"><em>Get {item.type}</em></span>
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                </div>
             </div>
 
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5">
