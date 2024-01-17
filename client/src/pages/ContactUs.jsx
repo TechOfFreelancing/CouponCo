@@ -2,11 +2,64 @@ import { Link } from "react-router-dom";
 import contactus from '../assets/images/contactus/Contact Us-1.png'
 import Footer from "../components/Footer";
 import SocialIcon from "../api/socialmedia";
+import { useState, useContext } from "react";
+import { toast, Toaster } from 'react-hot-toast';
+import axios from "axios";
 
 
 const ContactUs = () => {
+
+    const [contact, setContacts] = useState({
+        name: '',
+        email: '',
+        message: '',
+        isAccept: false,
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setContacts((prev) => ({
+            ...prev,
+            [name]: e.target.type === 'checkbox' ? e.target.checked : value
+        }))
+    }
+
+    console.log(contact);
+
+    const handleSubmit = async (e) => {
+        console.log(contact);
+        e.preventDefault();
+        try {
+
+            if (!contact.isAccept) {
+                return toast.error("Please Accept Privacy Policy");
+            }
+
+            const response = await axios.post(`http://localhost:4000/api/contact/${localStorage.getItem('id')}`, {
+                name: contact.name,
+                email: contact.email,
+                message: contact.message,
+                isAccept: contact.isAccept
+            });
+
+            setContacts({
+                name: '',
+                email: '',
+                message: '',
+                isAccept: false,
+            })
+
+            toast.success('Sent successfully');
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Please fill all details");
+        }
+    };
+
     return (
         <>
+            <Toaster position="top-center"></Toaster>
             <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start">
                 <div className="flex flex-col items-start flex-wrap p-4">
                     <ul className="flex items-center">
@@ -35,22 +88,44 @@ const ContactUs = () => {
                             . Please allow up-to 24 hours for a response - thank you!</div>
                         <div className="flex flex-col gap-3">
                             <span className="text-md flex">Full Name <span>*</span></span>
-                            <input type="text" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                            <input type="text"
+                                name="name"
+                                className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required"
+                                value={contact.name}
+                                onChange={(e) => handleChange(e)}
+                            />
                         </div>
                         <div className="flex flex-col gap-1">
                             <span className="text-md flex">Email Address <span>*</span></span>
-                            <input type="text" className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required" />
+                            <input
+                                type="text"
+                                name="email"
+                                className="w-full bg-[#FAF9F5] h-10 outline-none border rounded-lg p-1 required"
+                                value={contact.email}
+                                onChange={(e) => handleChange(e)}
+                            />
                         </div>
                         <div className="flex flex-col gap-1">
                             <span className="text-md flex">Message <span>*</span></span>
-                            <textarea type="text" className="w-full bg-[#FAF9F5] h-28 outline-none border rounded-lg p-1 " required />
+                            <textarea type="text"
+                                name="message"
+                                className="w-full bg-[#FAF9F5] h-28 outline-none border rounded-lg p-1 "
+                                value={contact.message}
+                                onChange={(e) => handleChange(e)}
+                                required />
                         </div>
                         <div className="inline-flex items-center gap-5">
-                            <input type="checkbox" className=" bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
+                            <input type="checkbox"
+                                name="isAccept"
+                                className=" bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
+                                checked={contact.isAccept}
+                                onChange={(e) => handleChange(e)}
+                            />
                             <span className="text-md flex items-center gap-2">I accept the <span className="font-bold cursor-pointer">Privacy Policy</span> </span>
                         </div>
 
-                        <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit">Submit Form</button>
+                        <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit"
+                            onClick={(e) => handleSubmit(e)}>Submit Form</button>
                     </div>
                     <div className="w-2/5 h-[685px] flex flex-col justify-between">
                         <img src={contactus} alt="contact us" className="w-full h-auto object-cover mt-6" />

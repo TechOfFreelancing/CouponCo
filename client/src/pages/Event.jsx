@@ -1,8 +1,12 @@
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import event from '../api/event'
 
+
 const Event = () => {
+
+    const navigate = useNavigate();
+
     return (
         <>
             <div className='lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32'>
@@ -31,8 +35,10 @@ const Event = () => {
                             return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-auto border duration-300 hover:shadow-boxshadow rounded-xl p-5 bg-white'>
                                 <span className='text-xl font-bold text-center w-3/4 h-1/6'>{ele.title}</span>
                                 <img src={ele.img} alt="" className='w-auto h-1/2 object-cover' />
-                                <Link to="/eventdetails" className='border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'>Reveal Offer</Link>
-
+                                <div className='border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'
+                                    onClick={() => navigate("/eventdetails", { state: { event: ele.title } })}>
+                                    Reveal Offer
+                                </div>
                             </div>
                         })
 

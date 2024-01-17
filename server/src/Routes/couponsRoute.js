@@ -1,5 +1,5 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons,getStoreDisplayAllData,getStoreDisplay, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard,deleteFromDisplay, addToTodaysTop, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds, incrementUserCount, saveCouponForUser, unsaveCouponForUser, getUnverifiedCoupons, decreaseCouponsOffers, getCategoryCoupons, getEventsForCoupons } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons,getStoreDisplayAllData,getStoreDisplay, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard,deleteFromDisplay, addToTodaysTop, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds, incrementUserCount, saveCouponForUser, unsaveCouponForUser, getUnverifiedCoupons, decreaseCouponsOffers, getCategoryCoupons, getEventsForCoupons, getDataForEvent } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 const { isAdmin } = require('../middleware/auth');
@@ -13,6 +13,7 @@ router.route("/coupons/:storeId").get(getCoupons);
 router.route("/coupons/:storeId/:cId").get(getSingleCoupon);
 router.route("/coupon/:category").get(getCategoryCoupons);
 router.route("/eventcoupon/:cId").get(getEventsForCoupons);
+router.route("/events/:event").get(getDataForEvent);
 
 router.route("/storeDisplay/:category").get(getStoreDisplayAllData);
 router.route("/storeDisplay").get(getStoreDisplay);

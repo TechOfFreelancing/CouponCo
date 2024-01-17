@@ -412,6 +412,7 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
 //add coupons
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
+    // console.log(storeId);
     const { title, couponCode, type, ref_link, category, dueDate, description, isVerified } = req.body;
     // console.log(req.body);
     try {
@@ -499,6 +500,8 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
         // Check if the coupon exists
         const [couponResult] = await db.query('SELECT * FROM coupons WHERE coupon_id = ?', [cId]);
 
+        // console.log(couponResult);
+
         if (couponResult.length === 0) {
             return next(new ErrorHandler(`Coupon with ID ${cId} not found`, 404));
         }
@@ -524,11 +527,11 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
             await Promise.all(
                 eventsToAdd.map(async (event) => {
                     // Check if the coupon is already associated with the event
-                    const [existingEvent] = await db.query('SELECT * FROM events WHERE coupon_id = ? AND store_id = ? AND event_name = ?', [coupon_id, store_id, event]);
+                    const [existingEvent] = await db.query('SELECT * FROM events WHERE coupon_id = ? AND store_id = ? AND event_name = ?', [cId, couponResult[0].store_id, event]);
 
                     if (existingEvent.length === 0) {
                         // Insert the event only if it does not exist
-                        await db.query('INSERT INTO events (coupon_id, store_id, event_name) VALUES (?, ?, ?)', [coupon_id, store_id, event]);
+                        await db.query('INSERT INTO events (coupon_id, store_id, event_name) VALUES (?, ?, ?)', [cId, couponResult[0].store_id, event]);
                     }
                 })
             );
@@ -569,16 +572,34 @@ exports.updateCoupon = catchAsyncErrors(async (req, res, next) => {
 
 exports.getEventsForCoupons = catchAsyncErrors(async (req, res, next) => {
     const { cId } = req.params;
-
+    // console.log(cId);
     try {
         // Fetch the single coupon for the store based on cId
         const [couponResult] = await db.query('SELECT * FROM events WHERE coupon_id = ?', [cId]);
 
         if (couponResult.length === 0) {
-            return next(new ErrorHandler(`Coupon with ID ${cId} not found`, 404));
+            return res.status(200).json({ coupons: [] });
         }
 
-        res.status(200).json({ message: `Coupon with ID ${cId} fetched successfully`, coupons: couponResult });
+        return res.status(200).json({ message: `Coupon with ID ${cId} fetched successfully`, coupons: couponResult });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch coupon", 500));
+    }
+})
+
+exports.getDataForEvent = catchAsyncErrors(async (req, res, next) => {
+    const { event } = req.params;
+    // console.log(cId);
+    try {
+        // Fetch the single coupon for the store based on cId
+        const [couponResult] = await db.query('SELECT * FROM events WHERE event_name = ?', [event]);
+
+        if (couponResult.length === 0) {
+            return res.status(200).json({ coupons: [] });
+        }
+
+        return res.status(200).json({ message: `Event coupons fetched successfully`, coupons: couponResult });
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to fetch coupon", 500));
@@ -598,7 +619,7 @@ exports.getSingleCoupon = catchAsyncErrors(async (req, res, next) => {
         }
 
         // Fetch the single coupon for the store based on cId
-        const [couponResult] = await db.query('SELECT * FROM coupons WHERE store_id = ? AND coupon_id = ?', [storeId, cId]);
+        const [couponResult] = await db.query('SELECT coupons.*, store.name, store.logo_url, store.description,store.moreAbout, store.hint, store.faq, store.total_ratings, store.ratings_count, store.coupons FROM coupons INNER JOIN store ON coupons.store_id = store.id  WHERE coupons.store_id = ? AND coupons.coupon_id = ?', [storeId, cId]);
 
         if (couponResult.length === 0) {
             return next(new ErrorHandler(`Coupon with ID ${cId} not found for store with ID ${storeId}`, 404));

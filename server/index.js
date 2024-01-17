@@ -47,6 +47,8 @@ const server = app.listen(PORT, () => {
 
     try {
         user.createUserTable();
+        user.createContactDetailsTable();
+        user.createAdvertiseTable()
         Coupons.createStoreTable();
         Coupons.createSimilarTable();
         Coupons.createCouponsTable();
