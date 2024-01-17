@@ -129,6 +129,7 @@ function AddCoupons() {
                                 <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
                                     {
                                         Events.map((event, index) => <div key={index} className="inline-flex items-center gap-5">
+
                                             <input type="checkbox"
                                                 className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
                                                 checked={selectedEvents.includes(event.title)}
@@ -143,6 +144,7 @@ function AddCoupons() {
                                                     });
                                                 }}
                                             />
+
                                             <span className="text-md flex items-center gap-2">{event.title} </span>
                                         </div>)
                                     }

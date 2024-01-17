@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import Footer from "../components/Footer"
 import img1 from '../assets/images/advertise/Advertise With Us.jpg';
+
 import ads from "../api/advertise";
 import { useState } from "react";
 import '../styles/advertiseus.css';
@@ -63,6 +64,7 @@ const AdvertiseUs = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
+
             <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
                 <div className="flex flex-col items-start flex-wrap p-5 pb-0">
                     <ul className="flex items-center">

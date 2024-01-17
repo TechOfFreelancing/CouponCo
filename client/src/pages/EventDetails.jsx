@@ -20,6 +20,7 @@ import { IoMdClose } from "react-icons/io";
 import { TbExternalLink } from 'react-icons/tb'
 import AuthContext from "../components/AuthContext";
 
+
 const EventDetails = () => {
 
     const [detailsVisibility, setDetailsVisibility] = useState([]);
@@ -369,43 +370,52 @@ const EventDetails = () => {
                                     return (
                                         <div key={index}
                                             className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+
                                             <span
                                                 className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                     }`}
                                                 onClick={() => handleLikeClick(index, ele.coupon_id)}
                                             >
+
                                                 <FaHeart className="cursor-pointer text-xl duration-300" />
                                             </span>
                                             <div className="flex flex-col w-full gap-2">
                                                 <div className="flex gap-5 lg:gap-0">
                                                     <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
                                                         <div className="border border-black flex flex-col items-center justify-center">
+
                                                             <img src={ele.logo_url} alt="H" className="h-[50px] w-[50px] lg:max-h-[75px] lg:h-auto lg:w-[75px] rounded-lg m-2" />
+
                                                             <span className="bg-blue-100 text-center w-full">{ele.type}</span>
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
                                                         <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
+
                                                             <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
+
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col lg:w-[30%] w-[75%] lg:mx-5 pt-5 justify-between gap-2">
                                                         <div className="flex flex-col gap-5">
                                                             <div className="flex text-lg whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between">
                                                                 <span className="flex justify-center items-center lg:gap-2 text-green-800">
+
                                                                     <GoVerified className="font-bold" />{ele.isVerified && "Verified"}
-                                                                </span>
+                                            </span>
                                                                 <span className="flex justify-center items-center lg:gap-2">
                                                                     <CiUser></CiUser>
                                                                     {(ele.user_count)} Uses
                                                                 </span>
                                                             </div>
+
                                                             <div className="flex flex-col items-center justify-between">
                                                                 <button className="button has-code" onClick={() => handleOpen(ele)} >
                                                                     <span className="is-code">74{ele.coupon_code}</span>
                                                                     <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
                                                                 </button>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -414,8 +424,10 @@ const EventDetails = () => {
                                                 </div>
                                                 {detailsVisibility[index] && (
                                                     <div className="details flex flex-col w-screen lg:w-auto ml-4">
+
                                                         <span className="font-bold">due date : {(ele.due_date)}</span>
                                                         <span>{ele.description}</span>
+
                                                     </div>
                                                 )}
                                             </div>

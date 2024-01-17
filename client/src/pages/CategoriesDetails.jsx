@@ -41,7 +41,9 @@ const CategoriesDetails = () => {
     const [password, setPassword] = useState("");
     const [name1, setName1] = useState("");
     const [email1, setEmail1] = useState("");
+
     const [popularStore, setPopularStore] = useState([]);
+
     const [password1, setPassword1] = useState("");
 
 
@@ -279,7 +281,9 @@ const CategoriesDetails = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
+
                             <span className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap cursor-pointer">
+
                                 {category}
                             </span>
                         </li>
@@ -334,7 +338,9 @@ const CategoriesDetails = () => {
                                 <div className="text-xl font-bold my-2">Popular Store</div>
                                 <div className="flex flex-wrap gap-2">
                                     {
+
                                         popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
+
                                             onClick={() => {
                                                 navigate(`/Stores/${ele.name}`, { state: { sId: ele.store_id } });
                                             }}>{ele.name}</div>).slice(0,10)
