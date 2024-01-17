@@ -251,12 +251,12 @@ const FoodBeveragesBased = () => {
                         View All Food & Beverages Offers
                     </div>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4">
+                <div className="lg:grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide">
                     {foodbeverages
                         .filter(item => new Date(item.due_date) >= new Date())
                         .slice(0, 4)
                         .map((item, index) => (
-                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white">
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-fit border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start">
                                 <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
@@ -273,7 +273,7 @@ const FoodBeveragesBased = () => {
                                 <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
                                     {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
                                 </div>
-                               <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
+                                <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
                                     <span className="text-black mr-2 ">{item.title}</span>
                                 </div>
                                 <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
@@ -297,16 +297,15 @@ const FoodBeveragesBased = () => {
                     <div className="flex flex-col gap-3 lg:gap-5 items-center">
                         <div
                             className="border border-black h-[150px] w-[150px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white">
-                            <img src={selectedProduct?.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
-                        </div>
+                            <img src={selectedProduct?.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" /></div>
                         <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
                             <div className="text-2xl whitespace-nowrap">{selectedProduct.name &&
                                 selectedProduct?.name.toUpperCase()}</div>
-                            <div className="text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
+                            <div className="text-sm lg:text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
                         </div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
                         <div
-                            className="flex items-center min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
+                            className="flex items-center lg:min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
                             <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
                             <button
                                 className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
@@ -315,7 +314,7 @@ const FoodBeveragesBased = () => {
                             </button>
                         </div>
                         {!waiting ? (<div
-                            className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
+                            className="text-xs lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
                             <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>
                             <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }}
                                 rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000]

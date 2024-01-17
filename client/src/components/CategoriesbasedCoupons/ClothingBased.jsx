@@ -15,11 +15,6 @@ import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../components/AuthContext";
 import "../../styles/couponsbutton.css";
 import { TbExternalLink } from 'react-icons/tb'
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "../../styles/slickslider.css"
-// import settings from './Settings'
 
 const ClothingBased = () => {
     const [likedItems, setLikedItems] = useState([]);
@@ -39,49 +34,6 @@ const ClothingBased = () => {
     const { updateUserRole, role } = useContext(AuthContext);
 
     const navigate = useNavigate();
-
-    const settings = {
-        dots: true,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 8,
-        slidesToScroll: 1,
-        
-        responsive: [
-            {
-                breakpoint: 480, // Mobile
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                   
-                },
-            },
-            {
-                breakpoint: 768, // Tablet
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                },
-            },
-            {
-                breakpoint: 1200, // Laptop
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                   
-                },
-            },
-            {
-                breakpoint: 1600, // Desktop
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1,
-                   
-                },
-            },
-        ]
-    };
-    
 
     const handleOpenlogin = () => setOpenlogin(!openlogin);
     const handleOpenregister = () => setOpenregister(!openregister);
@@ -247,6 +199,7 @@ const ClothingBased = () => {
         }
     };
 
+
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
@@ -302,14 +255,12 @@ const ClothingBased = () => {
                         View All Clothing Offers
                     </div>
                 </div>
-                {/* <div className="grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4"> */}
-                
-                <Slider {...settings}>
+                <div className="lg:grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide">
                     {clothes
                         .filter(item => new Date(item.due_date) >= new Date())
-                        .slice(0, 10)
+                        .slice(0, 4)
                         .map((item, index) => (
-                            <div key={item.id} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 bg-white">
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-fit border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start">
                                 <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
@@ -329,7 +280,7 @@ const ClothingBased = () => {
                                 <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
                                     <span className="text-black mr-2 ">{item.title}</span>
                                 </div>
-                                <div className="flex justify-between items-center w-full text-sm p-3 text-[10px]">
+                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
                                     <span>{item.name}</span>
                                     <span>{item.user_count} Used</span>
                                 </div>
@@ -341,8 +292,45 @@ const ClothingBased = () => {
                                 </div>
                             </div>
                         ))}
-                </Slider>
-                {/* </div> */}
+                </div>
+                <div className="lg:grid grid-cols-1 lg:grid-cols-4 justify-items-stretch gap-4 overflow-auto flex scroll-snap-type-x mandatory scrollbar-hide">
+                    {clothes
+                        .filter(item => new Date(item.due_date) >= new Date())
+                        .slice(4, 8)
+                        .map((item, index) => (
+                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-fit border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start">
+                                <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
+                                <span
+                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
+                                        }`}
+                                    onClick={() => handleLikeClick(index, item.coupon_id)}
+                                >
+                                    <FaHeart className="cursor-pointer text-xl duration-300" />
+                                </span>
+                                <div
+                                    className="absolute z-10 left-2 bottom-36 mt-2 shadow-boxshadow h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white cursor-pointer"
+                                    onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })}>
+                                    <img src={item.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
+                                </div>
+                                <div className="ml-24 flex w-[60%] justify-end items-center text-gray-700 ">
+                                    {item.isVerified && <span className="text-black bg-blue-200 px-1 rounded-md text-[12px] uppercase">Verified</span>}
+                                </div>
+                                <div className="mx-4 h-[48px] p-2 text-start cursor-pointer" onClick={() => handleOpen(item)}>
+                                    <span className="text-black mr-2 ">{item.title}</span>
+                                </div>
+                                <div className="flex justify-between items-center w-full text-sm px-5 text-[10px]">
+                                    <span>{item.name}</span>
+                                    <span>{item.user_count} Used</span>
+                                </div>
+                                <div className="flex flex-col items-center justify-between">
+                                    <button className="button has-code" onClick={() => handleOpen(item)} >
+                                        <span className="is-code">74{item.coupon_code}</span>
+                                        <span className="is-code-text uppercase"><em>Get {item.type}</em></span>
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                </div>
             </div>
 
             <Dialog open={open} handler={handleOpen} size="lg" className="relative text-black p-5">
@@ -351,16 +339,15 @@ const ClothingBased = () => {
                     <div className="flex flex-col gap-3 lg:gap-5 items-center">
                         <div
                             className="border border-black h-[150px] w-[150px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white">
-                            <img src={selectedProduct?.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
-                        </div>
+                            <img src={selectedProduct?.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" /></div>
                         <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
                             <div className="text-2xl whitespace-nowrap">{selectedProduct.name &&
                                 selectedProduct?.name.toUpperCase()}</div>
-                            <div className="text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
+                            <div className="text-sm lg:text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
                         </div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
                         <div
-                            className="flex items-center min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
+                            className="flex items-center lg:min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
                             <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
                             <button
                                 className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
@@ -369,7 +356,7 @@ const ClothingBased = () => {
                             </button>
                         </div>
                         {!waiting ? (<div
-                            className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
+                            className="text-xs lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
                             <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>
                             <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }}
                                 rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000]
