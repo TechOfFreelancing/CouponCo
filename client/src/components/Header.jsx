@@ -79,17 +79,9 @@ export function Header() {
                     </Link>
                     <Link to="/" className="cursor-pointer font-medium">
                         <img src={mobile_logo} alt="Qwik Savings" className="h-10 w-10 inline-block lg:hidden" />
-                        <img src={logo} alt="Qwik Savings" className="h-20  w-[15rem]" />
-
                     </Link>
                     <div className="hidden lg:block"><NavList></NavList></div>
                     <SearchBar></SearchBar>
-                    {/* <div className="seachbar hidden lg:flex py-0 p-3 h-[3rem] border-red-700 border-solid border-2 hover:border-red-800 rounded-full w-[309px]  justify-between" onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search for brands, categories' className='outline-none bg-transparent text-black w-full' onKeyDown={handleKeyPress} />
-                        <button className="searchIcon text-red-900 cursor-pointer">
-                            <ImSearch className="h-6 w-6" />
-                        </button>
-                    </div> */}
                     {role ? (
                         <div className="hidden lg:inline-block">
                             <ProfileMenu></ProfileMenu>
@@ -154,60 +146,7 @@ export function Header() {
                         </div>
                         <div className="-my-5"><NavList></NavList></div>
                     </div>
-                <Drawer open={openSidebar} onClose={CloseSidebar} placement="right" className="p-4">
-                    <div className="mb-2 flex items-center justify-between ">
-                        <Link className="cursor-pointer font-medium">
-                            Logo
-                        </Link>
-                        <IconButton variant="text" color="blue-gray" onClick={CloseSidebar}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={2}
-                                stroke="currentColor"
-                                className="h-5 w-5"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        </IconButton>
-                    </div>
-                    <div className="seachbar flex p-3 h-3 border-red-700 border-solid border-2 hover:border-red-800 rounded-full " onChange={(e) => { setKeyWord(e.target.value) }}>
-                        <input type="search" placeholder='Search for brands, categories' className=' outline-none bg-transparent text-black appearance-none' onKeyDown={handleKeyPress} />
-                        <button className="searchIcon text-red-900 cursor-pointer">
-                            <ImSearch className="h-6 w-6" />
-                        </button>
-                    </div>
-                    <div className="flex items-center justify-center my-5">
-                        {role ? (
-                            <div className="flex justify-between w-full mx-10">
-                                <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
-                                    Profile
-                                </Link>
-                                <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
-                                    Logout
-                                </div>
-                            </div>
-                        ) : (
-                            <>
-                                <Link to="/login" className="whitespace-nowrap text-black">
-                                    Log In
-                                </Link>
-                                <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md">
-                                    Sign Up
-                                </Link>
-                            </>
-                        )}
-                    </div>
-                    <div className="-my-5"><NavList></NavList></div>
-
-
                 </Drawer>
-
             </div>
         </>
     );

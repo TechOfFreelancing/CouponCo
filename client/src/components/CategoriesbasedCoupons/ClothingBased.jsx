@@ -19,7 +19,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../styles/slickslider.css"
-import settings from './Settings'
+// import settings from './Settings'
 
 const ClothingBased = () => {
     const [likedItems, setLikedItems] = useState([]);
@@ -39,6 +39,49 @@ const ClothingBased = () => {
     const { updateUserRole, role } = useContext(AuthContext);
 
     const navigate = useNavigate();
+
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 8,
+        slidesToScroll: 1,
+        
+        responsive: [
+            {
+                breakpoint: 480, // Mobile
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                   
+                },
+            },
+            {
+                breakpoint: 768, // Tablet
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                },
+            },
+            {
+                breakpoint: 1200, // Laptop
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                   
+                },
+            },
+            {
+                breakpoint: 1600, // Desktop
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                   
+                },
+            },
+        ]
+    };
+    
 
     const handleOpenlogin = () => setOpenlogin(!openlogin);
     const handleOpenregister = () => setOpenregister(!openregister);
@@ -264,9 +307,9 @@ const ClothingBased = () => {
                 <Slider {...settings}>
                     {clothes
                         .filter(item => new Date(item.due_date) >= new Date())
-                        .slice(0, 8)
+                        .slice(0, 10)
                         .map((item, index) => (
-                            <div key={index} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 bg-white">
+                            <div key={item.id} className="group flex flex-col gap-3 items-center justify-start relative h-[335px] w-auto border rounded-lg overflow-hidden shadow-lg duration-300 my-4 bg-white">
                                 <img src={item.thumbnail} className="cursor-pointer w-full h-1/2" onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })} />
                                 <span
                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(item.coupon_id) ? 'text-red-500' : 'text-white'
