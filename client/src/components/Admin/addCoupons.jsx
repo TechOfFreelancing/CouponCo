@@ -27,6 +27,8 @@ function AddCoupons() {
         outline: 'none',
     };
 
+    const [selectedEvents, setSelectedEvents] = useState([]);
+
     const location = useLocation();
 
     const sId = location.state?.sId;
@@ -42,8 +44,10 @@ function AddCoupons() {
             "dueDate": values.dueDate,
             "isVerified": true,
             "ref_link": values.link,
-            "description": values.description
+            "description": values.description,
+            ...(selectedEvents.length !== 0 && { "events": selectedEvents }),
         });
+
 
         let config = {
             method: 'post',
@@ -125,7 +129,22 @@ function AddCoupons() {
                                 <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
                                     {
                                         Events.map((event, index) => <div key={index} className="inline-flex items-center gap-5">
-                                            <input type="checkbox" className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
+
+                                            <input type="checkbox"
+                                                className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
+                                                checked={selectedEvents.includes(event.title)}
+                                                onChange={(e) => {
+                                                    const isChecked = e.target.checked;
+                                                    setSelectedEvents((prevEvents) => {
+                                                        if (isChecked) {
+                                                            return [...prevEvents, event.title];
+                                                        } else {
+                                                            return prevEvents.filter((prevEvent) => prevEvent !== event.title);
+                                                        }
+                                                    });
+                                                }}
+                                            />
+
                                             <span className="text-md flex items-center gap-2">{event.title} </span>
                                         </div>)
                                     }

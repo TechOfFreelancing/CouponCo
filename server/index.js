@@ -47,12 +47,15 @@ const server = app.listen(PORT, () => {
 
     try {
         user.createUserTable();
+        user.createContactDetailsTable();
+        user.createAdvertiseTable()
         Coupons.createStoreTable();
         Coupons.createSimilarTable();
         Coupons.createCouponsTable();
         Coupons.createShowStoreTable();
         Coupons.createFestivalShowcaseTable();
         Coupons.createSavedCouponsTable();
+        Coupons.createEventShowcaseTable();
     } catch (err) {
         console.log(err);
     }

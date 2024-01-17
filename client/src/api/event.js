@@ -34,13 +34,13 @@ const Events = [
         id: 3,
         img: img15,
         button: "Offer",
-        title: "Valentine’s Day",
+        title: `Valentine's Day`,
     },
     {
         id: 4,
         img: img12,
         button: "Sale",
-        title: "President’s Day",
+        title: "President's Day",
     },
     {
         id: 5,
@@ -52,7 +52,7 @@ const Events = [
         id: 6,
         img: img11,
         button: "Deals",
-        title: "Mother’s Day",
+        title: "Mother's Day",
     },
     {
         id: 7,
@@ -64,7 +64,7 @@ const Events = [
         id: 8,
         img: img7,
         button: "Offer",
-        title: "Father’s Day",
+        title: "Father's Day",
     },
     {
         id: 9,
