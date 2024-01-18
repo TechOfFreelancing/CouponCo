@@ -4,7 +4,7 @@
   font-weight: 700;
 }
 
-.has-code1 .is-code1{
+.has-code1 .is-code1 {
   position: absolute;
   right: 0;
   top: 0;
@@ -91,4 +91,19 @@
   transform: skew(12deg);
 }
 
+@media only screen and (max-width: 600px) {
+  .button.has-code1 {
+    width: 8.5rem;
+    font-weight: 500;
+    font-size: small;
+  }
 
+  .has-code1 .is-code1 {
+    height: 2rem;
+    line-height: 2rem;
+  }
+  .is-code-text1 {
+    height: 2rem;
+    line-height: 2rem;
+  }
+}
