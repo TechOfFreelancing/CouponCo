@@ -35,119 +35,6 @@ const AllStores = () => {
         selectedLetter && change();
     }, [selectedLetter]);
 
-
-
-    // Fetch stores based on the festival or regular conditions
-    // const fetchStores = useCallback(async () => {
-    //     try {
-    //         let fetchedStores = [];
-
-    //         if (isFestival) {
-    //             const response = await axios.get(`http://localhost:4000/api/festStoreDisplay`, {
-    //                 headers: { "Content-Type": "application/json" }
-    //             });
-
-    //             const storeDetailsPromises = response.data.data.map(async (store) => {
-    //                 if (store.storeId) {
-    //                     const response = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
-    //                     return response.data.store;
-    //                 }
-    //                 return null;
-    //             });
-
-    //             const storeDetails = await Promise.all(storeDetailsPromises);
-    //             fetchedStores = storeDetails.filter(Boolean);
-    //         } else {
-    //             let apiUrl = `http://localhost:4000/api/getAllStore?`;
-
-    //             if (type) {
-    //                 apiUrl += `&type=${type}`;
-    //             }
-
-    //             if (keyword) {
-    //                 apiUrl += `&keyword=${keyword}`;
-    //             }
-
-    //             const response = await axios.get(apiUrl, { headers: { "Content-Type": "application/json" } });
-    //             fetchedStores = response.data.stores;
-    //         }
-
-    //         setStores(fetchedStores);
-    //     } catch (error) {
-    //         console.error("Failed to fetch stores:", error);
-    //     }
-    // }, [isFestival, type, keyword]);
-
-
-    // const updateStoreCounts = useCallback(async () => {
-    //     try {
-    //         const updatedStores = await Promise.all(stores.map(async (store) => {
-    //             try {
-    //                 const couponsResponse = await axios.get(`http://localhost:4000/api/coupons/${store.id}`);
-    //                 const coupons = couponsResponse.data.coupons;
-
-    //                 if (coupons.length > 0) {
-    //                     const expiredCoupons = coupons.filter(
-    //                         (coupon) => new Date(coupon.due_date) < new Date()
-    //                     );
-
-    //                     const expiredOffers = expiredCoupons.filter(
-    //                         (coupon) => coupon.type.toLowerCase() === 'deal' || coupon.type.toLowerCase() === 'offers'
-    //                     );
-
-    //                     const couponsCount = expiredCoupons.length;
-    //                     const offersCount = expiredOffers.length;
-
-    //                     const decreaseData = JSON.stringify({
-    //                         couponsCount: couponsCount.toString(),
-    //                         offersCount: offersCount.toString(),
-    //                     });
-
-    //                     // Make a PATCH request to decrease counts in the backend
-    //                     await axios.patch(`http://localhost:4000/api/decreaseCount/${store.id}`, decreaseData);
-
-    //                     // Update the store with new counts
-    //                     return {
-    //                         ...store,
-    //                         coupons: Math.max(store.coupons - couponsCount, 0),
-    //                         offers: Math.max(store.offers - offersCount, 0),
-    //                     };
-    //                 }
-
-    //                 // If no coupons, return the store as is
-    //                 return store;
-    //             } catch (error) {
-    //                 console.error(`Error updating store ${store.id} counts:`, error);
-    //                 return store;
-    //             }
-    //         }));
-
-    //         setStores(updatedStores);
-    //     } catch (error) {
-    //         console.error("Error updating store counts:", error);
-    //     }
-    // }, [stores]);
-
-    // // Initial fetch
-    // useEffect(() => {
-    //     fetchStores();
-    // }, []);
-
-    // // Update store counts based on conditions
-    // useEffect(() => {
-    //     if (stores.length > 0 && updateTrigger) {
-    //         updateStoreCounts();
-    //         setUpdateTrigger(false);
-    //     }
-    // }, [stores, updateTrigger, updateStoreCounts]);
-
-    // // Set updateTrigger to true when stores change
-    // useEffect(() => {
-    //     if (stores.length > 0 && !updateTrigger) {
-    //         setUpdateTrigger(true);
-    //     }
-    // }, [stores, updateTrigger]);
-
     useEffect(() => {
         const fetchStores = async () => {
             try {
@@ -200,7 +87,7 @@ const AllStores = () => {
     return (
         <>
             <div className="flex">
-                <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
+                <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-28 lg:mt-32 p-5 lg:p-10">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
@@ -295,7 +182,7 @@ const AllStores = () => {
                                                             // navigate(`/categoriesStore`);
                                                         }}>
                                                         <div className="flex gap-4">
-                                                        <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
+                                                            <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
                                                             <div className="flex flex-col justify-evenly">
                                                                 <div className="whitespace-pre-wrap">{ele.name}</div>
                                                                 <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
@@ -322,7 +209,7 @@ const AllStores = () => {
                                                     )
                                                 }}>
                                                     <div className="flex gap-4">
-                                                    <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
+                                                        <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
                                                         <div className="flex flex-col justify-evenly">
                                                             <div className="whitespace-pre-wrap">{ele.name}</div>
                                                             <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
