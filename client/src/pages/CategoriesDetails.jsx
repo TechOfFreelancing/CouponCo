@@ -265,9 +265,9 @@ const CategoriesDetails = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-20 lg:mt-28 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 ">
-                <div className="p-4 flex flex-col items-start justify-center flex-wrap gap-5">
-                    <ul className="flex items-center">
+            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 ">
+                <div className="flex flex-col items-start justify-center flex-wrap gap-5">
+                    <ul className="flex items-center ml-2">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
                                 <svg className="w-5 h-auto fill-current mx-2 text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
@@ -281,80 +281,80 @@ const CategoriesDetails = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-
                             <span className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap cursor-pointer">
-
                                 {category}
                             </span>
                         </li>
                     </ul>
 
-                    <div className="flex flex-col-reverse lg:flex-row">
-                        <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 text-sm items-center">
+                    <div className="flex flex-col lg:flex-row">
+                        <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 text-sm items-center">
                             <div className="relative flex items-center justify-center w-full">
                                 <div className="border border-black h-[90px] w-[90px] lg:h-[130px] lg:w-[130px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white">
                                     <img src={category_icon} alt="logo" className="h-full w-auto object-cover rounded-full" />
                                 </div>
                             </div>
+                            <div className="lg:flex flex-col gap-5 lg:px-5 text-sm items-center hidden">
 
-                            <div className="shadow-boxshadow rounded-lg p-5 bg-white">
-                                <div className="text-xl font-bold mb-2">About</div>
-                                <div className="flex flex-wrap gap-2 text-sm">
-                                    <p className="text-start">{eventDetails.about}</p>
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold mb-2">About</div>
+                                    <div className="flex flex-wrap gap-2 text-sm">
+                                        <p className="text-start">{eventDetails.about}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="shadow-boxshadow rounded-lg p-5 bg-white">
-                                <div className="text-xl font-bold my-2">Today{`'`}s Top Categories</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {
-                                        Categories.slice(0, 20).map((ele, index) => (
-                                            <div key={index} className="cursor-pointer text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold my-2">Today{`'`}s Top Categories</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {
+                                            Categories.slice(0, 20).map((ele, index) => (
+                                                <div key={index} className="cursor-pointer text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                                    onClick={() => {
+                                                        navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
+                                                    }}>
+                                                    {ele.name}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold my-2">Browse By Store</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {
+                                            firstLatter.map((ele, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                                    onClick={() => navigate("/allstores", { state: { letter: ele } })}
+                                                >
+                                                    {ele}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold my-2">Popular Store</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {
+
+                                            popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
+
                                                 onClick={() => {
-                                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
-                                                }}>
-                                                {ele.name}
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                            <div className="shadow-boxshadow rounded-lg p-5 bg-white">
-                                <div className="text-xl font-bold my-2">Browse By Store</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {
-                                        firstLatter.map((ele, index) => (
-                                            <div
-                                                key={index}
-                                                className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
-                                                onClick={() => navigate("/allstores", { state: { letter: ele } })}
-                                            >
-                                                {ele}
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                            <div className="shadow-boxshadow rounded-lg p-5 bg-white">
-                                <div className="text-xl font-bold my-2">Popular Store</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {
-
-                                        popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
-
-                                            onClick={() => {
-                                                navigate(`/Stores/${ele.name}`, { state: { sId: ele.store_id } });
-                                            }}>{ele.name}</div>).slice(0,10)
-                                    }
+                                                    navigate(`/Stores/${ele.name}`, { state: { sId: ele.store_id } });
+                                                }}>{ele.name}</div>).slice(0, 10)
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
-                            <div className='p-4 pt-0 text-3xl font-bold'>{category}</div>
-                            <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2 mb-10">
+                            <div className='p-4 lg:pt-0 text-xl lg:text-3xl font-bold'>{category}</div>
+                            <div className="flex flex-col gap-2 lg:gap-5 items-start lg:mx-5 mx-2 mb-10">
                                 {
                                     couponDetails.slice(0, eventsToShow).map((ele, index) => {
                                         return (
-                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-[60rem] hover:shadow-lg duration-300">
                                                 <span
                                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                         }`}
@@ -362,22 +362,22 @@ const CategoriesDetails = () => {
                                                 >
                                                     <FaHeart className="cursor-pointer text-xl duration-300" />
                                                 </span>
-                                                <div className="flex flex-col w-full gap-2">
+                                                <div className="flex flex-col w-full gap-2 ">
                                                     <div className="flex gap-5 lg:gap-0">
-                                                        <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center">
-                                                            <div className="border border-black flex flex-col items-center justify-center">
-                                                                <img src={ele.logo_url} alt="H" className="h-[50px] w-[50px] lg:max-h-[75px] lg:h-auto lg:w-[75px] rounded-lg m-2" />
+                                                        <div className="w-[15%] h-auto flex flex-col items-center justify-center">
+                                                            <div className="border border-black flex flex-col items-center justify-center text-xs lg:text-base">
+                                                                <img src={ele.logo_url} alt="H" className="max-h-[50px] h-auto w-[50px] lg:max-h-[75px] lg:w-[75px] rounded-lg m-2" />
                                                                 <span className="bg-blue-100 text-center w-full capitalize">{ele.type}</span>
                                                             </div>
                                                         </div>
-                                                        <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
+                                                        <div className="flex flex-col lg:w-[55%] w-[40%] lg:mx-5 justify-between gap-2">
                                                             <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
-                                                                <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
+                                                                <div className="lg:font-bold text-[12px] lg:text-xl text-center lg:text-start">{ele.title}</div>
                                                             </div>
                                                         </div>
-                                                        <div className="flex flex-col lg:w-[30%] w-[75%] lg:mx-5 pt-5 justify-between gap-2">
+                                                        <div className="flex flex-col lg:w-[30%] w-[45%] lg:mx-5 pt-5 justify-between gap-2">
                                                             <div className="flex flex-col gap-5">
-                                                                <div className="flex text-lg whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between">
+                                                                <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between text-xs lg:text-base">
                                                                     <span className="flex justify-center items-center lg:gap-2 text-green-800">
                                                                         <GoVerified className="font-bold" />Verified
                                                                     </span>
@@ -394,19 +394,19 @@ const CategoriesDetails = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between pt-5 pl-5 pr-5 w-full">
+                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:pt-5 lg:pl-5 lg:pr-5 w-full">
                                                         <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
-                                                        <span className="flex lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
-                                                            <span className="whitespace-nowrap">41 % Success</span>
-                                                            <span className="flex items-center gap-7 w-full text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 h-5 w-5"></FaRegThumbsUp>
-                                                                <FaRegThumbsDown className="hover:scale-125 duration-200 h-5 w-5"></FaRegThumbsDown></span>
+                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
+                                                            <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
+                                                            <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
+                                                                <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
 
                                                         </span>
                                                     </div>
                                                     {detailsVisibility[index] && (
-                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip px-5">
+                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
                                                             <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
-                                                            <span>{ele.description}</span>
+                                                            <span className="text-ellipsis">{ele.description}</span>
                                                         </div>
                                                     )}
 
@@ -421,6 +421,58 @@ const CategoriesDetails = () => {
                                             {showAllEvents ? 'Show Less' : 'Show More'}
                                         </button>
                                     )}
+                                </div>
+                            </div>
+                            <div className="lg:hidden flex flex-col gap-5 px-5 text-sm items-center w-[100vw]">
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold mb-2">About</div>
+                                    <div className="flex flex-wrap gap-2 text-sm">
+                                        <p className="text-start">{eventDetails.about}</p>
+                                    </div>
+                                </div>
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold my-2">Today{`'`}s Top Categories</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {
+                                            Categories.slice(0, 20).map((ele, index) => (
+                                                <div key={index} className="cursor-pointer text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                                    onClick={() => {
+                                                        navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
+                                                    }}>
+                                                    {ele.name}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold my-2">Browse By Store</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {
+                                            firstLatter.map((ele, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
+                                                    onClick={() => navigate("/allstores", { state: { letter: ele } })}
+                                                >
+                                                    {ele}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                    <div className="text-xl font-bold my-2">Popular Store</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {
+
+                                            popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
+
+                                                onClick={() => {
+                                                    navigate(`/Stores/${ele.name}`, { state: { sId: ele.store_id } });
+                                                }}>{ele.name}</div>).slice(0, 10)
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
