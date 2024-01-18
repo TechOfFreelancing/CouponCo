@@ -133,14 +133,16 @@ const ContactUs = () => {
                             {
                                 SocialIcon.map((ele, index) => {
                                     let Icon = ele.icon;
-                                    return <Icon key={index} className="hover:text-[#B33D53] duration-300 cursor-pointer"></Icon>
+                                    return <a key={index} href={ele.link} target="_blank" rel="noreferrer">
+                                        <Icon className="hover:text-[#B33D53] duration-300 cursor-pointer"></Icon>
+                                    </a>
                                 })
                             }
                         </div>
                     </div>
                 </div>
 
-            </div>
+            </div >
             <Footer></Footer>
         </>
     )
