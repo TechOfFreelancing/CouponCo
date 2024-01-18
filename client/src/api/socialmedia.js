@@ -7,32 +7,32 @@ const SocialIcon = [
     {
         id: 1,
         icon: FaFacebook,
-        link: ""
+        link: "https://www.facebook.com/QwikSavings"
     },
     {
         id: 2,
         icon: FaInstagram,
-        link: ""
+        link: "https://www.instagram.com/qwiksavings"
     },
     {
         id: 3,
         icon: RiTwitterXLine,
-        link: ""
+        link: "https://twitter.com/QwikSavings"
     },
     {
         id: 4,
         icon: FaPinterest,
-        link: ""
+        link: "https://www.pinterest.com/qwiksavings/"
     },
     {
         id: 5,
         icon: FaLinkedinIn,
-        link: ""
+        link: "https://www.youtube.com/@QwikSavings"
     },
     {
         id: 6,
         icon: FaYoutube,
-        link: ""
+        link: "https://www.linkedin.com/company/qwik-savings/"
     },
 ]
 
