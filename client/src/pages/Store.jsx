@@ -70,6 +70,7 @@ const Store = () => {
 
     const sId = location.state?.sId;
 
+
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },

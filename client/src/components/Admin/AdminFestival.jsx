@@ -52,8 +52,13 @@ function AdminFestival() {
                 }
             });
 
-            if (res.data.message === 'Success!') toast.success("Offers data deleted!");
-            else toast.error("Unable to delete!");
+            if (res.data.message === 'Success!') {
+                toast.success("Offers data deleted!");
+                setCurrentFestival({ festival: '', discount: '' });
+            }
+            else {
+                toast.error("Unable to delete!");
+            }
         } catch (err) {
             console.error(err);
         }
@@ -80,8 +85,8 @@ function AdminFestival() {
                 : 'http://localhost:4000/api/admin/addFest&Disc';
 
             await axios[isUpdate ? 'put' : 'post'](apiUrl, data, config);
-
             toast.success('Festival Details Added successfully');
+            setCurrentFestival({ festival: data.festival, discount:data.discount });
         } catch (error) {
             toast.error(error.response?.data?.message || 'Failed to add festival details');
             console.error(error);
