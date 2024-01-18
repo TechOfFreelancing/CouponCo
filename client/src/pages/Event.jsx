@@ -9,7 +9,7 @@ const Event = () => {
 
     return (
         <>
-            <div className='lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32'>
+            <div className='lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32'>
                 <div className="p-4 flex flex-col items-start flex-wrap">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
@@ -27,7 +27,7 @@ const Event = () => {
                         </li>
                     </ul>
                     <div className='font-bold text-lg lg:text-3xl mt-5 ml-2' style={{ fontWeight: 700 }}>Browse Top Saving Events</div>
-                    <div className='p-4 text-xl font-bold'>Browse Top Shopping Events</div>
+                    <div className='text-xl font-bold ml-2 lg:mt-2'>Browse Top Shopping Events</div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4 bg-[#F2F0E6] gap-4 p-5">
                     {
@@ -36,7 +36,7 @@ const Event = () => {
                                 <span className='text-xl font-bold text-center w-3/4 h-1/6'>{ele.title}</span>
                                 <img src={ele.img} alt="" className='w-auto h-1/2 object-cover' />
 
-                                <div className='border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'
+                                <div className='cursor-pointer border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'
                                     onClick={() => navigate("/eventdetails", { state: { event: ele.title } })}>
                                     Reveal Offer
                                 </div>
@@ -46,9 +46,6 @@ const Event = () => {
 
                     }
                 </div>
-
-
-
             </div>
             <Footer></Footer>
         </>
