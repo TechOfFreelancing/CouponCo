@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const OurCodes = () => {
     return (
         <>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
-                <div className="flex flex-col items-start flex-wrap p-5 pb-0">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+                <div className="flex flex-col items-start flex-wrap lg:p-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -22,12 +22,12 @@ const OurCodes = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">Our  Codes  Guarantee  -  a  gift  card,  if  code
+                    <span className="text-xl lg:text-2xl font-bold ml-2 mt-5">Our  Codes  Guarantee  -  a  gift  card,  if  code
                         not  works</span>
                 </div>
                 <div className="flex flex-col gap-10 pb-10">
-                    <div className="w-full p-10 text-lg flex justify-between rounded-lg bg-white shadow-boxshadow">
-                        <div className='w-1/2 flex flex-col gap-5 text-justify'>
+                    <div className="w-full p-5 lg:p-10 text-lg flex flex-col-reverse lg:flex-row justify-between rounded-lg bg-white shadow-boxshadow">
+                        <div className='w-full lg:w-1/2 flex flex-col gap-5 text-justify'>
                             <p>We  understand  the  frustration  of  an  inactive
                                 coupon  code—there{`'`}s  nothing  more
                                 disappointing  than  anticipating  savings  only  to
@@ -47,25 +47,26 @@ const OurCodes = () => {
                                 official  channels,  testing  them  thoroughly  to  avoid  any  sort  of  administrative  slip-ups  and
                                 ensuring  a  seamless  shopping  experience  for  you.</p>
                         </div>
-                        <div className='w-1/2 flex flex-col items-center lg:-mt-10'>
-                            <img className="h-auto  mr-0" src={img} />
-                            <span className='text-lg font-bold'>All  of  Our  Codes  are  Hand-Tested  By  Real  People</span>
+                        <div className='w-full lg:w-1/2 flex flex-col items-center lg:-mt-10'>
+                            <img className="h-auto  lg:mr-0" src={img} />
+                            <span className='text-md lg:text-lg font-semibold lg:font-bold text-center lg:text-start my-2'>All  of  Our  Codes  are  Hand-Tested  By  Real  People</span>
                         </div>
                     </div>
-                    <div className='flex flex-col gap-10 p-10 rounded-lg bg-white shadow-boxshadow'>
-                        <span className='text-lg font-bold'>How  to  receive  a  gift  card  if  the  code  doesn{`'`}t  work?</span>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 justify-items-stretch gap-10">
-                            <div className='flex flex-col gap-4 p-5'>
+                    <div className='flex flex-col gap-10 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>
+                        <span className='text-lg font-semibold lg:font-bold'>How  to  receive  a  gift  card  if  the  code  doesn{`'`}t  work?</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 justify-items-stretch gap-5 lg:gap-10">
+                            <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  1.  Reveal  the  Coupon</span>
                                 <span className='text-justify'>Simply  click  {`'`}Get  Code{`'`} to  reveal  the  coupon  code,  then  proceed  to  purchase  items  that  meet
                                     the  offer{`'`}s  conditions.  If  in  doubt,  always  refer  to  the  condition  by  clicking  on  {`'`}Show  Details{`'`}
                                     below  the  code  for  clarity.</span>
 
                             </div>
-                            <div className='flex flex-col gap-4 p-5'>
+                            <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  2.  Inactive  Code</span>
                                 <span className='text-justify'>If  the  coupon  code  doesn’t  work,  forward  your  online  order  confirmation  or  receipt  by  email  to
-                                    <b className='mx-1'>claims@qwiksavings.com</b>   within  48  hours  of  making  your  order.  Within  your  email,  please  also
+                                    <a href='mailto:claims@qwiksavings.com' className='mx-1 font-semibold' target='_blank' rel="noreferrer">claims@qwiksavings.com</a>
+                                    within  48  hours  of  making  your  order.  Within  your  email,  please  also
                                     include:</span>
                                 <ul className='list-disc flex flex-col ml-3 gap-2'>
                                     <li>Your name and email address</li>
@@ -74,7 +75,7 @@ const OurCodes = () => {
                                     <li>Purchase confirmation email</li>
                                 </ul>
                             </div>
-                            <div className='flex flex-col gap-4 p-5'>
+                            <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  3.  Get  a  FREE  Gift  Card</span>
                                 <span className='text-justify'>Our  dedicated  customer  support  team  will  review  your  claim  within  ten  business  days.  If  it  meets
                                     the  criteria,  you{`'`}ll  receive  a  $10  gift  card  for  the  same  online  store  where  you  made  your
@@ -85,7 +86,7 @@ const OurCodes = () => {
                         </div>
 
                     </div>
-                    <div className='flex flex-col gap-5 p-10 rounded-lg bg-white shadow-boxshadow'>
+                    <div className='flex flex-col gap-5 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>
                         <span className='text-lg font-bold'>Acceptable  Code  for  Gift  Cards</span>
                         <span>Our  codes  guarantee  applies  specifically  to  online  coupon  codes.  You  can  recognize  these
                             codes  in  two  simple  ways:</span>
@@ -104,7 +105,7 @@ const OurCodes = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className='flex flex-col gap-5 p-10 rounded-lg bg-white shadow-boxshadow'>
+                    <div className='flex flex-col gap-5 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>
                         <span className='text-lg font-bold'>Unacceptable  Codes  for  Gift  Cards</span>
                         <span>The  following  types  of  deals  are  not  eligible  under  “Our  Codes”  guarantee:</span>
                         <ul className='list-decimal flex flex-col gap-5 pl-2'>
@@ -122,7 +123,7 @@ const OurCodes = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className='flex flex-col gap-5 p-10 rounded-lg bg-white shadow-boxshadow'>
+                    <div className='flex flex-col gap-5 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>
                         <span className='text-lg font-bold'>You  need  to  know  this:</span>
                         <span>We  assure  you  that  if  a  code  doesn{`'`}t  work,  we{`'`}ll  provide  you  with  a  gift  card.  Because  as  we
                             have  already  said,  customer  satisfaction  is  our  top  priority.  Before  contacting  us,  please  ensure
