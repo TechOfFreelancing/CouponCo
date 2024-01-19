@@ -70,6 +70,7 @@ const Store = () => {
 
     const sId = location.state?.sId;
 
+
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
@@ -447,8 +448,8 @@ const Store = () => {
 
 
 
-
-    console.log(validCoupons);
+// console.log(validCoupons);
+    // console.log(str);
 
 
     return (
@@ -654,7 +655,9 @@ const Store = () => {
                     <Tabs value={activeTab} className="p-5 ">
                         <div className="flex flex-col gap-3 justify-evenly mt-5 ">
                             <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">{str?.title}</div>
+
                             <div className="text-md lg:text-sm font-semibold uppercase">
+
                                 Best {validCoupons?.length} offers last validated on {formattedDate}
                             </div>
                         </div>

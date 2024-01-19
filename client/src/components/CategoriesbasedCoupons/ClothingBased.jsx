@@ -16,6 +16,7 @@ import AuthContext from "../../components/AuthContext";
 import "../../styles/couponsbutton.css";
 import { TbExternalLink } from 'react-icons/tb'
 
+
 const ClothingBased = () => {
     const [likedItems, setLikedItems] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState("");

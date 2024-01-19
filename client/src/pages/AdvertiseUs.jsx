@@ -52,6 +52,16 @@ const AdvertiseUs = () => {
 
         await axios.request(config)
             .then((response) => {
+                setAdvertise({
+                    name: '',
+                    company: '',
+                    url: '',
+                    email: '',
+                    affiliate: 'No',
+                    affiliate_network: '',
+                    message: '',
+                    isAccepted: '',
+                })
                 toast.success("Data sent successfully");
             })
             .catch((error) => {
