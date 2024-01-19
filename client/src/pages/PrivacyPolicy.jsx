@@ -6,11 +6,11 @@ import '../styles/privacypolicy.css'
 const PrivacyPolicy = () => {
     return (
         <>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
 
-                <div className="flex w-full relative items-start">
-                    <div className="flex flex-col w-[30%] p-5 pl-0 ml-10 gap-5 text-[#B33D53] sticky top-32 h-screen">
-                        <div className="flex flex-col items-start flex-wrap pb-0 -ml-2">
+                <div className="flex flex-col lg:flex-row gap-5 w-full relative items-start">
+                    <div className="flex flex-col w-full lg:w-[30%] lg:p-5 lg:pl-0 lg:ml-10 gap-5 text-[#B33D53] lg:sticky lg:top-32 lg:h-screen">
+                        <div className="flex flex-col items-start flex-wrap pb-0 -lg:ml-2">
                             <ul className="flex items-center">
                                 <li className="inline-flex items-center">
                                     <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -27,25 +27,25 @@ const PrivacyPolicy = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="font-semibold text-xl text-black h-10">About QwikSavings.com </div>
+                        <div className="font-semibold text-xl text-black lg:h-10">About QwikSavings.com </div>
                         <hr className="border-2" />
-                        <Link to="/aboutus" className="cursor-pointer hover:underline duration-300 w-fit">Our Company</Link>
-                        <Link to="/ourcodes" className="cursor-pointer hover:underline duration-300 w-fit">Our Codes</Link>
-                        <Link to="/howitworks" className="cursor-pointer hover:underline duration-300 w-fit">How it Works</Link>
-                        <Link to="/faqs" className="cursor-pointer hover:underline duration-300 w-fit">FAQ</Link>
-                        <Link to="/termofservices" className="cursor-pointer hover:underline duration-300 w-fit">Terms of Service</Link>
-                        <Link to="/contactus" className="cursor-pointer hover:underline duration-300 w-fit">Contact Us</Link>
+                        <Link to="/aboutus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Company</Link>
+                        <Link to="/ourcodes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
+                        <Link to="/howitworks" className="cursor-pointer hover:underline duration-300 text-start w-fit">How it Works</Link>
+                        <Link to="/faqs" className="cursor-pointer hover:underline duration-300 text-start w-fit">FAQ</Link>
+                        <Link to="/termofservices" className="cursor-pointer hover:underline duration-300 text-start w-fit">Terms of Service</Link>
+                        <Link to="/contactus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Contact Us</Link>
                     </div>
-                    <div className="flex flex-col w-[70%] gap-10 text-justify scrollbar-none p-5">
+                    <div className="flex flex-col w-full lg:w-[70%] gap-10 text-justify scrollbar-none lg:p-5">
                         <div>
-                            <div className="text-2xl font-bold ml-2">Privacy Policy of Qwik Savings</div>
-                            <div className="text-sm ml-2 text-gray-800 mt-2">Last updated January 06, 2023</div>
+                            <div className="text-xl lg:text-2xl font-bold lg:ml-2">Privacy Policy of Qwik Savings</div>
+                            <div className="text-sm lg:ml-2 text-gray-800 mt-2">Last updated January 06, 2023</div>
                         </div>
-                        <div className="pl-2 flex flex-col gap-2">
+                        <div className="lg:pl-2 flex flex-col gap-2">
                             <div className="font-semibold text-lg">Introduction</div>
                             <div className="text-gray-800 text-justify">This policy is to make aware all the visitors of our site about what information we collect, use, and store provided by the user. By ‘user’ or ‘you/r’ we mean someone who uses our service. If you are accessing our site and using the service on behalf of a company or a legal entity, ‘ ‘user’ or you/r is that company or legal entity in that case. Moreover, any gender words in one gender refer to all genders, and words in singular refer to plural and vice-versa.</div>
                         </div>
-                        <div className="pl-2 flex flex-col gap-2">
+                        <div className="lg:pl-2 flex flex-col gap-2">
                             <div className="font-semibold text-lg">Privacy Notice</div>
                             <div className="text-gray-800 text-justify flex flex-col gap-3">
                                 <div>
@@ -64,17 +64,17 @@ const PrivacyPolicy = () => {
 
                             </div>
                         </div>
-                        <div className="pl-2 flex flex-col gap-4">
+                        <div className="lg:pl-2 flex flex-col gap-4">
                             <div className="font-semibold text-lg">Summary of Key Points</div>
 
-                            <span className="text-gray-800 text-justify font-semibold italic">This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click
+                            <span className="text-gray-800 text-start lg:text-justify font-semibold italic">This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click
                                 <Link1 to="q"
                                     spy={true}
                                     smooth={true}
                                     offset={-150}
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1> to go directly to our table of contents.</span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">What personal information do we process?</span>  When you visit, use, or navigate our Services, we may process personal information depending on how you interact with qwiksavings and the Services, the choices you make, and the products and features you use. Click  <Link1
                                     to="q1"
                                     spy={true}
@@ -83,15 +83,15 @@ const PrivacyPolicy = () => {
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1> to learn more
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">Do we process any sensitive personal information?</span>We do not process sensitive personal information.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">Do we receive any information from third parties?</span>We do not receive any information from third parties.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">How do we process your information?</span>We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Click <Link1 to="q2"
                                     spy={true}
                                     smooth={true}
@@ -99,7 +99,7 @@ const PrivacyPolicy = () => {
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1> to learn more.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">In what situations and with which parties do we share personal information?</span>We may share information in specific situations and with specific third parties. Click <Link1
                                     to="q4"
                                     spy={true}
@@ -108,7 +108,7 @@ const PrivacyPolicy = () => {
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1> to learn more.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">How do we keep your information safe?</span>We have organizational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Click <Link1
                                     to="q8"
                                     spy={true}
@@ -117,7 +117,7 @@ const PrivacyPolicy = () => {
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1> to learn more.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">What are your rights?</span>Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Click <Link1
                                     to="q9"
                                     spy={true}
@@ -126,11 +126,11 @@ const PrivacyPolicy = () => {
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1>  to learn more.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 <span className="font-semibold">How do you exercise your rights?</span>The easiest way to exercise your rights is by filling out our contact us form available on website, or by contacting us through email at <Link to="mailto:privacy@qwiksavings.com" className="text-[#B33D53]">privacy@qwiksavings.com.</Link>  We will consider and act upon any request in accordance with applicable data protection laws.
                             </span>
 
-                            <span className="text-gray-800 text-justify">
+                            <span className="text-gray-800 text-start lg:text-justify">
                                 Want to learn more about what qwiksavings does with any information we collect? Click <Link1
                                     to="q"
                                     spy={true}
@@ -139,17 +139,17 @@ const PrivacyPolicy = () => {
                                     duration={800} className="text-[#B33D53] font-normal cursor-pointer ml-1">here</Link1> to review the notice in full.
                             </span>
                         </div>
-                        <div className="pl-2 flex flex-col gap-10">
+                        <div className="lg:pl-2 flex flex-col gap-10">
                             <div className="font-semibold text-lg" id="q">TABLE OF CONTENTS</div>
                             <ol className="list-decimal ml-5 text-[#B33D53] flex flex-col gap-2 justify-start">
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q1"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>WHAT INFORMATION DO WE COLLECT?</Link1>
                                 </li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q2"
                                         spy={true}
                                         smooth={true}
@@ -157,72 +157,72 @@ const PrivacyPolicy = () => {
                                         duration={800}>HOW DO WE PROCESS YOUR INFORMATION?
                                     </Link1>
                                 </li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q3"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR PERSONAL INFORMATION?</Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q4"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?</Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q5"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?
                                     </Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q6"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
                                     </Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q7"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>HOW LONG DO WE KEEP YOUR INFORMATION?
                                     </Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q8"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>HOW DO WE KEEP YOUR INFORMATION SAFE?
                                     </Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q9"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>WHAT ARE YOUR PRIVACY RIGHTS?</Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q10"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>CONTROLS FOR DO-NOT-TRACK FEATURES</Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q11"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?
                                     </Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q12"
                                         spy={true}
                                         smooth={true}
                                         offset={-150}
                                         duration={800}>DO WE MAKE UPDATES TO THIS NOTICE?</Link1></li>
-                                <li className="cursor-pointer hover:underline duration-300">
+                                <li className="cursor-pointer hover:underline duration-300 text-start">
                                     <Link1 to="q13"
                                         spy={true}
                                         smooth={true}
@@ -485,76 +485,76 @@ const PrivacyPolicy = () => {
                                 <div className="tablebox flex flex-col gap-4">
                                     <span className="font-semibold text-lg text-gray-800">What categories of personal information do we collect?</span>
                                     <span className="">We have collected the following categories of personal information in the past twelve (12) months:</span>
-                                    <table className="table-fixed border-black bg-white">
+                                    <table className="table-fixed border-black bg-white w-full">
                                         <thead className="border border-black">
                                             <tr className="border border-black text-center">
-                                                <th className="border-l border-black w-[30%] p-5">Category</th>
-                                                <th className="border-l border-black w-[50%] p-5">Examples</th>
-                                                <th className="border-l border-black w-[20%] p-5">Collected</th>
+                                                <th className="border-l border-black w-[30%] lg:p-5">Category</th>
+                                                <th className="border-l border-black w-[50%] lg:p-5">Examples</th>
+                                                <th className="border-l border-black w-[20%] lg:p-5">Collected</th>
                                             </tr>
                                         </thead>
                                         <tbody className="border border-black text-start">
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">A. Identifiers</td>
-                                                <td className="border-l border-black p-5">Contact details, such as real name, alias, postal address, telephone or mobile contact number, unique personal identifier, online identifier, Internet Protocol address, email address, and account name</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black lg:p-5">A. Identifiers</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Contact details, such as real name, alias, postal address, telephone or mobile contact number, unique personal identifier, online identifier, Internet Protocol address, email address, and account name</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">B. Personal information categories listed in the California Customer Records statute</td>
-                                                <td className="border-l border-black p-5">Name, contact information, education, employment, employment history, and financial information</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">B. Personal information categories listed in the California Customer Records statute</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Name, contact information, education, employment, employment history, and financial information</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="borde border-blackr">
-                                                <td className="border-l border-black p-5">C. Protected classification characteristics under California or federal law</td>
-                                                <td className="border-l border-black p-5">Gender and date of birth</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">C. Protected classification characteristics under California or federal law</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Gender and date of birth</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">D. Commercial information</td>
-                                                <td className="border-l border-black p-5">
+                                                <td className="border-l border-black p-2 lg:p-5">D. Commercial information</td>
+                                                <td className="border-l border-black p-2 lg:p-5">
                                                     Transaction information, purchase history, financial details, and payment information</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">E. Biometric information</td>
-                                                <td className="border-l border-black p-5">
+                                                <td className="border-l border-black p-2 lg:p-5">E. Biometric information</td>
+                                                <td className="border-l border-black p-2 lg:p-5">
                                                     Fingerprints and voiceprints</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">F. Internet or other similar network activity</td>
-                                                <td className="border-l border-black p-5">Browsing history, search history, online behavior, interest data, and interactions with our and other websites, applications, systems, and advertisements</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">F. Internet or other similar network activity</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Browsing history, search history, online behavior, interest data, and interactions with our and other websites, applications, systems, and advertisements</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">G. Geolocation data</td>
-                                                <td className="border-l border-black p-5">Device location</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">G. Geolocation data</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Device location</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">H. Audio, electronic, visual, thermal, olfactory, or similar information</td>
-                                                <td className="border-l border-black p-5">Images and audio, video or call recordings created in connection with our business activities</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">H. Audio, electronic, visual, thermal, olfactory, or similar information</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Images and audio, video or call recordings created in connection with our business activities</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">I. Professional or employment-related information</td>
-                                                <td className="border-l border-black p-5">Business contact details in order to provide you our Services at a business level or job title, work history, and professional qualifications if you apply for a job with us</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">I. Professional or employment-related information</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Business contact details in order to provide you our Services at a business level or job title, work history, and professional qualifications if you apply for a job with us</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">J. Education Information</td>
-                                                <td className="border-l border-black p-5">Student records and directory information</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">J. Education Information</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Student records and directory information</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">K. Inferences drawn from other personal information</td>
-                                                <td className="border-l border-black p-5">Inferences drawn from any of the collected personal information listed above to create a profile or summary about, for example, an individual’s preferences and characteristics</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">K. Inferences drawn from other personal information</td>
+                                                <td className="border-l border-black p-2 lg:p-5">Inferences drawn from any of the collected personal information listed above to create a profile or summary about, for example, an individual’s preferences and characteristics</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                             <tr className="border border-black">
-                                                <td className="border-l border-black p-5">L. Sensitive Personal Information</td>
-                                                <td className="border-l border-black p-5 text-center">-</td>
-                                                <td className="border-l border-black p-5 text-center">NO</td>
+                                                <td className="border-l border-black p-2 lg:p-5">L. Sensitive Personal Information</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">-</td>
+                                                <td className="border-l border-black p-2 lg:p-5 text-center">NO</td>
                                             </tr>
                                         </tbody>
                                     </table>
