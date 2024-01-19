@@ -492,11 +492,11 @@ const CategoriesDetails = () => {
                         <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
                             <div className="text-2xl whitespace-nowrap">{selectedProduct && selectedProduct.length !== 0 && selectedProduct.name &&
                                 selectedProduct.name.toUpperCase()}</div>
-                            <div className="text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
+                            <div className="text-sm lg:text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
                         </div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
                         <div
-                            className="flex items-center min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
+                            className="flex items-center lg:min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
                             <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
                             <button
                                 className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
@@ -505,7 +505,7 @@ const CategoriesDetails = () => {
                             </button>
                         </div>
                         {!waiting ? (<div
-                            className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
+                            className="text-xs lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
                             <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>
                             <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }}
                                 rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000]
