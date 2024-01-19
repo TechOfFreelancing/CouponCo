@@ -79,7 +79,7 @@ const ContactUs = () => {
                     </ul>
                 </div>
 
-                <div className="contactform flex justify-between items-start w-fit p-10  rounded-lg bg-white mx-5 mt-5 mb-10 shadow-boxshadow" >
+                <div className="contactform flex justify-between items-start w-fit p-10 rounded-lg bg-white mx-5 mt-5 mb-10 shadow-boxshadow" >
                     <div className="w-3/5 flex flex-col gap-5">
                         <div className='font-bold text-lg lg:text-3xl text-start' style={{ fontWeight: 700 }}>Contact Us</div>
                         <div className='text-xl'>Got any questions? Don{`'`}t hesitate to get in touch.</div>
