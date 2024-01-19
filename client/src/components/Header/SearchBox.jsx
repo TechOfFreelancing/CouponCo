@@ -102,7 +102,11 @@ const SearchBar = () => {
                             </span>
                             <ul className="autocomplete-suggestions flex flex-col gap-2">
                                 {suggestions.categories.map((item, index) => (
-                                    <li key={index} onClick={() => setKeyword(item.name)} className='border-b cursor-pointer'>
+                                    <li key={index} onClick={() => {
+                                        setKeyword(item.name);
+                                        setSuggestions([]);
+                                        navigate("/categoriesdetails", { state: { category: item.name, category_icon: item.icon } })
+                                    }} className='border-b cursor-pointer'>
                                         {item.name}
                                     </li>
                                 ))}
@@ -116,7 +120,11 @@ const SearchBar = () => {
                             </span>
                             <ul className="autocomplete-suggestions flex flex-col gap-2">
                                 {suggestions.events.map((item, index) => (
-                                    <li key={index} onClick={() => setKeyword(item.title)} className='border-b cursor-pointer'>
+                                    <li key={index} onClick={() => {
+                                        setKeyword(item.title);
+                                        setSuggestions([]);
+                                        navigate("/eventdetails", { state: { event: item.title } })
+                                    }} className='border-b cursor-pointer'>
                                         {item.title}
                                     </li>
                                 ))}
