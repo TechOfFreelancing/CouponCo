@@ -6,8 +6,8 @@ import Footer from "../components/Footer";
 const HowitWorks = () => {
     return (
         <>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
-                <div className="flex flex-col items-start flex-wrap p-5 pb-0">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+                <div className="flex flex-col items-start flex-wrap lg:p-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -23,10 +23,10 @@ const HowitWorks = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">How  to  use  coupons  using  the  QwikSavings</span>
+                    <span className="text-xl lg:text-2xl font-bold ml-2 mt-5">How  to  use  coupons  using  the  QwikSavings</span>
                 </div>
-                <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[45%] h-auto m-10 lg:-my-20 mix-blend-multiply" src={img1} />
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg">
+                    <img className="lg:float-right w-full lg:w-[45%] h-auto lg:m-10 lg:-my-20 mix-blend-multiply" src={img1} />
                     <p className="text-justify my-5">
                         Qwik Savings is your one stop
                         platform to save your money. With a
@@ -49,7 +49,7 @@ const HowitWorks = () => {
                         of buying branded products at affordable prices with just a few clicks.
                     </p>
                 </div>
-                <div className="w-full ml-2 p-5 pt-0 text-lg">
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg">
                     <span className="text-2xl font-bold mt-5">1,2,3  easy  steps</span>
                     <p className="text-justify my-5">
                         It’s quick and easy to get started! Learn how our website works in less than 1 minute! Follow
