@@ -29,16 +29,16 @@ const OurCodes = () => {
                     <div className="w-full p-5 lg:p-10 text-lg flex flex-col-reverse lg:flex-row justify-between rounded-lg bg-white shadow-boxshadow">
                         <div className='w-full lg:w-1/2 flex flex-col gap-5 text-justify'>
                             <p>We  understand  the  frustration  of  an  inactive
-                                coupon  code—there{'}s  nothing  more
+                                coupon  code—there{`'`}s  nothing  more
                                 disappointing  than  anticipating  savings  only  to
-                                find  the  code  doesn{'}t  work  at  checkout.</p>
+                                find  the  code  doesn{`'`}t  work  at  checkout.</p>
                             <p>
-                                Rest  assured,  we{'}re  confident  that  every  online
+                                Rest  assured,  we{`'`}re  confident  that  every  online
                                 coupon  code  at  Qwik  Savings  will  deliver  as
-                                promised.  In  the  rare  instance  that  one  doesn{'}t
+                                promised.  In  the  rare  instance  that  one  doesn{`'`}t
                                 work,  and  you  proceed  with  your  purchase,
                                 consider  it  an  opportunity  for  us  to  treat  you.
-                                We{'}ll  provide  a  gift  card  to  ensure  you  still  get
+                                We{`'`}ll  provide  a  gift  card  to  ensure  you  still  get
                                 something  special  on  us.
                             </p>
                             <p>Qwik  Savings  values  your  time  and  prioritizes  your  savings,  thus  making  sure  that  we  deliver  on
@@ -53,12 +53,12 @@ const OurCodes = () => {
                         </div>
                     </div>
                     <div className='flex flex-col gap-10 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>
-                        <span className='text-lg font-semibold lg:font-bold'>How  to  receive  a  gift  card  if  the  code  doesn{'}t  work?</span>
+                        <span className='text-lg font-semibold lg:font-bold'>How  to  receive  a  gift  card  if  the  code  doesn{`'`}t  work?</span>
                         <div className="grid grid-cols-1 sm:grid-cols-3 justify-items-stretch gap-5 lg:gap-10">
                             <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  1.  Reveal  the  Coupon</span>
-                                <span className='text-justify'>Simply  click  {'}Get  Code{'} to  reveal  the  coupon  code,  then  proceed  to  purchase  items  that  meet
-                                    the  offer{'}s  conditions.  If  in  doubt,  always  refer  to  the  condition  by  clicking  on  {'}Show  Details{'}
+                                <span className='text-justify'>Simply  click  {`'`}Get  Code{`'`} to  reveal  the  coupon  code,  then  proceed  to  purchase  items  that  meet
+                                    the  offer{`'`}s  conditions.  If  in  doubt,  always  refer  to  the  condition  by  clicking  on  {`'`}Show  Details{`'`}
                                     below  the  code  for  clarity.</span>
 
                             </div>
@@ -78,7 +78,7 @@ const OurCodes = () => {
                             <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  3.  Get  a  FREE  Gift  Card</span>
                                 <span className='text-justify'>Our  dedicated  customer  support  team  will  review  your  claim  within  ten  business  days.  If  it  meets
-                                    the  criteria,  you{'}ll  receive  a  $10  gift  card  for  the  same  online  store  where  you  made  your
+                                    the  criteria,  you{`'`}ll  receive  a  $10  gift  card  for  the  same  online  store  where  you  made  your
                                     purchase.</span>
                                 <span className='text-justify font-semibold'>NOTE  -  Unfortunately,  claims  submitted  after  48  hours  from  the  purchase  time  will  not  be
                                     accepted.</span>
@@ -94,12 +94,12 @@ const OurCodes = () => {
                             <li className='flex flex-col gap-1'><span className='font-lg font-semibold'>1. Button :</span>
                                 <div>
                                     A  valid  coupon  code  can  be  identified by the button  used  to  display  the  code,  which  will
-                                    typically  say:  {"}Get  Code.{"}
+                                    typically  say:  {`"`}Get  Code.{`"`}
                                 </div>
                             </li>
                             <li className='flex flex-col gap-1'><span className='font-lg font-semibold'>2. Checkout  Page :</span>
                                 <div>A  coupon  code  is  used  to  make  online  purchases  and  save  money.  You  can  apply  these
-                                    codes  by  entering  them  into  a  designated  box,  often  labeled  as  {"}discount  code,{"}  at  the
+                                    codes  by  entering  them  into  a  designated  box,  often  labeled  as  {`"`}discount  code,{`"`}  at  the
                                     checkout  stage  to  redeem  your  savings.
                                 </div>
                             </li>
@@ -116,8 +116,8 @@ const OurCodes = () => {
                                 </div>
                             </li>
                             <li className='flex flex-col gap-1'><span className='font-lg font-semibold'>2. Sale  Deals :</span>
-                                <div>Certain  {"}Sale{"}  offers  don{'}t  need  a  code  for  the  discount.  You{'}ll  notice  these  by  the  {"}Get
-                                    Deal{"}  button,  allowing  you  to  access  the  discount  directly  without  entering  a  code  during
+                                <div>Certain  {`"`}Sale{`"`}  offers  don{`'`}t  need  a  code  for  the  discount.  You{`'`}ll  notice  these  by  the  {`"`}Get
+                                    Deal{`"`}  button,  allowing  you  to  access  the  discount  directly  without  entering  a  code  during
                                     your  purchase.
                                 </div>
                             </li>
@@ -125,18 +125,18 @@ const OurCodes = () => {
                     </div>
                     <div className='flex flex-col gap-5 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>
                         <span className='text-lg font-bold'>You  need  to  know  this:</span>
-                        <span>We  assure  you  that  if  a  code  doesn{'}t  work,  we{'}ll  provide  you  with  a  gift  card.  Because  as  we
+                        <span>We  assure  you  that  if  a  code  doesn{`'`}t  work,  we{`'`}ll  provide  you  with  a  gift  card.  Because  as  we
                             have  already  said,  customer  satisfaction  is  our  top  priority.  Before  contacting  us,  please  ensure
-                            you{'}ve  reviewed  all  the  terms  and  conditions.  Here  are  a  few  important  ones  to  consider:</span>
+                            you{`'`}ve  reviewed  all  the  terms  and  conditions.  Here  are  a  few  important  ones  to  consider:</span>
                         <ul className='list-disc flex flex-col gap-5 pl-5'>
-                            <li>The  coupon  code  you{'}re  trying  to  use  must  be  an  online  code,  specifically  one  that  you
+                            <li>The  coupon  code  you{`'`}re  trying  to  use  must  be  an  online  code,  specifically  one  that  you
                                 input  during  the  purchase  process.</li>
                             <li>We  will  provide  gift  cards  only  for  invalid  codes  only.  However,  if  upon  verification
-                                process,  the  codes  are  found  valid,  we{'}ll  ensure  to  provide  a  screenshot  as  proof.</li>
+                                process,  the  codes  are  found  valid,  we{`'`}ll  ensure  to  provide  a  screenshot  as  proof.</li>
                             <li>You want to purchase using our coupon code and if the coupon code doesn’t work and
                                 you made a purchase then you’re eligible to receive a gift card under our “Our Codes”
                                 guarantee. NOTE:- You have to complete the purchase without any other codes!</li>
-                            <li>To  redeem  the  coupon  code,  it{'}s  crucial  that  you{'}ve  ordered  a  product  eligible  for  the
+                            <li>To  redeem  the  coupon  code,  it{`'`}s  crucial  that  you{`'`}ve  ordered  a  product  eligible  for  the
                                 discount.  Reviewing  all  terms  and  conditions  is  extremely  important  to  ensure  your
                                 product  aligns  with  all  requirements  for  the  code.</li>
                             <li>Our  Codes  guarantee  Gift  Card  Limit  is  set  to  $10  maximum  per  day  and  maximum  of  5
