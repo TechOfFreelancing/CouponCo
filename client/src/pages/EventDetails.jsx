@@ -19,7 +19,7 @@ import axios from "axios";
 import { IoMdClose } from "react-icons/io";
 import { TbExternalLink } from 'react-icons/tb'
 import AuthContext from "../components/AuthContext";
-
+import toast, { Toaster } from "react-hot-toast";
 
 const EventDetails = () => {
 
@@ -210,6 +210,18 @@ const EventDetails = () => {
         }
     };
 
+    const formatUserCount = (count) => {
+        if (count >= 10000000) {
+            return `${(count / 10000000).toFixed(1)} Cr`;
+        } else if (count >= 100000) {
+            return `${(count / 100000).toFixed(1)} L`;
+        } else if (count >= 1000) {
+            return `${(count / 1000).toFixed(1)} K`;
+        } else {
+            return count.toString();
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
@@ -283,20 +295,21 @@ const EventDetails = () => {
 
     return (
         <>
-            <div className="lg:w-[90vw] flex flex-col text-black border lg:mx-auto mt-20 lg:mt-32">
-                <div className="p-4 flex flex-col items-start flex-wrap gap-5">
+            <Toaster position="top-center"></Toaster>
+            <div className="lg:w-[90vw] flex flex-col text-black border lg:mx-auto mt-28 lg:mt-32">
+                <div className="p-1 lg:p-4 flex flex-col items-start flex-wrap gap-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
-                                <svg className="w-5 h-auto fill-current mx-2 text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
+                                <svg className="w-5 h-auto fill-current mx-1 text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
                             </Link>
-                            <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
+                            <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 Events
                             </Link>
-                            <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
+                            <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
@@ -305,13 +318,13 @@ const EventDetails = () => {
                         </li>
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
-                        <img src={bg} alt="" className="w-full h-[160px]" />
+                        <img src={bg} alt="" className="w-full h-[80px] lg:h-[160px]" />
                         {/* <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
                             <div className='p-4 text-3xl font-bold text-white z-10'>Browse Top Shopping Events</div>
                         </div> */}
                     </div>
-                    <div className="flex flex-col-reverse lg:flex-row ">
-                        <div className="w-screen lg:w-1/4 lg:flex flex-col gap-5 text-black border lg:mx-auto lg:p-5">
+                    <div className="flex flex-col-reverse lg:flex-row w-[96%] lg:w-full mx-2">
+                        <div className="flex flex-col gap-5 lg:px-5 text-sm items-center">
                             <div className="bg-white p-5 rounded-lg shadow-boxshadow">
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
@@ -342,11 +355,11 @@ const EventDetails = () => {
                                     </div>
                                     <div className="flex justify-between items-center px-5">
                                         <span className="text-lg text-black">Best Offer</span>
-                                        <span>40% Off</span>
+                                        <span className="whitespace-nowrap">40% Off</span>
                                     </div>
                                     <div className="flex justify-between items-center px-5">
                                         <span className="text-lg text-black">Average Discount</span>
-                                        <span>25 %</span>
+                                        <span className="whitespace-nowrap">25 %</span>
                                     </div>
                                 </div>
                             </div>
@@ -363,80 +376,69 @@ const EventDetails = () => {
                             </div>
 
                         </div>
-                        <div className="lg:w-3/4 lg:flex flex-col items-start justify-center gap-5 text-black  lg:mx-auto lg:p-5">
-                            <div className='p-4 pt-0 pl-0 text-3xl font-bold'>Browse Top {event} Shopping Events</div>
-                            {
-                                eventData.slice(0, eventsToShow).map((ele, index) => {
-                                    return (
-                                        <div key={index}
-                                            className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
-
-                                            <span
-                                                className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
-                                                    }`}
-                                                onClick={() => handleLikeClick(index, ele.coupon_id)}
-                                            >
-
-                                                <FaHeart className="cursor-pointer text-xl duration-300" />
-                                            </span>
-                                            <div className="flex flex-col w-full gap-2">
-                                                <div className="flex gap-5 lg:gap-0">
-                                                    <div className="lg:w-[15%] w-[25%] h-auto flex flex-col items-center justify-center ">
-                                                        <div className="border border-black flex flex-col items-center justify-center">
-
-                                                            <img src={ele.logo_url} alt="H" className="h-[50px] w-[50px] lg:max-h-[75px] lg:h-auto lg:w-[75px] rounded-lg m-2" />
-
-                                                            <span className="bg-blue-100 text-center w-full">{ele.type}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex flex-col lg:w-[55%] w-[75%] lg:mx-5 justify-between gap-2">
-                                                        <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
-
-                                                            <div className="font-bold text-sm lg:text-xl">{ele.title}</div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex flex-col lg:w-[30%] w-[75%] lg:mx-5 pt-5 justify-between gap-2">
-                                                        <div className="flex flex-col gap-5">
-                                                            <div className="flex text-lg whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between">
-                                                                <span className="flex justify-center items-center lg:gap-2 text-green-800">
-
-                                                                    <GoVerified className="font-bold" />{ele.isVerified && "Verified"}
-                                            </span>
-                                                                <span className="flex justify-center items-center lg:gap-2">
-                                                                    <CiUser></CiUser>
-                                                                    {(ele.user_count)} Uses
-                                                                </span>
+                        <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5 gap-5">
+                            <div className='lg:p-4 pt-0 pl-0 text-xl lg:text-3xl font-bold'>Browse Top {event} Shopping Events</div>
+                            <div className="flex flex-col gap-2 lg:gap-5 items-start lg:mx-5">
+                                {
+                                    eventData.slice(0, eventsToShow).map((ele, index) => {
+                                        return (
+                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-[60rem] hover:shadow-lg duration-300">
+                                                <span
+                                                    className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
+                                                        }`}
+                                                    onClick={() => handleLikeClick(index, ele.coupon_id)}
+                                                >
+                                                    <FaHeart className="cursor-pointer text-xs lg:text-xl duration-300" />
+                                                </span>
+                                                <div className="flex flex-col w-full gap-2">
+                                                    <div className="flex gap-1 lg:gap-0">
+                                                        <div className="w-[15%] h-auto flex flex-col items-center justify-center">
+                                                            <div className="border border-black flex flex-col items-center justify-center">
+                                                                <img src={ele.logo_url} alt="H" className="max-h-[50px] h-auto w-[50px] lg:max-h-[75px]  lg:w-[75px] rounded-lg m-2" />
+                                                                <span className="bg-blue-100 text-center w-full capitalize text-xs lg:text-base">{ele.type}</span>
                                                             </div>
-
-                                                            <div className="flex flex-col items-center justify-between">
-                                                                <button className="button has-code" onClick={() => handleOpen(ele)} >
-                                                                    <span className="is-code">74{ele.coupon_code}</span>
-                                                                    <span className="is-code-text uppercase"><em>Get {ele.type}</em></span>
+                                                        </div>
+                                                        <div className="flex flex-col w-[40%] lg:w-[55%] lg:mx-5 justify-between gap-2">
+                                                            <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
+                                                                <div className="lg:font-bold text-[12px] lg:text-xl text-center lg:text-start">{ele.title}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex flex-col w-[45%] lg:w-[30%] lg:mx-5 pt-5 justify-between gap-2">
+                                                            <div className="flex flex-col gap-5">
+                                                                <div className="flex whitespace-nowrap gap-3 lg:gap-5 lg:mr-[1rem] justify-between text-xs lg:text-base">
+                                                                    <span className="flex justify-center items-center lg:gap-2 text-green-800">
+                                                                        <GoVerified className="font-bold " />Verified</span>
+                                                                    <span className="flex justify-center items-center lg:gap-2">
+                                                                        <CiUser></CiUser>
+                                                                        {formatUserCount(ele.user_count)} Uses
+                                                                    </span>
+                                                                </div>
+                                                                <button className="button has-code1" onClick={() => handleOpen(ele)} >
+                                                                    <span className="is-code1">74
+                                                                        {ele.coupon_code}</span>
+                                                                    <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
                                                                 </button>
                                                             </div>
-
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="flex gap-1 items-center text-sm cursor-pointer ml-4 mt-2" onClick={() => toggleDetails(index)}>
-                                                    See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                                </div>
-                                                {detailsVisibility[index] && (
-                                                    <div className="details flex flex-col w-screen lg:w-auto ml-4">
-
-                                                        <span className="font-bold">due date : {(ele.due_date)}</span>
-                                                        <span>{ele.description}</span>
-
+                                                    <div className="flex gap-1 items-center  text-xs lg:text-sm cursor-pointer lg:ml-4 lg:mt-2" onClick={() => toggleDetails(index)}>
+                                                        See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                                     </div>
-                                                )}
-                                            </div>
-                                        </div>
+                                                    {detailsVisibility[index] && (
+                                                        <div className="details flex flex-col lg:ml-4 text-xs lg:text-base">
+                                                            <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
+                                                            <span className="overflow-x-clip">{ele.description}</span>
+                                                        </div>
+                                                    )}
 
-                                    )
-                                })
-                            }
-                            <div className="flex items-center justify-center lg:w-[45rem] ">
+                                                </div>
+                                            </div>
+
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div className="flex items-center justify-center lg:w-[45rem] mb-4">
                                 {eventDetails.Events.length > 25 && (
                                     <button onClick={toggleShowAllEvents} className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
                                         {showAllEvents ? 'Show Less' : 'Show More'}
@@ -459,11 +461,11 @@ const EventDetails = () => {
                         <div className="flex flex-col gap-5 justify-center items-center flex-wrap">
                             <div className="text-2xl whitespace-nowrap">{selectedProduct.name &&
                                 selectedProduct?.name.toUpperCase()}</div>
-                            <div className="text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
+                            <div className="text-sm lg:text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div>
                         </div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
                         <div
-                            className="flex items-center min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
+                            className="flex items-center lg:min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
                             <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
                             <button
                                 className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
@@ -472,7 +474,7 @@ const EventDetails = () => {
                             </button>
                         </div>
                         {!waiting ? (<div
-                            className="text:sm lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
+                            className="text-xs lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
                             <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>
                             <a href={productlink} target="_blank" onClick={() => { handleUse(selectedProduct.coupon_id) }}
                                 rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000]
