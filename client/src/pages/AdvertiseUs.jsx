@@ -75,8 +75,8 @@ const AdvertiseUs = () => {
         <>
             <Toaster position="top-center"></Toaster>
 
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
-                <div className="flex flex-col items-start flex-wrap p-5 pb-0">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 mb-5 lg:mt-32 items-start gap-5">
+                <div className="flex flex-col items-start flex-wrap lg:p-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -92,10 +92,10 @@ const AdvertiseUs = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">Advertise With Us</span>
+                    <span className="text-xl lg:text-2xl font-bold lg:ml-2 mt-5">Advertise With Us</span>
                 </div>
-                <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[45%] h-auto m-10 mt-0 mr-0" src={img1} />
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg">
+                    <img className="lg:float-right w-full  lg:w-[45%] h-auto lg:m-10 lg:mt-0 lg:mr-0" src={img1} />
                     <p className="text-justify">
                         At  Qwik  Savings,  we  offer  prime  advertising
                         opportunities  to  elevate  your  brand  visibility.
@@ -103,7 +103,7 @@ const AdvertiseUs = () => {
                         services  to  our  engaged  audience  of
                         thousands.
                     </p>
-                    <div className="text-2xl font-semibold my-5">Why  Advertise  With  Us?</div>
+                    <div className="text-xl lg:text-2xl font-semibold my-5">Why  Advertise  With  Us?</div>
                     <ul className="ml-5 list-disc text-justify">
                         {ads.map((ele, index) => (
                             <li key={index} className="my-5">
@@ -113,7 +113,7 @@ const AdvertiseUs = () => {
                         ))}
                     </ul>
                 </div>
-                <div className="contactform flex justify-between items-center w-fit p-10 border border-gray-600 shadow-xl rounded-lg bg-white mx-5 mt-5 mb-10">
+                <div className="contactform flex justify-between items-center w-fit p-5 lg:p-10 shadow-boxshadow rounded-lg bg-white lg:mx-5 lg:mt-5 lg:mb-10">
                     <div className="w-full flex flex-col gap-5">
                         <div className='text-xl font-semibold'>Ready  to  get  started?</div>
                         <div className='text-justify'>Fill  out  the  form  below  to  kickstart  your  advertising  journey  with  Qwik

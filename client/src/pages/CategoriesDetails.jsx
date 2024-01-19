@@ -340,6 +340,7 @@ const CategoriesDetails = () => {
 
                                         popularStore.length !== 0 && popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
 
+
                                                 onClick={() => {
                                                     navigate(`/Stores/${ele.name}`, { state: { sId: ele.store_id } });
                                                 }}>{ele.name}</div>).slice(0, 10)

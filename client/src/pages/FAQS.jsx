@@ -8,8 +8,8 @@ import Accordion from "../components/Accordion";
 const FAQS = () => {
     return (
         <>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
-                <div className="flex flex-col items-start flex-wrap p-5 pb-0">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+                <div className="flex flex-col items-start flex-wrap lg:p-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -25,13 +25,13 @@ const FAQS = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">Frequently Asked Questions</span>
+                    <span className="text-xl lg:text-2xl font-bold ml-2 mt-5">Frequently Asked Questions</span>
                 </div>
-                <div className="w-full ml-2 p-5 pt-0 text-lg flex justify-around items-center h-[500px]">
-                    <img className="float-left w-2/5 h-auto m-10 my-0 ml-0 mix-blend-multiply" src={img} />
-                    <div className="w-2/5 flex flex-col my-5 gap-5">
-                        <span className="text-2xl font-semibold">Need  help?</span>
-                        <p className="text-justify text-lg">
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg flex lg:flex-row flex-col lg:justify-around items-center lg:h-[500px]">
+                    <img className="lg:float-left w-full lg:w-2/5 h-auto m-10 my-0 ml-0 mix-blend-multiply" src={img} />
+                    <div className="lg:w-2/5 flex flex-col my-5 gap-5">
+                        <span className="text-xl lg:text-2xl font-semibold">Need  help?</span>
+                        <p className="lg:text-justify text-lg">
                             No worries….. we{`'`}ve got you covered!!!
                         </p>
                         <p className="text-justify text-lg">
@@ -43,9 +43,9 @@ const FAQS = () => {
                         <Link to="/contactus" className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit flex items-center gap-2">Contact Us <IoIosArrowDropright className="text-2xl" /></Link>
                     </div>
                 </div>
-                <div className="p-5">
-                    <span className="text-2xl font-bold">Common FAQs at Qwik Savings</span>
-                    <ol className="flex flex-col my-10 list-decimal ml-5">
+                <div className="lg:p-5">
+                    <span className="text-xl lg:text-2xl font-bold">Common FAQs at Qwik Savings</span>
+                    <ol className="flex flex-col my-5 lg:my-10 list-decimal ml-2 lg:ml-5">
                         {
                             faq.map((ele, index) => <Accordion key={index} q={ele.q} a={ele.a}></Accordion>)
                         }

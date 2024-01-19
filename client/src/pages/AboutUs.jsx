@@ -11,8 +11,8 @@ import { IoIosArrowDropright } from "react-icons/io";
 const AboutUs = () => {
     return (
         <>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
-                <div className="flex flex-col items-start flex-wrap p-5 pb-0">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
+                <div className="flex flex-col items-start flex-wrap gap-2 lg:p-5 pt-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -28,10 +28,10 @@ const AboutUs = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-2xl font-bold ml-2 mt-5">About Qwik Savings</span>
+                    <span className="text-xl lg:text-2xl font-bold lg:ml-2 lg:mt-5">About Qwik Savings</span>
                 </div>
-                <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[50%] h-auto m-10 my-0 mr-0 mix-blend-multiply" src={img1} />
+                <div className="w-full lg:ml-2 lg:p-5 pt-0 text-lg">
+                    <img className="lg:float-right w-full lg:w-[50%] h-auto lg:m-10 lg:my-0 lg:mr-0 mix-blend-multiply border" src={img1} />
                     <p className="text-justify my-5">
                         True  to  its  name,  Qwik  Savings  is  one  of
                         the  most  trusted  sites  for  all  online
@@ -61,25 +61,25 @@ const AboutUs = () => {
                     </p>
                 </div>
             </div>
-            <div className="px-10 lg:px-28 bg-white flex flex-col justify-center text-black lg:mx-auto items-start h-[calc(100vh-200px)] gap-5 w-full">
-                <div className="grid grid-cols-3 justify-items-stretch gap-5 w-full">
+            <div className="px-5 lg:px-28 bg-white flex flex-col justify-center text-black lg:mx-auto items-start lg:h-[calc(100vh-200px)] gap-5 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-stretch gap-5 w-full">
                     {
                         aboutus.map((ele, index) => <div key={index} className="bg-[#FAF9F5] rounded-2xl flex flex-col gap-4 items-center justify-center px-5 h-[420px] shadow-boxshadow">
                             <img src={ele.img} alt="" className='h-3/5 w-auto mix-blend-multiply' />
-                            <div className="h-1/8 text-2xl font-bold">
+                            <div className="h-1/8 text-xl lg:text-2xl font-bold">
                                 {ele.text}
                             </div>
-                            <div className="h-1/8 text-2xl font-bold">
+                            <div className="h-1/8 text-xl lg:text-2xl font-bold">
                                 {ele.content}
                             </div>
                         </div>)
                     }
                 </div>
             </div>
-            <div className="px-10 lg:px-28 py-10 flex flex-col justify-center text-black lg:mx-auto items-start gap-5 w-full">
-                <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-left w-[50%] h-auto m-10 ml-0 mix-blend-multiply" src={img2} />
-                    <span className="text-2xl font-bold my-5 ">Our Mission & Vision</span>
+            <div className="px-5 lg:px-28 py-10 flex flex-col justify-center text-black lg:mx-auto items-start gap-5 w-full">
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg">
+                    <img className="lg:float-left w-full lg:w-[50%] h-auto m-10 ml-0 mix-blend-multiply" src={img2} />
+                    <span className="text-xl lg:text-2xl font-bold my-5 ">Our Mission & Vision</span>
                     <p className="text-justify my-5">
                         Qwik  Savings  aims  to  be  the  most  fonded
                         destination  for  online  shoppers  to  find  the  most
@@ -101,9 +101,9 @@ const AboutUs = () => {
 
                 </div>
 
-                <div className="w-full ml-2 p-5 pt-0 text-lg">
-                    <img className="float-right w-[50%] h-auto m-10 my-0 mr-0 mix-blend-multiply" src={img3} />
-                    <span className="text-2xl font-bold my-5 ">How  We  Make  Money</span>
+                <div className="w-full lg:ml-2 lg:p-5 pt-0 text-lg">
+                    <img className="lg:float-right w-full lg:w-[50%] h-auto lg:m-10 lg:my-0 lg:mr-0 mix-blend-multiply" src={img3} />
+                    <span className="text-xl lg:text-2xl font-bold my-5 ">How  We  Make  Money</span>
                     <p className="text-justify my-5">
                         Our  revenue  model  goes  way  beyond  just
                         commissions.  Our  affiliate  marketing  model
@@ -123,11 +123,11 @@ const AboutUs = () => {
 
                 </div>
             </div>
-            <div className="px-10 lg:px-28 bg-white flex flex-col justify-center text-black lg:mx-auto items-start gap-3 w-full mb-10">
-                <div className="w-full ml-2 p-5 pt-0 text-lg flex justify-between items-start">
-                    <img className="float-left w-2/5 h-auto m-10 my-0 ml-0 mix-blend-multiply" src={img4} />
-                    <div className="w-3/5 flex flex-col justify-between h-full gap-3 mt-10">
-                        <span className="text-2xl font-bold">We’re here to help</span>
+            <div className="px-5 lg:px-28 bg-white flex flex-col justify-center text-black lg:mx-auto items-start gap-3 w-full mb-10">
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg flex lg:flex-row flex-col justify-between items-start">
+                    <img className="lg:float-left w-full lg:w-2/5 h-auto lg:m-10 lg:my-0 lg:ml-0 mix-blend-multiply" src={img4} />
+                    <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-start justify-between h-full gap-3 mt-10">
+                        <span className="text-xl lg:text-2xl font-bold">We’re here to help</span>
                         <p className="text-justify my-5">
                             If you{`'`}re  facing  any  troubles while using
                             our  website,  Don{`'`}t  worry!  We  have
