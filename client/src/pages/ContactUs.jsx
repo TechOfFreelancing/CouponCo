@@ -60,8 +60,8 @@ const ContactUs = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="px-10 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start">
-                <div className="flex flex-col items-start flex-wrap p-4">
+            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start">
+                <div className="flex flex-col items-start flex-wrap lg:p-4">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-black hover:text-[#B33D53]">
@@ -79,8 +79,8 @@ const ContactUs = () => {
                     </ul>
                 </div>
 
-                <div className="contactform flex justify-between items-start w-fit p-10 rounded-lg bg-white mx-5 mt-5 mb-10 shadow-boxshadow" >
-                    <div className="w-3/5 flex flex-col gap-5">
+                <div className="contactform flex flex-col lg:flex-row justify-between lg:items-start lg:w-fit p-5 lg:p-10 rounded-lg bg-white lg:mx-5 mt-5 mb-10 shadow-boxshadow" >
+                    <div className="w-full lg:w-3/5 flex flex-col gap-5">
                         <div className='font-bold text-lg lg:text-3xl text-start' style={{ fontWeight: 700 }}>Contact Us</div>
                         <div className='text-xl'>Got any questions? Don{`'`}t hesitate to get in touch.</div>
                         <div className='text-justify'>Fill in the form below and one of our friendly customer support staff will contact you back ASAP regarding your question or query. You can also contact us via this Email address:
@@ -127,9 +127,9 @@ const ContactUs = () => {
                         <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit"
                             onClick={(e) => handleSubmit(e)}>Submit Form</button>
                     </div>
-                    <div className="w-2/5 h-[685px] flex flex-col justify-between">
+                    <div className="w-full lg:w-2/5 h-auto lg:h-[685px] flex flex-col justify-between">
                         <img src={contactus} alt="contact us" className="w-full h-auto object-cover mt-6" />
-                        <div className="icons flex gap-7 items-center justify-start pl-16 w-full h-10 text-2xl mb-10">
+                        <div className="icons flex gap-7 items-center justify-start lg:pl-16 w-full h-10 text-2xl mt-5 lg:mb-10">
                             {
                                 SocialIcon.map((ele, index) => {
                                     let Icon = ele.icon;
