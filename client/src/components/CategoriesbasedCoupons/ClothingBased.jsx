@@ -15,11 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../components/AuthContext";
 import "../../styles/couponsbutton.css";
 import { TbExternalLink } from 'react-icons/tb'
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "../../styles/slickslider.css"
-import settings from './Settings'
+
 
 const ClothingBased = () => {
     const [likedItems, setLikedItems] = useState([]);
