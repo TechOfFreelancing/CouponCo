@@ -18,7 +18,7 @@ const CouponReq = () => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:4000/api/admin/getUnverifed`,
+                    `http://43.205.126.26:3000//api/admin/getUnverifed`,
                     {
                         withCredentials: true,
                         headers: {
@@ -62,7 +62,7 @@ const CouponReq = () => {
                 isVerified: true,
             };
 
-            await axios.put(`http://localhost:4000/api/admin/${cId}`, body, config);
+            await axios.put(`http://43.205.126.26:3000//api/admin/${cId}`, body, config);
             const updatedCoupons = coupons.filter(coupon => coupon.coupon_id !== cId);
             setCoupons(updatedCoupons);
             toast.success('Coupon Approved successfully!');
@@ -75,7 +75,7 @@ const CouponReq = () => {
 
     const handleCouponDelete = async (cId) => {
         try {
-            await axios.delete(`http://localhost:4000/api/admin/${cId}`, {
+            await axios.delete(`http://43.205.126.26:3000//api/admin/${cId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

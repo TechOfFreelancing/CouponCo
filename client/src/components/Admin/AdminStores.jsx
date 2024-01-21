@@ -16,7 +16,7 @@ const AdminStores = () => {
         const fetchStores = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:4000/api/getAllStore?page=${count}`,
+                    `http://43.205.126.26:3000//api/getAllStore?page=${count}`,
                     {
                         headers: {
                             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const AdminStores = () => {
 
     const handleStoreDelete = async (storeId) => {
         try {
-            await axios.delete(`http://localhost:4000/api/admin/delete/${storeId}`, {
+            await axios.delete(`http://43.205.126.26:3000//api/admin/delete/${storeId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

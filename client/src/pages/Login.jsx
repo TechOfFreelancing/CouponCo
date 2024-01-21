@@ -24,7 +24,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:4000/api/login`, {
+            const res = await axios.post(`http://43.205.126.26:3000//api/login`, {
                 email,
                 password
             })
@@ -90,7 +90,7 @@ export default function Login() {
                                     />
                                 </div>
                                 <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                    <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
+                                    <Link to="http://43.205.126.26:3000//api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
                                         Forgot your password?
                                     </Link>
                                 </Typography>
