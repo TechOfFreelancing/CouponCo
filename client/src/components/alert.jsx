@@ -15,7 +15,7 @@ const Alert = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://43.205.126.26:3000//api/festStoreDisplay`);
+                const res = await axios.get(`http://43.205.126.26:3000/api/festStoreDisplay`);
                 if (res.data && res.data.data) {
                     const festivalDetails = res.data.data.find(item => item.storeId === null);
                     if (festivalDetails) {

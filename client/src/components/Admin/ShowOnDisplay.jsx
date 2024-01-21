@@ -31,7 +31,7 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                 formdata.append("ref_link", data);
 
                 await axios.post(
-                    `http://43.205.126.26:3000//api/admin/addToCarousel/${storeId}`,
+                    `http://43.205.126.26:3000/api/admin/addToCarousel/${storeId}`,
                     formdata,
                     {
                         headers: {
@@ -57,7 +57,7 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                 formdata.append("data", data);
 
                 await axios.post(
-                    `http://43.205.126.26:3000//api/admin/addToCard/${storeId}`,
+                    `http://43.205.126.26:3000/api/admin/addToCard/${storeId}`,
                     formdata,
                     {
                         headers: {
@@ -75,7 +75,7 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
         }
         else {
             try {
-                const response = await axios.get(`http://43.205.126.26:3000//api/coupons/${storeId}`);
+                const response = await axios.get(`http://43.205.126.26:3000/api/coupons/${storeId}`);
                 const coupons = response.data.coupons;
 
                 const currentDate = new Date();
@@ -86,7 +86,7 @@ export function ShowOnDisplay({ storeId, open, handleOpen }) {
                 });
 
                 await axios.post(
-                    `http://43.205.126.26:3000//api/admin/addToFetured/${storeId}`,
+                    `http://43.205.126.26:3000/api/admin/addToFetured/${storeId}`,
                     data,
                     {
                         headers: {

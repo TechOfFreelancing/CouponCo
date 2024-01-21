@@ -43,7 +43,7 @@ const AdvertiseUs = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://43.205.126.26:3000//api/advertise/${localStorage.getItem('id')}`,
+            url: `http://43.205.126.26:3000/api/advertise/${localStorage.getItem('id')}`,
             headers: {
                 'Content-Type': 'application/json'
             },

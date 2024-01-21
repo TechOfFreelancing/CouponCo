@@ -16,14 +16,14 @@ const Featured_Stores = () => {
     useEffect(() => {
         const fetchStores = async () => {
             try {
-                const response = await axios.get(`http://43.205.126.26:3000//api/storeDisplay`);
+                const response = await axios.get(`http://43.205.126.26:3000/api/storeDisplay`);
                 if (response.data && response.data.data) {
                     const filteredStores = response.data.data.filter(store => store.show_in_fetured === 1);
                     setCount(filteredStores);
 
                     const storeDetails = await Promise.all(filteredStores.map(async store => {
                         try {
-                            const storeDetailsResponse = await axios.get(`http://43.205.126.26:3000//api/getStore/${store.store_id}`);
+                            const storeDetailsResponse = await axios.get(`http://43.205.126.26:3000/api/getStore/${store.store_id}`);
                             // console.log(storeDetailsResponse);
                             return {
                                 name: storeDetailsResponse.data.store.name || null, // Add the name attribute

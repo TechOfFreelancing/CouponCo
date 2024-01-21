@@ -22,7 +22,7 @@ export default function Register() {
         e.preventDefault();
         try {
             console.log(name, email, password);
-            const response = await axios.post(`http://43.205.126.26:3000//api/register`, {
+            const response = await axios.post(`http://43.205.126.26:3000/api/register`, {
                 name,
                 email,
                 password,

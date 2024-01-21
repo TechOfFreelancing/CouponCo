@@ -73,7 +73,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `http://43.205.126.26:3000//api/admin/${cId}`,
+                url: `http://43.205.126.26:3000/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,11 +97,11 @@ const UpdateCoupons = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://43.205.126.26:3000//api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`http://43.205.126.26:3000//api/getStore/${sId}`);
-                const eventName = await axios.get(`http://43.205.126.26:3000//api/eventcoupon/${cId}`);
+                const response = await axios.get(`http://43.205.126.26:3000/api/coupons/${sId}/${cId}`);
+                const storeData = await axios.get(`http://43.205.126.26:3000/api/getStore/${sId}`);
+                const eventName = await axios.get(`http://43.205.126.26:3000/api/eventcoupon/${cId}`);
                 // console.log(eventName);
-                const result = await axios.get(`http://43.205.126.26:3000//api/storeDisplay`);
+                const result = await axios.get(`http://43.205.126.26:3000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
                 const events = eventName.length !== 0 && eventName.data.coupons.map((e) => e.event_name);
@@ -146,7 +146,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId", cId);
 
             await axios.post(
-                `http://43.205.126.26:3000//api/admin/addToOffer/${sId}`,
+                `http://43.205.126.26:3000/api/admin/addToOffer/${sId}`,
                 formdata,
                 {
                     headers: {
@@ -169,7 +169,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`http://43.205.126.26:3000//api/storeDisplay/${sId}`, {
+            await axios.delete(`http://43.205.126.26:3000/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
