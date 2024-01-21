@@ -50,7 +50,7 @@ const SubmitCouponForm = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
+            url: `http://43.205.126.26:3000/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',

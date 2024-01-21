@@ -46,7 +46,7 @@ const FoodBeveragesBased = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://localhost:4000/api/register`, {
+            const response = await axios.post(`http://43.205.126.26:3000/api/register`, {
                 name: name1,
                 email,
                 password,
@@ -67,7 +67,7 @@ const FoodBeveragesBased = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:4000/api/login`, {
+            const res = await axios.post(`http://43.205.126.26:3000/api/login`, {
                 email,
                 password,
             });
@@ -103,7 +103,7 @@ const FoodBeveragesBased = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`http://43.205.126.26:3000/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -185,12 +185,12 @@ const FoodBeveragesBased = () => {
                 updatedLikedItems.push(cId);
                 setLikedItems(updatedLikedItems);
 
-                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`http://43.205.126.26:3000/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
                 setLikedItems(filteredItems);
 
-                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`http://43.205.126.26:3000/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error("Error occurred:", error);
@@ -209,7 +209,7 @@ const FoodBeveragesBased = () => {
                         },
                     };
 
-                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`http://43.205.126.26:3000/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -226,7 +226,7 @@ const FoodBeveragesBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:4000/api/storeDisplay/Foods Beverages");
+                const response = await axios.get("http://43.205.126.26:3000/api/storeDisplay/Foods Beverages");
                 setFoodBeverages(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);
@@ -383,7 +383,7 @@ const FoodBeveragesBased = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="http://43.205.126.26:3000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

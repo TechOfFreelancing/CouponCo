@@ -13,7 +13,7 @@ const Navlist = () => {
 
     useEffect(() => {
         const fetchStores = async () => {
-            const response = await axios.get("http://localhost:4000/api/getAllStore");
+            const response = await axios.get("http://43.205.126.26:3000/api/getAllStore");
             if (response) {
                 setStores(response.data.stores);
             }
