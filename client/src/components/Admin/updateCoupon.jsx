@@ -73,11 +73,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-<<<<<<< HEAD
-                url: `http://43.205.126.26:3000/api/admin/${cId}`,
-=======
                 url: `${import.meta.env.VITE_SERVER}/api/admin/${cId}`,
->>>>>>> restart
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,19 +97,11 @@ const UpdateCoupons = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-<<<<<<< HEAD
-                const response = await axios.get(`http://43.205.126.26:3000/api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`http://43.205.126.26:3000/api/getStore/${sId}`);
-                const eventName = await axios.get(`http://43.205.126.26:3000/api/eventcoupon/${cId}`);
-                // console.log(eventName);
-                const result = await axios.get(`http://43.205.126.26:3000/api/storeDisplay`);
-=======
                 const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/coupons/${sId}/${cId}`);
                 const storeData = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${sId}`);
                 const eventName = await axios.get(`${import.meta.env.VITE_SERVER}/api/eventcoupon/${cId}`);
                 // console.log(eventName);
                 const result = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay`);
->>>>>>> restart
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
                 const events = eventName.length !== 0 && eventName.data.coupons.map((e) => e.event_name);
@@ -158,11 +146,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId", cId);
 
             await axios.post(
-<<<<<<< HEAD
-                `http://43.205.126.26:3000/api/admin/addToOffer/${sId}`,
-=======
                 `${import.meta.env.VITE_SERVER}/api/admin/addToOffer/${sId}`,
->>>>>>> restart
                 formdata,
                 {
                     headers: {
@@ -185,11 +169,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-<<<<<<< HEAD
-            await axios.delete(`http://43.205.126.26:3000/api/storeDisplay/${sId}`, {
-=======
             await axios.delete(`${import.meta.env.VITE_SERVER}/api/storeDisplay/${sId}`, {
->>>>>>> restart
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -277,11 +257,6 @@ const UpdateCoupons = () => {
                             ))}
                         </select>
                     </div>
-<<<<<<< HEAD
-
-
-=======
->>>>>>> restart
                     <div className="mb-4">
                         <label htmlFor="category" className="block mb-1 font-medium">
                             Events:

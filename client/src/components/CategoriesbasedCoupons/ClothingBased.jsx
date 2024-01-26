@@ -47,11 +47,7 @@ const ClothingBased = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-<<<<<<< HEAD
-            const response = await axios.post(`http://43.205.126.26:3000/api/register`, {
-=======
             const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/register`, {
->>>>>>> restart
                 name: name1,
                 email,
                 password,
@@ -72,11 +68,7 @@ const ClothingBased = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-<<<<<<< HEAD
-            const res = await axios.post(`http://43.205.126.26:3000/api/login`, {
-=======
             const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/login`, {
->>>>>>> restart
                 email,
                 password,
             });
@@ -112,11 +104,7 @@ const ClothingBased = () => {
 
     const handleUse = async (cId) => {
         try {
-<<<<<<< HEAD
-            await axios.patch(`http://43.205.126.26:3000/api/inCount/${cId}`);
-=======
             await axios.patch(`${import.meta.env.VITE_SERVER}/api/inCount/${cId}`);
->>>>>>> restart
         } catch (error) {
             console.error(error);
         }
@@ -200,20 +188,12 @@ const ClothingBased = () => {
                 updatedLikedItems.push(cId);
                 setLikedItems(updatedLikedItems);
 
-<<<<<<< HEAD
-                await axios.post(`http://43.205.126.26:3000/api/saveCoupon/${cId}`, { userId }, config);
-=======
                 await axios.post(`${import.meta.env.VITE_SERVER}/api/saveCoupon/${cId}`, { userId }, config);
->>>>>>> restart
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
                 setLikedItems(filteredItems);
 
-<<<<<<< HEAD
-                await axios.delete(`http://43.205.126.26:3000/api/unsaveCoupon/${cId}`, config);
-=======
                 await axios.delete(`${import.meta.env.VITE_SERVER}/api/unsaveCoupon/${cId}`, config);
->>>>>>> restart
             }
         } catch (error) {
             console.error("Error occurred:", error);
@@ -234,11 +214,7 @@ const ClothingBased = () => {
                         },
                     };
 
-<<<<<<< HEAD
-                    const response = await axios.get(`http://43.205.126.26:3000/api/getDetails/${userId}`, config);
-=======
                     const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getDetails/${userId}`, config);
->>>>>>> restart
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -255,11 +231,7 @@ const ClothingBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-<<<<<<< HEAD
-                const response = await axios.get("http://43.205.126.26:3000/api/storeDisplay/Clothing");
-=======
                 const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Clothing`);
->>>>>>> restart
                 setClothes(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);
@@ -454,11 +426,7 @@ const ClothingBased = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-<<<<<<< HEAD
-                                <Link to="http://43.205.126.26:3000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
-=======
                                 <Link to="${import.meta.env.VITE_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
->>>>>>> restart
                                     Forgot your password?
                                 </Link>
                             </Typography>
