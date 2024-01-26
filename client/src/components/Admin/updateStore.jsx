@@ -77,7 +77,7 @@ function UpdateStores() {
         onSubmit: async (values) => {
             try {
                 const formData = new FormData();
-                const updateUrl = `http://43.205.126.26:3000/api/admin/updateStore/${sId}`;
+                const updateUrl = `${import.meta.env.VITE_SERVER}/api/admin/updateStore/${sId}`;
 
                 formData.append("name", values.name);
                 formData.append("title", values.title);
@@ -97,7 +97,7 @@ function UpdateStores() {
                     validFaqs.forEach((faq) => {
                         faqData[faq.question] = faq.answer;
                     });
-                    const faqUrl = `http://43.205.126.26:3000/api/admin/addFaq/${sId}`;
+                    const faqUrl = `${import.meta.env.VITE_SERVER}/api/admin/addFaq/${sId}`;
 
                     await axios.put(faqUrl, faqData, {
                         withCredentials: true,
@@ -130,7 +130,7 @@ function UpdateStores() {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`http://43.205.126.26:3000/api/storeDisplay/${sId}`, {
+            await axios.delete(`${import.meta.env.VITE_SERVER}/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -156,7 +156,7 @@ function UpdateStores() {
 
     const handleRemoveFromFestivalOffer = async () => {
         try {
-            await axios.delete(`http://43.205.126.26:3000/api/admin/deleteStoreFromFest/${sId}`, {
+            await axios.delete(`${import.meta.env.VITE_SERVER}/api/admin/deleteStoreFromFest/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -172,7 +172,7 @@ function UpdateStores() {
     const handleAddToFestivalOffer = async () => {
         try {
             await axios.post(
-                `http://43.205.126.26:3000/api/admin/addStoreToFest/${sId}`,
+                `${import.meta.env.VITE_SERVER}/api/admin/addStoreToFest/${sId}`,
                 {},
                 {
                     headers: {
@@ -191,11 +191,11 @@ function UpdateStores() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://43.205.126.26:3000/api/getStore/${sId}`);
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${sId}`);
 
-                const result = await axios.get(`http://43.205.126.26:3000/api/storeDisplay`);
+                const result = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay`);
 
-                const offerRes = await axios.get(`http://43.205.126.26:3000/api/festStoreDisplay`);
+                const offerRes = await axios.get(`${import.meta.env.VITE_SERVER}/api/festStoreDisplay`);
 
                 const presentInOffer = offerRes.data.data.some(item => item.storeId === sId);
 

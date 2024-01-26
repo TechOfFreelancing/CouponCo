@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import contactus from '../assets/images/contactus/Contact Us-1.png'
 import Footer from "../components/Footer";
 import SocialIcon from "../api/socialmedia";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from "axios";
 
@@ -127,9 +127,9 @@ const ContactUs = () => {
                         <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit"
                             onClick={(e) => handleSubmit(e)}>Submit Form</button>
                     </div>
-                    <div className="w-full lg:w-2/5 h-auto lg:h-[685px] flex flex-col justify-between">
-                        <img src={contactus} alt="contact us" className="w-full h-auto object-cover mt-6" />
-                        <div className="icons flex gap-7 items-center justify-start lg:pl-16 w-full h-10 text-2xl mt-5 lg:mb-10">
+                    <div className="w-full lg:w-2/5 h-auto lg:h-[685px] flex flex-col justify-evenly items-center">
+                        <img src={contactus} alt="contact us" className="w-full h-auto object-cover lg:mt-14" />
+                        <div className="icons flex gap-7 items-center justify-center w-full h-10 text-2xl mt-5 lg:mb-10">
                             {
                                 SocialIcon.map((ele, index) => {
                                     let Icon = ele.icon;

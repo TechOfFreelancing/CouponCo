@@ -92,23 +92,24 @@ export default function Footer() {
                         <p className="text-gray-600 cursor-pointer">
                             We{`'`}ll never share your details. See our <Link to='/privacypolicy' className='text-gray-900'>Privacy Policy.</Link>
                         </p>
+                        <div className="icons flex gap-7 items-center justify-start w-full h-10 text-2xl lg:ml-2 lg:mt-5">
+                            {
+                                SocialIcon.map((ele, index) => {
+                                    let Icon = ele.icon;
+                                    return <a key={index} href={ele.link} target="_blank" rel="noreferrer">
+                                        <Icon className="hover:text-[#B33D53] duration-300 cursor-pointer"></Icon>
+                                    </a>
+                                })
+                            }
+
+                        </div>
                     </div>
                 </div>
             </div>
 
             <hr className='border-black hidden lg:block border-dashed' />
             <div className="flex flex-col text-black lg:mx-20 justify-between mt-10 items-center gap-5">
-                <div className="icons flex gap-7 items-center justify-center w-full h-10 text-2xl">
-                    {
-                        SocialIcon.map((ele, index) => {
-                            let Icon = ele.icon;
-                            return <a key={index} href={ele.link} target="_blank" rel="noreferrer">
-                                <Icon className="hover:text-[#B33D53] duration-300 cursor-pointer"></Icon>
-                            </a>
-                        })
-                    }
 
-                </div>
                 <div className="contact flex flex-col lg:flex-row gap-5 items-center">
                     Disclosure: If you buy a product or service through Qwik Savings, we may earn a commission
                 </div>

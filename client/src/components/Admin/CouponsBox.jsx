@@ -3,11 +3,13 @@ import {
     Dialog,
     DialogHeader,
     DialogBody,
+    
 } from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 export function CouponsBox({ storeId, open, handleOpen }) {
 
@@ -18,7 +20,7 @@ export function CouponsBox({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const couponsData = await axios.get(`http://43.205.126.26:3000/api/coupons/${storeId}`);
+                const couponsData = await axios.get(`${import.meta.env.VITE_SERVER}/api/coupons/${storeId}`);
                 setCoupons(couponsData.data.coupons);
             } catch (error) {
                 alert(error.response ? error.response.statusText : 'Failed to fetch data');
@@ -41,11 +43,22 @@ export function CouponsBox({ storeId, open, handleOpen }) {
             <DialogBody>
                 <div className="overflow-scroll h-[50rem] pb-[10rem]">
                     {coupons.map((coupon, index) => (
-                        <div key={index} className="border border-gray-300 rounded-lg p-4 mb-4 cursor-pointer" onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: storeId } })}>
+                        <div key={index} className="relative border border-gray-300 rounded-lg p-4 mb-4 cursor-pointer" >
+                            <div className="flex absolute top-2 right-2 text-gray-600 gap-5">
+                                <button className="transition-opacity duration-300"  >
+                                    <MdDelete />
+                                </button>
+                                <button
+                                    className="transition-opacity duration-300"
+                                    onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: storeId } })}>
+                                    <MdEdit />
+                                </button>
+                            </div>
+
                             <div className="flex justify-between items-center mb-2">
                                 <div className="text-xl font-bold mr-3">{coupon.title}</div>
-                                <span className={`py-1 px-2 rounded-full font-bold ${coupon.type.toLowerCase() === 'code' ? 'bg-yellow-500 text-white' : 'bg-blue-500 text-white'}`}>{coupon.type}</span>
-                                <div className="text-sm text-gray-600 mb-2">Due: {new Date(coupon.due_date).toLocaleDateString('en-GB', options)}</div>
+                                <span className={`py-1 px-2 rounded-full font-bold ${coupon.type.toLowerCase() === 'codes' ? 'bg-yellow-500 text-white' : 'bg-blue-500 text-white'}`}>{coupon.type}</span>
+                                <div className="text-sm text-gray-600 mb-2 whitespace-nowrap">Due: {new Date(coupon.due_date).toLocaleDateString('en-GB', options)}</div>
                             </div>
                             <div className="bg-gray-100 text-center rounded p-2 mb-2">{coupon.coupon_code}</div>
                         </div>

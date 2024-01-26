@@ -55,9 +55,9 @@ const HowitWorks = () => {
                         It’s quick and easy to get started! Learn how our website works in less than 1 minute! Follow
                         these easy steps to maximize your savings with our codes!
                     </p>
-                    <div className="flex flex-col gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 my-10">
                         {
-                            howitworks.map((ele) => <div key={ele.id} className="flex flex-col"><span className="font-semibold">{ele.id + " " + ele.text} :</span><span>{ele.content}</span></div>)
+                            howitworks.map((ele) => <div key={ele.id} className="flex flex-col gap-2 bg-white p-5 border border-gray-300 hover:shadow-boxshadow_2 duration-300"><span className="font-semibold">{ele.id + " " + ele.text} :</span><span>{ele.content}</span></div>)
                         }
                     </div>
                     <p className="text-justify my-5">

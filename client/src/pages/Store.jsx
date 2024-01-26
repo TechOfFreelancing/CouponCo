@@ -30,6 +30,7 @@ import "../styles/couponsbutton1.css";
 import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
 import { TbExternalLink } from "react-icons/tb";
+import {FaRegThumbsDown,FaRegThumbsUp} from 'react-icons/fa'
 
 
 
@@ -87,7 +88,7 @@ const Store = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://43.205.126.26:3000/api/register`, {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/register`, {
                 name: name1,
                 email,
                 password,
@@ -108,7 +109,7 @@ const Store = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://43.205.126.26:3000/api/login`, {
+            const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/login`, {
                 email,
                 password,
             });
@@ -134,8 +135,8 @@ const Store = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://43.205.126.26:3000/api/getStore/${sId}`);
-                const coup = await axios.get(`http://43.205.126.26:3000/api/coupons/${sId}`);
+                const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${sId}`);
+                const coup = await axios.get(`${import.meta.env.VITE_SERVER}/api/coupons/${sId}`);
                 setStr(res.data.store);
 
 
@@ -143,7 +144,7 @@ const Store = () => {
 
                 setCoupons(verifiedCoupons);
 
-                const response = await axios.get(`http://43.205.126.26:3000/api/clouser`);
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/clouser`);
 
                 const similarStores = response.data.data.filter(item => item.store_type === 'similar' && item.store_id == sId);
                 const popularStores = response.data.data.filter(item => item.store_type === 'popular' && item.store_id == sId);
@@ -151,7 +152,7 @@ const Store = () => {
                 const getStoreInfo = async stores => {
                     return await Promise.all(
                         stores.map(async store => {
-                            const res = await axios.get(`http://43.205.126.26:3000/api/getStore/${store.sId}`);
+                            const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${store.sId}`);
                             return { id: store.sId, name: res.data.store.name };
                         })
                     );
@@ -183,7 +184,7 @@ const Store = () => {
                         },
                     };
 
-                    const response = await axios.get(`http://43.205.126.26:3000/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -266,7 +267,7 @@ const Store = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`http://43.205.126.26:3000/api/inCount/${cId}`);
+            await axios.patch(`${import.meta.env.VITE_SERVER}/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -354,7 +355,7 @@ const Store = () => {
         });
 
         try {
-            await axios.put(`http://43.205.126.26:3000/api/addRatings/${sId}`, data, {
+            await axios.put(`${import.meta.env.VITE_SERVER}/api/addRatings/${sId}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -394,7 +395,7 @@ const Store = () => {
                 setLikedItems(updatedLikedItems);
 
                 // API call to save the coupon
-                await axios.post(`http://43.205.126.26:3000/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`${import.meta.env.VITE_SERVER}/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
 
@@ -402,7 +403,7 @@ const Store = () => {
                 setLikedItems(filteredItems);
 
                 // API call to unsave the coupon
-                await axios.delete(`http://43.205.126.26:3000/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`${import.meta.env.VITE_SERVER}/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error('Error occurred:', error);
@@ -487,7 +488,7 @@ const Store = () => {
 
                     <a
                         href={`https://www.${str?.name}.in/`}
-                        className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] bg-white p-2 rounded-md border border-black flex items-center justify-center cursor-pointer"
+                        className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] p-2 rounded-md flex items-center justify-center cursor-pointer"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -527,20 +528,20 @@ const Store = () => {
                                     )
                                 })
                             }
-                            <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
-                                <div className="flex justify-between items-center px-5">
+                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px] px-5">
+                                <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Total Offers</span>
                                     <span>{validCoupons?.length}</span>
                                 </div>
-                                <div className="flex justify-between items-center px-5">
+                                <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Total Codes</span>
                                     <span>{couponCounts.exclusive}</span>
                                 </div>
-                                <div className="flex justify-between items-center px-5">
+                                <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Best Offer</span>
                                     <span>40% Off</span>
                                 </div>
-                                <div className="flex justify-between items-center px-5">
+                                <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Average Discount</span>
                                     <span className="whitespace-nowrap">25 %</span>
                                 </div>
@@ -744,16 +745,21 @@ const Store = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="flex gap-1 items-center  text-xs lg:text-sm cursor-pointer lg:ml-4 lg:mt-2" onClick={() => toggleDetails(index)}>
-                                                See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
-                                            </div>
-                                            {detailsVisibility[index] && (
-                                                <div className="details flex flex-col lg:ml-4 text-xs lg:text-base">
-                                                    <span className="font-bold">Ends {formatDate(ele.due_date)}</span>
-                                                    <span className="overflow-x-clip">{ele.description}</span>
-                                                </div>
-                                            )}
+                                            <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
+                                                        <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
+                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
+                                                            <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
+                                                            <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
+                                                                <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
 
+                                                        </span>
+                                                    </div>
+                                                    {detailsVisibility[index] && (
+                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
+                                                            <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
+                                                            <span className="text-ellipsis">{ele.description}</span>
+                                                        </div>
+                                                    )}
                                         </div>
                                     </motion.div>
                                 )
@@ -1059,7 +1065,7 @@ const Store = () => {
                                 rel="noopener noreferrer" className="whitespace-nowrap duration-300 underline text-[#800000]
                         cursor-pointer flex items-center gap-2">
                                 {selectedProduct.name &&
-                                    selectedProduct?.name.toUpperCase()} Product
+                                    selectedProduct?.name.toUpperCase()} {str?.name} Product
                                 <TbExternalLink />
                             </a>
                         </div>) : (<div className="text:sm lg:text-2xl text-[#800000]">Wait for 2 Second...</div>)}
@@ -1118,7 +1124,7 @@ const Store = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="http://43.205.126.26:3000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="${import.meta.env.VITE_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

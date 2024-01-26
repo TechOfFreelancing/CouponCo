@@ -5,9 +5,14 @@ import { useLocation } from "react-router-dom";
 import typesData from "../../api/AllTypes";
 import { useState } from "react";
 import Events from '../../api/event';
+import { format } from 'date-fns';
+import { useNavigate } from "react-router-dom";
 
 function AddCoupons() {
-
+    const today = new Date();
+    const formattedToday = format(today, 'yyyy-MM-dd');
+    console.log(formattedToday);
+    const navigate = useNavigate();
     const initialValues = {
         title: "",
         type: "",
@@ -52,7 +57,7 @@ function AddCoupons() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://43.205.126.26:3000/api/admin/addCoupons/${sId}`,
+            url: `${import.meta.env.VITE_SERVER}/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
@@ -97,11 +102,19 @@ function AddCoupons() {
                                     Type:
                                 </label>
                                 <Field
-                                    type="text"
+                                    as="select"
                                     id="type"
                                     name="type"
                                     style={inputStyle}
-                                />
+                                >
+                                    <option value="">Select Type</option>
+                                    <option value="codes">
+                                        codes
+                                    </option>
+                                    <option value="deals">
+                                        deals
+                                    </option>
+                                </Field>
                             </div>
 
                             <div className="mb-4">
@@ -169,6 +182,7 @@ function AddCoupons() {
                                 </label>
                                 <Field
                                     type="date"
+                                    min={formattedToday}
                                     id="dueDate"
                                     name="dueDate"
                                     style={inputStyle}
@@ -202,6 +216,7 @@ function AddCoupons() {
                             <button
                                 type="submit"
                                 className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                                // onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}
                             >
                                 Submit
                             </button>

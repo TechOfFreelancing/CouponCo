@@ -38,7 +38,7 @@ const PrivacyPolicy = () => {
                     </div>
                     <div className="flex flex-col w-full lg:w-[70%] gap-10 text-justify scrollbar-none lg:p-5">
                         <div>
-                            <div className="text-xl lg:text-2xl font-bold lg:ml-2">Privacy Policy of Qwik Savings</div>
+                            <div className="text-xl lg:text-2xl font-bold lg:ml-2 lg:mt-5">Privacy Policy of Qwik Savings</div>
                             <div className="text-sm lg:ml-2 text-gray-800 mt-2">Last updated January 06, 2023</div>
                         </div>
                         <div className="lg:pl-2 flex flex-col gap-2">

@@ -24,7 +24,7 @@ export function Clouser({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://43.205.126.26:3000/api/getAllStore`);
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
                 setStores(response.data.stores);
             } catch (error) {
                 console.error(error);
@@ -39,7 +39,7 @@ export function Clouser({ storeId, open, handleOpen }) {
     const handleStoreClick = async (clickedStoreId) => {
         if (displayOption && clickedStoreId) {
             try {
-                const res = await axios.post(`http://43.205.126.26:3000/api/admin/addClouser/${storeId}`, {
+                const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/admin/addClouser/${storeId}`, {
                     storeType: displayOption,
                     storeid: clickedStoreId,
                 },

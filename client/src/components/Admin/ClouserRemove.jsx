@@ -23,13 +23,21 @@ export function ClouserRemove({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+<<<<<<< HEAD
                 const response = await axios.get(`http://43.205.126.26:3000/api/clouser`);
+=======
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/clouser`);
+>>>>>>> restart
                 const storesData = response.data.data;
     
                 const storeDetails = await Promise.all(
                     storesData.map(async store => {
                         if (store.store_type === displayOption) {
+<<<<<<< HEAD
                             const storeResponse = await axios.get(`http://43.205.126.26:3000/api/getStore/${store.sId}`);
+=======
+                            const storeResponse = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${store.sId}`);
+>>>>>>> restart
                             const { logo_url, name } = storeResponse.data.store;
                             return { logo_url, name, sId: store.sId };
                         }
@@ -51,7 +59,11 @@ export function ClouserRemove({ storeId, open, handleOpen }) {
     const handleRemoveStore = async (store_id) => {
         if (store_id) {
             try {
+<<<<<<< HEAD
                 await axios.delete(`http://43.205.126.26:3000/api/admin/removeClouser/${store_id}`, {
+=======
+                await axios.delete(`${import.meta.env.VITE_SERVER}/api/admin/removeClouser/${store_id}`, {
+>>>>>>> restart
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },

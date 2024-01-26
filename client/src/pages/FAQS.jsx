@@ -25,7 +25,6 @@ const FAQS = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-xl lg:text-2xl font-bold ml-2 mt-5">Frequently Asked Questions</span>
                 </div>
                 <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg flex lg:flex-row flex-col lg:justify-around items-center lg:h-[500px]">
                     <img className="lg:float-left w-full lg:w-2/5 h-auto m-10 my-0 ml-0 mix-blend-multiply" src={img} />
@@ -45,7 +44,7 @@ const FAQS = () => {
                 </div>
                 <div className="lg:p-5">
                     <span className="text-xl lg:text-2xl font-bold">Common FAQs at Qwik Savings</span>
-                    <ol className="flex flex-col my-5 lg:my-10 list-decimal ml-2 lg:ml-5">
+                    <ol className="flex flex-col gap-5 list-decimal ml-2 lg:ml-5 my-5 lg:my-10">
                         {
                             faq.map((ele, index) => <Accordion key={index} q={ele.q} a={ele.a}></Accordion>)
                         }

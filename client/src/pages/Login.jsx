@@ -24,7 +24,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://43.205.126.26:3000/api/login`, {
+            const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/login`, {
                 email,
                 password
             })
@@ -90,14 +90,14 @@ export default function Login() {
                                     />
                                 </div>
                                 <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                    <Link to="http://43.205.126.26:3000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
+                                    <Link to="${import.meta.env.VITE_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700">
                                         Forgot your password?
                                     </Link>
                                 </Typography>
                                 <Button className="mt-6 bg-[#800000]" type="submit" onClick={handleLogin} fullWidth>
                                     SIGN IN
                                 </Button>
-                                <span className="text-sm text-black font-extralight">By continuing, I agree to RetailMeNot’s
+                                <span className="text-sm text-black font-extralight">By continuing, I agree to Qwik Saving’s
                                     <span className="underline font-bold cursor-pointer"> Privacy Policy</span> and <span className="underline font-bold cursor-pointer">Terms & use</span></span>
                             </form>
                         </div>

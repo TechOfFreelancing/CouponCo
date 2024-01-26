@@ -27,12 +27,12 @@ const SocialIcon = [
     {
         id: 5,
         icon: FaLinkedinIn,
-        link: "https://www.youtube.com/@QwikSavings"
+        link: "https://www.linkedin.com/company/qwik-savings/"
     },
     {
         id: 6,
         icon: FaYoutube,
-        link: "https://www.linkedin.com/company/qwik-savings/"
+        link: "https://www.youtube.com/@QwikSavings"
     },
 ]
 

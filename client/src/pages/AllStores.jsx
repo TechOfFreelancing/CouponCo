@@ -39,14 +39,14 @@ const AllStores = () => {
         const fetchStores = async () => {
             try {
                 if (isFestival) {
-                    const response = await axios.get(`http://43.205.126.26:3000/api/festStoreDisplay`, {
+                    const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/festStoreDisplay`, {
                         headers: {
                             "Content-Type": "application/json",
                         }
                     })
                     const storeDetailsPromises = response.data.data.map(async (store) => {
                         if (store.storeId) {
-                            const response = await axios.get(`http://43.205.126.26:3000/api/getStore/${store.storeId}`);
+                            const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${store.storeId}`);
                             return response.data.store;
                         }
                         return null; // Cases where storeId is null or undefined
@@ -58,7 +58,7 @@ const AllStores = () => {
                 }
 
                 else {
-                    let apiUrl = `http://43.205.126.26:3000/api/getAllStore?`;
+                    let apiUrl = `${import.meta.env.VITE_SERVER}/api/getAllStore?`;
 
                     if (type) {
                         apiUrl += `&type=${type}`;

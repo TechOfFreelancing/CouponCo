@@ -31,6 +31,7 @@ import FAQS from './pages/FAQS';
 import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import HowitWorks from './pages/HowitWorks';
+import ScrollToTop from './components/scrollToTop';
 
 
 
@@ -62,6 +63,7 @@ function App() {
 
   return (
     <div className="w-full max-h-fit overflow-y-clip">
+      <ScrollToTop></ScrollToTop>
       {!loaded ? (
         <Loader />
       ) : (

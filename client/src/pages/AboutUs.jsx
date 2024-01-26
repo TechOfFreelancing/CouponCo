@@ -30,9 +30,9 @@ const AboutUs = () => {
                     </ul>
                     <span className="text-xl lg:text-2xl font-bold lg:ml-2 lg:mt-5">About Qwik Savings</span>
                 </div>
-                <div className="w-full lg:ml-2 lg:p-5 pt-0 text-lg">
-                    <img className="lg:float-right w-full lg:w-[50%] h-auto lg:m-10 lg:my-0 lg:mr-0 mix-blend-multiply border" src={img1} />
-                    <p className="text-justify my-5">
+                <div className="w-full lg:ml-2 lg:p-5 pt-0 text-lg lg:-mt-14">
+                    <img className="lg:float-right w-full lg:w-[50%] h-auto lg:m-10 lg:my-0 lg:mr-0 mix-blend-multiply  border" src={img1} />
+                    <p className="text-justify my-5 lg:mt-10">
                         True  to  its  name,  Qwik  Savings  is  one  of
                         the  most  trusted  sites  for  all  online
                         shopping  fanatics  who  are  looking  to
