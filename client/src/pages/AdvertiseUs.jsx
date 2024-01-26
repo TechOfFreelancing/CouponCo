@@ -43,7 +43,7 @@ const AdvertiseUs = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:4000/api/advertise/${localStorage.getItem('id')}`,
+            url: `${import.meta.env.VITE_SERVER}/api/advertise/${localStorage.getItem('id')}`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -84,9 +84,9 @@ const AdvertiseUs = () => {
                     </ul>
                     <span className="text-xl lg:text-2xl font-bold lg:ml-2 mt-5">Advertise With Us</span>
                 </div>
-                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg">
+                <div className="w-full lg:ml-2 lg:p-5 lg:pt-0 text-lg lg:-mt-20">
                     <img className="lg:float-right w-full  lg:w-[45%] h-auto lg:m-10 lg:mt-0 lg:mr-0" src={img1} />
-                    <p className="text-justify">
+                    <p className="text-justify lg:mt-20">
                         At  Qwik  Savings,  we  offer  prime  advertising
                         opportunities  to  elevate  your  brand  visibility.
                         Partner  with  us  to  showcase  your  products  or

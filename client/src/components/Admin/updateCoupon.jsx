@@ -73,7 +73,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `http://localhost:4000/api/admin/${cId}`,
+                url: `${import.meta.env.VITE_SERVER}/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,11 +97,11 @@ const UpdateCoupons = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
-                const eventName = await axios.get(`http://localhost:4000/api/eventcoupon/${cId}`);
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/coupons/${sId}/${cId}`);
+                const storeData = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${sId}`);
+                const eventName = await axios.get(`${import.meta.env.VITE_SERVER}/api/eventcoupon/${cId}`);
                 // console.log(eventName);
-                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
+                const result = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
                 const events = eventName.length !== 0 && eventName.data.coupons.map((e) => e.event_name);
@@ -146,7 +146,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId", cId);
 
             await axios.post(
-                `http://localhost:4000/api/admin/addToOffer/${sId}`,
+                `${import.meta.env.VITE_SERVER}/api/admin/addToOffer/${sId}`,
                 formdata,
                 {
                     headers: {
@@ -169,7 +169,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`http://localhost:4000/api/storeDisplay/${sId}`, {
+            await axios.delete(`${import.meta.env.VITE_SERVER}/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -222,15 +222,19 @@ const UpdateCoupons = () => {
                         <label htmlFor="type" className="block mb-1 font-medium">
                             Type:
                         </label>
-                        <input
-                            type="text"
+                        <select
                             id="type"
                             name="type"
                             style={inputStyle}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.type}
-                        />
+                        >
+                            <option value="">Select Type</option>
+                            <option value="codes">
+                                codes
+                            </option>
+                            <option value="deals">
+                                deals
+                            </option>
+                        </select>
                     </div>
 
                     <div className="mb-4">
@@ -253,21 +257,6 @@ const UpdateCoupons = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="category" className="block mb-1 font-medium">
-                            Events:
-                        </label>
-                        <div className="grid grid-cols-3 justify-items-stretch gap-5 my-2">
-                            {
-                                Events.map((event, index) => <div key={index} className="inline-flex items-center gap-5">
-                                    <input type="checkbox" className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]" />
-                                    <span className="text-md flex items-center gap-2">{event.title} </span>
-                                </div>)
-                            }
-                        </div>
-                    </div>
-
-
                     <div className="mb-4">
                         <label htmlFor="category" className="block mb-1 font-medium">
                             Events:

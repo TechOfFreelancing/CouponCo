@@ -22,6 +22,7 @@ module.exports = withMT({
       },
       boxShadow: {
         boxshadow: '0 0 5px 3px rgba(0,0,0,.07)',
+        boxshadow_2: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
       },
     },
 

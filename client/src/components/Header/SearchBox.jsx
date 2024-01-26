@@ -84,7 +84,7 @@ const SearchBar = () => {
                 <input
                     type="search"
                     placeholder="Search for brands, categories"
-                    className="outline-none bg-transparent text-black w-full"
+                    className="outline-none bg-transparent text-black w-full lg:-mt-1"
                     value={keyword}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyPress}

@@ -35,7 +35,7 @@ const ContactUs = () => {
                 return toast.error("Please Accept Privacy Policy");
             }
 
-            const response = await axios.post(`http://localhost:4000/api/contact/${localStorage.getItem('id')}`, {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/contact/${localStorage.getItem('id')}`, {
                 name: contact.name,
                 email: contact.email,
                 message: contact.message,
@@ -127,9 +127,9 @@ const ContactUs = () => {
                         <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300 w-fit"
                             onClick={(e) => handleSubmit(e)}>Submit Form</button>
                     </div>
-                    <div className="w-full lg:w-2/5 h-auto lg:h-[685px] flex flex-col justify-between">
-                        <img src={contactus} alt="contact us" className="w-full h-auto object-cover mt-6" />
-                        <div className="icons flex gap-7 items-center justify-start lg:pl-16 w-full h-10 text-2xl mt-5 lg:mb-10">
+                    <div className="w-full lg:w-2/5 h-auto lg:h-[685px] flex flex-col justify-evenly items-center">
+                        <img src={contactus} alt="contact us" className="w-full h-auto object-cover lg:mt-14" />
+                        <div className="icons flex gap-7 items-center justify-center w-full h-10 text-2xl mt-5 lg:mb-10">
                             {
                                 SocialIcon.map((ele, index) => {
                                     let Icon = ele.icon;

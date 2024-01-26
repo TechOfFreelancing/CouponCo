@@ -42,7 +42,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                `http://localhost:4000/api/admin/addStore`,
+                `${import.meta.env.VITE_SERVER}/api/admin/addStore`,
                 formData,
                 {
                     headers: {
@@ -168,7 +168,7 @@ function AddStores() {
 
                         <div className="mb-4">
                             <label htmlFor="hint" className="block mb-1 font-medium">
-                                Hint & Tips:
+                                How to Apply:
                             </label>
                             <Field
                                 as="textarea"

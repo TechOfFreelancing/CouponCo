@@ -2,7 +2,7 @@ import { FaArrowDown } from "react-icons/fa";
 
 const Accordion = ({ q, a }) => {
     return (
-        <div className="w-[308px] lg:w-[77.5rem] border-b-2 py-5 lg:py-10">
+        <div className="w-[308px] lg:w-[77.5rem] border py-5 lg:py-10 bg-white p-5">
             <details className="group w-full">
                 <summary className="cursor-pointer list-none items-center gap-5 justify-between font-medium flex">
                     <li className="font-semibold text-lg lg:text-2xl"> {q}</li>

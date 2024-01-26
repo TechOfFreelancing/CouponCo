@@ -66,7 +66,7 @@ const Carousel = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/storeDisplay`);
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay`);
                 if (response.data && response.data.data) {
                     const fetchedImages = response.data.data
                         .filter(item => item.show_in_carousel === 1 && item.thumbnail)
@@ -97,19 +97,30 @@ const Carousel = () => {
     }, [index]);
 
     return (
-        <div className='container overflow-clip rounded-[20px] h-[125px] lg:h-[350px] w-screen lg:w-full' >
-            {
-                featuredImages[index] ? (
+        <div className='container overflow-clip rounded-[20px] h-[125px] lg:h-[350px] w-screen lg:w-full'>
+            {featuredImages[index] ? (
+                featuredImages.length === 1 ? (
+                    <a
+                        href={featuredImages[0].ref_link && (featuredImages[0].ref_link.startsWith('https://') ? featuredImages[0].ref_link : `https://${featuredImages[0].ref_link}`)}
+                        target='_blank'
+                        rel="noreferrer"
+                        className='rounded-[20px] lg:rounded-none'
+                    >
+                        <img
+                            src={featuredImages[0].thumbnail}
+                            alt='single-slide'
+                            className='object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[1000px] rounded-[20px]'
+                        />
+                    </a>
+                ) : (
                     <div className='slideshow group lg:w-[1000px] w-screen my-0 lg:my-auto mx-5'>
                         <AnimatePresence initial={false} custom={direction}>
                             <a
                                 href={featuredImages[index].ref_link && (featuredImages[index].ref_link.startsWith('https://') ? featuredImages[index].ref_link : `https://${featuredImages[index].ref_link}`)}
-
                                 target='_blank'
                                 rel="noreferrer"
                                 className='rounded-[20px] lg:rounded-none'
                             >
-
                                 <motion.img
                                     variants={variants}
                                     animate='animate'
@@ -117,10 +128,9 @@ const Carousel = () => {
                                     exit='exit'
                                     src={featuredImages[index].thumbnail}
                                     alt='slides'
-                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[1000px] rounded-[20px] '
+                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[1000px] rounded-[20px]'
                                     key={featuredImages[index].thumbnail}
                                     custom={direction}
-
                                 />
                             </a>
                         </AnimatePresence>
@@ -139,14 +149,12 @@ const Carousel = () => {
                             </button>
                         </div>
                     </div>
-
-                ) : (
-                    <Skeleton></Skeleton>
                 )
-            }
-
-
+            ) : (
+                <Skeleton></Skeleton>
+            )}
         </div>
+
     )
 }
 
