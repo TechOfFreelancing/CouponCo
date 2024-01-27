@@ -211,8 +211,10 @@ exports.getStoreDisplay = catchAsyncErrors(async (req, res, next) => {
 //delete store from store_display
 exports.deleteFromDisplay = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
+    const { show_in } = req.body;
+
     try {
-        const sql = `delete from store_display where store_id = ?`;
+        const sql = `DELETE FROM store_display WHERE store_id = ? AND ${show_in} = 1`;
 
         const result = await db.query(sql, [storeId]);
 
