@@ -31,7 +31,7 @@ function UpdateStores() {
     };
 
     const isPresentInHomePage = useRef(false);
-    const [showcase, setShowCase] = useState("");
+    const [showcase, setShowCase] = useState([]);
     const [isPresentInOffer, setIsPresentInOffer] = useState(false);
 
 
@@ -128,17 +128,41 @@ function UpdateStores() {
         },
     });
 
-    const handleRemoveFrom = async () => {
+    const handleRemoveFrom = async (showcaseItem) => {
         try {
+
+            const showcases = [];
+            console.log(showcaseItem)
+
+            if (showcaseItem.includes('carousel')) {
+                showcases.push('show_in_carousel');
+            }
+            if (showcaseItem.includes('card')) {
+                showcases.push('show_in_card');
+            }
+            if (showcaseItem.includes('featured')) {
+                showcases.push('show_in_fetured');
+            }
+            if (showcaseItem.includes(`today's offer`)) {
+                showcases.push('show_in_top');
+            }
+
+            console.log(showcases)
+            // Join the showcases array to create the showInFieldName
+            const showInFieldName = showcases.join(',');
+
             await axios.delete(`${import.meta.env.VITE_SERVER}/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
+                data: { show_in: showInFieldName }
             });
 
             isPresentInHomePage.current = false;
-            toast.success(`Store Deleted from ${showcase} Successfully!`);
-            setShowCase("");
+            toast.success(`Store Deleted from ${showcaseItem} Successfully!`);
+            // Remove the specific showcaseItem from the showcase state
+            const updatedShowcase = showcase.filter(item => item !== showcaseItem);
+            setShowCase(updatedShowcase);
         } catch (error) {
             toast.error("Failed to delete store");
             console.error('Failed to delete store:', error);
@@ -198,24 +222,31 @@ function UpdateStores() {
                 const offerRes = await axios.get(`${import.meta.env.VITE_SERVER}/api/festStoreDisplay`);
 
                 const presentInOffer = offerRes.data.data.some(item => item.storeId === sId);
-
                 setIsPresentInOffer(presentInOffer);
 
                 const presentInHomePage = result.data.data.some(item => item.store_id === sId);
                 isPresentInHomePage.current = presentInHomePage;
 
                 if (presentInHomePage) {
-                    const showcaseItem = result.data.data.find(item => item.store_id === sId && item.show_in_carousel === 1);
-                    const showcase = showcaseItem
-                        ? 'carousel'
-                        : result.data.data.find(item => item.store_id === sId && item.show_in_card === 1)
-                            ? 'card'
-                            : result.data.data.find(item => item.store_id === sId && item.show_in_fetured === 1)
-                                ? 'featured'
-                                : result.data.data.find(item => item.store_id === sId && item.show_in_top === 1)
-                                    ? `today's offer`
-                                    : '';
-                    setShowCase(showcase)
+                    const showcaseItems = result.data.data.filter(item => item.store_id === sId);
+
+                    const showcases = showcaseItems.reduce((acc, item) => {
+                        if (item.show_in_carousel === 1) {
+                            acc.push('carousel');
+                        }
+                        if (item.show_in_card === 1) {
+                            acc.push('card');
+                        }
+                        if (item.show_in_fetured === 1) {
+                            acc.push('featured');
+                        }
+                        if (item.show_in_top === 1) {
+                            acc.push(`today's offer`);
+                        }
+                        return acc;
+                    }, []);
+
+                    setShowCase(showcases)
                 }
 
                 setStore(response.data.store);
@@ -370,7 +401,7 @@ function UpdateStores() {
 
                     <div className="mb-4">
                         <label htmlFor="hint" className="block mb-1 font-medium">
-                        How to Apply:
+                            How to Apply:
                         </label>
                         <textarea
                             type="text"
@@ -457,43 +488,47 @@ function UpdateStores() {
                         </button>
                     </div>
 
-                    <div className="flex gap-3">
-                        {isPresentInHomePage.current ? (
-                            <button
-                                type="button"
-                                onClick={handleRemoveFrom}
-                                className="w-1/2 py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
-                            >
-                                Remove From {showcase}
-                            </button>
-                        ) : (
-                            <button
-                                type="button"
-                                onClick={handleFormOpen}
-                                className="w-1/2 py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
-                            >
-                                Add To Home Page?
-                            </button>
-                        )}
+                    {isPresentInHomePage.current && (
+                        <div>
+                            {showcase.length > 0 && (
+                                showcase.map((showcaseItem, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        onClick={() => handleRemoveFrom(showcaseItem)}
+                                        className="w-full py-2 px-4 bg-red-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                                    >
+                                        Remove From {showcaseItem}
+                                    </button>
+                                ))
+                            )}
+                        </div>
+                    )}
+                    <button
+                        type="button"
+                        onClick={handleFormOpen}
+                        className="w-full py-2 px-4 bg-purple-500 mb-3 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                    >
+                        Add To Home Page?
+                    </button>
 
-                        {isPresentInOffer ? (
-                            <button
-                                type="button"
-                                onClick={handleRemoveFromFestivalOffer}
-                                className="w-1/2 py-2 px-4 bg-yellow-500 mb-3 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring"
-                            >
-                                Remove from Festival Offer
-                            </button>
-                        ) : (
-                            <button
-                                type="button"
-                                onClick={handleAddToFestivalOffer}
-                                className="w-1/2 py-2 px-4 bg-yellow-500 mb-3 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring"
-                            >
-                                Add to Current Festival Offer
-                            </button>
-                        )}
-                    </div>
+                    {isPresentInOffer ? (
+                        <button
+                            type="button"
+                            onClick={handleRemoveFromFestivalOffer}
+                            className="w-full py-2 px-4 bg-yellow-500 mb-3 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                        >
+                            Remove from Festival Offer
+                        </button>
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={handleAddToFestivalOffer}
+                            className="w-full py-2 px-4 bg-yellow-500 mb-3 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring"
+                        >
+                            Add to Current Festival Offer
+                        </button>
+                    )}
 
                     <button
                         type="submit"

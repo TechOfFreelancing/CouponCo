@@ -3,7 +3,7 @@ import {
     Dialog,
     DialogHeader,
     DialogBody,
-    
+
 } from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -31,6 +31,23 @@ export function CouponsBox({ storeId, open, handleOpen }) {
 
     }, [storeId])
 
+    const handleCouponDelete = async (cId) => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_SERVER}/api/admin/${cId}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+
+            const updatedCoupons = coupons.filter(coupon => coupon.coupon_id !== cId);
+            setCoupons(updatedCoupons);
+            alert("coupon Deleted Successfully!");
+        } catch (error) {
+            alert("Failed to delete coupon");
+            console.error('Failed to delete coupon:', error);
+        }
+    };
+
     return (
         <Dialog open={open} handler={handleOpen}>
             <DialogHeader className="flex justify-between items-center">
@@ -45,7 +62,12 @@ export function CouponsBox({ storeId, open, handleOpen }) {
                     {coupons.map((coupon, index) => (
                         <div key={index} className="relative border border-gray-300 rounded-lg p-4 mb-4 cursor-pointer" >
                             <div className="flex absolute top-2 right-2 text-gray-600 gap-5">
-                                <button className="transition-opacity duration-300"  >
+                                <button className="transition-opacity duration-300"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleCouponDelete(coupon.coupon_id);
+                                    }
+                                    } >
                                     <MdDelete />
                                 </button>
                                 <button

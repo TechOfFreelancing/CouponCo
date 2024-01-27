@@ -68,8 +68,6 @@ const UpdateCoupons = () => {
                 "events": values.events
             });
 
-            console.log(data);
-
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
