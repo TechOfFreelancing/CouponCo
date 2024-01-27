@@ -370,7 +370,7 @@ function UpdateStores() {
 
                     <div className="mb-4">
                         <label htmlFor="hint" className="block mb-1 font-medium">
-                            Hint & Tips:
+                        How to Apply:
                         </label>
                         <textarea
                             type="text"

@@ -254,7 +254,7 @@ const EventDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const store = await axios.get('${import.meta.env.VITE_SERVER}/api/getAllStore');
+                const store = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
                 setPopularStore(store.data.stores);
                 const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/events/${event}`);
                 const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
@@ -444,7 +444,7 @@ const EventDetails = () => {
                                     })
                                 }
                             </div>
-                            <div className="flex items-center justify-center lg:w-[45rem] mb-4">
+                            <div className="flex items-center justify-center mb-4">
                                 {eventDetails.Events.length > 25 && (
                                     <button onClick={toggleShowAllEvents} className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md hover:-translate-y-1 duration-300">
                                         {showAllEvents ? 'Show Less' : 'Show More'}
