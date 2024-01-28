@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { Toaster, toast } from 'react-hot-toast';
-import typesData from "../../api/AllTypes";
 
 const AddCategory = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -94,7 +93,7 @@ const AddCategory = () => {
 
                         <div className="mb-4">
                             <label htmlFor="todays_top" className="block mb-1 font-medium">
-                                Type:
+                                Add This Category to Today's Top?:
                             </label>
                             <Field
                                 as="select"
