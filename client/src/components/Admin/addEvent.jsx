@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import {  Toaster,toast } from 'react-hot-toast'
+import typesData from "../../api/AllTypes";
 
 
 const AddEvent = () => {
@@ -106,7 +107,7 @@ const AddEvent = () => {
                         name="name"
                         style={inputStyle}
                     />
-                </div>               
+                </div>
 
                 <div className="mb-4">
                     <label htmlFor="description" className="block mb-1 font-medium">
@@ -130,7 +131,6 @@ const AddEvent = () => {
                 </div>
 
                 
-
                 <div className="mb-4">
                     <label htmlFor="best_offer" className="block mb-1 font-medium">
                         Best Offer(%):

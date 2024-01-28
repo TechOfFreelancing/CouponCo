@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { Toaster, toast } from 'react-hot-toast';
+import typesData from "../../api/AllTypes";
 
 const AddCategory = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -20,7 +21,7 @@ const AddCategory = () => {
         boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
         outline: 'none',
     };
-
+  
     const handleSubmit = async (values) => {
         try {
             const formData = new FormData();

@@ -70,7 +70,6 @@ function UpdateCategory() {
                             </Field>
                         </div>
 
-
                         <div className="mb-4">
                             <label htmlFor="description" className="block mb-1 font-medium">
                                 About:
@@ -84,7 +83,6 @@ function UpdateCategory() {
                                 rows={4}
                             />
                         </div>
-
                         <button
                             type="submit"
                             className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
