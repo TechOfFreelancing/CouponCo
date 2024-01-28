@@ -46,7 +46,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                `${import.meta.env.VITE_SERVER}/api/admin/addStore`,
+                `http://localhost:4000/api/admin/addStore`,
                 formData,
                 {
                     headers: {

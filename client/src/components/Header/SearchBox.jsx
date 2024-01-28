@@ -3,43 +3,57 @@ import Categories from "../../api/categories";
 import Events from '../../api/event';
 import { ImSearch } from "react-icons/im";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SearchBar = () => {
     const [keyword, setKeyword] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [store, setStore] = useState([]);
     const searchContainerRef = useRef(null);
     const navigate = useNavigate();
 
 
     const handleInputChange = (e) => {
         const userInput = e.target.value;
-        // console.log(userInput)
         setKeyword(userInput);
-
-        // Call a function to get search suggestions based on userInput
         const newSuggestions = getSearchSuggestions(userInput);
         setSuggestions(newSuggestions);
-        // console.log(suggestions);
     };
 
-    const getSearchSuggestions = (userInput) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/getAllStore');
+                setStore(response.data.stores);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
-        // If the user is searching for events or categories, include all events in suggestions & Filter suggestions based on the user input
+
+    console.log(suggestions.stores);
+
+    const getSearchSuggestions = (userInput) => {
         const categorySuggestions = userInput.toLowerCase().includes('categories') || userInput.toLowerCase().includes('category') ? Categories : Categories.filter((ele) =>
             ele.name.toLowerCase().includes(userInput.toLowerCase())
-        )
+        );
         const eventSuggestions = userInput.toLowerCase().includes('events') || userInput.toLowerCase().includes('event') ? Events : Events.filter((ele) =>
             ele.title.toLowerCase().includes(userInput.toLowerCase())
-        )
+        );
+        const storeSuggestions = userInput.toLowerCase().includes('stores') || userInput.toLowerCase().includes('store') ? store : store.filter(store =>
+            store.name.toLowerCase().includes(userInput.toLowerCase())
+        );
 
         return {
             categories: categorySuggestions,
             events: eventSuggestions,
+            stores: storeSuggestions,
         };
     };
 
     const handleKeyPress = (e) => {
-        // For example, you might want to trigger the search on Enter key
         if (e.key === 'Enter') {
             handleSearch();
         }
@@ -49,18 +63,22 @@ const SearchBar = () => {
         console.log('Searching for:', keyword);
         setSuggestions([]);
         setKeyword("");
-        //function for category icon
-        const selectedCategory = Categories.find((category) =>
-            category.name.toLowerCase() === keyword.toLowerCase()
+
+        // Find the selected store
+        const selectedStore = suggestions.stores.find((store) =>
+            store.name.toLowerCase() === keyword.toLowerCase()
         );
 
-        // Check if the selected keyword is from the Categories & event
+        // Check if the selected keyword is from Categories, Events, or Stores
         const isCategory = Categories.some((category) => category.name.toLowerCase() === keyword.toLowerCase());
         const isEvent = Events.some((event) => event.title.toLowerCase() === keyword.toLowerCase());
+        const isStore = store.some((store) => store.name.toLowerCase() === keyword.toLowerCase());
+
 
         // Navigate details page with state & keyword
         if (isCategory) navigate("/categoriesdetails", { state: { category: keyword, category_icon: selectedCategory.icon } });
         if (isEvent) navigate("/eventdetails");
+        if (isStore) navigate("/Stores");
     };
 
     useEffect(() => {
@@ -95,7 +113,7 @@ const SearchBar = () => {
             </div>
             {Object.keys(suggestions).length > 0 && (
                 <div className='bg-white absolute top-10 left-0 w-[200px] lg:w-[309px] rounded-xl min-h-min max-h-[250px] lg:max-h-[272px] overflow-scroll -z-10 p-5 flex flex-col gap-3'>
-                    {suggestions.categories.length > 0 && (
+                    {suggestions.categories?.length > 0 && (
                         <>
                             <span className='font-semibold'>
                                 Categories
@@ -113,7 +131,7 @@ const SearchBar = () => {
                             </ul>
                         </>
                     )}
-                    {suggestions.events.length > 0 && (
+                    {suggestions.events?.length > 0 && (
                         <>
                             <span className='font-semibold'>
                                 Events
@@ -131,8 +149,29 @@ const SearchBar = () => {
                             </ul>
                         </>
                     )}
+                    {suggestions.stores?.length > 0 && (
+                        <>
+                            <span className='font-semibold'>
+                                Stores
+                            </span>
+                            <ul className="autocomplete-suggestions flex flex-col gap-2">
+                                {suggestions.stores.map((store, index) => (
+                                    <li key={index} onClick={() => {
+                                        setKeyword(store.name);
+                                        setSuggestions([]);
+                                        navigate(
+                                            `/Stores/${store.name}`, { state: { sId: store.id } }
+                                        )
+                                    }} className='border-b cursor-pointer'>
+                                        {store.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
                 </div>
             )}
+
         </div>
     );
 };

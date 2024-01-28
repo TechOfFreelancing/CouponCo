@@ -22,7 +22,7 @@ export default function Register() {
         e.preventDefault();
         try {
             console.log(name, email, password);
-            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/register`, {
+            const response = await axios.post(`http://localhost:4000/api/register`, {
                 name,
                 email,
                 password,

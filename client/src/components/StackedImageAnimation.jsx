@@ -13,7 +13,7 @@ export const StackedImageAnimation = () => {
     useEffect(() => {
         const fetchStores = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay`);
+                const response = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 if (response.data && response.data.data) {
                     const filteredStores = response.data.data.filter(store => store.show_in_card === 1);
                     setCardStores(filteredStores);
@@ -21,7 +21,7 @@ export const StackedImageAnimation = () => {
                     //to fetch store details(like logo , name form store id)
                     const storeDetailsPromises = filteredStores.map(async store => {
                         try {
-                            const storeDetails = await axios.get(`${import.meta.env.VITE_SERVER}/api/getStore/${store.store_id}`);
+                            const storeDetails = await axios.get(`http://localhost:4000/api/getStore/${store.store_id}`);
                             return {
                                 storeId: store.store_id,
                                 logoUrl: storeDetails.data.store.logo_url || null,

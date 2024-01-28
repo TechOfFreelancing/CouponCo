@@ -43,7 +43,7 @@ const AdvertiseUs = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${import.meta.env.VITE_SERVER}/api/advertise/${localStorage.getItem('id')}`,
+            url: `http://localhost:4000/api/advertise/${localStorage.getItem('id')}`,
             headers: {
                 'Content-Type': 'application/json'
             },
