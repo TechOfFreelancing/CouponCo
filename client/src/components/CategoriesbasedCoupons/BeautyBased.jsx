@@ -227,7 +227,7 @@ const BeautyBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Beauty`);
+                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Beauty");
                 setBeauty(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);

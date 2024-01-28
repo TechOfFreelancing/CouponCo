@@ -226,7 +226,7 @@ const FoodBeveragesBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Foods Beverages`);
+                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Foods Beverages");
                 setFoodBeverages(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);

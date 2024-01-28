@@ -227,7 +227,7 @@ const HomeGardenBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Home Garden`);
+                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Home Garden");
                 setHomeGarden(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);

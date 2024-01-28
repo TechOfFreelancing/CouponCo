@@ -26,7 +26,7 @@ function AdminFestival() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/festStoreDisplay`);
+                const response = await axios.get('${import.meta.env.VITE_SERVER}/api/festStoreDisplay');
                 if (response.data.data.length > 0 && response.data.data[0].storeId === null) {
                     const { festival_name, discount } = response.data.data[0];
                     setCurrentFestival({ festival: festival_name, discount });
@@ -81,8 +81,8 @@ function AdminFestival() {
             };
 
             const apiUrl = isUpdate
-                ? `${import.meta.env.VITE_SERVER}/api/updateDetails`
-                : `${import.meta.env.VITE_SERVER}/api/admin/addFest&Disc`;
+                ? '${import.meta.env.VITE_SERVER}/api/updateDetails'
+                : '${import.meta.env.VITE_SERVER}/api/admin/addFest&Disc';
 
             await axios[isUpdate ? 'put' : 'post'](apiUrl, data, config);
             toast.success('Festival Details Added successfully');

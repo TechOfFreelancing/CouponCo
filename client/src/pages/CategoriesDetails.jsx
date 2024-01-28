@@ -15,7 +15,6 @@ import { CiUser } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa6';
 import { IoAddOutline } from "react-icons/io5";
 import "../styles/couponsbutton1.css";
-import Categories from "../api/categories";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import axios from "axios";
@@ -41,6 +40,7 @@ const CategoriesDetails = () => {
     const [password, setPassword] = useState("");
     const [name1, setName1] = useState("");
     const [email1, setEmail1] = useState("");
+    const [Categories, setCategories] = useState([]);
 
     const [popularStore, setPopularStore] = useState([]);
 
@@ -249,7 +249,7 @@ const CategoriesDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/coupon/${category}`);
-            const store = await axios.get('${import.meta.env.VITE_SERVER}/api/getAllStore');
+            const store = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
             setPopularStore(store.data.stores);
             if (response) {
                 setCouponDetails(response.data.data);
@@ -260,6 +260,26 @@ const CategoriesDetails = () => {
         fetchData();
     }, [category]);
 
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getCategories`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    setCategories(response.data.categories);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
 
 
     return (
@@ -299,7 +319,11 @@ const CategoriesDetails = () => {
                                 <div className="shadow-boxshadow rounded-lg p-5 bg-white">
                                     <div className="text-xl font-bold mb-2">About</div>
                                     <div className="flex flex-wrap gap-2 text-sm">
-                                        <p className="text-start">{eventDetails.about}</p>
+                                        {Categories.length !== 0 &&
+                                            Categories.map((c, i) => (
+                                                c.name === category && <p className="text-start">{c.About}</p>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                                 <div className="shadow-boxshadow rounded-lg p-5 bg-white">
@@ -307,9 +331,10 @@ const CategoriesDetails = () => {
                                     <div className="flex flex-wrap gap-2">
                                         {
                                             Categories.slice(0, 20).map((ele, index) => (
+                                                ele.todays_top === 1 &&
                                                 <div key={index} className="cursor-pointer text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
                                                     onClick={() => {
-                                                        navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
+                                                        navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.logo_url } })
                                                     }}>
                                                     {ele.name}
                                                 </div>
@@ -338,7 +363,7 @@ const CategoriesDetails = () => {
                                     <div className="flex flex-wrap gap-2">
                                         {
 
-                                        popularStore.length !== 0 && popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
+                                            popularStore.length !== 0 && popularStore.map((ele, index) => <div key={index} className="cursor-pointer text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md"
 
 
                                                 onClick={() => {
@@ -435,7 +460,8 @@ const CategoriesDetails = () => {
                                     <div className="text-xl font-bold my-2">Today{`'`}s Top Categories</div>
                                     <div className="flex flex-wrap gap-2">
                                         {
-                                            Categories.slice(0, 20).map((ele, index) => (
+                                            Categories.length != 0 && Categories.slice(0, 20).map((ele, index) => (
+                                                ele.todays_top === 1 &&
                                                 <div key={index} className="cursor-pointer text-sm p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
                                                     onClick={() => {
                                                         navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
@@ -574,7 +600,7 @@ const CategoriesDetails = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to={`${import.meta.env.VITE_SERVER}/api/forgot-password`} className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="${import.meta.env.VITE_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

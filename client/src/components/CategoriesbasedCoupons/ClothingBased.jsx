@@ -231,7 +231,7 @@ const ClothingBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Clothing`);
+                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Clothing");
                 setClothes(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);

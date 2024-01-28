@@ -9,7 +9,7 @@ const SITEMAP = [
             { text: "Blog", href: "/blogs" },
             { text: "How it Works", href: "/how-it-works" },
             { text: "FAQ", href: "/faqs" },
-            { text: "Submit a Coupon", href: "/allstores" },
+            { text: "Submit a Coupon", href: "/Submitcoupon" },
 
         ],
     },

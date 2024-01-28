@@ -227,7 +227,7 @@ const ElectronicsBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Electronics`);
+                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Electronics");
                 setElectronics(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);

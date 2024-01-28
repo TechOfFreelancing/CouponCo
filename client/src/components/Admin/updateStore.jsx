@@ -155,7 +155,7 @@ function UpdateStores() {
             // Join the showcases array to create the showInFieldName
             const showInFieldName = showcases.join(',');
 
-            await axios.delete(`${import.meta.env.VITE_SERVER}/api/storeDisplay/${sId}`, {
+            await axios.delete(`${import.meta.env.VITE_SERVER}//api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

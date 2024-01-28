@@ -228,7 +228,7 @@ const HealthFitnessBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/storeDisplay/Health Fitness`);
+                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Health Fitness");
                 setHealthfitness(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);
