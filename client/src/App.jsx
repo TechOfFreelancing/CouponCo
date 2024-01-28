@@ -32,6 +32,10 @@ import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import HowitWorks from './pages/HowitWorks';
 import ScrollToTop from './components/scrollToTop';
+import AddCategory from './components/Admin/addCategory';
+import AddEvent from './components/Admin/addEvent';
+import UpdateCategory from './components/Admin/updateCategory';
+import UpdateEvent from './components/Admin/updateEvent';
 
 
 
@@ -97,6 +101,24 @@ function App() {
           >
           </Route>)}
           {isAdmin && (<Route
+            path='/Admin/addCategory'
+            element={
+              <>
+                <AddCategory />
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/addEvent'
+            element={
+              <>
+                <AddEvent/>
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
             path='/Admin/addCoupons'
             element={
               <>
@@ -110,6 +132,24 @@ function App() {
             element={
               <>
                 <UpdateStores />
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/updateCategory'
+            element={
+              <><UpdateCategory/>
+              
+              </>
+            }
+          >
+          </Route>)}
+          {isAdmin && (<Route
+            path='/Admin/updateEvent'
+            element={
+              <>
+                <UpdateEvent/>
               </>
             }
           >
