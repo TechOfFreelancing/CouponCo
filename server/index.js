@@ -30,17 +30,19 @@ app.set('view engine', 'ejs');
 
 const user = require('./src/Schema/userSchema');
 const Coupons = require('./src/Schema/coupons');
+const EventCategory = require('./src/Schema/eventCategory');
 
 const authRoute = require('./src/Routes/userRoute');
 const couponsRoute = require('./src/Routes/couponsRoute');
 const festRoute = require('./src/Routes/festivalRoute');
+const eventCategoryRoute = require('./src/Routes/eventCategoryRoute');
 
 
 app.get('/', async (req, res) => {
     res.status(200).json("All Okay!");
 })
 
-app.use('/api', authRoute, couponsRoute, festRoute);
+app.use('/api', authRoute, couponsRoute, festRoute, eventCategoryRoute);
 
 const server = app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
@@ -55,7 +57,9 @@ const server = app.listen(PORT, () => {
         Coupons.createShowStoreTable();
         Coupons.createFestivalShowcaseTable();
         Coupons.createSavedCouponsTable();
-        Coupons.createEventShowcaseTable();
+        EventCategory.createCategoryTable();
+        EventCategory.createEventShowcaseTable();
+        EventCategory.createEventTable();
     } catch (err) {
         console.log(err);
     }

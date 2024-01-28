@@ -14,6 +14,8 @@ class Coupons {
             faq JSON, 
             total_ratings BIGINT DEFAULT 0,
             ratings_count INT DEFAULT 0,
+            best_offer INT DEFAULT 0,
+            avg_disc INT DEFAULT 0,
             coupons INT DEFAULT 0,
             offers INT DEFAULT 0 
         )`;
@@ -49,10 +51,14 @@ class Coupons {
     static async createSimilarTable() {
         const sql = `CREATE TABLE IF NOT EXISTS store_ids (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            event_id INT,
+            category_id INT,
             store_id INT,
             store_type ENUM('similar', 'popular'),
             sId INT,
-            FOREIGN KEY (store_id) REFERENCES store(id)
+            FOREIGN KEY (category_id) REFERENCES category(id),
+            FOREIGN KEY (store_id) REFERENCES store(id),
+            FOREIGN KEY (event_id) REFERENCES allEvents(id)
         )`;
 
         try {
@@ -109,24 +115,6 @@ class Coupons {
             console.log("Coupons Table Created Successfully!");
         } catch (err) {
             console.error("Error creating coupons table:", err);
-        }
-    }
-
-    static async createEventShowcaseTable() {
-        const sql = `CREATE TABLE IF NOT EXISTS events (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            coupon_id INT,
-            store_id INT,
-            event_name VARCHAR(255) NOT NULL,
-            FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id) ON DELETE CASCADE,
-            FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
-        )`
-
-        try {
-            const [reslut, fields] = await db.query(sql);
-            console.log("event table created successfully!");
-        } catch (err) {
-            console.error("Error in creating event table:", err);
         }
     }
 

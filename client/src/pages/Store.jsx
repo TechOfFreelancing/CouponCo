@@ -539,11 +539,11 @@ const Store = () => {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Best Offer</span>
-                                    <span>40% Off</span>
+                                    <span>{str?.best_offer}% Off</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Average Discount</span>
-                                    <span className="whitespace-nowrap">25 %</span>
+                                    <span className="whitespace-nowrap">{str?.avg_disc} %</span>
                                 </div>
                             </div>
                         </div>

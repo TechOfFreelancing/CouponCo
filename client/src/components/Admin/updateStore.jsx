@@ -72,6 +72,8 @@ function UpdateStores() {
             moreAbout: store.moreAbout || '',
             type: store.type || '',
             hint: store.hint || "",
+            best_offer: store.best_offer || "",
+            avg_disc: store.avg_disc || "",
         },
 
         onSubmit: async (values) => {
@@ -85,6 +87,8 @@ function UpdateStores() {
                 formData.append("moreAbout", values.moreAbout);
                 formData.append("hint", values.hint);
                 formData.append("type", values.type);
+                formData.append("best_offer", values.best_offer);
+                formData.append("avg_disc", values.avg_disc);
 
 
                 if (selectedFile) {
@@ -265,6 +269,8 @@ function UpdateStores() {
                     moreAbout: response.data.store.moreAbout || '',
                     type: response.data.store.type || '',
                     hint: response.data.store.hint || '',
+                    best_offer: response.data.store.best_offer || '',
+                    avg_disc: response.data.store.avg_disc || '',
                 });
             } catch (error) {
                 toast.error(error.response ? error.response.statusText : 'Failed to fetch data');
@@ -411,6 +417,36 @@ function UpdateStores() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.hint}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="best_offer" className="block mb-1 font-medium">
+                            Best Offer(%):
+                        </label>
+                        <textarea
+                            type="text"
+                            id="best_offer"
+                            name="best_offer"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.best_offer}
+                        />
+                    </div>
+                    
+                    <div className="mb-4">
+                        <label htmlFor="avg_disc" className="block mb-1 font-medium">
+                            Avg Discout(%):
+                        </label>
+                        <textarea
+                            type="text"
+                            id="avg_disc"
+                            name="avg_disc"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.avg_disc}
                         />
                     </div>
 

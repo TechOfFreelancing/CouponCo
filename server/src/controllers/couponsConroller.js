@@ -2,7 +2,6 @@ const db = require('../config/connection');
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const cloudinary = require("../utils/cloudinary");
 const ErrorHandler = require('../utils/errorhandler');
-const jwt = require('jsonwebtoken');
 
 //global method to convert file into uri
 const uploadAndCreateDocument = async (file) => {
@@ -21,14 +20,14 @@ const uploadAndCreateDocument = async (file) => {
 
 //add new store with basic details
 exports.addStore = catchAsyncErrors(async (req, res, next) => {
-    const { name, title, moreAbout, type, description, hint } = req.body;
+    const { name, title, moreAbout, type, description, hint, best_offer, avg_disc } = req.body;
     const storeFile = req.file;
 
     try {
         const logo_url = await uploadAndCreateDocument(storeFile);
-        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint, best_offer, avg_disc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint]);
+        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint, best_offer, avg_disc]);
         const storeId = result[0].insertId;
 
         const store = `SELECT * FROM store WHERE id = ?`;
@@ -106,8 +105,6 @@ exports.addToTodaysTop = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Unable to add this to today's top offer", 500));
     }
 });
-
-
 
 
 //add to carousel
@@ -306,7 +303,7 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE store SET ';
         const updateParams = [];
-        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint'];
+        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint', 'best_offer', 'avg_disc'];
 
         // If there's a new storeFile, update logo_url
         if (storeFile) {
@@ -813,6 +810,45 @@ exports.addStoreIds = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+// Add popular store for category
+exports.addCategoryStoreId = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const { category_id } = req.body;
+
+    try {
+        const insertCategoryStoreIdSql = `
+            INSERT INTO store_ids (category_id, store_type, sId)
+            VALUES (?, ?, ?)
+        `;
+        await db.query(insertCategoryStoreIdSql, [category_id, "popular", storeId]);
+
+        res.status(200).json({ message: "Popular store added for category successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add category store ID", 400));
+    }
+});
+
+// Add popular store for category
+exports.addEventStoreId = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const { event_id } = req.body;
+
+    try {
+        const Sql = `
+            INSERT INTO store_ids (event_id, store_type, sId)
+            VALUES (?, ?, ?)
+        `;
+        await db.query(Sql, [event_id, "popular", storeId]);
+
+        res.status(200).json({ message: "Popular store added for Event successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to add Event store ID", 400));
+    }
+});
+
+
 // Remove a row based on sId provided in req.params
 exports.removeStoreId = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
@@ -824,6 +860,42 @@ exports.removeStoreId = catchAsyncErrors(async (req, res, next) => {
         await db.query(deleteStoreIdSql, [storeId]);
 
         res.status(200).json({ message: "Store ID removed successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to remove store ID", 400));
+    }
+});
+
+// Remove popular store for category
+exports.removePopularStore = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const { category_id } = req.body
+    try {
+        const deleteStoreIdSql = `
+            DELETE FROM store_ids
+            WHERE sId = ? and category_id = ?
+        `;
+        await db.query(deleteStoreIdSql, [storeId,category_id]);
+
+        res.status(200).json({ message: "Popular Store removed successfully" });
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to remove store ID", 400));
+    }
+});
+
+// Remove popular store for Event
+exports.removePopularStoreEvent = catchAsyncErrors(async (req, res, next) => {
+    const { storeId } = req.params;
+    const { event_id } = req.body
+    try {
+        const deleteStoreIdSql = `
+            DELETE FROM store_ids
+            WHERE sId = ? and event_id = ?
+        `;
+        await db.query(deleteStoreIdSql, [storeId,event_id]);
+
+        res.status(200).json({ message: "Popular Store removed successfully" });
     } catch (err) {
         console.error(err);
         return next(new ErrorHandler("Unable to remove store ID", 400));
