@@ -57,7 +57,7 @@ function AddCoupons() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
+            url: `${import.meta.env.VITE_SERVER}/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
@@ -108,11 +108,11 @@ function AddCoupons() {
                                     style={inputStyle}
                                 >
                                     <option value="">Select Type</option>
-                                    <option value="codes">
-                                        codes
+                                    <option value="Codes">
+                                        Codes
                                     </option>
-                                    <option value="deals">
-                                        deals
+                                    <option value="Deals">
+                                        Deals
                                     </option>
                                 </Field>
                             </div>

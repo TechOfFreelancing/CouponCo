@@ -23,7 +23,7 @@ const SearchBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/api/getAllStore');
+                const response = await axios.get('${import.meta.env.VITE_SERVER}/api/getAllStore');
                 setStore(response.data.stores);
             } catch (error) {
                 console.log(error);
