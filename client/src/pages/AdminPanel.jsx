@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AdminFestival from '../components/Admin/AdminFestival';
 import CouponReq from '../components/Admin/couponReq';
+import AdminCategories from '../components/Admin/AdminCategories';
+import AdminEvents from '../components/Admin/AdminEvents';
 
 
 
@@ -76,6 +78,22 @@ const AdminPanel = () => {
                 </button>
                 <button
                     className={`bg-white py-2 px-5 m-2 md:m-4 hover:text-black hover:border-2 hover:border-black duration-400 
+          ${selectedButton === 'categories' ? 'text-black border-2 border-black' : 'text-gray-800 border-2 border-transparent'}  
+          `}
+                    onClick={() => handleButtonClick('categories')}
+                >
+                    Categories
+                </button>
+                <button
+                    className={`bg-white py-2 px-5 m-2 md:m-4 hover:text-black hover:border-2 hover:border-black duration-400 
+          ${selectedButton === 'events' ? 'text-black border-2 border-black' : 'text-gray-800 border-2 border-transparent'}  
+          `}
+                    onClick={() => handleButtonClick('events')}
+                >
+                    Events
+                </button>
+                <button
+                    className={`bg-white py-2 px-5 m-2 md:m-4 hover:text-black hover:border-2 hover:border-black duration-400 
           ${selectedButton === 'User Coupons' ? 'text-black border-2 border-black' : 'text-gray-800 border-2 border-transparent'}  
           `}
                     onClick={() => handleButtonClick('User Coupons')}
@@ -84,7 +102,12 @@ const AdminPanel = () => {
                 </button>
             </div>
             {
-                selectedButton === 'Stores' ? <AdminStores /> : (selectedButton === 'Coupons' ? <AdminCoupons /> : (selectedButton === 'festival' ? <AdminFestival /> : <CouponReq />))
+                selectedButton === 'Stores' ? <AdminStores /> :
+                    selectedButton === 'Coupons' ? <AdminCoupons /> :
+                        selectedButton === 'festival' ? <AdminFestival /> :
+                            selectedButton === 'categories' ? <AdminCategories /> :
+                                selectedButton === 'events' ? <AdminEvents />
+                                    : <CouponReq />
             }
         </div>
     )
