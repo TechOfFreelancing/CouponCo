@@ -1,5 +1,5 @@
 const express = require('express');
-const { addStore, addStoreFAQs, addStoreRating, addCoupons,getStoreDisplayAllData,getStoreDisplay, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard,deleteFromDisplay, addToTodaysTop, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds, incrementUserCount, saveCouponForUser, unsaveCouponForUser, getUnverifiedCoupons, decreaseCouponsOffers, getCategoryCoupons, getEventsForCoupons, getDataForEvent } = require('../controllers/couponsConroller');
+const { addStore, addStoreFAQs, addStoreRating, addCoupons,getStoreDisplayAllData,getStoreDisplay, deleteCoupon, updateStore, updateCoupon, deleteStore, getCoupons, getSingleCoupon, getSingleStore, getAllStores, getCouponsBy, addToCarousel, addToCard,deleteFromDisplay, addToTodaysTop, addToFeatured, addStoreIds, removeStoreId, getAllStoreIds, incrementUserCount, saveCouponForUser, unsaveCouponForUser, getUnverifiedCoupons, decreaseCouponsOffers, getCategoryCoupons, getEventsForCoupons, getDataForEvent,addCategoryStoreId, removePopularStore, addEventStoreId, removePopularStoreEvent } = require('../controllers/couponsConroller');
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
 const { isAdmin } = require('../middleware/auth');
@@ -29,7 +29,13 @@ router.route("/admin/addToFetured/:storeId").post(isAdmin,addToFeatured);
 router.route("/admin/addToOffer/:storeId").post(isAdmin,fileUpload.single('thumbFile'),addToTodaysTop);
 
 router.route("/admin/addClouser/:storeId").post(isAdmin,addStoreIds);
+router.route("/admin/addPopularForCategory/:storeId").post(isAdmin,addCategoryStoreId);
+router.route("/admin/addPopularForEvent/:storeId").post(isAdmin,addEventStoreId);
 router.route("/admin/removeClouser/:storeId").delete(isAdmin,removeStoreId);
+router.route("/admin/removePopularForCategory/:storeId").delete(isAdmin,removePopularStore);
+router.route("/admin/removePopularForEvent/:storeId").delete(isAdmin,removePopularStoreEvent);
+
+
 router.route("/admin/addCoupons/:storeId").post(addCoupons);
 router.route("/admin/getUnverifed").get(getUnverifiedCoupons);
 

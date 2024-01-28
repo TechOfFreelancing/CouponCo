@@ -15,6 +15,8 @@ function AddStores() {
         moreAbout: "",
         hint: "",
         type: "",
+        best_offer: "",
+        avg_disc: "",
     };
 
     const inputStyle = {
@@ -36,6 +38,8 @@ function AddStores() {
             formData.append("moreAbout", values.moreAbout);
             formData.append("hint", values.hint);
             formData.append("type", values.type);
+            formData.append("best_offer", values.best_offer);
+            formData.append("avg_disc", values.avg_disc);
 
             if (selectedFile) {
                 formData.append("storeFile", selectedFile);
@@ -163,6 +167,28 @@ function AddStores() {
                                     resize: 'vertical',
                                 }}
                                 rows={4}
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="best_offer" className="block mb-1 font-medium">
+                                Best Offer(%):
+                            </label>
+                            <Field
+                                id="best_offer"
+                                name="best_offer"
+                                style={inputStyle}
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="avg_disc" className="block mb-1 font-medium">
+                                Avg Discout(%):
+                            </label>
+                            <Field
+                                id="avg_disc"
+                                name="avg_disc"
+                                style={inputStyle}
                             />
                         </div>
 
