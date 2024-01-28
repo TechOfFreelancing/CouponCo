@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import Categories from "../api/categories";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,13 +6,14 @@ import axios from "axios";
 const Navlist = () => {
 
     const [stores, setStores] = useState([]);
+    const [Categories,setCategories] = useState([]);
 
     const navigate = useNavigate();
     // console.table(Categories);
 
     useEffect(() => {
         const fetchStores = async () => {
-            const response = await axios.get("${import.meta.env.VITE_SERVER}/api/getAllStore");
+            const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
             if (response) {
                 setStores(response.data.stores);
             }
@@ -25,6 +25,27 @@ const Navlist = () => {
     }, []);
 
     // console.log(stores);
+
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getCategories`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    setCategories(response.data.categories);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
 
     return (
         <ul className="py-5  mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
@@ -53,7 +74,7 @@ const Navlist = () => {
                         {
                             Categories.map((ele, index) => {
                                 return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
-                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.icon } })
+                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.logo_url } })
                                 }}>{ele.name}</div>
                             })
                         }

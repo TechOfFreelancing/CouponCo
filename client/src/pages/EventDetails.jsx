@@ -40,6 +40,7 @@ const EventDetails = () => {
     const [open, setOpen] = useState(false);
     const [productlink, setProductlink] = useState('');
     const [waiting, setWaiting] = useState(false);
+    const [allAboutEvent, setAllAboutEvent] = useState({});
 
     const { updateUserRole, role } = useContext(AuthContext);
 
@@ -224,6 +225,31 @@ const EventDetails = () => {
     };
 
     useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getAllEvents`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    response.data.data.map((data) => {
+                        data.event_name === event && setAllAboutEvent(data)
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
+
+    // console.log(allAboutEvent);
+
+    useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('id');
 
@@ -254,7 +280,7 @@ const EventDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const store = await axios.get('${import.meta.env.VITE_SERVER}/api/getAllStore');
+                const store = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
                 setPopularStore(store.data.stores);
                 const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/events/${event}`);
                 const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
@@ -278,9 +304,6 @@ const EventDetails = () => {
     }, [event]);
 
 
-
-    console.log(eventData);
-
     const toggleDetails = (index) => {
         setDetailsVisibility((prevVisibility) => {
             const newVisibility = [...prevVisibility];
@@ -293,6 +316,8 @@ const EventDetails = () => {
     const toggleShowAllEvents = () => {
         setShowAllEvents((prev) => !prev);
     };
+
+    // console.log(eventData);
 
     return (
         <>
@@ -319,7 +344,7 @@ const EventDetails = () => {
                         </li>
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
-                        <img src={bg} alt="" className="w-full h-[80px] lg:h-[160px]" />
+                        <img src={allAboutEvent.event_banner_url} alt="" className="w-full h-[80px] lg:h-[160px]" />
                         {/* <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
                             <div className='p-4 text-3xl font-bold text-white z-10'>Browse Top Shopping Events</div>
                         </div> */}
@@ -329,7 +354,7 @@ const EventDetails = () => {
                             <div className="bg-white p-5 rounded-lg shadow-boxshadow">
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
-                                    <p>{eventDetails.about}</p>
+                                    <p>{allAboutEvent.about}</p>
 
                                 </div>
                             </div>
@@ -352,15 +377,17 @@ const EventDetails = () => {
                                     </div>
                                     <div className="flex justify-between items-center px-5">
                                         <span className="text-lg text-black">Total Codes</span>
-                                        <span>25</span>
+                                        <span>{eventData.filter(function (item) {
+                                            return item.type === "Codes";
+                                        }).length}</span>
                                     </div>
                                     <div className="flex justify-between items-center px-5">
                                         <span className="text-lg text-black">Best Offer</span>
-                                        <span className="whitespace-nowrap">40% Off</span>
+                                        <span className="whitespace-nowrap">{allAboutEvent.best_offer}% Off</span>
                                     </div>
                                     <div className="flex justify-between items-center px-5">
                                         <span className="text-lg text-black">Average Discount</span>
-                                        <span className="whitespace-nowrap">25 %</span>
+                                        <span className="whitespace-nowrap">{allAboutEvent.avg_disc}% Off</span>
                                     </div>
                                 </div>
                             </div>

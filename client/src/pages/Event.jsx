@@ -1,11 +1,40 @@
+import { useState } from 'react';
 import Footer from '../components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
-import event from '../api/event'
+import { useEffect } from 'react';
+import axios from 'axios';
+
+// import event from '../api/event'
 
 
 const Event = () => {
 
+    const [event, setEvent] = useState([]);
+
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getAllEvents`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    setEvent(response.data.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
+
     const navigate = useNavigate();
+
+    console.log(event);
 
     return (
         <>
@@ -33,11 +62,11 @@ const Event = () => {
                     {
                         event.map((ele, index) => {
                             return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-auto border duration-300 hover:shadow-boxshadow rounded-xl p-5 bg-white'>
-                                <span className='text-xl font-bold text-center w-3/4 h-1/6'>{ele.title}</span>
-                                <img src={ele.img} alt="" className='w-auto h-1/2 object-cover' />
+                                <span className='text-xl font-bold text-center w-3/4 h-1/6'>{ele.event_name}</span>
+                                <img src={ele.event_logo_url} alt="" className='w-auto h-1/2 object-cover' />
 
                                 <div className='cursor-pointer border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'
-                                    onClick={() => navigate("/eventdetails", { state: { event: ele.title } })}>
+                                    onClick={() => navigate("/eventdetails", { state: { event: ele.event_name } })}>
                                     Reveal Offer
                                 </div>
 

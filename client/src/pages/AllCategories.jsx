@@ -1,15 +1,47 @@
-import Categories from "../api/categories";
-import { useState } from "react";
+// import Categories from "../api/categories";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 
-const uniqueAlphabets = [...new Set(Categories.map(category => category.name[0].toUpperCase()))].sort();
 
 const AllCategories = () => {
+    const [Categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('All');
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getCategories`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    setCategories(response.data.categories);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
+
+
+    // console.log(Categories);
+
+    const uniqueAlphabets = [...new Set(Categories.map(category => category.name[0].toUpperCase()))].sort();
+
+    // console.log(uniqueAlphabets);
+
+    // console.log(selectedCategory);
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
@@ -59,22 +91,24 @@ const AllCategories = () => {
                             <div key={index} className="border-2 border-gray-400 mb-3 py-3 cursor-pointer" >
                                 <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                                 <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
-                                    {Categories
-                                        .filter(category => category.filter[0].toUpperCase() === letter)
+                                    {Categories.length !== 0 && Categories
+                                        .filter(category => category.name && category.name[0].toUpperCase() === letter)
                                         .map((category, i) => (
                                             <div key={i}
                                                 onClick={() => {
-                                                    navigate("/categoriesdetails", { state: { category: category.name, category_icon: category.icon } })
+                                                    navigate("/categoriesdetails", { state: { category: category.name, category_icon: category.logo_url } })
                                                 }}
                                                 className="px-5 py-3 font-thin bg-gray-200 mb-3">
                                                 <div className="flex gap-4 justify-between">
                                                     <div className="flex flex-col justify-evenly">
                                                         <div className="whitespace-nowrap">{category.name}</div>
                                                     </div>
-                                                    <img src={category.icon} alt={category.id} className="h-[5rem] w-[5rem] rounded-xl" />
+                                                    <img src={category.logo_url} alt={category.id} className="h-[5rem] w-[5rem] rounded-xl" />
                                                 </div>
                                             </div>
-                                        ))}
+                                        ))
+                                    }
+
                                 </div>
                             </div>
                         ))
@@ -84,18 +118,18 @@ const AllCategories = () => {
                                 <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
                                 <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
                                     {Categories
-                                        .filter((store) => store.filter[0].toUpperCase() === selectedCategory)
+                                        .filter((store) => store.name && store.name[0].toUpperCase() === selectedCategory)
                                         .map((category, i) => (
                                             <div key={i}
                                                 onClick={() => {
-                                                    navigate("/categoriesdetails", { state: { category: category.name, category_icon: category.icon } })
+                                                    navigate("/categoriesdetails", { state: { category: category.name, category_icon: category.logo_url } })
                                                 }}
                                                 className="px-5 py-3 font-thin bg-gray-200 mb-3">
                                                 <div className="flex gap-4 justify-between">
                                                     <div className="flex flex-col justify-evenly">
                                                         <div className="whitespace-nowrap">{category.name}</div>
                                                     </div>
-                                                    <img src={category.icon} alt={category.id} className="h-[5rem] w-[5rem] rounded-xl" />
+                                                    <img src={category.logo_url} alt={category.id} className="h-[5rem] w-[5rem] rounded-xl" />
                                                 </div>
                                             </div>
                                         ))}

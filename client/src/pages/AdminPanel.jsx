@@ -107,7 +107,7 @@ const AdminPanel = () => {
                         selectedButton === 'festival' ? <AdminFestival /> :
                             selectedButton === 'categories' ? <AdminCategories /> :
                                 selectedButton === 'events' ? <AdminEvents />
-                                    : <CouponReq />
+                : <CouponReq />
             }
         </div>
     )

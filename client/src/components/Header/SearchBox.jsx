@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import Categories from "../../api/categories";
-import Events from '../../api/event';
 import { ImSearch } from "react-icons/im";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +7,8 @@ const SearchBar = () => {
     const [keyword, setKeyword] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [store, setStore] = useState([]);
+    const [Categories,setCategories] = useState([]);
+    const [Events,setEvents] = useState([]);
     const searchContainerRef = useRef(null);
     const navigate = useNavigate();
 
@@ -23,8 +23,12 @@ const SearchBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('${import.meta.env.VITE_SERVER}/api/getAllStore');
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
+                const categories = await axios.get(`${import.meta.env.VITE_SERVER}/api/getCategories`);
+                const events = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllEvents`);
                 setStore(response.data.stores);
+                setCategories(categories.data.categories);
+                setEvents(events.data.data);
             } catch (error) {
                 console.log(error);
             }
@@ -32,15 +36,13 @@ const SearchBar = () => {
         fetchData();
     }, []);
 
-
-    console.log(suggestions.stores);
-
+    // console.log(Events);
     const getSearchSuggestions = (userInput) => {
         const categorySuggestions = userInput.toLowerCase().includes('categories') || userInput.toLowerCase().includes('category') ? Categories : Categories.filter((ele) =>
             ele.name.toLowerCase().includes(userInput.toLowerCase())
         );
         const eventSuggestions = userInput.toLowerCase().includes('events') || userInput.toLowerCase().includes('event') ? Events : Events.filter((ele) =>
-            ele.title.toLowerCase().includes(userInput.toLowerCase())
+            ele.event_name.toLowerCase().includes(userInput.toLowerCase())
         );
         const storeSuggestions = userInput.toLowerCase().includes('stores') || userInput.toLowerCase().includes('store') ? store : store.filter(store =>
             store.name.toLowerCase().includes(userInput.toLowerCase())
@@ -71,7 +73,7 @@ const SearchBar = () => {
 
         // Check if the selected keyword is from Categories, Events, or Stores
         const isCategory = Categories.some((category) => category.name.toLowerCase() === keyword.toLowerCase());
-        const isEvent = Events.some((event) => event.title.toLowerCase() === keyword.toLowerCase());
+        const isEvent = Events.some((event) => event.event_name.toLowerCase() === keyword.toLowerCase());
         const isStore = store.some((store) => store.name.toLowerCase() === keyword.toLowerCase());
 
 
@@ -123,7 +125,7 @@ const SearchBar = () => {
                                     <li key={index} onClick={() => {
                                         setKeyword(item.name);
                                         setSuggestions([]);
-                                        navigate("/categoriesdetails", { state: { category: item.name, category_icon: item.icon } })
+                                        navigate("/categoriesdetails", { state: { category: item.name, category_icon: item.logo_url } })
                                     }} className='border-b cursor-pointer'>
                                         {item.name}
                                     </li>
@@ -139,11 +141,11 @@ const SearchBar = () => {
                             <ul className="autocomplete-suggestions flex flex-col gap-2">
                                 {suggestions.events.map((item, index) => (
                                     <li key={index} onClick={() => {
-                                        setKeyword(item.title);
+                                        setKeyword(item.event_name);
                                         setSuggestions([]);
-                                        navigate("/eventdetails", { state: { event: item.title } })
+                                        navigate("/eventdetails", { state: { event: item.event_name } })
                                     }} className='border-b cursor-pointer'>
-                                        {item.title}
+                                        {item.event_name}
                                     </li>
                                 ))}
                             </ul>

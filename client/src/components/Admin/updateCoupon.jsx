@@ -12,10 +12,9 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Avatar } from "@material-tailwind/react";
 import typesData from "../../api/AllTypes";
-import Events from "../../api/event";
 
 const UpdateCoupons = () => {
-
+    const [Events, setEvents] = useState([]);
     const [coupons, setCoupons] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
@@ -41,6 +40,27 @@ const UpdateCoupons = () => {
 
     const formattedDate = coupons?.due_date?.substring(0, 10)
     const isPresentInHomePage = useRef(false);
+
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getAllEvents`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    setEvents(response.data.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
 
     const formik = useFormik({
 
@@ -265,10 +285,10 @@ const UpdateCoupons = () => {
                                     <input
                                         type="checkbox"
                                         className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
-                                        checked={formik.values.events.includes(event.title)}
-                                        onChange={(e) => handleCheckboxChange(e, event.title)}
+                                        checked={formik.values.events.includes(event.event_name)}
+                                        onChange={(e) => handleCheckboxChange(e, event.event_name)}
                                     />
-                                    <span className="text-md flex items-center gap-2">{event.title}</span>
+                                    <span className="text-md flex items-center gap-2">{event.event_name}</span>
                                 </div>
                             ))}
                         </div>

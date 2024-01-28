@@ -3,12 +3,13 @@ import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import typesData from "../../api/AllTypes";
-import { useState } from "react";
-import Events from '../../api/event';
+import { useState ,useEffect} from "react";
+// import Events from '../../api/event';
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 
 function AddCoupons() {
+    const [Events,setEvents] = useState([]);
     const today = new Date();
     const formattedToday = format(today, 'yyyy-MM-dd');
     console.log(formattedToday);
@@ -37,6 +38,27 @@ function AddCoupons() {
     const location = useLocation();
 
     const sId = location.state?.sId;
+
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `${import.meta.env.VITE_SERVER}/api/getAllEvents`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                   setEvents(response.data.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
 
 
     const handleSubmit = (values) => {
@@ -145,20 +167,20 @@ function AddCoupons() {
 
                                             <input type="checkbox"
                                                 className="bg-[#FAF9F5] w-6 h-6 outline-none border rounded-lg p-1 accent-[#FAF9F5]"
-                                                checked={selectedEvents.includes(event.title)}
+                                                checked={selectedEvents.includes(event.event_name)}
                                                 onChange={(e) => {
                                                     const isChecked = e.target.checked;
                                                     setSelectedEvents((prevEvents) => {
                                                         if (isChecked) {
-                                                            return [...prevEvents, event.title];
+                                                            return [...prevEvents, event.event_name];
                                                         } else {
-                                                            return prevEvents.filter((prevEvent) => prevEvent !== event.title);
+                                                            return prevEvents.filter((prevEvent) => prevEvent !== event.event_name);
                                                         }
                                                     });
                                                 }}
                                             />
 
-                                            <span className="text-md flex items-center gap-2">{event.title} </span>
+                                            <span className="text-md flex items-center gap-2">{event.event_name} </span>
                                         </div>)
                                     }
                                 </div>
