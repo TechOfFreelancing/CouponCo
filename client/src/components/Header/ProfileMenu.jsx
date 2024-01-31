@@ -20,7 +20,7 @@ export function ProfileMenu() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/logout`, {
+            const response = await axios.get(`https://backend.qwiksavings.com/api/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

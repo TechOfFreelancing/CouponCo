@@ -18,7 +18,7 @@ const AllCategories = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `${import.meta.env.VITE_SERVER}/api/getCategories`,
+                url: `https://backend.qwiksavings.com/api/getCategories`,
                 headers: {}
             };
 

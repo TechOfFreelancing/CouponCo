@@ -43,7 +43,7 @@ const AdvertiseUs = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${import.meta.env.VITE_SERVER}/api/advertise/${localStorage.getItem('id')}`,
+            url: `https://backend.qwiksavings.com/api/advertise/${localStorage.getItem('id')}`,
             headers: {
                 'Content-Type': 'application/json'
             },
