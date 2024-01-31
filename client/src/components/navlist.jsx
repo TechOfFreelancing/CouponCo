@@ -13,7 +13,7 @@ const Navlist = () => {
 
     useEffect(() => {
         const fetchStores = async () => {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
+            const response = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
             if (response) {
                 setStores(response.data.stores);
             }
@@ -31,7 +31,7 @@ const Navlist = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `${import.meta.env.VITE_SERVER}/api/getCategories`,
+                url: `https://backend.qwiksavings.com/api/getCategories`,
                 headers: {}
             };
 

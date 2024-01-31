@@ -16,7 +16,7 @@ const Event = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `${import.meta.env.VITE_SERVER}/api/getAllEvents`,
+                url: `https://backend.qwiksavings.com/api/getAllEvents`,
                 headers: {}
             };
 

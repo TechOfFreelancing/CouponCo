@@ -46,7 +46,7 @@ const AccessoriesBased = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/register`, {
+            const response = await axios.post(`https://backend.qwiksavings.com/api/register`, {
                 name: name1,
                 email,
                 password,
@@ -67,7 +67,7 @@ const AccessoriesBased = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/login`, {
+            const res = await axios.post(`https://backend.qwiksavings.com/api/login`, {
                 email,
                 password,
             });
@@ -103,7 +103,7 @@ const AccessoriesBased = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`${import.meta.env.VITE_SERVER}/api/inCount/${cId}`);
+            await axios.patch(`https://backend.qwiksavings.com/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -184,12 +184,12 @@ const AccessoriesBased = () => {
                 updatedLikedItems.push(cId);
                 setLikedItems(updatedLikedItems);
 
-                await axios.post(`${import.meta.env.VITE_SERVER}/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`https://backend.qwiksavings.com/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
                 setLikedItems(filteredItems);
 
-                await axios.delete(`${import.meta.env.VITE_SERVER}/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`https://backend.qwiksavings.com/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error("Error occurred:", error);
@@ -209,7 +209,7 @@ const AccessoriesBased = () => {
                         },
                     };
 
-                    const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`https://backend.qwiksavings.com/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -226,7 +226,7 @@ const AccessoriesBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("${import.meta.env.VITE_SERVER}/api/storeDisplay/Accessories");
+                const response = await axios.get("https://backend.qwiksavings.com/api/storeDisplay/Accessories");
                 setAccessories(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);
@@ -383,7 +383,7 @@ const AccessoriesBased = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="${import.meta.env.VITE_SERVER}/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="https://backend.qwiksavings.com/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

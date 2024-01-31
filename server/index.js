@@ -10,7 +10,7 @@ const path = require('path');
 
 
 var corsOptions = {
-    origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://13.201.29.102:5173', 'https://coupon-co.vercel.app'],
+    origin: '*',
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
     credentials: true

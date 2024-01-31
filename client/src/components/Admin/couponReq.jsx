@@ -18,7 +18,7 @@ const CouponReq = () => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `${import.meta.env.VITE_SERVER}/api/admin/getUnverifed`,
+                    `https://backend.qwiksavings.com/api/admin/getUnverifed`,
                     {
                         withCredentials: true,
                         headers: {
@@ -62,7 +62,7 @@ const CouponReq = () => {
                 isVerified: true,
             };
 
-            await axios.put(`${import.meta.env.VITE_SERVER}/api/admin/${cId}`, body, config);
+            await axios.put(`https://backend.qwiksavings.com/api/admin/${cId}`, body, config);
             const updatedCoupons = coupons.filter(coupon => coupon.coupon_id !== cId);
             setCoupons(updatedCoupons);
             toast.success('Coupon Approved successfully!');
@@ -75,7 +75,7 @@ const CouponReq = () => {
 
     const handleCouponDelete = async (cId) => {
         try {
-            await axios.delete(`${import.meta.env.VITE_SERVER}/api/admin/${cId}`, {
+            await axios.delete(`https://backend.qwiksavings.com/api/admin/${cId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
