@@ -18,7 +18,7 @@ const AllCategories = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `https://backend.qwiksavings.com/api/getCategories`,
+                url: `http://localhost:4000/api/getCategories`,
                 headers: {}
             };
 

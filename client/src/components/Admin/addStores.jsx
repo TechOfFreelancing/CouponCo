@@ -52,7 +52,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                `https://backend.qwiksavings.com/api/admin/addStore`,
+                `http://localhost:4000/api/admin/addStore`,
                 formData,
                 {
                     headers: {
@@ -74,7 +74,7 @@ function AddStores() {
         const fetchProducts = async () => {
           try {
             const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
+              `http://localhost:4000/api/getCategories`,
               {
                 withCredentials: true,
                 headers: {

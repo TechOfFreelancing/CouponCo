@@ -53,7 +53,7 @@ const SubmitCouponForm = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `https://backend.qwiksavings.com/api/admin/addCoupons/${sId}`,
+            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const SubmitCouponForm = () => {
         const fetchProducts = async () => {
           try {
             const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
+              `http://localhost:4000/api/getCategories`,
               {
                 withCredentials: true,
                 headers: {

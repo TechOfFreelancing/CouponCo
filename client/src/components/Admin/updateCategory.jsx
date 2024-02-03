@@ -46,7 +46,7 @@ function UpdateCategory() {
                 }
 
                 const response = await axios.put(
-                    `https://backend.qwiksavings.com/api/admin/updateCategory/${cId}`,
+                    `http://localhost:4000/api/admin/updateCategory/${cId}`,
                     formData,
                     {
                         headers: {
@@ -72,7 +72,7 @@ function UpdateCategory() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://backend.qwiksavings.com/api/getCategory/${cId}`);
+                const response = await axios.get(`http://localhost:4000/api/getCategory/${cId}`);
                 console.log(response.data)
                 setCategory(response.data.category);
 

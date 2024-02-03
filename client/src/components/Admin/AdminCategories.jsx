@@ -18,7 +18,7 @@ const AdminCategories = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `https://backend.qwiksavings.com/api/getCategories?page=${count}`,
+          `http://localhost:4000/api/getCategories?page=${count}`,
           {
             withCredentials: true,
             headers: {
@@ -44,7 +44,7 @@ const AdminCategories = () => {
 
   const handleCategoryDelete = async (cId) => {
     try {
-      await axios.delete(`https://backend.qwiksavings.com/api/admin/deleteCategory/${cId}`, {
+      await axios.delete(`http://localhost:4000/api/admin/deleteCategory/${cId}`, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`
         },

@@ -48,7 +48,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `https://backend.qwiksavings.com/api/getAllEvents`,
+                url: `http://localhost:4000/api/getAllEvents`,
                 headers: {}
             };
 
@@ -93,7 +93,7 @@ const UpdateCoupons = () => {
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `https://backend.qwiksavings.com/api/admin/${cId}`,
+                url: `http://localhost:4000/api/admin/${cId}`,
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const UpdateCoupons = () => {
         const fetchProducts = async () => {
           try {
             const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
+              `http://localhost:4000/api/getCategories`,
               {
                 withCredentials: true,
                 headers: {
@@ -143,11 +143,11 @@ const UpdateCoupons = () => {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://backend.qwiksavings.com/api/coupons/${sId}/${cId}`);
-                const storeData = await axios.get(`https://backend.qwiksavings.com/api/getStore/${sId}`);
-                const eventName = await axios.get(`https://backend.qwiksavings.com/api/eventcoupon/${cId}`);
+                const response = await axios.get(`http://localhost:4000/api/coupons/${sId}/${cId}`);
+                const storeData = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
+                const eventName = await axios.get(`http://localhost:4000/api/eventcoupon/${cId}`);
                 // console.log(eventName);
-                const result = await axios.get(`https://backend.qwiksavings.com/api/storeDisplay`);
+                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
                 const events = eventName.length !== 0 && eventName.data.coupons.map((e) => e.event_name);
@@ -192,7 +192,7 @@ const UpdateCoupons = () => {
             formdata.append("couponId", cId);
 
             await axios.post(
-                `https://backend.qwiksavings.com/api/admin/addToOffer/${sId}`,
+                `http://localhost:4000/api/admin/addToOffer/${sId}`,
                 formdata,
                 {
                     headers: {
@@ -215,7 +215,7 @@ const UpdateCoupons = () => {
 
     const handleRemoveFrom = async () => {
         try {
-            await axios.delete(`https://backend.qwiksavings.com/api/storeDisplay/${sId}`, {
+            await axios.delete(`http://localhost:4000/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

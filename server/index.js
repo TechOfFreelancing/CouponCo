@@ -10,7 +10,7 @@ const path = require('path');
 
 
 var corsOptions = {
-    origin: '*',
+    origin: 'https://qwiksavings.com',
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
     credentials: true

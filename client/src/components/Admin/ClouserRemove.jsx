@@ -23,13 +23,13 @@ export function ClouserRemove({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://backend.qwiksavings.com/api/clouser`);
+                const response = await axios.get(`http://localhost:4000/api/clouser`);
                 const storesData = response.data.data;
     
                 const storeDetails = await Promise.all(
                     storesData.map(async store => {
                         if (store.store_type === displayOption) {
-                            const storeResponse = await axios.get(`https://backend.qwiksavings.com/api/getStore/${store.sId}`);
+                            const storeResponse = await axios.get(`http://localhost:4000/api/getStore/${store.sId}`);
                             const { logo_url, name } = storeResponse.data.store;
                             return { logo_url, name, sId: store.sId };
                         }
@@ -51,7 +51,7 @@ export function ClouserRemove({ storeId, open, handleOpen }) {
     const handleRemoveStore = async (store_id) => {
         if (store_id) {
             try {
-                await axios.delete(`https://backend.qwiksavings.com/api/admin/removeClouser/${store_id}`, {
+                await axios.delete(`http://localhost:4000/api/admin/removeClouser/${store_id}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },

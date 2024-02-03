@@ -16,7 +16,7 @@ const AdminEvents = () => {
         const fetchStores = async () => {
             try {
                 const response = await axios.get(
-                    `https://backend.qwiksavings.com/api/getAllEvents?page=${count}`,
+                    `http://localhost:4000/api/getAllEvents?page=${count}`,
                     {
                         headers: {
                             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const AdminEvents = () => {
 
     const handleStoreDelete = async (eId) => {
         try {
-            await axios.delete(`https://backend.qwiksavings.com/api/admin/deleteEvent/${eId}`, {
+            await axios.delete(`http://localhost:4000/api/admin/deleteEvent/${eId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
