@@ -11,12 +11,16 @@ import { ClouserRemove } from "./ClouserRemove";
 import typesData from "../../api/AllTypes";
 
 
+
 function UpdateStores() {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [openDisplayForm, setOpenDisplayForm] = useState(false);
     const [openClouserForm, setOpneClouserForm] = useState(false);
     const [openDeleteClouser, setOpneDeleteClouser] = useState(false);
+    const [categories, setCategories] = useState([]);
+
+
 
     const [selectedFile, setSelectedFile] = useState(null);
     const location = useLocation();
@@ -124,7 +128,7 @@ function UpdateStores() {
                 });
 
                 toast.success("Store updated successfully");
-                console.log(response.data);
+
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.error(error);
@@ -173,6 +177,31 @@ function UpdateStores() {
         }
     }
 
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get(
+              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              {
+                withCredentials: true,
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+              }
+            );
+            setCategories(response.data.categories);
+            
+          } catch (error) {
+            alert(error.response?.data?.message || "Failed to fetch category.");
+            console.error("Failed to fetch category:", error);
+          }
+        };
+    
+        fetchProducts();
+      }, []);
+
     const inputStyle = {
         width: '100%',
         padding: '0.75rem',
@@ -210,6 +239,7 @@ function UpdateStores() {
             );
             setIsPresentInOffer(true);
             toast.success(`Store Added to Festival Offer Successfully!`);
+
         } catch (error) {
             toast.error("Failed to Add store to offer");
             console.error('Failed to add store to offer', error);
@@ -367,9 +397,10 @@ function UpdateStores() {
                             value={formik.values.type}
                         >
                             <option value="">Select Type</option>
-                            {typesData.map((type, index) => (
-                                <option key={index} value={type}>
-                                    {type}
+                            {categories.map((type, index) => (
+                                <option key={index} value={type.name}>
+                                    {type.name}
+
                                 </option>
                             ))}
                         </select>

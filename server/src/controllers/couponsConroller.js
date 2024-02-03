@@ -23,6 +23,7 @@ exports.addStore = catchAsyncErrors(async (req, res, next) => {
     const { name, title, moreAbout, type, description, hint, best_offer, avg_disc } = req.body;
     const storeFile = req.file;
 
+
     try {
         const logo_url = await uploadAndCreateDocument(storeFile);
         const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint, best_offer, avg_disc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;

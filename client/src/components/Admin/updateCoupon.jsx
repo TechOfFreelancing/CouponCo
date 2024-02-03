@@ -16,6 +16,8 @@ import typesData from "../../api/AllTypes";
 const UpdateCoupons = () => {
     const [Events, setEvents] = useState([]);
     const [coupons, setCoupons] = useState([]);
+    const [categories, setCategories] = useState([]);
+
     const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -103,7 +105,7 @@ const UpdateCoupons = () => {
             axios.request(config)
                 .then((response) => {
                     toast.success("Coupon Updated successfully!");
-                    console.log(response.data);
+
                 })
                 .catch((error) => {
                     toast.error(error.response.data.message);
@@ -113,6 +115,32 @@ const UpdateCoupons = () => {
     });
 
     useEffect(() => {
+        // Fetch data from the API
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get(
+              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              {
+                withCredentials: true,
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+              }
+            );
+            setCategories(response.data.categories);
+        
+          } catch (error) {
+            alert(error.response?.data?.message || "Failed to fetch category.");
+            console.error("Failed to fetch category:", error);
+          }
+        };
+    
+        fetchProducts();
+      }, []);
+
+    useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await axios.get(`https://backend.qwiksavings.com/api/coupons/${sId}/${cId}`);
@@ -268,9 +296,10 @@ const UpdateCoupons = () => {
                             value={formik.values.category}
                         >
                             <option value="">Select Category</option>
-                            {typesData.map((category, index) => (
+                            {categories.map((category, index) => (
                                 <option key={index} value={category}>
-                                    {category}
+                                    {category.name}
+
                                 </option>
                             ))}
                         </select>

@@ -43,7 +43,6 @@ const AddCategory = () => {
                 }
             );
             toast.success("Category Added successfully");
-            console.log(response.data);
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data.message);

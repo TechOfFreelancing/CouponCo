@@ -81,8 +81,10 @@ function AdminFestival() {
             };
 
             const apiUrl = isUpdate
+
                 ? 'https://backend.qwiksavings.com/api/updateDetails'
                 : 'https://backend.qwiksavings.com/api/admin/addFest&Disc';
+
 
             await axios[isUpdate ? 'put' : 'post'](apiUrl, data, config);
             toast.success('Festival Details Added successfully');

@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import typesData from "../../api/AllTypes";
+import { useNavigate } from "react-router-dom";
+
 
 
 function AddStores() {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
+
 
     const initialValues = {
         name: "",
@@ -31,6 +37,7 @@ function AddStores() {
 
     const handleSubmit = async (values) => {
         try {
+
             const formData = new FormData();
             formData.append("name", values.name);
             formData.append("title", values.title);
@@ -56,12 +63,39 @@ function AddStores() {
                 }
             );
             toast.success("Store Added successfully");
-            console.log(response.data);
+
         } catch (error) {
             toast.error(error.response.data.message);
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get(
+              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              {
+                withCredentials: true,
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+              }
+            );
+            setCategories(response.data.categories);
+          } catch (error) {
+            alert(error.response?.data?.message || "Failed to fetch category.");
+            console.error("Failed to fetch category:", error);
+          }
+        };
+    
+        fetchProducts();
+      }, []);
+
+      console.log(categories);
+
 
     return (
         <>
@@ -119,10 +153,11 @@ function AddStores() {
                                 name="type"
                                 style={inputStyle}
                             >
-                                <option value="">Select Type</option>
-                                {typesData.map((type, index) => (
-                                    <option key={index} value={type}>
-                                        {type}
+                                <option value="type">Select Type</option>
+                                {categories.map((type, index) => (
+                                    <option key={index} value={type.name}>
+                                        {type.name}
+
                                     </option>
                                 ))}
                             </Field>
