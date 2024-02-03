@@ -274,11 +274,11 @@ const UpdateCoupons = () => {
                             style={inputStyle}
                         >
                             <option value="">Select Type</option>
-                            <option value="codes">
-                                codes
+                            <option value="Codes">
+                                Codes
                             </option>
-                            <option value="deals">
-                                deals
+                            <option value="Deals">
+                                Deals
                             </option>
                         </select>
                     </div>
@@ -297,7 +297,7 @@ const UpdateCoupons = () => {
                         >
                             <option value="">Select Category</option>
                             {categories.map((category, index) => (
-                                <option key={index} value={category}>
+                                <option key={index} value={category.name}>
                                     {category.name}
 
                                 </option>
