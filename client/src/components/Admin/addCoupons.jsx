@@ -118,7 +118,6 @@ function AddCoupons() {
         axios.request(config)
             .then((response) => {
                 toast.success("Coupon Added successfully");
-                console.log(response.data);
             })
             .catch((error) => {
                 toast.error(error.response.data.message);

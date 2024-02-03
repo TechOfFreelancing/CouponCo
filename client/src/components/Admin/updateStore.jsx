@@ -127,7 +127,6 @@ function UpdateStores() {
                 });
 
                 toast.success("Store updated successfully");
-                console.log(response.data);
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.error(error);
@@ -238,6 +237,7 @@ function UpdateStores() {
             );
             setIsPresentInOffer(true);
             toast.success(`Store Added to Festival Offer Successfully!`);
+
         } catch (error) {
             toast.error("Failed to Add store to offer");
             console.error('Failed to add store to offer', error);
@@ -396,7 +396,7 @@ function UpdateStores() {
                         >
                             <option value="">Select Type</option>
                             {categories.map((type, index) => (
-                                <option key={index} value={type}>
+                                <option key={index} value={type.name}>
                                     {type.name}
                                 </option>
                             ))}

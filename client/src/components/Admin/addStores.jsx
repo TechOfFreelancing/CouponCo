@@ -3,11 +3,13 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import typesData from "../../api/AllTypes";
+import { useNavigate } from "react-router-dom";
 
 
 function AddStores() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
 
     const initialValues = {
         name: "",
@@ -32,6 +34,7 @@ function AddStores() {
 
     const handleSubmit = async (values) => {
         try {
+            console.log(values);
             const formData = new FormData();
             formData.append("name", values.name);
             formData.append("title", values.title);
@@ -57,7 +60,6 @@ function AddStores() {
                 }
             );
             toast.success("Store Added successfully");
-            console.log(response.data);
         } catch (error) {
             toast.error(error.response.data.message);
             console.error(error);
@@ -79,10 +81,6 @@ function AddStores() {
               }
             );
             setCategories(response.data.categories);
-            // console.log(response);
-            setTimeout(() => {
-              setLoading(false);
-            }, 1000);
           } catch (error) {
             alert(error.response?.data?.message || "Failed to fetch category.");
             console.error("Failed to fetch category:", error);
@@ -91,6 +89,8 @@ function AddStores() {
     
         fetchProducts();
       }, []);
+
+      console.log(categories);
 
     return (
         <>
@@ -148,9 +148,9 @@ function AddStores() {
                                 name="type"
                                 style={inputStyle}
                             >
-                                <option value="">Select Type</option>
+                                <option value="type">Select Type</option>
                                 {categories.map((type, index) => (
-                                    <option key={index} value={type}>
+                                    <option key={index} value={type.name}>
                                         {type.name}
                                     </option>
                                 ))}

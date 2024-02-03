@@ -104,7 +104,6 @@ const UpdateCoupons = () => {
             axios.request(config)
                 .then((response) => {
                     toast.success("Coupon Updated successfully!");
-                    console.log(response.data);
                 })
                 .catch((error) => {
                     toast.error(error.response.data.message);
