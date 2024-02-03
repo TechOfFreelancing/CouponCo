@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
-import typesData from "../../api/AllTypes";
 import { useNavigate } from "react-router-dom";
 
 
@@ -75,7 +74,7 @@ function AddStores() {
         const fetchProducts = async () => {
           try {
             const response = await axios.get(
-              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              `https://backend.qwiksavings.com/api/getCategories`,
               {
                 withCredentials: true,
                 headers: {

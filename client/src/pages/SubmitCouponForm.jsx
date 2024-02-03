@@ -98,7 +98,7 @@ const SubmitCouponForm = () => {
         const fetchProducts = async () => {
           try {
             const response = await axios.get(
-              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              `https://backend.qwiksavings.com/api/getCategories`,
               {
                 withCredentials: true,
                 headers: {
