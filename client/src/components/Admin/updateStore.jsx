@@ -202,6 +202,8 @@ function UpdateStores() {
         fetchProducts();
       }, []);
 
+      console.log(categories);
+
     const inputStyle = {
         width: '100%',
         padding: '0.75rem',
