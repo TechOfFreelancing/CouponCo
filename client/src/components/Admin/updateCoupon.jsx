@@ -17,6 +17,7 @@ const UpdateCoupons = () => {
     const [Events, setEvents] = useState([]);
     const [coupons, setCoupons] = useState([]);
     const [categories, setCategories] = useState([]);
+
     const [openDialog, setOpenDialog] = useState(false);
     const [store, setStore] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -104,6 +105,7 @@ const UpdateCoupons = () => {
             axios.request(config)
                 .then((response) => {
                     toast.success("Coupon Updated successfully!");
+
                 })
                 .catch((error) => {
                     toast.error(error.response.data.message);
@@ -138,6 +140,7 @@ const UpdateCoupons = () => {
       }, []);
 
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await axios.get(`https://backend.qwiksavings.com/api/coupons/${sId}/${cId}`);
@@ -296,6 +299,7 @@ const UpdateCoupons = () => {
                             {categories.map((category, index) => (
                                 <option key={index} value={category}>
                                     {category.name}
+
                                 </option>
                             ))}
                         </select>

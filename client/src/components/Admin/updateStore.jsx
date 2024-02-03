@@ -21,6 +21,7 @@ function UpdateStores() {
     const [categories, setCategories] = useState([]);
 
 
+
     const [selectedFile, setSelectedFile] = useState(null);
     const location = useLocation();
 
@@ -127,6 +128,7 @@ function UpdateStores() {
                 });
 
                 toast.success("Store updated successfully");
+
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.error(error);
@@ -398,6 +400,7 @@ function UpdateStores() {
                             {categories.map((type, index) => (
                                 <option key={index} value={type.name}>
                                     {type.name}
+
                                 </option>
                             ))}
                         </select>

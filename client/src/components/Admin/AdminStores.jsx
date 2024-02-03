@@ -37,7 +37,7 @@ const AdminStores = () => {
     }, [count]);
 
     const handleStoreDelete = async (storeId) => {
-        console.log(storeId);
+
         try {
             await axios.delete(`https://backend.qwiksavings.com/api/admin/delete/${storeId}`, {
                 headers: {

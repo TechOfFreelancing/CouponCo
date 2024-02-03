@@ -4,6 +4,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 // import typesData from "../../api/AllTypes";
 import { useState, useEffect } from "react";
+
 // import Events from '../../api/event';
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
@@ -67,6 +68,7 @@ function AddCoupons() {
     console.log(categories);
 
     useEffect(() => {
+
         const fetchData = () => {
             let config = {
                 method: 'get',
@@ -78,6 +80,7 @@ function AddCoupons() {
             axios.request(config)
                 .then((response) => {
                     setEvents(response.data.data)
+
                 })
                 .catch((error) => {
                     console.log(error);
@@ -118,6 +121,7 @@ function AddCoupons() {
         axios.request(config)
             .then((response) => {
                 toast.success("Coupon Added successfully");
+
             })
             .catch((error) => {
                 toast.error(error.response.data.message);
@@ -179,6 +183,7 @@ function AddCoupons() {
                                     {categories.map((category, index) => (
                                         <option key={index} value={category}>
                                             {category.name}
+
                                         </option>
                                     ))}
                                 </Field>
@@ -264,7 +269,9 @@ function AddCoupons() {
                             <button
                                 type="submit"
                                 className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
-                            // onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}
+
+                            onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}
+
                             >
                                 Submit
                             </button>
