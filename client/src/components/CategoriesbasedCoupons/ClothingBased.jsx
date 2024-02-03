@@ -47,7 +47,7 @@ const ClothingBased = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://localhost:4000/api/register`, {
+            const response = await axios.post(`https://backend.qwiksavings.com/api/register`, {
                 name: name1,
                 email,
                 password,
@@ -68,7 +68,7 @@ const ClothingBased = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:4000/api/login`, {
+            const res = await axios.post(`https://backend.qwiksavings.com/api/login`, {
                 email,
                 password,
             });
@@ -104,7 +104,7 @@ const ClothingBased = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`https://backend.qwiksavings.com/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -188,12 +188,12 @@ const ClothingBased = () => {
                 updatedLikedItems.push(cId);
                 setLikedItems(updatedLikedItems);
 
-                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`https://backend.qwiksavings.com/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
                 setLikedItems(filteredItems);
 
-                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`https://backend.qwiksavings.com/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error("Error occurred:", error);
@@ -214,7 +214,7 @@ const ClothingBased = () => {
                         },
                     };
 
-                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`https://backend.qwiksavings.com/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -231,7 +231,7 @@ const ClothingBased = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:4000/api/storeDisplay/Clothing");
+                const response = await axios.get("https://backend.qwiksavings.com/api/storeDisplay/Clothing");
                 setClothes(response.data.data);
             } catch (error) {
                 console.log("Unable to get data:", error);
@@ -426,7 +426,7 @@ const ClothingBased = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="https://backend.qwiksavings.com/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

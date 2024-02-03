@@ -22,7 +22,7 @@ export default function Register() {
         e.preventDefault();
         try {
             console.log(name, email, password);
-            const response = await axios.post(`http://localhost:4000/api/register`, {
+            const response = await axios.post(`https://backend.qwiksavings.com/api/register`, {
                 name,
                 email,
                 password,

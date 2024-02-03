@@ -47,12 +47,12 @@ const Womanfashion = () => {
 
                 setLikedItems(updatedLikedItems);
 
-                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`https://backend.qwiksavings.com/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
                 setLikedItems(filteredItems);
 
-                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`https://backend.qwiksavings.com/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error('Error occurred:', error);
@@ -95,7 +95,7 @@ const Womanfashion = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/storeDisplay`);
+                const response = await axios.get(`https://backend.qwiksavings.com/api/storeDisplay`);
                 if (response.data && response.data.data) {
                     const fetchedImagesWithId = response.data.data
                         .filter(item => item.show_in_top === 1 && item.thumbnail)
@@ -107,7 +107,7 @@ const Womanfashion = () => {
 
                     const store = await Promise.all(fetchedImagesWithId.map(async store => {
                         try {
-                            const storeDetails = await axios.get(`http://localhost:4000/api/getStore/${store.storeId}`);
+                            const storeDetails = await axios.get(`https://backend.qwiksavings.com/api/getStore/${store.storeId}`);
                             return storeDetails.data.store || null;
                         } catch (error) {
                             console.error('Error fetching store :', error);
@@ -117,7 +117,7 @@ const Womanfashion = () => {
 
                     const coupon = await Promise.all(fetchedImagesWithId.map(async coupon => {
                         try {
-                            const couponDetails = await axios.get(`http://localhost:4000/api/coupons/${coupon.storeId}/${coupon.cId}`);
+                            const couponDetails = await axios.get(`https://backend.qwiksavings.com/api/coupons/${coupon.storeId}/${coupon.cId}`);
                             return couponDetails.data.coupon || null;
                         } catch (error) {
                             console.error('Error fetching store :', error);
@@ -141,7 +141,7 @@ const Womanfashion = () => {
                                 },
                             };
 
-                            const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
+                            const response = await axios.get(`https://backend.qwiksavings.com/api/getDetails/${userId}`, config);
                             const savedCouponsData = response.data.savedCoupons || [];
                             const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -163,7 +163,7 @@ const Womanfashion = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
+            await axios.patch(`https://backend.qwiksavings.com/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }

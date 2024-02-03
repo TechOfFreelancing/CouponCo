@@ -46,7 +46,7 @@ function AddCoupons() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:4000/api/getCategories`,
+                    `https://backend.qwiksavings.com/api/getCategories`,
                     {
                         withCredentials: true,
                         headers: {
@@ -73,7 +73,7 @@ function AddCoupons() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `http://localhost:4000/api/getAllEvents`,
+                url: `https://backend.qwiksavings.com/api/getAllEvents`,
                 headers: {}
             };
 
@@ -109,7 +109,7 @@ function AddCoupons() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
+            url: `https://backend.qwiksavings.com/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
