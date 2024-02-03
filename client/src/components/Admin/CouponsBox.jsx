@@ -20,7 +20,7 @@ export function CouponsBox({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const couponsData = await axios.get(`https://backend.qwiksavings.com/api/coupons/${storeId}`);
+                const couponsData = await axios.get(`http://localhost:4000/api/coupons/${storeId}`);
                 setCoupons(couponsData.data.coupons);
             } catch (error) {
                 alert(error.response ? error.response.statusText : 'Failed to fetch data');
@@ -33,7 +33,7 @@ export function CouponsBox({ storeId, open, handleOpen }) {
 
     const handleCouponDelete = async (cId) => {
         try {
-            await axios.delete(`https://backend.qwiksavings.com/api/admin/${cId}`, {
+            await axios.delete(`http://localhost:4000/api/admin/${cId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },

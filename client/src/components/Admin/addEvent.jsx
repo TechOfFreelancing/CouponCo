@@ -39,7 +39,7 @@ const AddEvent = () => {
             }
 
             const response = await axios.post(
-                `https://backend.qwiksavings.com/api/admin/addEvent`,
+                `http://localhost:4000/api/admin/addEvent`,
                 formData,
                 {
                     headers: {

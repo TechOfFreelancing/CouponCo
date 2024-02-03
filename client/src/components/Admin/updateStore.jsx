@@ -83,7 +83,7 @@ function UpdateStores() {
         onSubmit: async (values) => {
             try {
                 const formData = new FormData();
-                const updateUrl = `https://backend.qwiksavings.com/api/admin/updateStore/${sId}`;
+                const updateUrl = `http://localhost:4000/api/admin/updateStore/${sId}`;
 
                 formData.append("name", values.name);
                 formData.append("title", values.title);
@@ -105,7 +105,7 @@ function UpdateStores() {
                     validFaqs.forEach((faq) => {
                         faqData[faq.question] = faq.answer;
                     });
-                    const faqUrl = `https://backend.qwiksavings.com/api/admin/addFaq/${sId}`;
+                    const faqUrl = `http://localhost:4000/api/admin/addFaq/${sId}`;
 
                     await axios.put(faqUrl, faqData, {
                         withCredentials: true,
@@ -159,7 +159,7 @@ function UpdateStores() {
             // Join the showcases array to create the showInFieldName
             const showInFieldName = showcases.join(',');
 
-            await axios.delete(`https://backend.qwiksavings.com//api/storeDisplay/${sId}`, {
+            await axios.delete(`http://localhost:4000//api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -182,7 +182,7 @@ function UpdateStores() {
         const fetchProducts = async () => {
           try {
             const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
+              `http://localhost:4000/api/getCategories`,
               {
                 withCredentials: true,
                 headers: {
@@ -213,7 +213,7 @@ function UpdateStores() {
 
     const handleRemoveFromFestivalOffer = async () => {
         try {
-            await axios.delete(`https://backend.qwiksavings.com/api/admin/deleteStoreFromFest/${sId}`, {
+            await axios.delete(`http://localhost:4000/api/admin/deleteStoreFromFest/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
@@ -229,7 +229,7 @@ function UpdateStores() {
     const handleAddToFestivalOffer = async () => {
         try {
             await axios.post(
-                `https://backend.qwiksavings.com/api/admin/addStoreToFest/${sId}`,
+                `http://localhost:4000/api/admin/addStoreToFest/${sId}`,
                 {},
                 {
                     headers: {
@@ -249,11 +249,11 @@ function UpdateStores() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://backend.qwiksavings.com/api/getStore/${sId}`);
+                const response = await axios.get(`http://localhost:4000/api/getStore/${sId}`);
 
-                const result = await axios.get(`https://backend.qwiksavings.com/api/storeDisplay`);
+                const result = await axios.get(`http://localhost:4000/api/storeDisplay`);
 
-                const offerRes = await axios.get(`https://backend.qwiksavings.com/api/festStoreDisplay`);
+                const offerRes = await axios.get(`http://localhost:4000/api/festStoreDisplay`);
 
                 const presentInOffer = offerRes.data.data.some(item => item.storeId === sId);
                 setIsPresentInOffer(presentInOffer);

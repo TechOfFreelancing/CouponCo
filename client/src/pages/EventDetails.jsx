@@ -61,7 +61,7 @@ const EventDetails = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`https://backend.qwiksavings.com/api/register`, {
+            const response = await axios.post(`http://localhost:4000/api/register`, {
                 name: name1,
                 email,
                 password,
@@ -82,7 +82,7 @@ const EventDetails = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`https://backend.qwiksavings.com/api/login`, {
+            const res = await axios.post(`http://localhost:4000/api/login`, {
                 email,
                 password,
             });
@@ -118,7 +118,7 @@ const EventDetails = () => {
 
     const handleUse = async (cId) => {
         try {
-            await axios.patch(`https://backend.qwiksavings.com/api/inCount/${cId}`);
+            await axios.patch(`http://localhost:4000/api/inCount/${cId}`);
         } catch (error) {
             console.error(error);
         }
@@ -200,12 +200,12 @@ const EventDetails = () => {
                 updatedLikedItems.push(cId);
                 setLikedItems(updatedLikedItems);
 
-                await axios.post(`https://backend.qwiksavings.com/api/saveCoupon/${cId}`, { userId }, config);
+                await axios.post(`http://localhost:4000/api/saveCoupon/${cId}`, { userId }, config);
             } else {
                 const filteredItems = updatedLikedItems.filter((item) => item !== cId);
                 setLikedItems(filteredItems);
 
-                await axios.delete(`https://backend.qwiksavings.com/api/unsaveCoupon/${cId}`, config);
+                await axios.delete(`http://localhost:4000/api/unsaveCoupon/${cId}`, config);
             }
         } catch (error) {
             console.error("Error occurred:", error);
@@ -229,7 +229,7 @@ const EventDetails = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `https://backend.qwiksavings.com/api/getAllEvents`,
+                url: `http://localhost:4000/api/getAllEvents`,
                 headers: {}
             };
 
@@ -262,7 +262,7 @@ const EventDetails = () => {
                         },
                     };
 
-                    const response = await axios.get(`https://backend.qwiksavings.com/api/getDetails/${userId}`, config);
+                    const response = await axios.get(`http://localhost:4000/api/getDetails/${userId}`, config);
                     const savedCouponsData = response.data.savedCoupons || [];
                     const likedCouponIds = savedCouponsData.map(coupon => coupon.coupon_id);
 
@@ -280,11 +280,11 @@ const EventDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const store = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
+                const store = await axios.get(`http://localhost:4000/api/getAllStore`);
                 setPopularStore(store.data.stores);
-                const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
+                const response = await axios.get(`http://localhost:4000/api/events/${event}`);
                 const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
-                    const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
+                    const coupons = await axios.get(`http://localhost:4000/api/coupons/${c.store_id}/${c.coupon_id}`);
                     // console.log(coupons);
                     if (new Date(coupons.data.coupon.due_date) >= new Date()) {
                         return coupons.data.coupon;
@@ -576,7 +576,7 @@ const EventDetails = () => {
                                 />
                             </div>
                             <Typography color="gray" className="mt-2 mx-auto font-normal">
-                                <Link to="https://backend.qwiksavings.com/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
+                                <Link to="http://localhost:4000/api/forgot-password" className=" underline font-medium transition-colors hover:text-orange-700 cursor-pointer">
                                     Forgot your password?
                                 </Link>
                             </Typography>

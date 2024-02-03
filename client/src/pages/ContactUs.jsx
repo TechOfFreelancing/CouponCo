@@ -35,7 +35,7 @@ const ContactUs = () => {
                 return toast.error("Please Accept Privacy Policy");
             }
 
-            const response = await axios.post(`https://backend.qwiksavings.com/api/contact/${localStorage.getItem('id')}`, {
+            const response = await axios.post(`http://localhost:4000/api/contact/${localStorage.getItem('id')}`, {
                 name: contact.name,
                 email: contact.email,
                 message: contact.message,

@@ -20,7 +20,7 @@ export function ProfileMenu() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get(`https://backend.qwiksavings.com/api/logout`, {
+            const response = await axios.get(`http://localhost:4000/api/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

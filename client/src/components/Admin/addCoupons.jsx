@@ -46,7 +46,7 @@ function AddCoupons() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `https://backend.qwiksavings.com/api/getCategories`,
+                    `http://localhost:4000/api/getCategories`,
                     {
                         withCredentials: true,
                         headers: {
@@ -58,7 +58,7 @@ function AddCoupons() {
                 setCategories(response.data.categories);
             } catch (error) {
                 alert(error.response?.data?.message || "Failed to fetch category.");
-                console.error("Failed to fetch category:", error);
+                console.log("Failed to fetch category:", error);
             }
         };
 
@@ -73,7 +73,7 @@ function AddCoupons() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `https://backend.qwiksavings.com/api/getAllEvents`,
+                url: `http://localhost:4000/api/getAllEvents`,
                 headers: {}
             };
 
@@ -109,7 +109,7 @@ function AddCoupons() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `https://backend.qwiksavings.com/api/admin/addCoupons/${sId}`,
+            url: `http://localhost:4000/api/admin/addCoupons/${sId}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
