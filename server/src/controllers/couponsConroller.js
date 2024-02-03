@@ -356,7 +356,7 @@ exports.deleteStore = catchAsyncErrors(async (req, res, next) => {
 
         res.status(200).json({ message: `Store with ID ${storeId} deleted successfully` });
     } catch (err) {
-        console.error(err);
+        res.send(err);
         return next(new ErrorHandler("Unable to delete store", 500));
     }
 });
