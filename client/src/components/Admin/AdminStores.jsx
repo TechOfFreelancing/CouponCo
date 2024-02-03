@@ -37,6 +37,7 @@ const AdminStores = () => {
     }, [count]);
 
     const handleStoreDelete = async (storeId) => {
+        console.log(storeId);
         try {
             await axios.delete(`${import.meta.env.VITE_SERVER}/api/admin/delete/${storeId}`, {
                 headers: {

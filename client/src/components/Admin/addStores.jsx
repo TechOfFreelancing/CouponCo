@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
@@ -7,6 +7,7 @@ import typesData from "../../api/AllTypes";
 
 function AddStores() {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     const initialValues = {
         name: "",
@@ -62,6 +63,34 @@ function AddStores() {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get(
+              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              {
+                withCredentials: true,
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+              }
+            );
+            setCategories(response.data.categories);
+            // console.log(response);
+            setTimeout(() => {
+              setLoading(false);
+            }, 1000);
+          } catch (error) {
+            alert(error.response?.data?.message || "Failed to fetch category.");
+            console.error("Failed to fetch category:", error);
+          }
+        };
+    
+        fetchProducts();
+      }, []);
 
     return (
         <>
@@ -120,9 +149,9 @@ function AddStores() {
                                 style={inputStyle}
                             >
                                 <option value="">Select Type</option>
-                                {typesData.map((type, index) => (
+                                {categories.map((type, index) => (
                                     <option key={index} value={type}>
-                                        {type}
+                                        {type.name}
                                     </option>
                                 ))}
                             </Field>

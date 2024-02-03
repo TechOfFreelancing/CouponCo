@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import typesData from "../api/AllTypes";
@@ -11,6 +11,9 @@ const SubmitCouponForm = () => {
     const location = useLocation()
 
     const sId = location.state?.storeId;
+
+    const [categories, setCategories] = useState([]);
+
 
     const [formData, setFormData] = useState({
         title: '',
@@ -90,6 +93,31 @@ const SubmitCouponForm = () => {
         outline: 'none',
     };
 
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get(
+              `${import.meta.env.VITE_SERVER}/api/getCategories`,
+              {
+                withCredentials: true,
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+              }
+            );
+            setCategories(response.data.categories);
+        
+          } catch (error) {
+            alert(error.response?.data?.message || "Failed to fetch category.");
+            console.error("Failed to fetch category:", error);
+          }
+        };
+    
+        fetchProducts();
+      }, []);
+
     return (
         <>
             <Toaster position="top-center"></Toaster>
@@ -163,9 +191,9 @@ const SubmitCouponForm = () => {
                                     style={inputStyle}
                                 >
                                     <option value="">Select Category</option>
-                                    {typesData.map((category, index) => (
+                                    {categories.map((category, index) => (
                                         <option key={index} value={category}>
-                                            {category}
+                                            {category.name}
                                         </option>
                                     ))}
                                 </select>

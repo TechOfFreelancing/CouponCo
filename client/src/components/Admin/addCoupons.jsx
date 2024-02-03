@@ -2,14 +2,16 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
-import typesData from "../../api/AllTypes";
-import { useState ,useEffect} from "react";
+// import typesData from "../../api/AllTypes";
+import { useState, useEffect } from "react";
 // import Events from '../../api/event';
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 
 function AddCoupons() {
-    const [Events,setEvents] = useState([]);
+    const [Events, setEvents] = useState([]);
+    const [categories, setCategories] = useState([]);
+
     const today = new Date();
     const formattedToday = format(today, 'yyyy-MM-dd');
     console.log(formattedToday);
@@ -40,6 +42,31 @@ function AddCoupons() {
     const sId = location.state?.sId;
 
     useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get(
+                    `${import.meta.env.VITE_SERVER}/api/getCategories`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                    }
+                );
+                setCategories(response.data.categories);
+            } catch (error) {
+                alert(error.response?.data?.message || "Failed to fetch category.");
+                console.error("Failed to fetch category:", error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    console.log(categories);
+
+    useEffect(() => {
         const fetchData = () => {
             let config = {
                 method: 'get',
@@ -50,7 +77,7 @@ function AddCoupons() {
 
             axios.request(config)
                 .then((response) => {
-                   setEvents(response.data.data)
+                    setEvents(response.data.data)
                 })
                 .catch((error) => {
                     console.log(error);
@@ -150,9 +177,9 @@ function AddCoupons() {
                                     style={inputStyle}
                                 >
                                     <option value="">Select Category</option>
-                                    {typesData.map((category, index) => (
+                                    {categories.map((category, index) => (
                                         <option key={index} value={category}>
-                                            {category}
+                                            {category.name}
                                         </option>
                                     ))}
                                 </Field>
@@ -238,7 +265,7 @@ function AddCoupons() {
                             <button
                                 type="submit"
                                 className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
-                                // onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}
+                            // onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}
                             >
                                 Submit
                             </button>
