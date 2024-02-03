@@ -24,7 +24,7 @@ export function Clouser({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/getAllStore`);
+                const response = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
                 setStores(response.data.stores);
             } catch (error) {
                 console.error(error);
@@ -39,7 +39,7 @@ export function Clouser({ storeId, open, handleOpen }) {
     const handleStoreClick = async (clickedStoreId) => {
         if (displayOption && clickedStoreId) {
             try {
-                const res = await axios.post(`http://localhost:4000/api/admin/addClouser/${storeId}`, {
+                const res = await axios.post(`https://backend.qwiksavings.com/api/admin/addClouser/${storeId}`, {
                     storeType: displayOption,
                     storeid: clickedStoreId,
                 },

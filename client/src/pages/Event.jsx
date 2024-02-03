@@ -16,7 +16,7 @@ const Event = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `http://localhost:4000/api/getAllEvents`,
+                url: `https://backend.qwiksavings.com/api/getAllEvents`,
                 headers: {}
             };
 

@@ -33,7 +33,7 @@ const AddCategory = () => {
             }
 
             const response = await axios.post(
-                `http://localhost:4000/api/admin/addCategory`,
+                `https://backend.qwiksavings.com/api/admin/addCategory`,
                 formData,
                 {
                     headers: {
