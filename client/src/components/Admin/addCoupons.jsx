@@ -181,7 +181,7 @@ function AddCoupons() {
                                 >
                                     <option value="">Select Category</option>
                                     {categories.map((category, index) => (
-                                        <option key={index} value={category}>
+                                        <option key={index} value={category.name}>
                                             {category.name}
 
                                         </option>
