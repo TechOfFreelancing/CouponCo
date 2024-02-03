@@ -654,7 +654,7 @@ exports.getCoupons = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getUnverifiedCoupons = catchAsyncErrors(async (req, res, next) => {
-    const sql = `SELECT * FROM Coupons WHERE isVerified = 0`;
+    const sql = `SELECT * FROM coupons WHERE isVerified = 0`;
 
     try {
         const [result, fields] = await db.query(sql);
@@ -675,7 +675,7 @@ exports.getCouponsBy = catchAsyncErrors(async (req, res, next) => {
     const limit = 12;
     const offset = (page - 1) * limit;
 
-    let sql = `SELECT * FROM Coupons`;
+    let sql = `SELECT * FROM coupons`;
 
     // Checking for filter object
     if (type || keyword) {
@@ -922,7 +922,7 @@ exports.getCategoryCoupons = catchAsyncErrors(async (req, res, next) => {
     // console.log(category);
     try {
         const getCoupons = `
-           SELECT * FROM store AS S INNER JOIN coupons AS C WHERE S.id = C.store_id && category = ?
+           SELECT * FROM store AS S INNER JOIN coupons AS C WHERE S.id = C.store_id && C.category = ?
         `;
         const coupons = await db.query(getCoupons, [category]);
 

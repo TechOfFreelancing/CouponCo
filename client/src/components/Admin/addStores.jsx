@@ -46,7 +46,7 @@ function AddStores() {
             }
 
             const response = await axios.post(
-                `${import.meta.env.VITE_SERVER}/api/admin/addStore`,
+                `https://backend.qwiksavings.com/api/admin/addStore`,
                 formData,
                 {
                     headers: {

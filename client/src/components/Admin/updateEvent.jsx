@@ -51,7 +51,7 @@ function UpdateEvent() {
                 }
 
                 const response = await axios.put(
-                    `${import.meta.env.VITE_SERVER}/api/admin/updateEvent/${eId}`,
+                    `https://backend.qwiksavings.com/api/admin/updateEvent/${eId}`,
                     formData,
                     {
                         headers: {
@@ -77,7 +77,7 @@ function UpdateEvent() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getEvent/${eId}`);
+                const response = await axios.get(`https://backend.qwiksavings.com/api/getEvent/${eId}`);
                 setEvent(response.data.data)
 
                 formik.setValues({

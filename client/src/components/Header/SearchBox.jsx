@@ -23,9 +23,9 @@ const SearchBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllStore`);
-                const categories = await axios.get(`${import.meta.env.VITE_SERVER}/api/getCategories`);
-                const events = await axios.get(`${import.meta.env.VITE_SERVER}/api/getAllEvents`);
+                const response = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
+                const categories = await axios.get(`https://backend.qwiksavings.com/api/getCategories`);
+                const events = await axios.get(`https://backend.qwiksavings.com/api/getAllEvents`);
                 setStore(response.data.stores);
                 setCategories(categories.data.categories);
                 setEvents(events.data.data);
