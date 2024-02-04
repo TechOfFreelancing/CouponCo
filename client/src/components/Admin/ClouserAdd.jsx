@@ -49,7 +49,9 @@ export function Clouser({ storeId, open, handleOpen }) {
                         },
                     });
                 alert(res.data.message)
-                // handleOpen();
+                
+                // Remove the clicked store from the UI
+                setStores(prevStores => prevStores.filter(store => store.id !== clickedStoreId));
             } catch (error) {
                 console.error(error);
                 alert("Unable to add!");
