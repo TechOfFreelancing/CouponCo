@@ -24,27 +24,34 @@ export function Clouser({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                 // Fetch all stores
-                 const responseStores = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
-                 const allStores = responseStores.data.stores;
- 
-                 // Fetch closure data
-                 const responseClosure = await axios.get('https://backend.qwiksavings.com/api/clouser');
-                 const storesData = responseClosure.data.data;
- 
-                 // Filter out similar and popular store ids
-                 const similarStoreIds = storesData
-                     .filter(store => store.store_type === 'similar')
-                     .map(store => store.sId);
-                 const popularStoreIds = storesData
-                     .filter(store => store.store_type === 'popular')
-                     .map(store => store.sId);
- 
-                 // Filter out similar and popular stores from the main list
-                 const filteredStores = allStores.filter(store => !similarStoreIds.includes(store.id) && !popularStoreIds.includes(store.id));
- 
-                 // Set the updated stores in state
-                 setStores(filteredStores);
+                // Fetch all stores
+                const responseStores = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
+                const allStores = responseStores.data.stores;
+
+                // Fetch closure data
+                const responseClosure = await axios.get('https://backend.qwiksavings.com/api/clouser');
+                const storesData = responseClosure.data.data;
+
+                // Filter out similar and popular store ids
+                const similarStoreIds = storesData
+                    .filter(store => store.store_type === 'similar')
+                    .map(store => store.sId);
+                const popularStoreIds = storesData
+                    .filter(store => store.store_type === 'popular')
+                    .map(store => store.sId);
+
+                // Filter out similar and popular stores from the main list
+                const filteredStores = allStores.filter(store => !similarStoreIds.includes(store.id) && !popularStoreIds.includes(store.id));
+
+                // Filter out stores that are already associated with the opened store
+                const associatedStoreIds = storesData
+                    .filter(store => store.store_id === storeId)
+                    .map(store => store.sId);
+
+                const finalFilteredStores = filteredStores.filter(store => !associatedStoreIds.includes(store.id));
+
+                // Set the updated stores in state
+                setStores(finalFilteredStores);
             } catch (error) {
                 console.error(error);
             }
@@ -68,7 +75,7 @@ export function Clouser({ storeId, open, handleOpen }) {
                         },
                     });
                 alert(res.data.message)
-                
+
                 // Remove the clicked store from the UI
                 setStores(prevStores => prevStores.filter(store => store.id !== clickedStoreId));
             } catch (error) {
