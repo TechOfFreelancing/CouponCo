@@ -61,7 +61,13 @@ function AddStores() {
                     },
                 }
             );
-            toast.success("Store Added successfully");
+
+            if (response) {
+                setInterval(()=>{
+                    navigate('/Admin')
+                },2000)
+                toast.success("Store Added successfully");
+            }
 
         } catch (error) {
             toast.error(error.response.data.message);
@@ -72,28 +78,28 @@ function AddStores() {
     useEffect(() => {
         // Fetch data from the API
         const fetchProducts = async () => {
-          try {
-            const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
-              {
-                withCredentials: true,
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-              }
-            );
-            setCategories(response.data.categories);
-          } catch (error) {
-            alert(error.response?.data?.message || "Failed to fetch category.");
-            console.error("Failed to fetch category:", error);
-          }
+            try {
+                const response = await axios.get(
+                    `https://backend.qwiksavings.com/api/getCategories`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                    }
+                );
+                setCategories(response.data.categories);
+            } catch (error) {
+                alert(error.response?.data?.message || "Failed to fetch category.");
+                console.error("Failed to fetch category:", error);
+            }
         };
-    
-        fetchProducts();
-      }, []);
 
-      console.log(categories);
+        fetchProducts();
+    }, []);
+
+    console.log(categories);
 
 
     return (
