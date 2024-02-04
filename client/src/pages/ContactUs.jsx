@@ -24,10 +24,8 @@ const ContactUs = () => {
         }))
     }
 
-    console.log(contact);
 
     const handleSubmit = async (e) => {
-        console.log(contact);
         e.preventDefault();
         try {
 
@@ -52,7 +50,6 @@ const ContactUs = () => {
             toast.success('Sent successfully');
 
         } catch (error) {
-            console.log(error);
             toast.error("Please fill all details");
         }
     };

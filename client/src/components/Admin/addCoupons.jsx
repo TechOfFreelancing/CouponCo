@@ -15,7 +15,7 @@ function AddCoupons() {
 
     const today = new Date();
     const formattedToday = format(today, 'yyyy-MM-dd');
-    console.log(formattedToday);
+
     const navigate = useNavigate();
     const initialValues = {
         title: "",
@@ -65,7 +65,6 @@ function AddCoupons() {
         fetchProducts();
     }, []);
 
-    console.log(categories);
 
     useEffect(() => {
 

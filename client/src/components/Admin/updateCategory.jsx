@@ -35,7 +35,6 @@ function UpdateCategory() {
         onSubmit: async (values) => {
             try {
 
-                console.log(values.todays_top)
                 const formData = new FormData();
                 formData.append("name", values.name);
                 formData.append("todays_top", values.todays_top);
@@ -57,7 +56,6 @@ function UpdateCategory() {
                 );
                 
                 toast.success("Category Updated successfully");
-                console.log(response.data);
             } catch (error) {
                 if (error.response) {
                     toast.error(error.response.data.message);
@@ -74,7 +72,6 @@ function UpdateCategory() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`https://backend.qwiksavings.com/api/getCategory/${cId}`);
-                console.log(response.data)
                 setCategory(response.data.category);
 
                 formik.setValues({

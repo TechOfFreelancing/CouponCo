@@ -62,7 +62,6 @@ function UpdateEvent() {
                 );
                 
                 toast.success("Event Updated successfully");
-                console.log(response.data);
             } catch (error) {
                 if (error.response) {
                     toast.error(error.response.data.message);

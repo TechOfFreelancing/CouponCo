@@ -93,7 +93,6 @@ const Store = () => {
                 email,
                 password,
             });
-            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -279,7 +278,6 @@ const Store = () => {
             handleClose();
         }
         else {
-            console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)
@@ -448,9 +446,6 @@ const Store = () => {
     };
 
 
-
-// console.log(validCoupons);
-    // console.log(str);
 
 
     return (

@@ -51,7 +51,6 @@ const TravelBased = () => {
                 email,
                 password,
             });
-            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -114,13 +113,11 @@ const TravelBased = () => {
             handleClose();
         }
         else {
-            // console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)
             const correctedRefLink = product?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
             setProductlink(correctedRefLink);
-            // console.log('selected link', correctedRefLink, productlink); // Use correctedRefLink directly
             if (correctedRefLink) {
                 setTimeout(() => {
                     handleCopyClick();

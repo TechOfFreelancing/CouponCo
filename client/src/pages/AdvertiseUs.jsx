@@ -29,7 +29,6 @@ const AdvertiseUs = () => {
         }))
     }
 
-    console.log(advertise);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

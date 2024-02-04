@@ -21,7 +21,6 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            console.log(name, email, password);
             const response = await axios.post(`https://backend.qwiksavings.com/api/register`, {
                 name,
                 email,
@@ -29,7 +28,6 @@ export default function Register() {
             });
 
             toast.success('Registration successful');
-            console.log(response);
 
             setTimeout(() => {
                 navigate('/login');

@@ -34,7 +34,6 @@ const Event = () => {
 
     const navigate = useNavigate();
 
-    console.log(event);
 
     return (
         <>

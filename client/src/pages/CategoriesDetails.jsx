@@ -54,7 +54,6 @@ const CategoriesDetails = () => {
     const category = location.state.category;
 
     const category_icon = location.state.category_icon;
-    // console.log(category);
 
 
     const firstLatter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -87,7 +86,6 @@ const CategoriesDetails = () => {
                 email,
                 password,
             });
-            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -215,7 +213,6 @@ const CategoriesDetails = () => {
             handleClose();
         }
         else {
-            console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)

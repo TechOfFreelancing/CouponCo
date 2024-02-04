@@ -37,7 +37,6 @@ export default function Login() {
             localStorage.setItem('id', user.user_id);
             localStorage.setItem('role', user.role)
             updateUserRole(user.role);
-            // console.log("loginside", role);
             setTimeout(() => {
                 user.role === "Admin" ? navigate('/Admin') : navigate('/')
             }, 200)

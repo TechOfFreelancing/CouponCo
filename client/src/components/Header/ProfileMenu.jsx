@@ -29,7 +29,6 @@ export function ProfileMenu() {
                 updateUserRole("");
                 alert(response.data.message);
                 localStorage.clear();
-                // console.log("logout headerside", role);
                 navigate("/");
             } else {
                 alert("Logout failed. Please try again.");
@@ -43,9 +42,6 @@ export function ProfileMenu() {
             console.error(error);
         }
     }
-    // useEffect(() => {
-    //     console.log("profilemenu side", role);
-    // }, [role]);
 
 
     return (

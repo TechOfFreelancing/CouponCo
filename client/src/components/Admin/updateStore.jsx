@@ -141,7 +141,6 @@ function UpdateStores() {
         try {
 
             const showcases = [];
-            console.log(showcaseItem)
 
             if (showcaseItem.includes('carousel')) {
                 showcases.push('show_in_carousel');
@@ -156,7 +155,6 @@ function UpdateStores() {
                 showcases.push('show_in_top');
             }
 
-            console.log(showcases)
             // Join the showcases array to create the showInFieldName
             const showInFieldName = showcases.join(',');
 
@@ -203,7 +201,6 @@ function UpdateStores() {
         fetchProducts();
       }, []);
 
-      console.log(categories);
 
     const inputStyle = {
         width: '100%',

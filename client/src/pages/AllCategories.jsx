@@ -35,13 +35,11 @@ const AllCategories = () => {
     }, [])
 
 
-    // console.log(Categories);
 
     const uniqueAlphabets = [...new Set(Categories.map(category => category.name[0].toUpperCase()))].sort();
 
     // console.log(uniqueAlphabets);
 
-    // console.log(selectedCategory);
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
