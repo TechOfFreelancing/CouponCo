@@ -22,17 +22,17 @@ exports.addfestival_Discount = catchAsyncErrors(async (req, res, next) => {
 // Add store to an existing festival and offer
 exports.addStoreToFestival = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-
     try {
-        // Check if the festival exists
-        const festivalExistsQuery = `select * from festivalshowcase where storeId is null`;
+        const festivalExistsQuery = `select * from festivalshowcase where storeId IS NULL`;
         const existingFestival = await db.query(festivalExistsQuery);
+
 
         if (existingFestival.length < 2) {
             return next(new ErrorHandler("No Festival Present Add it first", 404));
         }
 
         const { festival_name, discount } = existingFestival[0][0];
+
 
         const associateStoreQuery = `INSERT INTO festivalshowcase ( festival_name,discount,storeId) VALUES (?, ?, ?)`;
         await db.query(associateStoreQuery, [festival_name, discount, storeId]);

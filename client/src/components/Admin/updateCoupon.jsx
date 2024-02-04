@@ -272,6 +272,7 @@ const UpdateCoupons = () => {
                             id="type"
                             name="type"
                             style={inputStyle}
+                            value={formik.values.type}
                         >
                             <option value="">Select Type</option>
                             <option value="Codes">
