@@ -42,13 +42,18 @@ export function Clouser({ storeId, open, handleOpen }) {
 
                 // Filter out similar and popular stores from the main list
                 const filteredStores = allStores.filter(store => !similarStoreIds.includes(store.id) && !popularStoreIds.includes(store.id));
+                console.log(filteredStores)
 
                 // Filter out stores that are already associated with the opened store
                 const associatedStoreIds = storesData
                     .filter(store => store.store_id === storeId)
                     .map(store => store.sId);
 
+                console.log(associatedStoreIds)
+
                 const finalFilteredStores = filteredStores.filter(store => !associatedStoreIds.includes(store.id));
+
+                console.log(finalFilteredStores)
 
                 // Set the updated stores in state
                 setStores(finalFilteredStores);
