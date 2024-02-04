@@ -8,8 +8,7 @@ import AdminFestival from '../components/Admin/AdminFestival';
 import CouponReq from '../components/Admin/couponReq';
 import AdminCategories from '../components/Admin/AdminCategories';
 import AdminEvents from '../components/Admin/AdminEvents';
-
-
+import AdminContacts from '../components/Admin/AdminContacts';
 
 const AdminPanel = () => {
 
@@ -100,14 +99,23 @@ const AdminPanel = () => {
                 >
                     User Coupons
                 </button>
+                <button
+                    className={`bg-white py-2 px-5 m-2 md:m-4 hover:text-black hover:border-2 hover:border-black duration-400 
+          ${selectedButton === 'Contacts' ? 'text-black border-2 border-black' : 'text-gray-800 border-2 border-transparent'}  
+          `}
+                    onClick={() => handleButtonClick('Contacts')}
+                >
+                    Contacts
+                </button>
             </div>
             {
                 selectedButton === 'Stores' ? <AdminStores /> :
                     selectedButton === 'Coupons' ? <AdminCoupons /> :
                         selectedButton === 'festival' ? <AdminFestival /> :
                             selectedButton === 'categories' ? <AdminCategories /> :
-                                selectedButton === 'events' ? <AdminEvents />
-                : <CouponReq />
+                                selectedButton === 'events' ? <AdminEvents /> :
+                                    selectedButton === 'Contacts' ? <AdminContacts />
+                                        : <CouponReq />
             }
         </div>
     )

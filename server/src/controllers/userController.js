@@ -304,3 +304,32 @@ exports.addAdvertise = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
+exports.getContacts = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const contacts = `
+            select * from contacts
+        `;
+        const contactData = await db.query(contacts);
+
+        res.status(200).json(contactData[0]);
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch user contact data", 400));
+    }
+})
+
+exports.deleteContacts = catchAsyncErrors(async (req, res, next) => {
+    const { cId } = req.params;
+    try {
+        const contact = `
+            delete from contacts where contact_id = ?
+        `;
+        const contactDelete = await db.query(contact,[cId]);
+
+        res.status(200).json("Deleted Successfully");
+    } catch (err) {
+        console.error(err);
+        return next(new ErrorHandler("Unable to fetch user contact data", 400));
+    }
+})
+
