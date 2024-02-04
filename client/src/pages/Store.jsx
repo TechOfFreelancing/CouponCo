@@ -745,7 +745,7 @@ const Store = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
+                                            <div className="flex gap-2 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
                                                         <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
                                                         <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
                                                             <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>

@@ -24,8 +24,27 @@ export function Clouser({ storeId, open, handleOpen }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
-                setStores(response.data.stores);
+                 // Fetch all stores
+                 const responseStores = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
+                 const allStores = responseStores.data.stores;
+ 
+                 // Fetch closure data
+                 const responseClosure = await axios.get('https://backend.qwiksavings.com/api/clouser');
+                 const storesData = responseClosure.data.data;
+ 
+                 // Filter out similar and popular store ids
+                 const similarStoreIds = storesData
+                     .filter(store => store.store_type === 'similar')
+                     .map(store => store.sId);
+                 const popularStoreIds = storesData
+                     .filter(store => store.store_type === 'popular')
+                     .map(store => store.sId);
+ 
+                 // Filter out similar and popular stores from the main list
+                 const filteredStores = allStores.filter(store => !similarStoreIds.includes(store.id) && !popularStoreIds.includes(store.id));
+ 
+                 // Set the updated stores in state
+                 setStores(filteredStores);
             } catch (error) {
                 console.error(error);
             }
