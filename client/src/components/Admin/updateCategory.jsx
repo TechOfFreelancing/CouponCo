@@ -55,12 +55,9 @@ function UpdateCategory() {
                         },
                     }
                 );
-                if (response) {
-                    setInterval(()=>{
-                        navigate('/Admin')
-                    },2000)
-                    toast.success("Category Updated successfully");
-                }
+                
+                toast.success("Category Updated successfully");
+                console.log(response.data);
             } catch (error) {
                 if (error.response) {
                     toast.error(error.response.data.message);

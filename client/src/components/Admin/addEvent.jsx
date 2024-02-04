@@ -48,12 +48,7 @@ const AddEvent = () => {
                     },
                 }
             );
-            if (response) {
-                setInterval(()=>{
-                    navigate('/Admin')
-                },2000)
-                toast.success("Event Added successfully");
-            }
+            toast.success("Event Added successfully");
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data.message);

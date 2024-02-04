@@ -126,14 +126,9 @@ function UpdateStores() {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },
                 });
+                
 
-                if (response) {
-                    setInterval(()=>{
-                        navigate('/Admin')
-                    },2000)
-                    toast.success("Store updated successfully");
-                }
-
+                toast.success("Store updated successfully");
 
             } catch (error) {
                 toast.error(error.response.data.message);
