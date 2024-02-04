@@ -4,12 +4,16 @@ import { Avatar } from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { ClouserCRm } from "./ClouserCRm";
+import { ClouserC } from "./ClouserCAdd";
 
 
 function UpdateCategory() {
 
     const [category, setCategory] = useState([])
     const [selectedFile, setSelectedFile] = useState(null);
+    const [openClouserForm, setOpneClouserForm] = useState(false);
+    const [openDeleteClouser, setOpneDeleteClouser] = useState(false);
 
     const location = useLocation()
 
@@ -21,6 +25,10 @@ function UpdateCategory() {
         boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
         outline: 'none',
     };
+
+    const handleClouserOpen = () => { setOpneClouserForm(!openClouserForm); };
+
+    const handleDeleteClouserOpen = () => { setOpneDeleteClouser(!openDeleteClouser); };
 
     const cId = location.state?.cId;
 
@@ -93,6 +101,16 @@ function UpdateCategory() {
     return (
         <>
             <Toaster position="top-center" />
+            <ClouserC
+                categoryId={cId}
+                open={openClouserForm}
+                handleOpen={handleClouserOpen}
+            />
+            <ClouserCRm
+                categoryId={cId}
+                open={openDeleteClouser}
+                handleOpen={handleDeleteClouserOpen}
+            />
             <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Category</h1>
                 <div className="flex items-center justify-center">
@@ -170,10 +188,28 @@ function UpdateCategory() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        className="w-full py-2 mb-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
                     >
                         Submit
                     </button>
+
+                    <div className="flex gap-4">
+                        <button
+                            type="button"
+                            onClick={handleClouserOpen}
+                            className="flex-1 py-2 px-4 mb-3 bg-yellow-500 text-black rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        >
+                            Add To Clouser
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={handleDeleteClouserOpen}
+                            className="flex-1 py-2 px-4 bg-purple-500 text-white rounded-md mb-3 hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
+                        >
+                            Remove From Clouser
+                        </button>
+                    </div>
                 </form>
             </div>
         </>
