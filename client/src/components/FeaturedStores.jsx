@@ -38,7 +38,7 @@ const Featured_Stores = () => {
                     }));
 
                     setFeatured(storeDetails); // Update state with the modified data
-                    console.log(featured);
+
                     const logoUrls = storeDetails.map(detail => detail.logoUrl); // Extract logoUrls
                     setImages(logoUrls);
                 }
@@ -52,7 +52,7 @@ const Featured_Stores = () => {
 
     const navigate = useNavigate();
 
-    // console.log(featured);
+    //  (featured);
 
 
     return (

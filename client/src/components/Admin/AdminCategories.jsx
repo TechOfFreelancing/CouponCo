@@ -58,8 +58,6 @@ const AdminCategories = () => {
       console.error('Failed to delete category:', error);
     }
   };
-  console.log(categories);
-
   return (
     <>
       <Toaster position="top-center"></Toaster>

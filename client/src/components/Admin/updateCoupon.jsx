@@ -147,7 +147,6 @@ const UpdateCoupons = () => {
                 const response = await axios.get(`https://backend.qwiksavings.com/api/coupons/${sId}/${cId}`);
                 const storeData = await axios.get(`https://backend.qwiksavings.com/api/getStore/${sId}`);
                 const eventName = await axios.get(`https://backend.qwiksavings.com/api/eventcoupon/${cId}`);
-                // console.log(eventName);
                 const result = await axios.get(`https://backend.qwiksavings.com/api/storeDisplay`);
                 setCoupons(response.data.coupon);
                 setStore(storeData.data.store);
@@ -177,7 +176,6 @@ const UpdateCoupons = () => {
     }, [cId]);
 
 
-    // console.log(formik.values.events);
 
     const handleOpenDialog = () => {
         setOpenDialog(!openDialog);

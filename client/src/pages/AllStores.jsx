@@ -26,7 +26,6 @@ const AllStores = () => {
 
     const selectedLetter = location.state?.letter;
 
-    // console.log(selectedLetter);
 
     useEffect(() => {
         const change = () => {

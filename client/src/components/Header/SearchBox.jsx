@@ -36,7 +36,6 @@ const SearchBar = () => {
         fetchData();
     }, []);
 
-    // console.log(Events);
     const getSearchSuggestions = (userInput) => {
         const categorySuggestions = userInput.toLowerCase().includes('categories') || userInput.toLowerCase().includes('category') ? Categories : Categories.filter((ele) =>
             ele.name.toLowerCase().includes(userInput.toLowerCase())
@@ -62,7 +61,6 @@ const SearchBar = () => {
     };
 
     const handleSearch = () => {
-        console.log('Searching for:', keyword);
         setSuggestions([]);
         setKeyword("");
 

@@ -24,7 +24,6 @@ const Navlist = () => {
         fetchStores();
     }, []);
 
-    // console.log(stores);
 
     useEffect(() => {
         const fetchData = () => {

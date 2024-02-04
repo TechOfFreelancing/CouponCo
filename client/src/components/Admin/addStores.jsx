@@ -99,7 +99,6 @@ function AddStores() {
         fetchProducts();
     }, []);
 
-    console.log(categories);
 
 
     return (

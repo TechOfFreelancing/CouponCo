@@ -51,7 +51,7 @@ const BeautyBased = () => {
                 email,
                 password,
             });
-            console.log(response);
+             (response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -114,13 +114,13 @@ const BeautyBased = () => {
             handleClose();
         }
         else {
-            // console.log("clicked")
+            //  ("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)
             const correctedRefLink = product?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
             setProductlink(correctedRefLink);
-            // console.log('selected link', correctedRefLink, productlink); // Use correctedRefLink directly
+            //  ('selected link', correctedRefLink, productlink); // Use correctedRefLink directly
             if (correctedRefLink) {
                 setTimeout(() => {
                     handleCopyClick();
@@ -230,7 +230,7 @@ const BeautyBased = () => {
                 const response = await axios.get("https://backend.qwiksavings.com/api/storeDisplay/Beauty");
                 setBeauty(response.data.data);
             } catch (error) {
-                console.log("Unable to get data:", error);
+                 ("Unable to get data:", error);
             }
         };
 

@@ -27,9 +27,7 @@ const CouponReq = () => {
                         },
                     }
                 );
-                console.log(response.data.coupons);
                 const unverifiedCoupons = response.data.coupons.filter(coupon => !coupon.isVerified);
-                console.log(unverifiedCoupons)
 
                 setCoupons(unverifiedCoupons);
                 setTimeout(() => {

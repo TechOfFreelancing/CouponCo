@@ -66,7 +66,6 @@ const EventDetails = () => {
                 email,
                 password,
             });
-            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -129,13 +128,11 @@ const EventDetails = () => {
             handleClose();
         }
         else {
-            // console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)
             const correctedRefLink = product?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
             setProductlink(correctedRefLink);
-            // console.log('selected link', correctedRefLink, productlink); // Use correctedRefLink directly
             if (correctedRefLink) {
                 setTimeout(() => {
                     handleCopyClick();
@@ -247,7 +244,7 @@ const EventDetails = () => {
         fetchData();
     }, [])
 
-    // console.log(allAboutEvent);
+    //  (allAboutEvent);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -285,7 +282,6 @@ const EventDetails = () => {
                 const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
                 const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
                     const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
-                    // console.log(coupons);
                     if (new Date(coupons.data.coupon.due_date) >= new Date()) {
                         return coupons.data.coupon;
                     }
@@ -317,7 +313,6 @@ const EventDetails = () => {
         setShowAllEvents((prev) => !prev);
     };
 
-    // console.log(eventData);
 
     return (
         <>

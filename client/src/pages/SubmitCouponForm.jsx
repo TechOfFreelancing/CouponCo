@@ -65,7 +65,6 @@ const SubmitCouponForm = () => {
         axios.request(config)
             .then((response) => {
                 toast.success("Coupon Will be Added Soon After Approval!");
-                console.log(response.data);
 
                 // Reset the form data after successful submission
                 setFormData({
