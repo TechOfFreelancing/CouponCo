@@ -120,12 +120,8 @@ function AddCoupons() {
 
         axios.request(config)
             .then((response) => {
-                if (response) {
-                    setInterval(()=>{
-                        navigate('/Admin')
-                    },2000)
-                    toast.success("Coupon Added successfully");
-                }
+                
+                toast.success("Coupon Added successfully");
 
             })
             .catch((error) => {
