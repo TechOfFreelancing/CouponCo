@@ -104,8 +104,12 @@ const UpdateCoupons = () => {
 
             axios.request(config)
                 .then((response) => {
-                    toast.success("Coupon Updated successfully!");
-
+                    if (response) {
+                        setInterval(()=>{
+                            navigate('/Admin')
+                        },2000)
+                        toast.success("Coupon Updated successfully!");
+                    }
                 })
                 .catch((error) => {
                     toast.error(error.response.data.message);

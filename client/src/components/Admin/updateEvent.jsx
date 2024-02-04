@@ -60,7 +60,12 @@ function UpdateEvent() {
                         },
                     }
                 );
-                toast.success("Event Updated successfully");
+                if (response) {
+                    setInterval(()=>{
+                        navigate('/Admin')
+                    },2000)
+                    toast.success("Event Updated successfully");
+                }
                 console.log(response.data);
             } catch (error) {
                 if (error.response) {

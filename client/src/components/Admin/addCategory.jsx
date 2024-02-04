@@ -42,7 +42,12 @@ const AddCategory = () => {
                     },
                 }
             );
-            toast.success("Category Added successfully");
+            if (response) {
+                setInterval(()=>{
+                    navigate('/Admin')
+                },2000)
+                toast.success("Category Added successfully");
+            }
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data.message);
