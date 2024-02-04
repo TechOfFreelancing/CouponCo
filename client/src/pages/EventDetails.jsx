@@ -21,13 +21,14 @@ import { TbExternalLink } from 'react-icons/tb'
 import AuthContext from "../components/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
+import { motion } from "framer-motion";
 
 const EventDetails = () => {
 
     const [detailsVisibility, setDetailsVisibility] = useState([]);
     const [showAllEvents, setShowAllEvents] = useState(false);
     const [eventData, setEventData] = useState([]);
-    const [popularStore, setPopularStore] = useState([]);
+    const [popularStoreNames, setPopularStoreNames] = useState([]);
     const [likedItems, setLikedItems] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState("");
     const [openlogin, setOpenlogin] = useState(false);
@@ -49,6 +50,7 @@ const EventDetails = () => {
     const navigate = useNavigate();
 
     const event = location.state.event;
+    const eId = location.state.eId;
 
     const handleOpenlogin = () => setOpenlogin(!openlogin);
     const handleOpenregister = () => setOpenregister(!openregister);
@@ -56,6 +58,11 @@ const EventDetails = () => {
     const closeboth = () => {
         setOpenlogin(false);
         setOpenregister(false);
+    };
+
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
     };
 
     const handleRegister = async (e) => {
@@ -277,8 +284,21 @@ const EventDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const store = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
-                setPopularStore(store.data.stores);
+                const res = await axios.get(`https://backend.qwiksavings.com/api/clouser`);
+
+                const popularStores = res.data.data.filter(item => item.store_type === 'popular' && item.event_id == eId);
+
+                const getStoreInfo = async stores => {
+                    return await Promise.all(
+                        stores.map(async store => {
+                            const res = await axios.get(`https://backend.qwiksavings.com/api/getStore/${store.sId}`);
+                            return { id: store.sId, name: res.data.store.name };
+                        })
+                    );
+                };
+
+                const popularStoreInfo = await getStoreInfo(popularStores);
+                setPopularStoreNames(popularStoreInfo);
                 const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
                 const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
                     const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
@@ -390,11 +410,23 @@ const EventDetails = () => {
                             <div className="bg-white p-5 shadow-boxshadow rounded-lg">
                                 <div className="text-xl font-bold my-2">Popular Store</div>
                                 <div className="flex flex-wrap gap-2">
-                                    {
-                                        popularStore.map((ele, index) => <div key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer" onClick={() => navigate(
-                                            `/Stores/${ele.name}`, { state: { sId: ele.id } }
-                                        )}>{ele.name}</div>)
-                                    }
+                                    {popularStoreNames && popularStoreNames.length > 0 ? (
+                                        popularStoreNames.map((store, index) => (
+                                            <motion.div variants={variants} initial="hidden"
+                                                animate="visible"
+                                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+
+                                                onClick={() => {
+                                                    navigate(
+                                                        `/Stores/${store.name}`, { state: { sId: store.id } }
+                                                    )
+                                                }}>
+                                                <span>{store.name}</span>
+                                            </motion.div>
+                                        ))
+                                    ) : (
+                                        <div>No popular stores found</div>
+                                    )}
                                 </div>
                             </div>
 

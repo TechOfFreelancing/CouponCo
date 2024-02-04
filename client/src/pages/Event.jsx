@@ -65,7 +65,7 @@ const Event = () => {
                                 <img src={ele.event_logo_url} alt="" className='w-auto h-1/2 object-cover' />
 
                                 <div className='cursor-pointer border text-white bg-[#B33D53] py-2 w-[200px] rounded-lg flex text-center justify-center hover:-translate-y-1 duration-300'
-                                    onClick={() => navigate("/eventdetails", { state: { event: ele.event_name } })}>
+                                    onClick={() => navigate("/eventdetails", { state: { eId: ele.id,event: ele.event_name } })}>
                                     Reveal Offer
                                 </div>
 
