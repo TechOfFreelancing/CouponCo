@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Link as Link1 } from 'react-scroll';
-import '../styles/privacypolicy.css'
+import '../styles/privacy-policy.css'
 
 const PrivacyPolicy = () => {
     return (
@@ -21,7 +21,7 @@ const PrivacyPolicy = () => {
                                 </li>
 
                                 <li className="inline-flex items-center">
-                                    <Link to="/privacypolicy" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                                    <Link to="/privacy-policy" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                         Privacy Policy
                                     </Link>
                                 </li>
@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
                         <div className="font-semibold text-xl text-black lg:h-10">About QwikSavings.com </div>
                         <hr className="border-2" />
                         <Link to="/aboutus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Company</Link>
-                        <Link to="/ourcodes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
+                        <Link to="/our-codes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
                         <Link to="/howitworks" className="cursor-pointer hover:underline duration-300 text-start w-fit">How it Works</Link>
                         <Link to="/faqs" className="cursor-pointer hover:underline duration-300 text-start w-fit">FAQ</Link>
                         <Link to="/termofservices" className="cursor-pointer hover:underline duration-300 text-start w-fit">Terms of Service</Link>

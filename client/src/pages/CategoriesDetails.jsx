@@ -312,7 +312,7 @@ const CategoriesDetails = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-                            <Link to="/allcategories" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                            <Link to="/all-categories" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 All Categories
                             </Link>
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
@@ -367,7 +367,7 @@ const CategoriesDetails = () => {
                                                 <div
                                                     key={index}
                                                     className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
-                                                    onClick={() => navigate("/allstores", { state: { letter: ele } })}
+                                                    onClick={() => navigate("/all-stores", { state: { letter: ele } })}
                                                 >
                                                     {ele}
                                                 </div>
@@ -505,7 +505,7 @@ const CategoriesDetails = () => {
                                                 <div
                                                     key={index}
                                                     className="text-sm flex items-center justify-center cursor-pointer h-[25px] w-[25px] p-1 duration-300 bg-gray-300 hover:bg-red-200 rounded-md"
-                                                    onClick={() => navigate("/allstores", { state: { letter: ele } })}
+                                                    onClick={() => navigate("/all-stores", { state: { letter: ele } })}
                                                 >
                                                     {ele}
                                                 </div>

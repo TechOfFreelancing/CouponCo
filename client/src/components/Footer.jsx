@@ -90,7 +90,7 @@ export default function Footer() {
                             )}
                         />
                         <p className="text-gray-600 cursor-pointer">
-                            We{`'`}ll never share your details. See our <Link to='/privacypolicy' className='text-gray-900'>Privacy Policy.</Link>
+                            We{`'`}ll never share your details. See our <Link to='/privacy-policy' className='text-gray-900'>Privacy Policy.</Link>
                         </p>
                         <div className="icons flex gap-7 items-center justify-start w-full h-10 text-2xl lg:ml-2 lg:mt-5">
                             {

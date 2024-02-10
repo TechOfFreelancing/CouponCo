@@ -12,15 +12,15 @@ import { useContext } from 'react';
 import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
-import AllStores from './pages/AllStores';
-import Allcategories from './pages/AllCategories';
+import AllStores from './pages/all-stores';
+import Allcategories from './pages/all-categories';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
-import OurCodes from './pages/OurCodes';
+import OurCodes from './pages/our-codes';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
@@ -29,7 +29,7 @@ import ContactUs from './pages/ContactUs';
 import AdvertiseUs from './pages/AdvertiseUs';
 import FAQS from './pages/FAQS';
 import AboutUs from './pages/AboutUs';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+import PrivacyPolicy from './pages/privacy-policy';
 import HowitWorks from './pages/HowitWorks';
 import ScrollToTop from './components/scrollToTop';
 import AddCategory from './components/Admin/addCategory';
@@ -182,7 +182,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/allstores"
+            path="/all-stores"
             element={
               <>
                 <Header></Header>
@@ -191,7 +191,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/allcategories"
+            path="/all-categories"
             element={
               <>
                 <Header></Header>
@@ -218,7 +218,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/ourcodes"
+            path="/our-codes"
             element={
               <>
                 <Header></Header>
@@ -299,7 +299,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/privacypolicy"
+            path="/privacy-policy"
             element={
               <>
                 <Header></Header>
