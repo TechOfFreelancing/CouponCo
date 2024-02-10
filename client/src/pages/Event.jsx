@@ -55,9 +55,9 @@ const Event = () => {
                         </li>
                     </ul>
                     <div className='font-bold text-lg lg:text-3xl mt-5 ml-2' style={{ fontWeight: 700 }}>Browse Top Saving Events</div>
-                    <div className='text-xl font-bold ml-2 lg:mt-2'>Browse Top Shopping Events</div>
+                  
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-4 bg-[#F2F0E6] gap-4 p-5">
+                <div className="grid grid-cols-1 lg:grid-cols-4 bg-[#F2F0E6] gap-4 p-5 mb-5">
                     {
                         event.map((ele, index) => {
                             return <div key={index} className='flex flex-col items-center justify-center gap-3 space-y-4 h-[335px] w-auto border duration-300 hover:shadow-boxshadow rounded-xl p-5 bg-white'>

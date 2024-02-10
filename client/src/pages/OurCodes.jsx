@@ -22,34 +22,37 @@ const OurCodes = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-xl lg:text-2xl font-bold ml-2 mt-5">Our  Codes  Guarantee  -  a  gift  card,  if  code
-                        not  works</span>
+
                 </div>
                 <div className="flex flex-col gap-10 pb-10">
-                    <div className="w-full p-5 lg:p-10 text-lg flex flex-col-reverse lg:flex-row justify-between rounded-lg bg-white shadow-boxshadow">
-                        <div className='w-full lg:w-1/2 flex flex-col gap-5 text-justify'>
-                            <p>We  understand  the  frustration  of  an  inactive
-                                coupon  code—there{`'`}s  nothing  more
-                                disappointing  than  anticipating  savings  only  to
-                                find  the  code  doesn{`'`}t  work  at  checkout.</p>
-                            <p>
-                                Rest  assured,  we{`'`}re  confident  that  every  online
-                                coupon  code  at  Qwik  Savings  will  deliver  as
-                                promised.  In  the  rare  instance  that  one  doesn{`'`}t
-                                work,  and  you  proceed  with  your  purchase,
-                                consider  it  an  opportunity  for  us  to  treat  you.
-                                We{`'`}ll  provide  a  gift  card  to  ensure  you  still  get
-                                something  special  on  us.
-                            </p>
-                            <p>Qwik  Savings  values  your  time  and  prioritizes  your  savings,  thus  making  sure  that  we  deliver  on
-                                what  we  promise,  and  we  pride  ourselves  for  it.  All  of  our  codes  are  stringently  sorted  and
-                                negotiated  with  our  partners.  Additionally,  we  make  sure  to  source  our  codes  only  from  the
-                                official  channels,  testing  them  thoroughly  to  avoid  any  sort  of  administrative  slip-ups  and
-                                ensuring  a  seamless  shopping  experience  for  you.</p>
-                        </div>
-                        <div className='w-full lg:w-1/2 flex flex-col items-center lg:-mt-10'>
-                            <img className="h-auto  lg:mr-0" src={img} />
-                            <span className='text-md lg:text-lg font-semibold lg:font-bold text-center lg:text-start my-2'>All  of  Our  Codes  are  Hand-Tested  By  Real  People</span>
+                    <div className='bg-white w-full p-5 lg:p-10 rounded-lg  shadow-boxshadow flex flex-col gap-5'>
+                        <span className="text-xl lg:text-2xl font-bold">Our  Codes  Guarantee  -  a  gift  card,  if  code
+                            not  works</span>
+                        <div className="text-lg flex flex-col-reverse lg:flex-row justify-between ">
+                            <div className='w-full lg:w-1/2 flex flex-col gap-5 text-justify'>
+                                <p>We  understand  the  frustration  of  an  inactive
+                                    coupon  code—there{`'`}s  nothing  more
+                                    disappointing  than  anticipating  savings  only  to
+                                    find  the  code  doesn{`'`}t  work  at  checkout.</p>
+                                <p>
+                                    Rest  assured,  we{`'`}re  confident  that  every  online
+                                    coupon  code  at  Qwik  Savings  will  deliver  as
+                                    promised.  In  the  rare  instance  that  one  doesn{`'`}t
+                                    work,  and  you  proceed  with  your  purchase,
+                                    consider  it  an  opportunity  for  us  to  treat  you.
+                                    We{`'`}ll  provide  a  gift  card  to  ensure  you  still  get
+                                    something  special  on  us.
+                                </p>
+                                <p>Qwik  Savings  values  your  time  and  prioritizes  your  savings,  thus  making  sure  that  we  deliver  on
+                                    what  we  promise,  and  we  pride  ourselves  for  it.  All  of  our  codes  are  stringently  sorted  and
+                                    negotiated  with  our  partners.  Additionally,  we  make  sure  to  source  our  codes  only  from  the
+                                    official  channels,  testing  them  thoroughly  to  avoid  any  sort  of  administrative  slip-ups  and
+                                    ensuring  a  seamless  shopping  experience  for  you.</p>
+                            </div>
+                            <div className='w-full lg:w-1/2 flex flex-col items-center lg:-mt-10'>
+                                <img className="h-auto  lg:mr-0" src={img} />
+                                <span className='text-md lg:text-lg font-semibold lg:font-bold text-center lg:text-start my-2'>All  of  Our  Codes  are  Hand-Tested  By  Real  People</span>
+                            </div>
                         </div>
                     </div>
                     <div className='flex flex-col gap-10 p-5 lg:p-10 rounded-lg bg-white shadow-boxshadow'>

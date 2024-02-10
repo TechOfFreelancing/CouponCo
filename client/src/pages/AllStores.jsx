@@ -154,7 +154,7 @@ const AllStores = () => {
                                                         <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
                                                         <div className="flex flex-col justify-evenly">
                                                             <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
+                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -184,7 +184,7 @@ const AllStores = () => {
                                                             <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
                                                             <div className="flex flex-col justify-evenly">
                                                                 <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                                <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
+                                                                <div className=" text-sm text-gray-800">{ele.coupons} coupons</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -211,7 +211,7 @@ const AllStores = () => {
                                                         <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
                                                         <div className="flex flex-col justify-evenly">
                                                             <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons | {ele.offers} offers</div>
+                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons</div>
                                                         </div>
                                                     </div>
                                                 </div>

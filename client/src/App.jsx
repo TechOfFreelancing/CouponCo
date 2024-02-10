@@ -41,292 +41,290 @@ import UpdateEvent from './components/Admin/updateEvent';
 
 function App() {
 
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
 
   const { role } = useContext(AuthContext);
   const isAdmin = role === "Admin" ? true : false;
 
 
-  useEffect(() => {
-    const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
+  // useEffect(() => {
+  //   const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
 
-    if (!hasLoadedBefore) {
-      let timer = setTimeout(() => {
-        setLoaded(true);
-        sessionStorage.setItem('hasLoadedBefore', 'true');
-      }, 5000);
+  //   if (!hasLoadedBefore) {
+  //     let timer = setTimeout(() => {
+  //       setLoaded(true);
+  //       sessionStorage.setItem('hasLoadedBefore', 'true');
+  //     }, 5000);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    } else {
-      setLoaded(true);
-    }
-  }, []);
+  //     return () => {
+  //       clearTimeout(timer);
+  //     };
+  //   } else {
+  //     setLoaded(true);
+  //   }
+  // }, []);
 
   return (
     <div className="w-full max-h-fit overflow-y-clip">
       <ScrollToTop></ScrollToTop>
-      {!loaded ? (
-        <Loader />
-      ) : (
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <>
-                <Header></Header>
-                <Home />
-              </>
-            }
-          >
-          </Route>
-          {isAdmin && (<Route
-            path='/Admin'
-            element={
-              <>
-                <AdminPanel />
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/addStore'
-            element={
-              <>
-                <AddStores />
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/addCategory'
-            element={
-              <>
-                <AddCategory />
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/addEvent'
-            element={
-              <>
-                <AddEvent/>
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/addCoupons'
-            element={
-              <>
-                <AddCoupons />
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/updateStore'
-            element={
-              <>
-                <UpdateStores />
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/updateCategory'
-            element={
-              <><UpdateCategory/>
-              
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/updateEvent'
-            element={
-              <>
-                <UpdateEvent/>
-              </>
-            }
-          >
-          </Route>)}
-          {isAdmin && (<Route
-            path='/Admin/updateCoupons'
-            element={
-              <>
-                <UpdateCoupons />
-              </>
-            }
-          >
-          </Route>)}
-          <Route
-            path="/login"
-            element={
-              <>
-                <Header></Header>
-                <Login />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/signup"
-            element={
-              <>
-                <Header></Header>
-                <SignUp />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/allstores"
-            element={
-              <>
-                <Header></Header>
-                <AllStores />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/allcategories"
-            element={
-              <>
-                <Header></Header>
-                <Allcategories />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/Stores/:store_name"
-            element={
-              <>
-                <Header></Header>
-                <Store></Store>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/Submitcoupon"
-            element={
-              <>
-                <Header></Header>
-                <SubmitCouponForm></SubmitCouponForm>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/ourcodes"
-            element={
-              <>
-                <Header></Header>
-                <OurCodes></OurCodes>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/Profile"
-            element={
-              <>
-                <Header></Header>
-                <Profile></Profile>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/events"
-            element={
-              <>
-                <Header></Header>
-                <Event></Event>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/eventdetails"
-            element={
-              <>
-                <Header></Header>
-                <EventDetails></EventDetails>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/categoriesdetails"
-            element={
-              <>
-                <Header></Header>
-                <CategoriesDetails></CategoriesDetails>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/contactus"
-            element={
-              <>
-                <Header></Header>
-                <ContactUs></ContactUs>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/advertisewithus"
-            element={
-              <>
-                <Header></Header>
-                <AdvertiseUs></AdvertiseUs>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/faqs"
-            element={
-              <>
-                <Header></Header>
-                <FAQS></FAQS>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/aboutus"
-            element={
-              <>
-                <Header></Header>
-                <AboutUs></AboutUs>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/privacypolicy"
-            element={
-              <>
-                <Header></Header>
-                <PrivacyPolicy></PrivacyPolicy>
-              </>
-            }
-          ></Route>
-          <Route
-            path="/how-it-works"
-            element={
-              <>
-                <Header></Header>
-                <HowitWorks></HowitWorks>
-              </>
-            }
-          ></Route>
-          <Route
-            path="*"
-            element={
-              <>
-                <Header></Header>
-                <NoMatch />
-              </>
-            }
-          ></Route>
-        </Routes>
-      )}
+
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <>
+              <Header></Header>
+              <Home />
+            </>
+          }
+        >
+        </Route>
+        {isAdmin && (<Route
+          path='/Admin'
+          element={
+            <>
+              <AdminPanel />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/addStore'
+          element={
+            <>
+              <AddStores />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/addCategory'
+          element={
+            <>
+              <AddCategory />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/addEvent'
+          element={
+            <>
+              <AddEvent />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/addCoupons'
+          element={
+            <>
+              <AddCoupons />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/updateStore'
+          element={
+            <>
+              <UpdateStores />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/updateCategory'
+          element={
+            <><UpdateCategory />
+
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/updateEvent'
+          element={
+            <>
+              <UpdateEvent />
+            </>
+          }
+        >
+        </Route>)}
+        {isAdmin && (<Route
+          path='/Admin/updateCoupons'
+          element={
+            <>
+              <UpdateCoupons />
+            </>
+          }
+        >
+        </Route>)}
+        <Route
+          path="/login"
+          element={
+            <>
+              <Header></Header>
+              <Login />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/signup"
+          element={
+            <>
+              <Header></Header>
+              <SignUp />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/allstores"
+          element={
+            <>
+              <Header></Header>
+              <AllStores />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/allcategories"
+          element={
+            <>
+              <Header></Header>
+              <Allcategories />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/Stores/:store_name"
+          element={
+            <>
+              <Header></Header>
+              <Store></Store>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/Submitcoupon"
+          element={
+            <>
+              <Header></Header>
+              <SubmitCouponForm></SubmitCouponForm>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/ourcodes"
+          element={
+            <>
+              <Header></Header>
+              <OurCodes></OurCodes>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/Profile"
+          element={
+            <>
+              <Header></Header>
+              <Profile></Profile>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/events"
+          element={
+            <>
+              <Header></Header>
+              <Event></Event>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/eventdetails"
+          element={
+            <>
+              <Header></Header>
+              <EventDetails></EventDetails>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/categoriesdetails"
+          element={
+            <>
+              <Header></Header>
+              <CategoriesDetails></CategoriesDetails>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/contactus"
+          element={
+            <>
+              <Header></Header>
+              <ContactUs></ContactUs>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/advertisewithus"
+          element={
+            <>
+              <Header></Header>
+              <AdvertiseUs></AdvertiseUs>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/faqs"
+          element={
+            <>
+              <Header></Header>
+              <FAQS></FAQS>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/aboutus"
+          element={
+            <>
+              <Header></Header>
+              <AboutUs></AboutUs>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/privacypolicy"
+          element={
+            <>
+              <Header></Header>
+              <PrivacyPolicy></PrivacyPolicy>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/how-it-works"
+          element={
+            <>
+              <Header></Header>
+              <HowitWorks></HowitWorks>
+            </>
+          }
+        ></Route>
+        <Route
+          path="*"
+          element={
+            <>
+              <Header></Header>
+              <NoMatch />
+            </>
+          }
+        ></Route>
+      </Routes>
+
     </div>
   )
 }

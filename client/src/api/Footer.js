@@ -5,7 +5,7 @@ const SITEMAP = [
         links: [
             { text: "About QS", href: "/aboutus", },
             { text: "Our Codes", href: "/ourcodes" },
-            { text: "Savings Events", href: "/savingevents" },
+            { text: "Savings Events", href: "/events" },
             { text: "Blog", href: "/blogs" },
             { text: "How it Works", href: "/how-it-works" },
             { text: "FAQ", href: "/faqs" },
@@ -20,7 +20,7 @@ const SITEMAP = [
             { text: "Contact Us", href: "/contactus" },
             { text: "Advertise With Us", href: "/advertisewithus" },
             { text: "Privacy Policy", href: "/privacypolicy" },
-            { text: "Terms of Service", href: "/termofservices" },
+            { text: "Terms of Service", href: "/privacypolicy" },
             { text: "Sitemap", href: "/aboutus" },
         ],
     },

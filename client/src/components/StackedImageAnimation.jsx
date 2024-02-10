@@ -50,14 +50,16 @@ export const StackedImageAnimation = () => {
     useEffect(() => {
         const generateColors = () => {
             const colors = new Map();
-            const maxColors = cardImages.length
-
+            const maxColors = cardImages.length;
+        
             for (let i = 0; i < maxColors; i++) {
-                const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+                const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`;
                 colors.set(i, color);
             }
+        
             setColorMap(colors);
         };
+        
 
         generateColors();
     }, [cardImages]);
