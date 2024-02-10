@@ -487,7 +487,7 @@ const EventDetails = () => {
                                                     </div>
                                                     {detailsVisibility[index] && (
                                                         <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
-                                                            <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
+                                                            <span className="font-bold">Due Date :  {formatDate(ele.due_date)}</span>
                                                             <span className="text-ellipsis">{ele.description}</span>
                                                         </div>
                                                     )}
