@@ -75,7 +75,7 @@ export function Header() {
                 {isOffer && <Alert></Alert>}
                 <nav className="z-10 h-max rounded-none py-2 flex xl:gap-5 items-center justify-between lg:px-28 w-full px-5 lg:h-[93px]">
                     <Link to="/" className="cursor-pointer font-medium">
-                        <img src={logo} alt="Qwik Savings" className="h-20 lg:w-[15rem] 2xl:w-[17rem] hidden lg:inline-block" />
+                        <img src={logo} alt="Qwik Savings" className="h-20 lg:w-[15rem] 2xl:min-w-[15rem] hidden lg:inline-block" />
                     </Link>
                     <Link to="/" className="cursor-pointer font-medium">
                         <img src={mobile_logo} alt="Qwik Savings" className="h-10 w-10 inline-block lg:hidden" />

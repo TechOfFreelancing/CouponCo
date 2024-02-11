@@ -385,22 +385,22 @@ const EventDetails = () => {
                                         )
                                     })
                                 }
-                                <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
-                                    <div className="flex justify-between items-center px-5">
+                                <div className="bg-white flex flex-col gap-2 py-5 rounded-lg font-[16px]">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Total Offers</span>
                                         <span>{eventData.length}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Total Codes</span>
                                         <span>{eventData.filter(function (item) {
                                             return item.type === "Codes";
                                         }).length}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Best Offer</span>
                                         <span className="whitespace-nowrap">{allAboutEvent.best_offer}% Off</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Average Discount</span>
                                         <span className="whitespace-nowrap">{allAboutEvent.avg_disc}% Off</span>
                                     </div>

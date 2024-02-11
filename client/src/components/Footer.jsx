@@ -45,8 +45,8 @@ export default function Footer() {
     return (
 
         <div className="relative isolate overflow-hidden bg-white p-5 lg:p-10 border-t-[1px] border-t-[#B33D53]">
-            <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-center lg:items-start h-full lg:h-[350px] xl:h-[360px] mb-5">
-                <div className='flex flex-col w-full lg:w-1/4 items-center justify-center'>
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-28 items-center lg:items-start h-full lg:h-[350px] xl:h-[360px] 2xl:h-[400px] mb-5">
+                <div className='flex flex-col w-full lg:w-1/4 items-center justify-center p-5'>
                     <img
                         src={logo}
                         alt="Qwik Savings"
@@ -74,7 +74,7 @@ export default function Footer() {
 
                 }
                 <div className='flex flex-col justify-between h-full'>
-                    <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col gap-3 items-start justify-center">
+                    <div className="lg:max-w-lg mt-8 lg:mt-0 flex flex-col gap-3 items-start justify-center max-w-[350px] p-5 lg:pt-0">
                         <h2 className="text-xl tracking-tight text-black whitespace-nowrap font-semibold"> Join Our Newsletter</h2>
                         <p className=" text-gray-600">
                             To get the verified and hand tested Coupons or deals alerts.
@@ -89,7 +89,7 @@ export default function Footer() {
                                 />
                             )}
                         />
-                        <p className="text-gray-600 cursor-pointer">
+                        <p className="text-gray-600 cursor-pointer lg:whitespace-nowrap">
                             We{`'`}ll never share your details. See our <Link to='/privacypolicy' className='text-gray-900'>Privacy Policy.</Link>
                         </p>
                         <div className="icons flex gap-7 items-center justify-start w-full h-10 text-2xl lg:ml-2 lg:mt-5">
@@ -108,7 +108,7 @@ export default function Footer() {
             </div>
 
             <hr className='border-black hidden lg:block border-dashed' />
-            <div className="flex flex-col text-black lg:mx-20 justify-between mt-10 items-center gap-5">
+            <div className="flex flex-col text-black justify-between mt-10 items-center gap-5 p-5">
 
                 <div className="contact flex flex-col lg:flex-row gap-5 items-center">
                     Disclosure: If you buy a product or service through Qwik Savings, we may earn a commission

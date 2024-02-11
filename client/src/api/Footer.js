@@ -20,7 +20,7 @@ const SITEMAP = [
             { text: "Contact Us", href: "/contactus" },
             { text: "Advertise With Us", href: "/advertisewithus" },
             { text: "Privacy Policy", href: "/privacypolicy" },
-            { text: "Terms of Service", href: "/privacypolicy" },
+            { text: "Terms of Service", href: "/terms-of-services" },
             { text: "Sitemap", href: "/aboutus" },
         ],
     },

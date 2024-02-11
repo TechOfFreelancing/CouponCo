@@ -523,7 +523,7 @@ const Store = () => {
                                     )
                                 })
                             }
-                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px] px-5">
+                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px]">
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Total Offers</span>
                                     <span>{validCoupons?.length}</span>
@@ -818,7 +818,7 @@ const Store = () => {
                         )
                     }
                     <div className="flex flex-col gap-5 lg:hidden mx-5">
-                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
+                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white ">
                             <div className="font-semibold text-xl my-3 text-black">
                                 About {str?.name}
                             </div>
@@ -964,7 +964,7 @@ const Store = () => {
                     </div>
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2 shadow-boxshadow rounded-lg" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
@@ -984,7 +984,7 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="hints_tips">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2 shadow-boxshadow rounded-lg" id="hints_tips">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
@@ -1004,7 +1004,7 @@ const Store = () => {
                     }
                     {
                         str?.moreAbout && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="more_about">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2 shadow-boxshadow rounded-lg" id="more_about">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">More About {str?.name}</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     <div className="moreaboutcompany flex flex-col gap-2">

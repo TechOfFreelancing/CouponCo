@@ -105,7 +105,7 @@ const Navlist = () => {
             </span>
             <span className="p-1 font-normal font-[Poppins]"
             >
-                <Link to="#" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2">
+                <Link to="/blogs" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2">
                     Blog
                 </Link>
             </span>

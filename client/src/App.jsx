@@ -36,6 +36,9 @@ import AddCategory from './components/Admin/addCategory';
 import AddEvent from './components/Admin/addEvent';
 import UpdateCategory from './components/Admin/updateCategory';
 import UpdateEvent from './components/Admin/updateEvent';
+import Blog from './pages/Blog';
+import BlogDetails from './pages/BlogDetails';
+import TermsOfService from './pages/TermsOfService';
 
 
 
@@ -311,6 +314,33 @@ function App() {
             <>
               <Header></Header>
               <HowitWorks></HowitWorks>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/blogs"
+          element={
+            <>
+              <Header></Header>
+              <Blog></Blog>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/blogdetails"
+          element={
+            <>
+              <Header></Header>
+              <BlogDetails></BlogDetails>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/terms-of-services"
+          element={
+            <>
+              <Header></Header>
+              <TermsOfService></TermsOfService>
             </>
           }
         ></Route>

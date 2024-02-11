@@ -1,6 +1,7 @@
 .button.has-code {
   position: relative;
   width: 17rem !important;
+  height: 2.1rem !important;
   font-weight: 700;
 }
 
