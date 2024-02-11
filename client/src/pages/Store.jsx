@@ -482,7 +482,7 @@ const Store = () => {
                     </div>
 
                     <a
-                        href={`str?.ref_link`}
+                        href={str?.ref_link}
                         className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] p-2 rounded-md flex items-center justify-center cursor-pointer"
                         target="_blank"
                         rel="noopener noreferrer"
