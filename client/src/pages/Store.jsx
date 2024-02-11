@@ -482,7 +482,7 @@ const Store = () => {
                     </div>
 
                     <a
-                        href={`str?.ref_link`}
+                        href={str?.ref_link}
                         className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] p-2 rounded-md flex items-center justify-center cursor-pointer"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -534,11 +534,11 @@ const Store = () => {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Best Offer</span>
-                                    <span>{str?.best_offer}% Off</span>
+                                    <span>{str?.best_offer} Off</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Average Discount</span>
-                                    <span className="whitespace-nowrap">{str?.avg_disc} % Off</span>
+                                    <span className="whitespace-nowrap">{str?.avg_disc} Off</span>
                                 </div>
                             </div>
                         </div>
