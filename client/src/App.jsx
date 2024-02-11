@@ -18,7 +18,7 @@ import "@fontsource/poppins/500-italic.css"; // Specify weight and style
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
-import OurCodes from './pages/ourcodes';
+import OurCodes from './pages/OurCodes';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
@@ -39,6 +39,7 @@ import BlogDetails from './pages/BlogDetails';
 import TermsOfService from './pages/TermsOfService';
 import AllStores from './pages/AllStores';
 import AllCategories from './pages/AllCategories';
+
 
 
 
