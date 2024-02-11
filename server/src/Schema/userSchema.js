@@ -20,6 +20,7 @@ class User {
             email VARCHAR(255) NOT NULL,
             message VARCHAR(255) NOT NULL,
             isAccepted TINYINT,
+            time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
         );`
 

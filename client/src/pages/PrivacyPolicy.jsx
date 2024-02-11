@@ -33,7 +33,7 @@ const PrivacyPolicy = () => {
                         <Link to="/our-codes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
                         <Link to="/howitworks" className="cursor-pointer hover:underline duration-300 text-start w-fit">How it Works</Link>
                         <Link to="/faqs" className="cursor-pointer hover:underline duration-300 text-start w-fit">FAQ</Link>
-                        <Link to="/termofservices" className="cursor-pointer hover:underline duration-300 text-start w-fit">Terms of Service</Link>
+                        <Link to="/terms-of-services" className="cursor-pointer hover:underline duration-300 text-start w-fit">Terms of Service</Link>
                         <Link to="/contactus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Contact Us</Link>
                     </div>
                     <div className="flex flex-col w-full lg:w-[70%] gap-10 text-justify scrollbar-none lg:p-5">
@@ -641,7 +641,7 @@ const PrivacyPolicy = () => {
                                 <span className="font-semibold text-lg text-black">13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</span>
                                 <div className="flex flex-col gap-4">
 
-                                    <span>
+                                    <span className="text-start">
                                         If you have questions or comments about this notice, you may email us at <Link to="mailto:contact@qwiksavings.com" className="text-[#B33D53]">privacy@qwiksavings.com.</Link>
                                     </span>
                                 </div>

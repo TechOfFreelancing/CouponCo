@@ -53,7 +53,7 @@ const Navlist = () => {
                 <Link to="/all-stores" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Stores
                 </Link>
-                <div className="hidden lg:block absolute top-0 -left-[27rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
+                <div className="hidden lg:block absolute top-0 lg:-left-[27rem] xl:-left-[21.5rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             stores.map((ele, index) => {
@@ -68,7 +68,7 @@ const Navlist = () => {
                 <Link to="/all-categories" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Categories
                 </Link>
-                <div className="hidden lg:block absolute top-0 -left-[33rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
+                <div className="hidden lg:block absolute top-0 lg:-left-[33rem] xl:-left-[27rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             Categories.map((ele, index) => {
@@ -86,15 +86,26 @@ const Navlist = () => {
                     Our Codes
                 </Link>
             </span>
-            <span className="p-1 font-normal font-[Poppins]"
+            <span className="p-1 font-normal font-[Poppins] relative group"
             >
-                <Link to="/events" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-b-2 hover:lg:border-red-500 whitespace-nowrap">
+                <Link to="/events" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Events
                 </Link>
+                <div className="hidden lg:block absolute top-0 lg:-left-[30rem] xl:-left-[41rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
+                    <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
+                        {
+                            Categories.map((ele, index) => {
+                                return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
+                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.logo_url } })
+                                }}>{ele.name}</div>
+                            })
+                        }
+                    </div>
+                </div>
             </span>
             <span className="p-1 font-normal font-[Poppins]"
             >
-                <Link to="#" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2">
+                <Link to="/blogs" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2">
                     Blog
                 </Link>
             </span>

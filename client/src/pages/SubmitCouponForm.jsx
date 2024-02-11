@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import typesData from "../api/AllTypes";
@@ -95,27 +95,27 @@ const SubmitCouponForm = () => {
     useEffect(() => {
         // Fetch data from the API
         const fetchProducts = async () => {
-          try {
-            const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
-              {
-                withCredentials: true,
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-              }
-            );
-            setCategories(response.data.categories);
-        
-          } catch (error) {
-            alert(error.response?.data?.message || "Failed to fetch category.");
-            console.error("Failed to fetch category:", error);
-          }
+            try {
+                const response = await axios.get(
+                    `https://backend.qwiksavings.com/api/getCategories`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                    }
+                );
+                setCategories(response.data.categories);
+
+            } catch (error) {
+                alert(error.response?.data?.message || "Failed to fetch category.");
+                console.error("Failed to fetch category:", error);
+            }
         };
-    
+
         fetchProducts();
-      }, []);
+    }, []);
 
     return (
         <>
@@ -137,11 +137,11 @@ const SubmitCouponForm = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-xl lg:text-2xl font-bold lg:ml-2 lg:mt-5">Submit A Coupon & Help Millions Save!</span>
+
                 </div>
 
                 <div className="w-full lg:w-3/4 flex flex-col justify-between items-start p-5 lg:p-10 rounded-lg bg-white  mt-5 mb-10 shadow-boxshadow mx-auto">
-
+                    <span className="text-xl lg:text-2xl font-bold lg:mx-5">Submit A Coupon & Help Millions Save!</span>
                     <h1 className="text-gray-600 text-sm text-start lg:mx-5 mb-5">To submit a coupon, simply fill out our form below. Our team will carefully review and approve it before sharing it with the public. Thank you for your commitment to helping everyone save money!</h1>
                     <div className="form flex flex-col gap-5 bg-white lg:px-10 lg:py-5">
                         <form onSubmit={handleSubmit}>

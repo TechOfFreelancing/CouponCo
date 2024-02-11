@@ -97,7 +97,7 @@ const Carousel = () => {
     }, [index]);
 
     return (
-        <div className='container overflow-clip rounded-[20px] h-[125px] lg:h-[350px] w-screen lg:w-full'>
+        <div className='container overflow-clip rounded-[20px] h-[125px] lg:h-[350px] w-screen lg:w-auto'>
             {featuredImages[index] ? (
                 featuredImages.length === 1 ? (
                     <a
@@ -109,11 +109,11 @@ const Carousel = () => {
                         <img
                             src={featuredImages[0].thumbnail}
                             alt='single-slide'
-                            className='object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[1000px] rounded-[20px]'
+                            className='object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[750px] xl:w-[800px] 2xl:w-[850px]  rounded-[20px]'
                         />
                     </a>
                 ) : (
-                    <div className='slideshow group lg:w-[1000px] w-screen my-0 lg:my-auto mx-5'>
+                    <div className='slideshow group lg:w-[750px] xl:w-[800px] 2xl:w-[850px]  w-screen my-0 lg:my-auto mx-5'>
                         <AnimatePresence initial={false} custom={direction}>
                             <a
                                 href={featuredImages[index].ref_link && (featuredImages[index].ref_link.startsWith('https://') ? featuredImages[index].ref_link : `https://${featuredImages[index].ref_link}`)}
@@ -128,7 +128,7 @@ const Carousel = () => {
                                     exit='exit'
                                     src={featuredImages[index].thumbnail}
                                     alt='slides'
-                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[1000px] rounded-[20px]'
+                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] xl:w-[800px] 2xl:w-[850px] lg:w-[750px] rounded-[20px]'
                                     key={featuredImages[index].thumbnail}
                                     custom={direction}
                                 />

@@ -30,7 +30,7 @@ import "../styles/couponsbutton1.css";
 import Footer from "../components/Footer";
 import AuthContext from "../components/AuthContext";
 import { TbExternalLink } from "react-icons/tb";
-import {FaRegThumbsDown,FaRegThumbsUp} from 'react-icons/fa'
+import { FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa'
 
 
 
@@ -452,7 +452,7 @@ const Store = () => {
         <>
             <Toaster position="top-center"></Toaster>
             <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row lg:gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" >
-                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 px-5 pl-0 text-sm items-center">
+                <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 text-sm items-center">
                     <div className="bg-[#FAF9F5] p-4 pl-0 flex items-center flex-wrap border">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
@@ -523,7 +523,7 @@ const Store = () => {
                                     )
                                 })
                             }
-                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px] px-5">
+                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px]">
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Total Offers</span>
                                     <span>{validCoupons?.length}</span>
@@ -538,7 +538,7 @@ const Store = () => {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Average Discount</span>
-                                    <span className="whitespace-nowrap">{str?.avg_disc} %</span>
+                                    <span className="whitespace-nowrap">{str?.avg_disc} % Off</span>
                                 </div>
                             </div>
                         </div>
@@ -594,38 +594,36 @@ const Store = () => {
                                 )
                             }
                         </div>
-                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
 
-                            <div className="font-semibold text-xl text-black">
-                                Similar Stores
+                        {(similarStoreNames && similarStoreNames.length > 0) && (
+                            <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
+                                <div className="font-semibold text-xl text-black">
+                                    Similar Stores
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {
+                                        similarStoreNames.map((store, index) => (
+                                            <motion.div variants={variants} initial="hidden"
+                                                animate="visible"
+                                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+                                                onClick={() => {
+                                                    navigate(
+                                                        `/Stores/${store.name}`, { state: { sId: store.id } }
+                                                    )
+                                                }}>
+                                                <span>{store.name}</span>
+                                            </motion.div>
+                                        ))}
+                                </div>
                             </div>
-                            <div className="flex flex-wrap gap-2">
-                                {similarStoreNames && similarStoreNames.length > 0 ? (
-                                    similarStoreNames.map((store, index) => (
-                                        <motion.div variants={variants} initial="hidden"
-                                            animate="visible"
-                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
-                                            onClick={() => {
-                                                navigate(
-                                                    `/Stores/${store.name}`, { state: { sId: store.id } }
-                                                )
-                                            }}>
-                                            <span>{store.name}</span>
-                                        </motion.div>
-                                    ))
-                                ) : (
-                                    <div>No similar stores found</div>
-                                )}
-                            </div>
+                        )}
 
-                        </div>
-                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
-
-                            <div className="font-semibold text-xl text-black">
-                                Popular Stores
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                {popularStoreNames && popularStoreNames.length > 0 ? (
+                        {(popularStoreNames && popularStoreNames.length > 0) && (
+                            <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
+                                <div className="font-semibold text-xl text-black">
+                                    Popular Stores
+                                </div>
+                                <div className="flex flex-wrap gap-2">{
                                     popularStoreNames.map((store, index) => (
                                         <motion.div variants={variants} initial="hidden"
                                             animate="visible"
@@ -639,12 +637,11 @@ const Store = () => {
                                             <span>{store.name}</span>
                                         </motion.div>
                                     ))
-                                ) : (
-                                    <div>No popular stores found</div>
-                                )}
+                                }
+                                </div>
                             </div>
+                        )}
 
-                        </div>
                     </div>
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
@@ -741,20 +738,20 @@ const Store = () => {
                                                 </div>
                                             </div>
                                             <div className="flex gap-2 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
-                                                        <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
-                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
-                                                            <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
-                                                            <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
-                                                                <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
+                                                <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
+                                                <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
+                                                    <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
+                                                    <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
+                                                        <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
 
-                                                        </span>
-                                                    </div>
-                                                    {detailsVisibility[index] && (
-                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
-                                                            <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
-                                                            <span className="text-ellipsis">{ele.description}</span>
-                                                        </div>
-                                                    )}
+                                                </span>
+                                            </div>
+                                            {detailsVisibility[index] && (
+                                                <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
+                                                    <span className="font-bold">Due Date : {formatDate(ele.due_date)}</span>
+                                                    <span className="text-ellipsis">{ele.description}</span>
+                                                </div>
+                                            )}
                                         </div>
                                     </motion.div>
                                 )
@@ -821,7 +818,7 @@ const Store = () => {
                         )
                     }
                     <div className="flex flex-col gap-5 lg:hidden mx-5">
-                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
+                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white ">
                             <div className="font-semibold text-xl my-3 text-black">
                                 About {str?.name}
                             </div>
@@ -967,7 +964,7 @@ const Store = () => {
                     </div>
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="faqs">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2 shadow-boxshadow rounded-lg" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
@@ -987,7 +984,7 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="hints_tips">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2 shadow-boxshadow rounded-lg" id="hints_tips">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
@@ -1007,7 +1004,7 @@ const Store = () => {
                     }
                     {
                         str?.moreAbout && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="more_about">
+                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2 shadow-boxshadow rounded-lg" id="more_about">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">More About {str?.name}</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     <div className="moreaboutcompany flex flex-col gap-2">

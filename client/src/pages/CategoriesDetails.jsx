@@ -331,9 +331,9 @@ const CategoriesDetails = () => {
                                     <img src={category_icon} alt="logo" className="h-full w-auto object-cover rounded-full" />
                                 </div>
                             </div>
-                            <div className="lg:flex flex-col gap-5 lg:px-5 text-sm items-center hidden">
+                            <div className="lg:flex flex-col gap-5 text-sm items-center hidden">
 
-                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                <div className="min-w-full shadow-boxshadow rounded-lg p-5 bg-white">
                                     <div className="text-xl font-bold mb-2">About</div>
                                     <div className="flex flex-wrap gap-2 text-sm">
                                         {Categories.length !== 0 &&
@@ -343,7 +343,7 @@ const CategoriesDetails = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                <div className="min-w-full shadow-boxshadow rounded-lg p-5 bg-white">
                                     <div className="text-xl font-bold my-2">Today{`'`}s Top Categories</div>
                                     <div className="flex flex-wrap gap-2">
                                         {
@@ -359,7 +359,7 @@ const CategoriesDetails = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
+                                <div className="min-w-full shadow-boxshadow rounded-lg p-5 bg-white">
                                     <div className="text-xl font-bold my-2">Browse By Store</div>
                                     <div className="flex flex-wrap gap-2">
                                         {
@@ -375,28 +375,29 @@ const CategoriesDetails = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className="shadow-boxshadow rounded-lg p-5 bg-white">
-                                    <div className="text-xl font-bold my-2">Popular Store</div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {popularStoreNames && popularStoreNames.length > 0 ? (
-                                            popularStoreNames.map((store, index) => (
-                                                <motion.div variants={variants} initial="hidden"
-                                                    animate="visible"
-                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+                                {(popularStoreNames && popularStoreNames.length > 0) && (
+                                    <div className="min-w-full shadow-boxshadow rounded-lg p-5 bg-white">
+                                        <div className="text-xl font-bold my-2">Popular Store</div>
+                                        <div className="flex flex-wrap gap-2">
+                                            {
+                                                popularStoreNames.map((store, index) => (
+                                                    <motion.div variants={variants} initial="hidden"
+                                                        animate="visible"
+                                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
 
-                                                    onClick={() => {
-                                                        navigate(
-                                                            `/Stores/${store.name}`, { state: { sId: store.id } }
-                                                        )
-                                                    }}>
-                                                    <span>{store.name}</span>
-                                                </motion.div>
-                                            ))
-                                        ) : (
-                                            <div>No popular stores found</div>
-                                        )}
+                                                        onClick={() => {
+                                                            navigate(
+                                                                `/Stores/${store.name}`, { state: { sId: store.id } }
+                                                            )
+                                                        }}>
+                                                        <span>{store.name}</span>
+                                                    </motion.div>
+                                                ))
+                                            }
+                                        </div>
                                     </div>
-                                </div>
+                                )}
+
                             </div>
                         </div>
                         <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
@@ -456,7 +457,7 @@ const CategoriesDetails = () => {
                                                     </div>
                                                     {detailsVisibility[index] && (
                                                         <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
-                                                            <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
+                                                            <span className="font-bold">Due Date :  {formatDate(ele.due_date)}</span>
                                                             <span className="text-ellipsis">{ele.description}</span>
                                                         </div>
                                                     )}

@@ -11,6 +11,9 @@ module.exports = withMT({
       sans: ['Open Sans', 'sans-serif'],
     },
     extend: {
+      colors: {
+        'primary': '#B33D53',
+      },
       keyframes: {
         fadeAnim: {
           from: { opacity: 0 },

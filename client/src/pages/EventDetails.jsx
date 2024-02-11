@@ -354,7 +354,7 @@ const EventDetails = () => {
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
-                                {event} Deals Online
+                                {event} Deals
                             </Link>
                         </li>
                     </ul>
@@ -366,15 +366,15 @@ const EventDetails = () => {
                     </div>
                     <div className="flex flex-col-reverse lg:flex-row w-[96%] lg:w-full mx-2">
                         <div className="w-full lg:w-1/4 flex flex-col gap-5 lg:px-5 text-sm items-center">
-                            <div className="bg-white p-5 rounded-lg shadow-boxshadow">
+                            <div className="min-w-full bg-white p-5 rounded-lg shadow-boxshadow">
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
                                     <p>{allAboutEvent.about}</p>
 
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
-                                <div className="text-xl text-justify" style={{ fontWeight: 700 }}>Today{`'`}s Top Shopping Events</div>
+                            <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
+                                <div className="text-xl text-start" style={{ fontWeight: 700 }}>Today{`'`}s Top Shopping Events</div>
                                 {
                                     eventData && eventData?.slice(0, 2).map((ele, index) => {
                                         return (
@@ -385,32 +385,32 @@ const EventDetails = () => {
                                         )
                                     })
                                 }
-                                <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
-                                    <div className="flex justify-between items-center px-5">
+                                <div className="bg-white flex flex-col gap-2 py-5 rounded-lg font-[16px]">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Total Offers</span>
                                         <span>{eventData.length}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Total Codes</span>
                                         <span>{eventData.filter(function (item) {
                                             return item.type === "Codes";
                                         }).length}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Best Offer</span>
                                         <span className="whitespace-nowrap">{allAboutEvent.best_offer}% Off</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Average Discount</span>
                                         <span className="whitespace-nowrap">{allAboutEvent.avg_disc}% Off</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="bg-white p-5 shadow-boxshadow rounded-lg">
-                                <div className="text-xl font-bold my-2">Popular Store</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {popularStoreNames && popularStoreNames.length > 0 ? (
+                            {(popularStoreNames && popularStoreNames.length > 0) && (
+                                <div className="min-w-full bg-white p-5 shadow-boxshadow rounded-lg">
+                                    <div className="text-xl font-bold my-2">Popular Store</div>
+                                    <div className="flex flex-wrap gap-2"> {
                                         popularStoreNames.map((store, index) => (
                                             <motion.div variants={variants} initial="hidden"
                                                 animate="visible"
@@ -424,11 +424,11 @@ const EventDetails = () => {
                                                 <span>{store.name}</span>
                                             </motion.div>
                                         ))
-                                    ) : (
-                                        <div>No popular stores found</div>
-                                    )}
+                                    }
+                                    </div>
                                 </div>
-                            </div>
+                            )}
+
 
                         </div>
                         <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5 gap-5">
@@ -487,7 +487,7 @@ const EventDetails = () => {
                                                     </div>
                                                     {detailsVisibility[index] && (
                                                         <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
-                                                            <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
+                                                            <span className="font-bold">Due Date :  {formatDate(ele.due_date)}</span>
                                                             <span className="text-ellipsis">{ele.description}</span>
                                                         </div>
                                                     )}

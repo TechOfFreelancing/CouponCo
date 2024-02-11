@@ -57,7 +57,7 @@ const HowitWorks = () => {
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 my-10">
                         {
-                            howitworks.map((ele) => <div key={ele.id} className="flex flex-col gap-2 bg-white p-5 border border-gray-300 hover:shadow-boxshadow_2 duration-300"><span className="font-semibold">{ele.id + " " + ele.text} :</span><span>{ele.content}</span></div>)
+                            howitworks.map((ele) => <div key={ele.id} className="flex flex-col gap-2 bg-white p-5 border border-gray-300 hover:shadow-boxshadow_2 duration-300"><span className="font-semibold"><span className="text-xl px-3 py-1 text-white h-[20px] w-[20px] rounded-full bg-[#B33D53] mr-5">{ele.id}</span>{ele.text} :</span><span>{ele.content}</span></div>)
                         }
                     </div>
                     <p className="text-justify my-5">

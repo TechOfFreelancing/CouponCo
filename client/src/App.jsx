@@ -35,35 +35,38 @@ import AddCategory from './components/Admin/addCategory';
 import AddEvent from './components/Admin/addEvent';
 import UpdateCategory from './components/Admin/updateCategory';
 import UpdateEvent from './components/Admin/updateEvent';
+import Blog from './pages/Blog';
+import BlogDetails from './pages/BlogDetails';
+import TermsOfService from './pages/TermsOfService';
 import AllStores from './pages/AllStores';
 
 
 
 function App() {
 
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
 
   const { role } = useContext(AuthContext);
   const isAdmin = role === "Admin" ? true : false;
 
 
-  useEffect(() => {
-    const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
+  // useEffect(() => {
+  //   const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
 
-    if (!hasLoadedBefore) {
-      let timer = setTimeout(() => {
-        setLoaded(true);
-        sessionStorage.setItem('hasLoadedBefore', 'true');
-      }, 5000);
+  //   if (!hasLoadedBefore) {
+  //     let timer = setTimeout(() => {
+  //       setLoaded(true);
+  //       sessionStorage.setItem('hasLoadedBefore', 'true');
+  //     }, 5000);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    } else {
-      setLoaded(true);
-    }
-  }, []);
+  //     return () => {
+  //       clearTimeout(timer);
+  //     };
+  //   } else {
+  //     setLoaded(true);
+  //   }
+  // }, []);
 
   return (
     <div className="w-full max-h-fit overflow-y-clip">
@@ -316,6 +319,33 @@ function App() {
               </>
             }
           ></Route>
+           <Route
+          path="/blogs"
+          element={
+            <>
+              <Header></Header>
+              <Blog></Blog>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/blogdetails"
+          element={
+            <>
+              <Header></Header>
+              <BlogDetails></BlogDetails>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/terms-of-services"
+          element={
+            <>
+              <Header></Header>
+              <TermsOfService></TermsOfService>
+            </>
+          }
+        ></Route>
           <Route
             path="*"
             element={
