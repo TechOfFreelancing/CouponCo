@@ -534,11 +534,11 @@ const Store = () => {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Best Offer</span>
-                                    <span>{str?.best_offer} Off</span>
+                                    <span>{str?.best_offer}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Average Discount</span>
-                                    <span className="whitespace-nowrap">{str?.avg_disc} Off</span>
+                                    <span className="whitespace-nowrap">{str?.avg_disc}</span>
                                 </div>
                             </div>
                         </div>
