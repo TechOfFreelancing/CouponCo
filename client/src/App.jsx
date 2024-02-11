@@ -12,7 +12,6 @@ import { useContext } from 'react';
 import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
-import Allcategories from './pages/allcategories';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
@@ -39,34 +38,34 @@ import Blog from './pages/Blog';
 import BlogDetails from './pages/BlogDetails';
 import TermsOfService from './pages/TermsOfService';
 import AllStores from './pages/AllStores';
+import AllCategories from './pages/AllCategories';
 
 
 
 function App() {
 
-  // const [loaded, setLoaded] = useState(false);
-
+  const [loaded, setLoaded] = useState(false);
 
   const { role } = useContext(AuthContext);
   const isAdmin = role === "Admin" ? true : false;
 
 
-  // useEffect(() => {
-  //   const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
+  useEffect(() => {
+    const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
 
-  //   if (!hasLoadedBefore) {
-  //     let timer = setTimeout(() => {
-  //       setLoaded(true);
-  //       sessionStorage.setItem('hasLoadedBefore', 'true');
-  //     }, 5000);
+    if (!hasLoadedBefore) {
+      let timer = setTimeout(() => {
+        setLoaded(true);
+        sessionStorage.setItem('hasLoadedBefore', 'true');
+      }, 5000);
 
-  //     return () => {
-  //       clearTimeout(timer);
-  //     };
-  //   } else {
-  //     setLoaded(true);
-  //   }
-  // }, []);
+      return () => {
+        clearTimeout(timer);
+      };
+    } else {
+      setLoaded(true);
+    }
+  }, []);
 
   return (
     <div className="w-full max-h-fit overflow-y-clip">
@@ -198,7 +197,7 @@ function App() {
             element={
               <>
                 <Header></Header>
-                <Allcategories />
+                <AllCategories />
               </>
             }
           ></Route>
