@@ -762,9 +762,11 @@ const Store = () => {
                     {
                         expiredCoupons && (
                             <div className="flex flex-col mt-14  my-5 gap-5 items-start lg:mx-5 mx-2">
-                                <div className="text-xl text-black font-semibold">
-                                    Recently Expired {str?.name} Discount Codes & Deals
-                                </div>
+                                {expiredCoupons.length > 0 && (
+                                    <div className="text-xl text-black font-semibold">
+                                        Recently Expired {str?.name} Discount Codes & Deals
+                                    </div>
+                                )}
                                 {expiredCoupons?.map((ele, index) => (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
