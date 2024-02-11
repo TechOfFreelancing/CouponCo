@@ -45,35 +45,15 @@ import AllCategories from './pages/AllCategories';
 
 function App() {
 
-  const [loaded, setLoaded] = useState(false);
 
   const { role } = useContext(AuthContext);
   const isAdmin = role === "Admin" ? true : false;
 
 
-  useEffect(() => {
-    const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore');
-
-    if (!hasLoadedBefore) {
-      let timer = setTimeout(() => {
-        setLoaded(true);
-        sessionStorage.setItem('hasLoadedBefore', 'true');
-      }, 5000);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    } else {
-      setLoaded(true);
-    }
-  }, []);
-
   return (
     <div className="w-full max-h-fit overflow-y-clip">
       <ScrollToTop></ScrollToTop>
-      {!loaded ? (
-        <Loader />
-      ) : (
+      
         <Routes>
           <Route
             path='/'
@@ -356,7 +336,7 @@ function App() {
             }
           ></Route>
         </Routes>
-      )}
+     
     </div>
   )
 }
