@@ -427,7 +427,7 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
         }
 
         // Allow an empty string as couponCode for deal type
-        if (type.toLowerCase() !== 'deal' && !couponCode) {
+        if (type.toLowerCase() !== "deals" && !couponCode) {
             return res.status(400).json({ error: 'Incomplete data. Coupon code is required for non-deal types.' });
         }
 
