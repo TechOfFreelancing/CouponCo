@@ -50,7 +50,7 @@ const Navlist = () => {
         <ul className="py-5  mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
             <span className="p-1 font-normal font-[Poppins] relative group"
             >
-                <Link to="/allstores" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                <Link to="/all-stores" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Stores
                 </Link>
                 <div className="hidden lg:block absolute top-0 lg:-left-[27rem] xl:-left-[21.5rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
@@ -65,7 +65,7 @@ const Navlist = () => {
             </span>
             <span className="p-1 font-normal font-[Poppins] relative group"
             >
-                <Link to="/allcategories" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                <Link to="/all-categories" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Categories
                 </Link>
                 <div className="hidden lg:block absolute top-0 lg:-left-[33rem] xl:-left-[27rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
@@ -82,7 +82,7 @@ const Navlist = () => {
             </span>
             <span className="p-1 font-normal font-[Poppins]"
             >
-                <Link to="/Ourcodes" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-b-2 hover:lg:border-red-500 whitespace-nowrap">
+                <Link to="/our-codes" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-b-2 hover:lg:border-red-500 whitespace-nowrap">
                     Our Codes
                 </Link>
             </span>

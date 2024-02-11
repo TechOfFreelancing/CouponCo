@@ -50,7 +50,7 @@ const ContactUs = () => {
             toast.success('Sent successfully');
 
         } catch (error) {
-            toast.error("Please fill all details");
+            toast.error("Please Do Login And Try Again!")
         }
     };
 

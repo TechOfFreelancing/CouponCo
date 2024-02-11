@@ -11,7 +11,7 @@ const Categories = () => {
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Categories</span>
                 </div>
-                <Link to="/AllCategories" className="hover:underline h-7 duration-300 underline">
+                <Link to="/all-categories" className="hover:underline h-7 duration-300 underline">
                     All Categories
                 </Link>
             </div>
@@ -19,7 +19,7 @@ const Categories = () => {
                 {
                     categories.map((ele, index) => {
                         return (
-                            <div key={index} onClick={() => {navigate("/AllStores" ,{state : { type : ele.filter }})}} className="flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group  items-center justify-center hover:scale-110 lg:hover:scale-125 duration-300 lg:pl-20">
+                            <div key={index} onClick={() => {navigate("/all-stores" ,{state : { type : ele.filter }})}} className="flex flex-col gap-2 h-[10rem] lg:h-[15rem] cursor-pointer group  items-center justify-center hover:scale-110 lg:hover:scale-125 duration-300 lg:pl-20">
                                 <div className="h-[5rem] w-[5rem] lg:h-[9rem] lg:w-[9rem] p-5 rounded-full flex items-center justify-center border-2 border-black shadow-2xl ">
                                     <img src={ele.image} alt={index} className="h-auto w-auto " />
                                 </div>

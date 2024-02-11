@@ -17,7 +17,7 @@ const OurCodes = () => {
                         </li>
 
                         <li className="inline-flex items-center">
-                            <Link to="/ourcodes" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                            <Link to="/our-codes" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                 Our Codes
                             </Link>
                         </li>
