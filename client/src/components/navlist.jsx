@@ -6,10 +6,31 @@ import axios from "axios";
 const Navlist = () => {
 
     const [stores, setStores] = useState([]);
-    const [Categories,setCategories] = useState([]);
+    const [Categories, setCategories] = useState([]);
+    const [event, setEvent] = useState([]);
 
     const navigate = useNavigate();
-    // console.table(Categories);
+
+    useEffect(() => {
+        const fetchData = () => {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `https://backend.qwiksavings.com/api/getAllEvents`,
+                headers: {}
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    setEvent(response.data.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        }
+        fetchData();
+    }, [])
 
     useEffect(() => {
         const fetchStores = async () => {
@@ -94,11 +115,15 @@ const Navlist = () => {
                 <div className="hidden lg:block absolute top-0 lg:-left-[30rem] xl:-left-[41rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform">
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
-                            Categories.map((ele, index) => {
-                                return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
-                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.logo_url } })
-                                }}>{ele.name}</div>
-                            })
+                            event.map((ele, index) => (
+                                <div
+                                    key={index}
+                                    className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline"
+                                    onClick={() => navigate("/eventdetails", { state: { eId: ele.id, event: ele.event_name } })}
+                                >
+                                    {ele.event_name}
+                                </div>
+                            ))
                         }
                     </div>
                 </div>

@@ -44,8 +44,8 @@ class EventCategory {
             event_logo_url VARCHAR(255),
             event_banner_url VARCHAR(255),
             about TEXT,
-            best_offer INT DEFAULT 0,
-            avg_disc INT DEFAULT 0
+            best_offer VARCHAR(255) DEFAULT '0',
+            avg_disc VARCHAR(255) DEFAULT '0'
         )`
 
         try {
