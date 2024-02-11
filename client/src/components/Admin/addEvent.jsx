@@ -132,7 +132,7 @@ const AddEvent = () => {
                 
                 <div className="mb-4">
                     <label htmlFor="best_offer" className="block mb-1 font-medium">
-                        Best Offer(%):
+                        Best Offer:
                     </label>
                     <Field
                         id="best_offer"
@@ -143,7 +143,7 @@ const AddEvent = () => {
 
                 <div className="mb-4">
                     <label htmlFor="avg_disc" className="block mb-1 font-medium">
-                        Avg Discout(%):
+                        Avg Discout:
                     </label>
                     <Field
                         id="avg_disc"
@@ -151,8 +151,6 @@ const AddEvent = () => {
                         style={inputStyle}
                     />
                 </div>
-
-               
 
                 <button
                     type="submit"

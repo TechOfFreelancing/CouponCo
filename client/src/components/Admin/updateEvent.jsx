@@ -199,7 +199,7 @@ function UpdateEvent() {
 
                     <div className="mb-4">
                         <label htmlFor="best_offer" className="block mb-1 font-medium">
-                            Best Offer(%):
+                            Best Offer:
                         </label>
                         <input
                             id="best_offer"
@@ -213,7 +213,7 @@ function UpdateEvent() {
 
                     <div className="mb-4">
                         <label htmlFor="avg_disc" className="block mb-1 font-medium">
-                            Avg Discout(%):
+                            Avg Discout :
                         </label>
                         <input
                             id="avg_disc"

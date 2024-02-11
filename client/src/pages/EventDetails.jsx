@@ -7,7 +7,6 @@ import {
     Button
 } from "@material-tailwind/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import bg from '../assets/images/event/eventbg.jpg';
 import { eventDetails } from "../api/event";
 import { useState, useEffect, useContext } from "react";
 import { GoVerified } from 'react-icons/go';
@@ -73,6 +72,7 @@ const EventDetails = () => {
                 email,
                 password,
             });
+            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -135,11 +135,13 @@ const EventDetails = () => {
             handleClose();
         }
         else {
+            // console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)
             const correctedRefLink = product?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
             setProductlink(correctedRefLink);
+            // console.log('selected link', correctedRefLink, productlink); // Use correctedRefLink directly
             if (correctedRefLink) {
                 setTimeout(() => {
                     handleCopyClick();
@@ -251,7 +253,7 @@ const EventDetails = () => {
         fetchData();
     }, [])
 
-    //  (allAboutEvent);
+    // console.log(allAboutEvent);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -296,28 +298,38 @@ const EventDetails = () => {
                         })
                     );
                 };
+                if (popularStores.length > 0) {
 
-                const popularStoreInfo = await getStoreInfo(popularStores);
-                setPopularStoreNames(popularStoreInfo);
-                const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
-                const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
-                    const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
-                    if (new Date(coupons.data.coupon.due_date) >= new Date()) {
-                        return coupons.data.coupon;
-                    }
-                    // Return null for items that don't meet the condition
-                    return null;
-                }));
+                    const popularStoreInfo = await getStoreInfo(popularStores);
+                    setPopularStoreNames(popularStoreInfo);
+                }
 
-                // Filter out null values
-                const filteredCoupons = validCoupons.filter((coupon) => coupon !== null);
-                setEventData(filteredCoupons);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
     }, [event]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
+
+            const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
+                const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
+                if (new Date(coupons.data.coupon.due_date) >= new Date()) {
+                    return coupons.data.coupon;
+                }
+                // Return null for items that don't meet the condition
+                return null;
+            }));
+
+            // Filter out null values
+            const filteredCoupons = validCoupons.filter((coupon) => coupon !== null);
+            setEventData(filteredCoupons);
+        }
+        fetchData()
+    }, [event])
 
 
     const toggleDetails = (index) => {
@@ -333,6 +345,7 @@ const EventDetails = () => {
         setShowAllEvents((prev) => !prev);
     };
 
+    // console.log(eventData);
 
     return (
         <>
@@ -370,7 +383,6 @@ const EventDetails = () => {
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
                                     <p>{allAboutEvent.about}</p>
-
                                 </div>
                             </div>
                             <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
@@ -398,11 +410,11 @@ const EventDetails = () => {
                                     </div>
                                     <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Best Offer</span>
-                                        <span className="whitespace-nowrap">{allAboutEvent.best_offer}% Off</span>
+                                        <span className="whitespace-nowrap">{allAboutEvent.best_offer}</span>
                                     </div>
                                     <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Average Discount</span>
-                                        <span className="whitespace-nowrap">{allAboutEvent.avg_disc}% Off</span>
+                                        <span className="whitespace-nowrap">{allAboutEvent.avg_disc}</span>
                                     </div>
                                 </div>
                             </div>
@@ -428,7 +440,6 @@ const EventDetails = () => {
                                     </div>
                                 </div>
                             )}
-
 
                         </div>
                         <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5 gap-5">
@@ -487,7 +498,7 @@ const EventDetails = () => {
                                                     </div>
                                                     {detailsVisibility[index] && (
                                                         <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
-                                                            <span className="font-bold">Due Date :  {formatDate(ele.due_date)}</span>
+                                                            <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
                                                             <span className="text-ellipsis">{ele.description}</span>
                                                         </div>
                                                     )}

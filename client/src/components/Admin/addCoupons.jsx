@@ -119,9 +119,7 @@ function AddCoupons() {
 
         axios.request(config)
             .then((response) => {
-                
                 toast.success("Coupon Added successfully");
-
             })
             .catch((error) => {
                 toast.error(error.response.data.message);
@@ -217,17 +215,19 @@ function AddCoupons() {
                                 </div>
                             </div>
 
-                            <div className="mb-4">
-                                <label htmlFor="couponCode" className="block mb-1 font-medium">
-                                    couponCode:
-                                </label>
-                                <Field
-                                    type="text"
-                                    id="couponCode"
-                                    name="couponCode"
-                                    style={inputStyle}
-                                />
-                            </div>
+                            {values.type === 'Codes' && (
+                                <div className="mb-4">
+                                    <label htmlFor="couponCode" className="block mb-1 font-medium">
+                                        couponCode:
+                                    </label>
+                                    <Field
+                                        type="text"
+                                        id="couponCode"
+                                        name="couponCode"
+                                        style={inputStyle}
+                                    />
+                                </div>
+                            )}
 
                             <div className="mb-4">
                                 <label htmlFor="dueDate" className="block mb-1 font-medium">
@@ -269,9 +269,6 @@ function AddCoupons() {
                             <button
                                 type="submit"
                                 className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-pink-200"
-
-                            onClick={() => navigate("/Admin/updateCoupons", { state: { cId: coupon.coupon_id, sId: coupon.store_id } })}
-
                             >
                                 Submit
                             </button>
