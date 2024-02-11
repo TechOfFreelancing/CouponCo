@@ -22,6 +22,7 @@ function AddStores() {
         type: "",
         best_offer: "",
         avg_disc: "",
+        ref_link: "",
     };
 
     const inputStyle = {
@@ -46,6 +47,7 @@ function AddStores() {
             formData.append("type", values.type);
             formData.append("best_offer", values.best_offer);
             formData.append("avg_disc", values.avg_disc);
+            formData.append("ref_link", values.ref_link);
 
             if (selectedFile) {
                 formData.append("storeFile", selectedFile);
@@ -61,14 +63,8 @@ function AddStores() {
                     },
                 }
             );
-
-            if (response) {
-                setInterval(()=>{
-                    navigate('/Admin')
-                },2000)
-                toast.success("Store Added successfully");
-            }
-
+            
+            toast.success("Store Added successfully");
         } catch (error) {
             toast.error(error.response.data.message);
             console.error(error);
@@ -211,7 +207,7 @@ function AddStores() {
 
                         <div className="mb-4">
                             <label htmlFor="best_offer" className="block mb-1 font-medium">
-                                Best Offer(%):
+                                Best Offer:
                             </label>
                             <Field
                                 id="best_offer"
@@ -222,11 +218,22 @@ function AddStores() {
 
                         <div className="mb-4">
                             <label htmlFor="avg_disc" className="block mb-1 font-medium">
-                                Avg Discout(%):
+                                Avg Discout:
                             </label>
                             <Field
                                 id="avg_disc"
                                 name="avg_disc"
+                                style={inputStyle}
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label htmlFor="ref_link" className="block mb-1 font-medium">
+                                Store Link:
+                            </label>
+                            <Field
+                                id="ref_link"
+                                name="ref_link"
                                 style={inputStyle}
                             />
                         </div>

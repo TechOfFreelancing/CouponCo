@@ -12,15 +12,14 @@ import { useContext } from 'react';
 import AddCoupons from './components/Admin/addCoupons';
 import UpdateCoupons from './components/Admin/updateCoupon';
 import Store from './pages/Store';
-import AllStores from './pages/all-stores';
-import Allcategories from './pages/all-categories';
+import Allcategories from './pages/allcategories';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
-import OurCodes from './pages/our-codes';
+import OurCodes from './pages/ourcodes';
 import Profile from './pages/Profile';
 import Event from './pages/Event';
 import EventDetails from './pages/EventDetails';
@@ -29,13 +28,14 @@ import ContactUs from './pages/ContactUs';
 import AdvertiseUs from './pages/AdvertiseUs';
 import FAQS from './pages/FAQS';
 import AboutUs from './pages/AboutUs';
-import PrivacyPolicy from './pages/privacy-policy';
+import PrivacyPolicy from './pages/privacypolicy';
 import HowitWorks from './pages/HowitWorks';
 import ScrollToTop from './components/scrollToTop';
 import AddCategory from './components/Admin/addCategory';
 import AddEvent from './components/Admin/addEvent';
 import UpdateCategory from './components/Admin/updateCategory';
 import UpdateEvent from './components/Admin/updateEvent';
+import AllStores from './pages/AllStores';
 
 
 

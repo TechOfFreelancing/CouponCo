@@ -20,15 +20,15 @@ const uploadAndCreateDocument = async (file) => {
 
 //add new store with basic details
 exports.addStore = catchAsyncErrors(async (req, res, next) => {
-    const { name, title, moreAbout, type, description, hint, best_offer, avg_disc } = req.body;
+    const { name, title, moreAbout, type, description, hint, best_offer, avg_disc, ref_link } = req.body;
     const storeFile = req.file;
 
 
     try {
         const logo_url = await uploadAndCreateDocument(storeFile);
-        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint, best_offer, avg_disc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint, best_offer, avg_disc, ref_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint, best_offer, avg_disc]);
+        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint, best_offer, avg_disc , ref_link]);
         const storeId = result[0].insertId;
 
         const store = `SELECT * FROM store WHERE id = ?`;
@@ -304,7 +304,7 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE store SET ';
         const updateParams = [];
-        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint', 'best_offer', 'avg_disc'];
+        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint', 'best_offer', 'avg_disc', 'ref_link'];
 
         // If there's a new storeFile, update logo_url
         if (storeFile) {

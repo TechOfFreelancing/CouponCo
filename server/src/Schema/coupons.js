@@ -7,6 +7,7 @@ class Coupons {
             name VARCHAR(255) NOT NULL,
             title VARCHAR(255),
             logo_url VARCHAR(255),
+            ref_link VARCHAR(1000),
             type VARCHAR(255),
             description TEXT,
             moreAbout TEXT,
@@ -14,8 +15,8 @@ class Coupons {
             faq JSON, 
             total_ratings BIGINT DEFAULT 0,
             ratings_count INT DEFAULT 0,
-            best_offer INT DEFAULT 0,
-            avg_disc INT DEFAULT 0,
+            best_offer VARCHAR(255) DEFAULT '0',
+            avg_disc VARCHAR(255) DEFAULT '0',
             coupons INT DEFAULT 0,
             offers INT DEFAULT 0 
         )`;

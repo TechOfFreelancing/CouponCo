@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Link as Link1 } from 'react-scroll';
-import '../styles/privacy-policy.css'
+import '../styles/privacypolicy.css'
 
 const PrivacyPolicy = () => {
     return (
