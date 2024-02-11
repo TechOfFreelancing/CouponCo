@@ -35,8 +35,8 @@ class Coupons {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT,
                 coupon_id INT,
-                FOREIGN KEY (user_id) REFERENCES users(user_id),
-                FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id)
+                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+                FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id) ON DELETE CASCADE
             )
         `;
 
@@ -57,9 +57,9 @@ class Coupons {
             store_id INT,
             store_type ENUM('similar', 'popular'),
             sId INT,
-            FOREIGN KEY (category_id) REFERENCES category(id),
-            FOREIGN KEY (store_id) REFERENCES store(id),
-            FOREIGN KEY (event_id) REFERENCES allEvents(id)
+            FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
+            FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE,
+            FOREIGN KEY (event_id) REFERENCES allEvents(id) ON DELETE CASCADE
         )`;
 
         try {

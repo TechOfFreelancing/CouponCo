@@ -64,7 +64,12 @@ const AdvertiseUs = () => {
                 toast.success("Data sent successfully");
             })
             .catch((error) => {
-                toast.error(error.response.data);
+                if (error.response.data === "User not found") {
+                    toast.error("Please Login & try again!")
+                }
+                else {
+                    toast.error(error.response.data);
+                }
             });
 
 

@@ -28,8 +28,27 @@ const CouponReq = () => {
                     }
                 );
                 const unverifiedCoupons = response.data.coupons.filter(coupon => !coupon.isVerified);
-
-                setCoupons(unverifiedCoupons);
+                // For each coupon, fetch store details using getStore API
+                const updatedCoupons = await Promise.all(
+                    unverifiedCoupons.map(async (coupon) => {
+                        const storeResponse = await axios.get(
+                            `https://backend.qwiksavings.com/api/getStore/${coupon.store_id}`,
+                            {
+                                withCredentials: true,
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                                },
+                            }
+                        );
+                        return {
+                            ...coupon,
+                            storeName: storeResponse?.data?.store?.name,
+                        };
+                    })
+                );
+                console.log(updatedCoupons)
+                setCoupons(updatedCoupons);
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
@@ -119,7 +138,12 @@ const CouponReq = () => {
                                                 <span className={`py-1 px-2 rounded-full font-bold ${coupon.type.toLowerCase() === 'code' ? 'bg-yellow-500 text-white' : 'bg-blue-500 text-white'}`}>{coupon.type}</span>
                                                 <div className="text-sm text-gray-600 mb-2">Due: {new Date(coupon.due_date).toLocaleDateString('en-GB', options)}</div>
                                             </div>
-                                            <div className="text-md text-gray-600 mb-2">{coupon.user_count} uses today</div>
+                                            <div className="flex items-center">
+                                                <div className="text-md text-gray-600 mr-2">{coupon.user_count} uses today</div>
+                                                <div className="flex-grow"></div>
+                                                <div className="text-xl font-bold">Store: </div> {coupon.storeName}
+                                            </div>
+
                                             <div className="bg-gray-100 text-center rounded p-2 mb-2">{coupon.coupon_code}</div>
                                             <div className="flex justify-end items-center absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                 <Tooltip content="Approve Coupon">

@@ -9,10 +9,14 @@ import { Link } from "react-router-dom";
 const SubmitCouponForm = () => {
 
     const location = useLocation()
+    const [stores, setStores] = useState([]);
 
-    const sId = location.state?.storeId;
+    const initialSId = location.state?.storeId;
+
+    const [sId, setSID] = useState(initialSId || '');
 
     const [categories, setCategories] = useState([]);
+    const [selectedStore, setSelectedStore] = useState('');
 
 
     const [formData, setFormData] = useState({
@@ -107,6 +111,13 @@ const SubmitCouponForm = () => {
                     }
                 );
                 setCategories(response.data.categories);
+                const res = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
+                if (res) {
+                    setStores(res.data.stores);
+                }
+                else {
+                    console.log("unable to fetch data");
+                }
 
             } catch (error) {
                 alert(error.response?.data?.message || "Failed to fetch category.");
@@ -162,7 +173,6 @@ const SubmitCouponForm = () => {
 
                             <div className="mb-4">
                                 <label htmlFor="type" className="block mb-1 font-medium">
-
                                     Select an Offer Type:
                                 </label>
                                 <select
@@ -198,7 +208,31 @@ const SubmitCouponForm = () => {
                                 </select>
                             </div>
 
-
+                            {!initialSId && (
+                                <div className="mb-4">
+                                    <label htmlFor="Store" className="block mb-1 font-medium">
+                                        Store:
+                                    </label>
+                                    <select
+                                        id="store"
+                                        name="store"
+                                        value={selectedStore}
+                                        onChange={(e) => {
+                                            const selectedId = e.target.value;
+                                            setSelectedStore(selectedId);
+                                            setSID(selectedId); 
+                                        }}
+                                        style={inputStyle}
+                                    >
+                                        <option value="">Select Store</option>
+                                        {stores.map((store, index) => (
+                                            <option key={index} value={store.id}>
+                                                {store.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
 
                             <div className="mb-4">
                                 <label htmlFor="couponCode" className="block mb-1 font-medium">
