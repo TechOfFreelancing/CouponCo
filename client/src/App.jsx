@@ -27,7 +27,7 @@ import ContactUs from './pages/ContactUs';
 import AdvertiseUs from './pages/AdvertiseUs';
 import FAQS from './pages/FAQS';
 import AboutUs from './pages/AboutUs';
-import PrivacyPolicy from './pages/privacypolicy';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import HowitWorks from './pages/HowitWorks';
 import ScrollToTop from './components/scrollToTop';
 import AddCategory from './components/Admin/addCategory';
