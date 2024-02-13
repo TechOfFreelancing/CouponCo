@@ -27,7 +27,7 @@ const Profile = () => {
     }, []);
 
     return (
-        <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-20 lg:mt-32 lg:p-10">
+        <div className="max-w-[1280px] mx-auto flex flex-col gap-5 text-black border mt-20 lg:mt-32 lg:p-10">
            <div className="text-4xl font-bold">Hi {userData?.username}</div>
             <span className="text-lg">your email id is <span className="text-blue-700">{userData?.email}</span></span>
             <span className="text-2xl font-semibold">Favourite Coupons</span>

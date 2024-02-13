@@ -302,7 +302,7 @@ const CategoriesDetails = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5 ">
+            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row gap-5 h-full max-w-[1280px] mx-auto lg:py-5 ">
                 <div className="flex flex-col items-start justify-center flex-wrap gap-5">
                     <ul className="flex items-center ml-2">
                         <li className="inline-flex items-center">

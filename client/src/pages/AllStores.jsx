@@ -86,7 +86,7 @@ const AllStores = () => {
     return (
         <>
             <div className="flex">
-                <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-28 lg:mt-32 p-5 lg:p-10">
+                <div className="max-w-[1280px] mx-auto flex flex-col gap-5 text-black mt-28 lg:mt-32 p-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">

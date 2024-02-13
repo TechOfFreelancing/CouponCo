@@ -16,7 +16,7 @@ const Blog = () => {
 
     return (
         <>
-            <div className='px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-24 lg:mb-5'>
+            <div className='px-5 max-w-[1280px] mx-auto flex flex-col text-black mt-24 lg:mb-5'>
                 <div className="flex flex-col items-start flex-wrap lg:p-4 gap-2">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">

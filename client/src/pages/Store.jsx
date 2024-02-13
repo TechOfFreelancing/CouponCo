@@ -451,7 +451,7 @@ const Store = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row lg:gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" >
+            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row lg:gap-5 h-full max-w-[1280px] mx-auto lg:py-5" >
                 <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 text-sm items-center">
                     <div className="bg-[#FAF9F5] p-4 pl-0 flex items-center flex-wrap border">
                         <ul className="flex items-center">

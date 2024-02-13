@@ -131,7 +131,7 @@ const SubmitCouponForm = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+            <div className="px-5 max-w-[1280px] mx-auto flex flex-col text-black mt-28 lg:mt-32 items-start gap-5">
                 <div className="flex flex-col items-start flex-wrap gap-2 lg:p-5 pt-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">

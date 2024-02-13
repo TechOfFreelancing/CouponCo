@@ -7,7 +7,7 @@ import '../styles/privacypolicy.css'
 const TermsOfService = () => {
   return (
     <>
-      <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+      <div className="px-5 max-w-[1280px] mx-auto flex flex-col text-black mt-28 lg:mt-32 items-start gap-5">
 
         <div className="flex flex-col lg:flex-row gap-5 w-full relative items-start">
           <div className="flex flex-col w-full lg:w-[30%] lg:p-5 lg:pl-0 lg:ml-10 gap-5 text-[#B33D53] lg:sticky lg:top-32 lg:h-screen">

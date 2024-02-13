@@ -73,7 +73,7 @@ export function Header() {
         <>
             <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
                 {isOffer && <Alert></Alert>}
-                <nav className="z-10 h-max rounded-none py-2 flex xl:gap-5 items-center justify-between lg:px-28 w-full px-5 lg:h-[93px]">
+                <nav className="z-10 h-max rounded-none py-2 flex gap-5 items-center justify-between max-w-[1280px] mx-auto  px-5 lg:h-[93px]">
                     <Link to="/" className="cursor-pointer font-medium">
                         <img src={logo} alt="Qwik Savings" className="h-20 lg:w-[15rem] 2xl:min-w-[15rem] hidden lg:inline-block" />
                     </Link>

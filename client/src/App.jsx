@@ -15,7 +15,6 @@ import Store from './pages/Store';
 import "@fontsource/poppins"; // Defaults to weight 400
 import "@fontsource/poppins/700.css"; // Specify weight
 import "@fontsource/poppins/500-italic.css"; // Specify weight and style
-import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import SubmitCouponForm from './pages/SubmitCouponForm';
 import OurCodes from './pages/OurCodes';
