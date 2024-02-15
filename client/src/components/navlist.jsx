@@ -74,7 +74,7 @@ const Navlist = () => {
                 <Link to="/all-stores" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Stores
                 </Link>
-                <div className="hidden lg:block absolute top-0 lg:-left-[27rem] xl:-left-[23.8rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform max-w-[1280px] mx-auto">
+                <div className="hidden lg:block absolute top-0 lg:-left-[19.8rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform max-w-[1280px] mx-auto">
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             stores.map((ele, index) => {
@@ -89,7 +89,7 @@ const Navlist = () => {
                 <Link to="/all-categories" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Categories
                 </Link>
-                <div className="hidden lg:block absolute top-0 lg:-left-[33rem] xl:-left-[29.3rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform max-w-[1280px] mx-auto">
+                <div className="hidden lg:block absolute top-0  lg:-left-[25.3rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform max-w-[1280px] mx-auto">
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             Categories.map((ele, index) => {
@@ -112,7 +112,7 @@ const Navlist = () => {
                 <Link to="/events" className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                     Events
                 </Link>
-                <div className="hidden lg:block absolute top-0 lg:-left-[30rem] xl:-left-[44.3rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform max-w-[1280px] mx-auto">
+                <div className="hidden lg:block absolute top-0 lg:-left-[40.3rem] transition group-hover:translate-y-5 translate-y-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-500 ease-in-out group-hover:transform z-50 w-[100vw] transform max-w-[1280px] mx-auto">
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
                             event.map((ele, index) => (

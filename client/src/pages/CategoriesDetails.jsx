@@ -302,7 +302,7 @@ const CategoriesDetails = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row gap-5 h-full max-w-[1280px] mx-auto lg:py-5 ">
+            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row gap-5 h-full max-w-[1280px] mx-auto">
                 <div className="flex flex-col items-start justify-center flex-wrap gap-5">
                     <ul className="flex items-center ml-2">
                         <li className="inline-flex items-center">
@@ -400,13 +400,13 @@ const CategoriesDetails = () => {
 
                             </div>
                         </div>
-                        <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
+                        <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5 lg:-mt-12">
                             <div className='p-4 lg:pt-0 text-xl lg:text-3xl font-bold'>{category}</div>
                             <div className="flex flex-col gap-2 lg:gap-5 items-start lg:mx-5 mx-2 mb-10">
                                 {
                                     couponDetails.slice(0, eventsToShow).map((ele, index) => {
                                         return (
-                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-[60rem] hover:shadow-lg duration-300">
+                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-full hover:shadow-lg duration-300">
                                                 <span
                                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                         }`}

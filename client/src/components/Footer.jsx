@@ -44,14 +44,14 @@ const CustomForm = ({ status, message, onValidated }) => {
 export default function Footer() {
     return (
 
-        <div className=' bg-white'>
+        <div className='bg-white'>
             <div className="relative isolate overflow-hidden max-w-[1280px] mx-auto p-5 py-20  border-t-[1px] border-t-[#B33D53]">
                 <div className="flex flex-col lg:flex-row w-full items-center lg:items-start h-full lg:h-[350px] xl:h-[360px] 2xl:h-[400px] mb-5 justify-between">
-                    <div className='flex flex-col w-full lg:w-[25%] items-center justify-center p-5'>
+                    <div className='flex flex-col w-full lg:w-[25%] items-center justify-center gap-5'>
                         <img
                             src={logo}
                             alt="Qwik Savings"
-                            className="w-1/2 rounded-full m-5"
+                            className="w-1/2 rounded-full"
                         />
                         <p className="text-black-300 text-justify">
                             Qwik Savings, as the name suggests, is your go-to destination for quick savings. It helps you save faster than other websites in the market by providing hand-tested coupon codes or offers. We guarantee that each of our codes works; if it doesn{`'`}t, we{`'`}ll give you a gift card so you can treat yourself on us.

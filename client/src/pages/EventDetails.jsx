@@ -448,7 +448,7 @@ const EventDetails = () => {
                                 {
                                     eventData.slice(0, eventsToShow).map((ele, index) => {
                                         return (
-                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-[60rem] hover:shadow-lg duration-300">
+                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-full hover:shadow-lg duration-300">
                                                 <span
                                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                         }`}
@@ -459,13 +459,15 @@ const EventDetails = () => {
                                                 <div className="flex flex-col w-full gap-2">
                                                     <div className="flex gap-1 lg:gap-0">
                                                         <div className="w-[15%] h-auto flex flex-col items-center justify-center">
-                                                            <div className="border border-black flex flex-col items-center justify-center">
-                                                                <img src={ele.logo_url} alt="H" className="max-h-[50px] h-auto w-[50px] lg:max-h-[75px]  lg:w-[75px] rounded-lg m-2" />
-                                                                <span className="bg-blue-100 text-center w-full capitalize text-xs lg:text-base">{ele.type}</span>
-                                                            </div>
+                                                            {
+                                                                ele.logo_url && <div className="border border-black flex flex-col items-center justify-center">
+                                                                    <img src={ele.logo_url} alt="H" className="max-h-[50px] h-auto w-[50px] lg:max-h-[75px]  lg:w-[75px] rounded-lg m-2" />
+                                                                    <span className="bg-blue-100 text-center w-full capitalize text-xs lg:text-base">{ele.type}</span>
+                                                                </div>
+                                                            }
                                                         </div>
                                                         <div className="flex flex-col w-[40%] lg:w-[55%] lg:mx-5 justify-between gap-2">
-                                                            <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
+                                                            <div className="flex flex-col lg:flex-row justify-between w-full">
                                                                 <div className="lg:font-bold text-[12px] lg:text-xl text-center lg:text-start">{ele.title}</div>
                                                             </div>
                                                         </div>
