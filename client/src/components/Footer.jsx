@@ -45,9 +45,9 @@ export default function Footer() {
     return (
 
         <div className='bg-white'>
-            <div className="relative isolate overflow-hidden max-w-[1280px] mx-auto p-5 py-20  border-t-[1px] border-t-[#B33D53]">
-                <div className="flex flex-col lg:flex-row w-full items-center lg:items-start h-full lg:h-[350px] xl:h-[360px] 2xl:h-[400px] mb-5 justify-between">
-                    <div className='flex flex-col w-full lg:w-[25%] items-center justify-center gap-5'>
+            <div className="relative isolate overflow-hidden max-w-[1280px] mx-auto border-t-[1px] border-t-[#B33D53] lg:pt-16">
+                <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row w-full items-start mb-5 justify-between">
+                    <div className='flex flex-col w-full lg:w-[25%] items-center justify-center gap-5 lg:-mt-14 p-5 lg:p-0'>
                         <img
                             src={logo}
                             alt="Qwik Savings"
@@ -60,7 +60,7 @@ export default function Footer() {
                     {
                         SITEMAP.map((ele, index) => {
                             return (
-                                <div key={index} className='flex flex-col gap-3 items-start lg:items-stretch'>
+                                <div key={index} className='flex flex-col gap-3 items-start lg:items-stretch justify-start pl-5 lg:pl-0'>
                                     <div className='font-bold text-xl whitespace-nowrap'>{ele.title}</div>
                                     {
                                         ele.links.map((ele, index) => {
@@ -109,7 +109,7 @@ export default function Footer() {
                 </div>
 
                 <hr className='border-black hidden lg:block border-dashed' />
-                <div className="flex flex-col text-black justify-between mt-10 items-center gap-5 p-5">
+                <div className="flex flex-col text-black justify-between items-center gap-5 p-5">
 
                     <div className="contact flex flex-col lg:flex-row gap-5 items-center">
                         Disclosure: If you buy a product or service through Qwik Savings, we may earn a commission

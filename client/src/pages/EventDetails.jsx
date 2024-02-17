@@ -489,9 +489,9 @@ const EventDetails = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
+                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:px-2 w-full">
                                                         <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
-                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
+                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-1 h-10">
                                                             <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
                                                             <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
                                                                 <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
@@ -499,7 +499,7 @@ const EventDetails = () => {
                                                         </span>
                                                     </div>
                                                     {detailsVisibility[index] && (
-                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
+                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-2 text-xs lg:text-base">
                                                             <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
                                                             <span className="text-ellipsis">{ele.description}</span>
                                                         </div>

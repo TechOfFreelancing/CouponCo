@@ -67,7 +67,7 @@ const OurCodes = () => {
                             </div>
                             <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  2.  Inactive  Code</span>
-                                <span className='text-justify'>If  the  coupon  code  doesn’t  work,  forward  your  online  order  confirmation  or  receipt  by  email  to
+                                <span className='text-start'>If  the  coupon  code  doesn’t  work,  forward  your  online  order  confirmation  or receipt by email to
                                     <a href='mailto:claims@qwiksavings.com' className='mx-1 font-semibold' target='_blank' rel="noreferrer">claims@qwiksavings.com</a>
                                     within  48  hours  of  making  your  order.  Within  your  email,  please  also
                                     include:</span>

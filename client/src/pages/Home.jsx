@@ -12,7 +12,7 @@ export default function Home() {
     return (
         <>
             <div className="border-b-[1px] border-b-[#B33D53]">
-                <div className="bg-[#FAF9F5] px-5 max-w-[1280px] mx-auto mt-28 lg:mt-36 lg:mb-4  flex flex-col lg:flex-row gap-5 text-5xl items-center justify-center">
+                <div className="bg-[#FAF9F5] max-w-[1280px] mx-auto mt-28 lg:mt-36 lg:mb-4  flex flex-col lg:flex-row text-5xl items-center justify-between">
 
                     <Carousel></Carousel>
                     <StackedImageAnimation></StackedImageAnimation>
