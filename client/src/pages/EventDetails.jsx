@@ -357,13 +357,13 @@ const EventDetails = () => {
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
                                 <svg className="w-5 h-auto fill-current mx-1 text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
                             </Link>
-                            <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
+                            <span className="mx-1 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 Events
                             </Link>
-                            <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
+                            <span className="mx-1 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
@@ -372,13 +372,15 @@ const EventDetails = () => {
                         </li>
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
+                       {allAboutEvent.event_banner_url&&
                         <img src={allAboutEvent.event_banner_url} alt="" className="w-full h-[80px] lg:h-[160px]" />
+                       } 
                         {/* <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
                             <div className='p-4 text-3xl font-bold text-white z-10'>Browse Top Shopping Events</div>
                         </div> */}
                     </div>
-                    <div className="flex flex-col-reverse lg:flex-row w-[96%] lg:w-full mx-2">
-                        <div className="w-full lg:w-1/4 flex flex-col gap-5 lg:px-5 text-sm items-center">
+                    <div className="flex flex-col-reverse lg:flex-row lg:w-full mx-2">
+                        <div className="w-full lg:w-1/4 flex flex-col gap-5 text-sm items-center lg:pt-5">
                             <div className="min-w-full bg-white p-5 rounded-lg shadow-boxshadow">
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
@@ -391,9 +393,9 @@ const EventDetails = () => {
                                     eventData && eventData?.slice(0, 2).map((ele, index) => {
                                         return (
 
-                                            <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 text-justify">
-                                                <li className="font-semibold text-[12px] ">{ele.title}</li>
-                                            </ul>
+                                            <div key={index} className="w-full cursor-pointer list-disc bg-white rounded-lg flex gap-3 text-justify">
+                                                <span className="">-{ele.title}</span>
+                                            </div>
                                         )
                                     })
                                 }
@@ -442,8 +444,8 @@ const EventDetails = () => {
                             )}
 
                         </div>
-                        <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5 gap-5">
-                            <div className='lg:p-4 pt-0 pl-0 text-xl lg:text-3xl font-bold'>Browse Top {event} Shopping Events</div>
+                        <div className="w-full lg:w-3/4 h-full flex flex-col gap-5">
+                            <div className='lg:p-4 pt-0 pl-0 lg:pl-5 text-xl lg:text-3xl font-bold'>Browse Top {event} Shopping Events</div>
                             <div className="flex flex-col gap-2 lg:gap-5 items-start lg:mx-5">
                                 {
                                     eventData.slice(0, eventsToShow).map((ele, index) => {

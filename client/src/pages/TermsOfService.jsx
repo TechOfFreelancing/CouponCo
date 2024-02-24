@@ -34,7 +34,7 @@ const TermsOfService = () => {
             <Link to="/ourcodes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
             <Link to="/howitworks" className="cursor-pointer hover:underline duration-300 text-start w-fit">How it Works</Link>
             <Link to="/faqs" className="cursor-pointer hover:underline duration-300 text-start w-fit">FAQ</Link>
-            <Link to="/privacypolicy" className="cursor-pointer hover:underline duration-300 text-start w-fit">Privacy Policy</Link>
+            <Link to="/privacy-policy" className="cursor-pointer hover:underline duration-300 text-start w-fit">Privacy Policy</Link>
             <Link to="/contactus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Contact Us</Link>
           </div>
           <div className="flex flex-col w-full lg:w-[70%] gap-5 text-justify scrollbar-none lg:p-5">

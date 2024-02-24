@@ -517,9 +517,9 @@ const Store = () => {
                                 validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
                                     return (
 
-                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 ml-1">
-                                            <li className="font-semibold text-[12px] pl-2">{ele.title}</li>
-                                        </ul>
+                                        <div key={index} className="w-full cursor-pointer list-disc bg-white rounded-lg flex gap-3">
+                                            <span className="text-md">- {ele.title}</span>
+                                        </div>
                                     )
                                 })
                             }
@@ -730,11 +730,15 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        <button className="button has-code1" onClick={() => handleOpen(ele)} >
-                                                            <span className="is-code1">74
-                                                                {ele.coupon_code}</span>
-                                                            <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
-                                                        </button>
+                                                        {
+                                                            ele.type === "Codes" ? <button className="button has-code1" onClick={() => handleOpen(ele)} >
+                                                                <span className="is-code1">74
+                                                                    {ele.coupon_code}</span>
+                                                                <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
+                                                            </button> : <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" onClick={() => handleOpen(ele)}>
+                                                                <span className="uppercase font-bold">Get {ele.type}</span>
+                                                            </button>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -796,11 +800,15 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        <button className="button has-code1 !grayscale " onClick={() => handleOpen(ele)} >
-                                                            <span className="is-code1">74
-                                                                {ele.coupon_code}</span>
-                                                            <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
-                                                        </button>
+                                                        {
+                                                            ele.type === "Codes" ? <button className="button has-code1 !grayscale" onClick={() => handleOpen(ele)} >
+                                                                <span className="is-code1">74
+                                                                    {ele.coupon_code}</span>
+                                                                <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
+                                                            </button> : <button className="!grayscale whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" onClick={() => handleOpen(ele)}>
+                                                                <span className="uppercase font-bold">Get {ele.type}</span>
+                                                            </button>
+                                                        }
                                                     </div> </div>
                                             </div>
                                             <div className="flex gap-1 items-center cursor-pointer text-xs lg:text-base lg:mx-2 lg:mt-2" onClick={() => toggleDetails(index + validCoupons.length)}>

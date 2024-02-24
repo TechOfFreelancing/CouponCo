@@ -7,8 +7,8 @@ const SearchBar = () => {
     const [keyword, setKeyword] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [store, setStore] = useState([]);
-    const [Categories,setCategories] = useState([]);
-    const [Events,setEvents] = useState([]);
+    const [Categories, setCategories] = useState([]);
+    const [Events, setEvents] = useState([]);
     const searchContainerRef = useRef(null);
     const navigate = useNavigate();
 
@@ -113,6 +113,26 @@ const SearchBar = () => {
             </div>
             {Object.keys(suggestions).length > 0 && (
                 <div className='bg-white absolute top-10 left-0 min-w-[200px] lg:w-[309px] rounded-xl min-h-min max-h-[250px] lg:max-h-[272px] overflow-scroll -z-10 p-5 flex flex-col gap-3'>
+                    {suggestions.stores?.length > 0 && (
+                        <>
+                            <span className='font-semibold'>
+                                Stores
+                            </span>
+                            <ul className="autocomplete-suggestions flex flex-col gap-2">
+                                {suggestions.stores.map((store, index) => (
+                                    <li key={index} onClick={() => {
+                                        setKeyword(store.name);
+                                        setSuggestions([]);
+                                        navigate(
+                                            `/Stores/${store.name}`, { state: { sId: store.id } }
+                                        )
+                                    }} className='border-b cursor-pointer'>
+                                        {store.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
                     {suggestions.categories?.length > 0 && (
                         <>
                             <span className='font-semibold'>
@@ -149,26 +169,7 @@ const SearchBar = () => {
                             </ul>
                         </>
                     )}
-                    {suggestions.stores?.length > 0 && (
-                        <>
-                            <span className='font-semibold'>
-                                Stores
-                            </span>
-                            <ul className="autocomplete-suggestions flex flex-col gap-2">
-                                {suggestions.stores.map((store, index) => (
-                                    <li key={index} onClick={() => {
-                                        setKeyword(store.name);
-                                        setSuggestions([]);
-                                        navigate(
-                                            `/Stores/${store.name}`, { state: { sId: store.id } }
-                                        )
-                                    }} className='border-b cursor-pointer'>
-                                        {store.name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </>
-                    )}
+
                 </div>
             )}
 
