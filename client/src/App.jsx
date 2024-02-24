@@ -36,8 +36,8 @@ import UpdateEvent from './components/Admin/updateEvent';
 import Blog from './pages/Blog';
 import BlogDetails from './pages/BlogDetails';
 import TermsOfService from './pages/TermsOfService';
-import AllStores from './pages/AllStores';
-import AllCategories from './pages/AllCategories';
+import AllStores from './pages/all-stores';
+import AllCategories from './pages/all-categories';
 
 
 
