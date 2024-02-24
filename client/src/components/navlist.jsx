@@ -96,7 +96,7 @@ const Navlist = () => {
                         {
                             Categories.map((ele, index) => {
                                 return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
-                                    navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.logo_url } })
+                                    navigate("/categoriesdetails", { state: { cId : ele.id ,category: ele.name, category_icon: ele.logo_url } })
                                 }}>{ele.name}</div>
                             })
                         }
