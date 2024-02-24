@@ -6,7 +6,7 @@ import '../styles/privacypolicy.css'
 const PrivacyPolicy = () => {
     return (
         <>
-            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+            <div className="px-5 max-w-[1280px] mx-auto flex flex-col text-black mt-28 lg:mt-32 items-start gap-5">
 
                 <div className="flex flex-col lg:flex-row gap-5 w-full relative items-start">
                     <div className="flex flex-col w-full lg:w-[30%] lg:p-5 lg:pl-0 lg:ml-10 gap-5 text-[#B33D53] lg:sticky lg:top-32 lg:h-screen">
@@ -21,7 +21,7 @@ const PrivacyPolicy = () => {
                                 </li>
 
                                 <li className="inline-flex items-center">
-                                    <Link to="/privacypolicy" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                                    <Link to="/privacy-policy" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                         Privacy Policy
                                     </Link>
                                 </li>
@@ -30,10 +30,10 @@ const PrivacyPolicy = () => {
                         <div className="font-semibold text-xl text-black lg:h-10">About QwikSavings.com </div>
                         <hr className="border-2" />
                         <Link to="/aboutus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Company</Link>
-                        <Link to="/ourcodes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
+                        <Link to="/our-codes" className="cursor-pointer hover:underline duration-300 text-start w-fit">Our Codes</Link>
                         <Link to="/howitworks" className="cursor-pointer hover:underline duration-300 text-start w-fit">How it Works</Link>
                         <Link to="/faqs" className="cursor-pointer hover:underline duration-300 text-start w-fit">FAQ</Link>
-                        <Link to="/privacypolicy" className="cursor-pointer hover:underline duration-300 text-start w-fit">Terms of Service</Link>
+                        <Link to="/terms-of-services" className="cursor-pointer hover:underline duration-300 text-start w-fit">Terms of Service</Link>
                         <Link to="/contactus" className="cursor-pointer hover:underline duration-300 text-start w-fit">Contact Us</Link>
                     </div>
                     <div className="flex flex-col w-full lg:w-[70%] gap-10 text-justify scrollbar-none lg:p-5">
@@ -654,7 +654,7 @@ const PrivacyPolicy = () => {
             </div>
             <Footer></Footer>
         </>
-    );
+    )
 };
 
 export default PrivacyPolicy;

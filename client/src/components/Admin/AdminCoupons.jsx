@@ -27,9 +27,9 @@ const AdminCoupons = () => {
             },
           }
         );
-        setCoupons(response.data.coupons);
+        setCoupons(response.data.coupons)
         setTimeout(() => {
-          setLoading(false); 
+          setLoading(false);
         }, 1000);
       } catch (error) {
         alert(error.response?.data?.message || "Failed to fetch coupons.");

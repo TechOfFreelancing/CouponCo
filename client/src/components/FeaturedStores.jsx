@@ -56,12 +56,12 @@ const Featured_Stores = () => {
 
 
     return (
-        <div className="h-fit max-h-[100vh] bg-[#FAF9F6] py-5">
+        <div className="h-fit max-h-[100vh] py-5 max-w-[1280px] mx-auto">
             <div className="flex items-center justify-between h-[5rem]">
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
-                <Link to="/allstores" className="hover:underline h-7 duration-300">
+                <Link to="/all-stores" className="hover:underline h-7 duration-300">
                     All Stores
                 </Link>
             </div>

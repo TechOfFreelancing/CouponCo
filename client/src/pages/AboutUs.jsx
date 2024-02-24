@@ -10,8 +10,8 @@ import { IoIosArrowDropright } from "react-icons/io";
 
 const AboutUs = () => {
     return (
-        <>
-            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-20 lg:mt-32 items-start gap-5">
+        <div className="max-w-[1280px] mx-auto">
+            <div className="px-5 flex flex-col text-black mt-20 lg:mt-32 items-start gap-5">
                 <div className="flex flex-col items-start flex-wrap gap-2 lg:p-5 pt-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
@@ -142,7 +142,7 @@ const AboutUs = () => {
                 </div>
             </div>
             <Footer></Footer>
-        </>
+        </div>
     )
 }
 

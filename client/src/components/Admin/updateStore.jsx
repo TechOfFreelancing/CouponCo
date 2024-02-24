@@ -78,6 +78,7 @@ function UpdateStores() {
             hint: store.hint || "",
             best_offer: store.best_offer || "",
             avg_disc: store.avg_disc || "",
+            ref_link: store.ref_link || "",
         },
 
         onSubmit: async (values) => {
@@ -93,7 +94,7 @@ function UpdateStores() {
                 formData.append("type", values.type);
                 formData.append("best_offer", values.best_offer);
                 formData.append("avg_disc", values.avg_disc);
-
+                formData.append("ref_link", values.ref_link);
 
                 if (selectedFile) {
                     formData.append("storeFile", selectedFile);
@@ -126,7 +127,7 @@ function UpdateStores() {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },
                 });
-                
+
 
                 toast.success("Store updated successfully");
 
@@ -179,27 +180,27 @@ function UpdateStores() {
     useEffect(() => {
         // Fetch data from the API
         const fetchProducts = async () => {
-          try {
-            const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
-              {
-                withCredentials: true,
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-              }
-            );
-            setCategories(response.data.categories);
-            
-          } catch (error) {
-            alert(error.response?.data?.message || "Failed to fetch category.");
-            console.error("Failed to fetch category:", error);
-          }
+            try {
+                const response = await axios.get(
+                    `https://backend.qwiksavings.com/api/getCategories`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                    }
+                );
+                setCategories(response.data.categories);
+
+            } catch (error) {
+                alert(error.response?.data?.message || "Failed to fetch category.");
+                console.error("Failed to fetch category:", error);
+            }
         };
-    
+
         fetchProducts();
-      }, []);
+    }, []);
 
 
     const inputStyle = {
@@ -301,6 +302,7 @@ function UpdateStores() {
                     hint: response.data.store.hint || '',
                     best_offer: response.data.store.best_offer || '',
                     avg_disc: response.data.store.avg_disc || '',
+                    ref_link: response.data.store.ref_link || '',
                 });
             } catch (error) {
                 toast.error(error.response ? error.response.statusText : 'Failed to fetch data');
@@ -333,7 +335,7 @@ function UpdateStores() {
                 open={openDeleteClouser}
                 handleOpen={handleDeleteClouserOpen}
             />
-            <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
+            <div className="max-w-[1280px] mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Store</h1>
                 <div className="flex items-center justify-center">
                     {store && <Avatar src={store.logo_url} size="xxl" className="h-auto w-auto" alt="avatar"></Avatar>}
@@ -366,6 +368,21 @@ function UpdateStores() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.name}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="ref_link" className="block mb-1 font-medium">
+                            Store Link:
+                        </label>
+                        <input
+                            type="text"
+                            id="ref_link"
+                            name="ref_link"
+                            style={inputStyle}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.ref_link}
                         />
                     </div>
 
@@ -453,7 +470,7 @@ function UpdateStores() {
 
                     <div className="mb-4">
                         <label htmlFor="best_offer" className="block mb-1 font-medium">
-                            Best Offer(%):
+                            Best Offer:
                         </label>
                         <textarea
                             type="text"
@@ -465,10 +482,10 @@ function UpdateStores() {
                             value={formik.values.best_offer}
                         />
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="avg_disc" className="block mb-1 font-medium">
-                            Avg Discout(%):
+                            Avg Discout:
                         </label>
                         <textarea
                             type="text"

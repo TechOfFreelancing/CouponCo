@@ -50,14 +50,14 @@ const ContactUs = () => {
             toast.success('Sent successfully');
 
         } catch (error) {
-            toast.error("Please fill all details");
+            toast.error("Please Do Login And Try Again!")
         }
     };
 
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start">
+            <div className="px-5 max-w-[1280px] mx-auto flex flex-col text-black mt-28 lg:mt-32 items-start">
                 <div className="flex flex-col items-start flex-wrap lg:p-4">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">

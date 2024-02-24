@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const OurCodes = () => {
     return (
         <>
-            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+            <div className="px-5 max-w-[1280px] mx-auto flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
                 <div className="flex flex-col items-start flex-wrap lg:p-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
@@ -17,7 +17,7 @@ const OurCodes = () => {
                         </li>
 
                         <li className="inline-flex items-center">
-                            <Link to="/ourcodes" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                            <Link to="/our-codes" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                 Our Codes
                             </Link>
                         </li>
@@ -67,7 +67,7 @@ const OurCodes = () => {
                             </div>
                             <div className='flex flex-col gap-4 p-2 lg:p-5'>
                                 <span className='text-lg font-bold'>Step  2.  Inactive  Code</span>
-                                <span className='text-justify'>If  the  coupon  code  doesn’t  work,  forward  your  online  order  confirmation  or  receipt  by  email  to
+                                <span className='text-start'>If  the  coupon  code  doesn’t  work,  forward  your  online  order  confirmation  or receipt by email to
                                     <a href='mailto:claims@qwiksavings.com' className='mx-1 font-semibold' target='_blank' rel="noreferrer">claims@qwiksavings.com</a>
                                     within  48  hours  of  making  your  order.  Within  your  email,  please  also
                                     include:</span>

@@ -7,7 +7,6 @@ import {
     Button
 } from "@material-tailwind/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import bg from '../assets/images/event/eventbg.jpg';
 import { eventDetails } from "../api/event";
 import { useState, useEffect, useContext } from "react";
 import { GoVerified } from 'react-icons/go';
@@ -73,6 +72,7 @@ const EventDetails = () => {
                 email,
                 password,
             });
+            console.log(response);
             toast.success("Registration successful");
 
             setTimeout(() => {
@@ -135,11 +135,13 @@ const EventDetails = () => {
             handleClose();
         }
         else {
+            // console.log("clicked")
             setSelectedProduct(product);
             setOpen(!open);
             setWaiting(true)
             const correctedRefLink = product?.ref_link?.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/, "https://$1");
             setProductlink(correctedRefLink);
+            // console.log('selected link', correctedRefLink, productlink); // Use correctedRefLink directly
             if (correctedRefLink) {
                 setTimeout(() => {
                     handleCopyClick();
@@ -251,7 +253,7 @@ const EventDetails = () => {
         fetchData();
     }, [])
 
-    //  (allAboutEvent);
+    // console.log(allAboutEvent);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -296,28 +298,38 @@ const EventDetails = () => {
                         })
                     );
                 };
+                if (popularStores.length > 0) {
 
-                const popularStoreInfo = await getStoreInfo(popularStores);
-                setPopularStoreNames(popularStoreInfo);
-                const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
-                const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
-                    const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
-                    if (new Date(coupons.data.coupon.due_date) >= new Date()) {
-                        return coupons.data.coupon;
-                    }
-                    // Return null for items that don't meet the condition
-                    return null;
-                }));
+                    const popularStoreInfo = await getStoreInfo(popularStores);
+                    setPopularStoreNames(popularStoreInfo);
+                }
 
-                // Filter out null values
-                const filteredCoupons = validCoupons.filter((coupon) => coupon !== null);
-                setEventData(filteredCoupons);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
     }, [event]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`https://backend.qwiksavings.com/api/events/${event}`);
+
+            const validCoupons = await Promise.all(response.data.coupons.map(async (c) => {
+                const coupons = await axios.get(`https://backend.qwiksavings.com/api/coupons/${c.store_id}/${c.coupon_id}`);
+                if (new Date(coupons.data.coupon.due_date) >= new Date()) {
+                    return coupons.data.coupon;
+                }
+                // Return null for items that don't meet the condition
+                return null;
+            }));
+
+            // Filter out null values
+            const filteredCoupons = validCoupons.filter((coupon) => coupon !== null);
+            setEventData(filteredCoupons);
+        }
+        fetchData()
+    }, [event])
 
 
     const toggleDetails = (index) => {
@@ -333,24 +345,25 @@ const EventDetails = () => {
         setShowAllEvents((prev) => !prev);
     };
 
+    // console.log(eventData);
 
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="lg:w-[90vw] flex flex-col text-black border lg:mx-auto mt-28 lg:mt-32">
+            <div className="max-w-[1280px] mx-auto flex flex-col text-black lg:mx-auto mt-28 lg:mt-32">
                 <div className="p-1 lg:p-4 flex flex-col items-start flex-wrap gap-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
                                 <svg className="w-5 h-auto fill-current mx-1 text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
                             </Link>
-                            <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
+                            <span className="mx-1 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 Events
                             </Link>
-                            <span className="mx-2 h-auto text-gray-400 font-medium">/</span>
+                            <span className="mx-1 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
                             <Link to="/events" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
@@ -359,18 +372,19 @@ const EventDetails = () => {
                         </li>
                     </ul>
                     <div className="relative flex items-center justify-center w-full">
+                       {allAboutEvent.event_banner_url&&
                         <img src={allAboutEvent.event_banner_url} alt="" className="w-full h-[80px] lg:h-[160px]" />
+                       } 
                         {/* <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
                             <div className='p-4 text-3xl font-bold text-white z-10'>Browse Top Shopping Events</div>
                         </div> */}
                     </div>
-                    <div className="flex flex-col-reverse lg:flex-row w-[96%] lg:w-full mx-2">
-                        <div className="w-full lg:w-1/4 flex flex-col gap-5 lg:px-5 text-sm items-center">
+                    <div className="flex flex-col-reverse lg:flex-row lg:w-full mx-2">
+                        <div className="w-full lg:w-1/4 flex flex-col gap-5 text-sm items-center lg:pt-5">
                             <div className="min-w-full bg-white p-5 rounded-lg shadow-boxshadow">
                                 <div className="text-xl font-bold my-2">About</div>
                                 <div className="flex flex-wrap gap-2 text-sm">
                                     <p>{allAboutEvent.about}</p>
-
                                 </div>
                             </div>
                             <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
@@ -379,30 +393,30 @@ const EventDetails = () => {
                                     eventData && eventData?.slice(0, 2).map((ele, index) => {
                                         return (
 
-                                            <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 text-justify">
-                                                <li className="font-semibold text-[12px] ">{ele.title}</li>
-                                            </ul>
+                                            <div key={index} className="w-full cursor-pointer list-disc bg-white rounded-lg flex gap-3 text-justify">
+                                                <span className="">-{ele.title}</span>
+                                            </div>
                                         )
                                     })
                                 }
-                                <div className="bg-white flex flex-col gap-2 border border-gray-400 py-5 rounded-lg font-[16px]">
-                                    <div className="flex justify-between items-center px-5">
+                                <div className="bg-white flex flex-col gap-2 py-5 rounded-lg font-[16px]">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Total Offers</span>
                                         <span>{eventData.length}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Total Codes</span>
                                         <span>{eventData.filter(function (item) {
                                             return item.type === "Codes";
                                         }).length}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Best Offer</span>
-                                        <span className="whitespace-nowrap">{allAboutEvent.best_offer}% Off</span>
+                                        <span className="whitespace-nowrap">{allAboutEvent.best_offer}</span>
                                     </div>
-                                    <div className="flex justify-between items-center px-5">
+                                    <div className="flex justify-between items-center">
                                         <span className="text-lg text-black">Average Discount</span>
-                                        <span className="whitespace-nowrap">{allAboutEvent.avg_disc}% Off</span>
+                                        <span className="whitespace-nowrap">{allAboutEvent.avg_disc}</span>
                                     </div>
                                 </div>
                             </div>
@@ -429,15 +443,14 @@ const EventDetails = () => {
                                 </div>
                             )}
 
-
                         </div>
-                        <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5 gap-5">
-                            <div className='lg:p-4 pt-0 pl-0 text-xl lg:text-3xl font-bold'>Browse Top {event} Shopping Events</div>
+                        <div className="w-full lg:w-3/4 h-full flex flex-col gap-5">
+                            <div className='lg:p-4 pt-0 pl-0 lg:pl-5 text-xl lg:text-3xl font-bold'>Browse Top {event} Shopping Events</div>
                             <div className="flex flex-col gap-2 lg:gap-5 items-start lg:mx-5">
                                 {
                                     eventData.slice(0, eventsToShow).map((ele, index) => {
                                         return (
-                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-[60rem] hover:shadow-lg duration-300">
+                                            <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-[340px] lg:w-full hover:shadow-lg duration-300">
                                                 <span
                                                     className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                         }`}
@@ -448,13 +461,15 @@ const EventDetails = () => {
                                                 <div className="flex flex-col w-full gap-2">
                                                     <div className="flex gap-1 lg:gap-0">
                                                         <div className="w-[15%] h-auto flex flex-col items-center justify-center">
-                                                            <div className="border border-black flex flex-col items-center justify-center">
-                                                                <img src={ele.logo_url} alt="H" className="max-h-[50px] h-auto w-[50px] lg:max-h-[75px]  lg:w-[75px] rounded-lg m-2" />
-                                                                <span className="bg-blue-100 text-center w-full capitalize text-xs lg:text-base">{ele.type}</span>
-                                                            </div>
+                                                            {
+                                                                ele.logo_url && <div className="border border-black flex flex-col items-center justify-center">
+                                                                    <img src={ele.logo_url} alt="H" className="max-h-[50px] h-auto w-[50px] lg:max-h-[75px]  lg:w-[75px] rounded-lg m-2" />
+                                                                    <span className="bg-blue-100 text-center w-full capitalize text-xs lg:text-base">{ele.type}</span>
+                                                                </div>
+                                                            }
                                                         </div>
                                                         <div className="flex flex-col w-[40%] lg:w-[55%] lg:mx-5 justify-between gap-2">
-                                                            <div className="flex flex-col lg:flex-row justify-between w-full mt-5">
+                                                            <div className="flex flex-col lg:flex-row justify-between w-full">
                                                                 <div className="lg:font-bold text-[12px] lg:text-xl text-center lg:text-start">{ele.title}</div>
                                                             </div>
                                                         </div>
@@ -476,9 +491,9 @@ const EventDetails = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
+                                                    <div className="flex gap-1 items-center text-sm cursor-pointer justify-between lg:px-2 w-full">
                                                         <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
-                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
+                                                        <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-1 h-10">
                                                             <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
                                                             <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
                                                                 <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
@@ -486,7 +501,7 @@ const EventDetails = () => {
                                                         </span>
                                                     </div>
                                                     {detailsVisibility[index] && (
-                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
+                                                        <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-2 text-xs lg:text-base">
                                                             <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
                                                             <span className="text-ellipsis">{ele.description}</span>
                                                         </div>

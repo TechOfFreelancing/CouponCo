@@ -73,9 +73,9 @@ export function Header() {
         <>
             <div className="fixed top-0 flex flex-col h-fit lg:h-fit w-screen items-center z-20 opacity-100 lg:border-b-[1px] border-b-[#B33D53] bg-white">
                 {isOffer && <Alert></Alert>}
-                <nav className="z-10 h-max rounded-none py-2 flex xl:gap-5 items-center justify-between lg:px-28 w-full px-5 lg:h-[93px]">
+                <nav className="z-10 h-max rounded-none py-2 flex items-center justify-between w-full lg:w-[1280px] mx-auto lg:h-[93px]">
                     <Link to="/" className="cursor-pointer font-medium">
-                        <img src={logo} alt="Qwik Savings" className="h-20 lg:w-[15rem] 2xl:w-[17rem] hidden lg:inline-block" />
+                        <img src={logo} alt="Qwik Savings" className="h-20 lg:w-[15rem] 2xl:min-w-[15rem] hidden lg:inline-block" />
                     </Link>
                     <Link to="/" className="cursor-pointer font-medium">
                         <img src={mobile_logo} alt="Qwik Savings" className="h-10 w-10 inline-block lg:hidden" />
@@ -98,13 +98,13 @@ export function Header() {
                         </div>
                     )}
                     <GiHamburgerMenu
-                        onClick={OpenSidebar} className="cursor-pointer scale-125 hover:scale-150 duration-200 sm:hidden" />
+                        onClick={OpenSidebar} className="cursor-pointer scale-125 hover:scale-150 duration-200 sm:hidden mr-5" />
                 </nav>
-                <Drawer placement="right" open={openSidebar} onClose={CloseSidebar} className="lg:hidden p-5" overlay={false}>
+                <Drawer placement="right" open={openSidebar} onClose={CloseSidebar} className="lg:hidden p-5" overlay={false} size={350}>
                     <div className="flex flex-col bg-white">
                         <div className="mb-2 flex items-center justify-between">
                             <Link to="/" className="cursor-pointer font-medium">
-                                <img src={logo} alt="Qwik Savings" className="h-auto w-[10rem]" />
+                                <img src={logo} alt="Qwik Savings" className="h-auto w-[10rem]" onClick={CloseSidebar} />
                             </Link>
                             <IconButton variant="text" color="blue-gray" onClick={CloseSidebar}>
                                 <svg
@@ -126,25 +126,61 @@ export function Header() {
                         <div className="flex items-center justify-center my-5">
                             {role ? (
                                 <div className="flex justify-between w-full mx-10">
-                                    <Link to="/Profile" className="cursor-pointer whitespace-nowrap">
+                                    <Link to="/Profile" className="cursor-pointer whitespace-nowrap" onClick={CloseSidebar}>
                                         Profile
                                     </Link>
-                                    <div onClick={handleLogout} className="cursor-pointer whitespace-nowrap">
+                                    <div onClick={() => { handleLogout(), CloseSidebar() }} className="cursor-pointer whitespace-nowrap">
                                         Logout
                                     </div>
                                 </div>
                             ) : (
                                 <>
-                                    <Link to="/login" className="whitespace-nowrap text-black" onClick={() => setOpenSidebar(!openSidebar)}>
+                                    <Link to="/login" className="whitespace-nowrap text-black" onClick={() => { setOpenSidebar(!openSidebar), CloseSidebar() }}>
                                         Log In
                                     </Link>
-                                    <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md" onClick={() => setOpenSidebar(!openSidebar)}>
+                                    <Link to="/signup" className="whitespace-nowrap px-4 py-2 text-black rounded-md" onClick={() => { setOpenSidebar(!openSidebar), CloseSidebar() }}>
                                         Sign Up
                                     </Link>
                                 </>
                             )}
                         </div>
-                        <div className="-my-5"><NavList></NavList></div>
+                        <div className="-my-5">
+                            <ul className="py-5  mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
+                                <span className="p-1 font-normal font-[Poppins] relative group"
+                                >
+                                    <Link to="/all-stores" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                                        Stores
+                                    </Link>
+                                    
+                                </span>
+                                <span className="p-1 font-normal font-[Poppins] relative group"
+                                >
+                                    <Link to="/all-categories" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                                        Categories
+                                    </Link>
+                                   
+                                </span>
+                                <span className="p-1 font-normal font-[Poppins]"
+                                >
+                                    <Link to="/our-codes" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-b-2 hover:lg:border-red-500 whitespace-nowrap">
+                                        Our Codes
+                                    </Link>
+                                </span>
+                                <span className="p-1 font-normal font-[Poppins] relative group"
+                                >
+                                    <Link to="/events" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                                        Events
+                                    </Link>
+                                    
+                                </span>
+                                <span className="p-1 font-normal font-[Poppins]"
+                                >
+                                    <Link to="/blogs" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2">
+                                        Blog
+                                    </Link>
+                                </span>
+                            </ul>
+                        </div>
                     </div>
                 </Drawer>
             </div>

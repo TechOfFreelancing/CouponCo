@@ -451,9 +451,9 @@ const Store = () => {
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row lg:gap-5 h-full lg:w-[90vw] lg:mx-auto lg:py-5" >
+            <div className="mt-22 lg:my-32 flex flex-col lg:flex-row h-full max-w-[1280px] mx-auto" >
                 <div className="w-full lg:w-1/4 h-full flex flex-col gap-5 text-sm items-center">
-                    <div className="bg-[#FAF9F5] p-4 pl-0 flex items-center flex-wrap border">
+                    <div className="bg-[#FAF9F5] p-4 pl-0 flex items-center flex-wrap">
                         <ul className="flex items-center">
                             <li className="inline-flex items-center">
                                 <Link1 to="/" className="text-gray-600 hover:text-[#B33D53]">
@@ -464,7 +464,7 @@ const Store = () => {
                             </li>
 
                             <li className="inline-flex items-center">
-                                <Link1 to="/allstores" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                                <Link1 to="/all-stores" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                     All Stores
                                 </Link1>
                                 <span className="mx-4 h-auto text-black font-medium">/</span>
@@ -482,7 +482,7 @@ const Store = () => {
                     </div>
 
                     <a
-                        href={`https://www.${str?.name}.in/`}
+                        href={str?.ref_link ? (str.ref_link.startsWith('http') ? str.ref_link : 'https://' + str.ref_link) : '#'}
                         className="whitespace-nowrap hover:-translate-y-1 duration-300 text-[#B33D53] p-2 rounded-md flex items-center justify-center cursor-pointer"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -517,13 +517,13 @@ const Store = () => {
                                 validCoupons && validCoupons?.slice(0, 2).map((ele, index) => {
                                     return (
 
-                                        <ul key={index} className="w-full cursor-pointer list-disc bg-white p-2 rounded-lg flex gap-3 ml-1">
-                                            <li className="font-semibold text-[12px] pl-2">{ele.title}</li>
-                                        </ul>
+                                        <div key={index} className="w-full cursor-pointer list-disc bg-white rounded-lg flex gap-3">
+                                            <span className="text-md">- {ele.title}</span>
+                                        </div>
                                     )
                                 })
                             }
-                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px] px-5">
+                            <div className="bg-white flex flex-col gap-2 rounded-lg font-[16px]">
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Total Offers</span>
                                     <span>{validCoupons?.length}</span>
@@ -534,66 +534,70 @@ const Store = () => {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Best Offer</span>
-                                    <span>{str?.best_offer}% Off</span>
+                                    <span>{str?.best_offer}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg text-black">Average Discount</span>
-                                    <span className="whitespace-nowrap">{str?.avg_disc} % Off</span>
+                                    <span className="whitespace-nowrap">{str?.avg_disc}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
-                            {
-                                (str?.faq || str?.hint || str?.moreAbout) &&
-                                <div className="font-semibold text-xl text-black">
-                                    Quick Links
-                                </div>
-                            }
-                            {
-                                str?.faq && (
-                                    <Link
-                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        to="faqs"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
+                        {
+                            (str?.faq || str?.hint || str?.moreAbout) && (
+                                <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white ">
 
-                                    >
-                                        <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
-                                    </Link>
-                                )
-                            }
-                            {
-                                str?.hint && (
-                                    <Link
-                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        to="hints_tips"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
-                                    >
-                                        <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
-                                    </Link>
-                                )
-                            }
-                            {
-                                str?.moreAbout && (
-                                    <Link
-                                        className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        to="more_about"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
-                                    >
-                                        <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
-                                    </Link>
-                                )
-                            }
-                        </div>
+                                    <div className="font-semibold text-xl text-black">
+                                        Quick Links
+                                    </div>
+
+                                    {
+                                        str?.faq && (
+                                            <Link
+                                                className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                                to="faqs"
+                                                spy={true}
+                                                smooth={true}
+                                                offset={-150}
+                                                duration={800}
+
+                                            >
+                                                <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
+                                            </Link>
+                                        )
+                                    }
+                                    {
+                                        str?.hint && (
+                                            <Link
+                                                className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                                to="hints_tips"
+                                                spy={true}
+                                                smooth={true}
+                                                offset={-150}
+                                                duration={800}
+                                            >
+                                                <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
+                                            </Link>
+                                        )
+                                    }
+                                    {
+                                        str?.moreAbout && (
+                                            <Link
+                                                className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                                to="more_about"
+                                                spy={true}
+                                                smooth={true}
+                                                offset={-150}
+                                                duration={800}
+                                            >
+                                                <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
+                                            </Link>
+                                        )
+                                    }
+                                </div>
+                            )
+
+                        }
 
                         {(similarStoreNames && similarStoreNames.length > 0) && (
                             <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
@@ -625,9 +629,7 @@ const Store = () => {
                                 </div>
                                 <div className="flex flex-wrap gap-2">{
                                     popularStoreNames.map((store, index) => (
-                                        <motion.div variants={variants} initial="hidden"
-                                            animate="visible"
-                                            transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
+                                        <div key={index} className="text-sm p-1 duration-300  bg-gray-300 hover:bg-red-200 rounded-md cursor-pointer"
 
                                             onClick={() => {
                                                 navigate(
@@ -635,7 +637,7 @@ const Store = () => {
                                                 )
                                             }}>
                                             <span>{store.name}</span>
-                                        </motion.div>
+                                        </div>
                                     ))
                                 }
                                 </div>
@@ -645,60 +647,59 @@ const Store = () => {
                     </div>
                 </div>
                 <div className="w-full lg:w-3/4 h-full flex flex-col border-l-2 lg:mx-5">
-                    <Tabs value={activeTab} className="p-5 ">
-                        <div className="flex flex-col gap-3 justify-evenly mt-5 ">
-                            <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">{str?.title}</div>
 
-                            <div className="text-md lg:text-sm font-semibold uppercase">
+                    <div className="flex flex-col gap-3 justify-evenly p-5 pt-2">
+                        <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">{str?.title}</div>
 
-                                Best {validCoupons?.length} offers last validated on {formattedDate}
-                            </div>
+                        <div className="text-md lg:text-sm font-semibold uppercase">
+                            Best {validCoupons?.length} offers last validated on {formattedDate}
                         </div>
-                        <div className="flex flex-row items-center justify-between gap-3 lg:gap-5 mt-3 lg:pr-10 -ml-5">
-                            <TabsHeader className="lg:w-full flex gap-2 lg:gap-4 bg-[#FAF9F5]" style={{ zIndex: 10 }}>
-                                <Tab
-                                    value="all"
-                                    className={activeTab === 'all' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('all')}
-                                >
-                                    <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap text-xs lg:text-sm">
-                                        All ({validCoupons?.length})
-                                    </div>
-                                </Tab>
-                                <Tab
-                                    value="codes"
-                                    className={activeTab === 'codes' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('codes')}
-                                >
-                                    <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap text-xs lg:text-sm">
-                                        Codes ({couponCounts.exclusive})
-                                    </div>
-                                </Tab>
-                                <Tab
-                                    value="Deals"
-                                    className={activeTab === 'deals' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
-                                    onClick={() => handleTabChange('deals')}
-                                >
-                                    <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap text-xs lg:text-sm">
-                                        Deals ({couponCounts.deals})
-                                    </div>
-                                </Tab>
-                            </TabsHeader>
-                            <div className="flex items-center text-[#B33D53] hover:underline cursor-pointer whitespace-nowrap text-xs lg:text-base" onClick={() => {
-                                navigate('/submitcoupon', { state: { storeId: sId } });
-                            }}>
-                                <div className="inline">Submit a coupon</div>
-                                <MdLocalOffer className="cursor-pointer" />
+                        <Tabs value={activeTab}>
+                            <div className="flex flex-row items-center justify-between gap-3 lg:gap-5">
+                                <TabsHeader className="lg:w-full flex gap-2 lg:gap-4 bg-[#FAF9F5]" style={{ zIndex: 10 }}>
+                                    <Tab
+                                        value="all"
+                                        className={activeTab === 'all' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                        onClick={() => handleTabChange('all')}
+                                    >
+                                        <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap text-xs lg:text-sm">
+                                            All ({validCoupons?.length})
+                                        </div>
+                                    </Tab>
+                                    <Tab
+                                        value="codes"
+                                        className={activeTab === 'codes' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                        onClick={() => handleTabChange('codes')}
+                                    >
+                                        <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap text-xs lg:text-sm">
+                                            Codes ({couponCounts.exclusive})
+                                        </div>
+                                    </Tab>
+                                    <Tab
+                                        value="Deals"
+                                        className={activeTab === 'deals' ? "text-[#800000] border-b-2 border-[#800000]" : ""}
+                                        onClick={() => handleTabChange('deals')}
+                                    >
+                                        <div className="flex items-center gap-2 lg:mx-2 whitespace-nowrap text-xs lg:text-sm">
+                                            Deals ({couponCounts.deals})
+                                        </div>
+                                    </Tab>
+                                </TabsHeader>
+                                <div className="flex items-center text-[#B33D53] hover:underline cursor-pointer whitespace-nowrap text-xs lg:text-base" onClick={() => {
+                                    navigate('/submitcoupon', { state: { storeId: sId } });
+                                }}>
+                                    <div className="inline">Submit a coupon</div>
+                                    <MdLocalOffer className="cursor-pointer" />
+                                </div>
                             </div>
-                        </div>
-                    </Tabs>
-                    <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2 mb-10">
+                        </Tabs>
+                    </div>
+
+                    <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2">
                         {
                             filteredCoupons && filteredCoupons.map((ele, index) => {
                                 return (
-                                    <motion.div variants={variants} initial="hidden"
-                                        animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+                                    <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-full hover:shadow-lg duration-300">
                                         <span
                                             className={`p-2 hidden group-hover:inline-block duration-300 absolute right-1 top-1 rounded-lg bg-gray-300/80 ${role && likedItems.includes(ele.coupon_id) ? 'text-red-500' : 'text-white'
                                                 }`}
@@ -729,17 +730,21 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        <button className="button has-code1" onClick={() => handleOpen(ele)} >
-                                                            <span className="is-code1">74
-                                                                {ele.coupon_code}</span>
-                                                            <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
-                                                        </button>
+                                                        {
+                                                            ele.type === "Codes" ? <button className="button has-code1" onClick={() => handleOpen(ele)} >
+                                                                <span className="is-code1">74
+                                                                    {ele.coupon_code}</span>
+                                                                <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
+                                                            </button> : <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" onClick={() => handleOpen(ele)}>
+                                                                <span className="uppercase font-bold">Get {ele.type}</span>
+                                                            </button>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="flex gap-2 items-center text-sm cursor-pointer justify-between lg:pl-5 lg:pr-5 w-full">
+                                            <div className="flex gap-2 items-center text-sm cursor-pointer justify-between lg:px-2 w-full">
                                                 <span className="flex gap-1 items-center text-sm cursor-pointer" onClick={() => toggleDetails(index)}> See Details <IoAddOutline className="cursor-pointer"></IoAddOutline></span>
-                                                <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-3 h-10">
+                                                <span className="flex gap-4 lg:gap-20 items-center justify-between text-sm cursor-pointer lg:mr-1 h-10">
                                                     <span className="whitespace-nowrap text-sx lg:text-base">41 % Success</span>
                                                     <span className="flex items-center gap-2 lg:gap-7 w-full lg:text-xl"> <FaRegThumbsUp className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsUp>
                                                         <FaRegThumbsDown className="hover:scale-125 duration-200 lg:h-5 lg:w-5"></FaRegThumbsDown></span>
@@ -747,13 +752,13 @@ const Store = () => {
                                                 </span>
                                             </div>
                                             {detailsVisibility[index] && (
-                                                <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip lg:px-5 text-xs lg:text-base">
-                                                    <span className="font-bold">Due Date :  {(Date(ele.due_date))}</span>
+                                                <div className="details flex flex-col w-screen lg:w-auto overflow-x-clip text-xs lg:text-base lg:px-2">
+                                                    <span className="font-bold">Due Date : {formatDate(ele.due_date)}</span>
                                                     <span className="text-ellipsis">{ele.description}</span>
                                                 </div>
                                             )}
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 )
                             })
                         }
@@ -761,14 +766,16 @@ const Store = () => {
 
                     {
                         expiredCoupons && (
-                            <div className="flex flex-col mt-14  my-5 gap-5 items-start lg:mx-5 mx-2">
-                                <div className="text-xl text-black font-semibold">
-                                    Recently Expired {str?.name} Discount Codes & Deals
-                                </div>
+                            <div className="flex flex-col my-5 gap-5 items-start lg:mx-5 mx-2">
+                                {expiredCoupons.length > 0 && (
+                                    <div className="text-xl text-black font-semibold">
+                                        Recently Expired {str?.name} Discount Codes & Deals
+                                    </div>
+                                )}
                                 {expiredCoupons?.map((ele, index) => (
                                     <motion.div variants={variants} initial="hidden"
                                         animate="visible"
-                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-[60rem] hover:shadow-lg duration-300">
+                                        transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-full hover:shadow-lg duration-300">
 
                                         <div className="flex flex-col w-full gap-2">
                                             <div className="flex gap-5 lg:gap-0">
@@ -793,14 +800,18 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        <button className="button has-code1 !grayscale " onClick={() => handleOpen(ele)} >
-                                                            <span className="is-code1">74
-                                                                {ele.coupon_code}</span>
-                                                            <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
-                                                        </button>
+                                                        {
+                                                            ele.type === "Codes" ? <button className="button has-code1 !grayscale" onClick={() => handleOpen(ele)} >
+                                                                <span className="is-code1">74
+                                                                    {ele.coupon_code}</span>
+                                                                <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
+                                                            </button> : <button className="!grayscale whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" onClick={() => handleOpen(ele)}>
+                                                                <span className="uppercase font-bold">Get {ele.type}</span>
+                                                            </button>
+                                                        }
                                                     </div> </div>
                                             </div>
-                                            <div className="flex gap-1 items-center cursor-pointer text-xs lg:text-base lg:ml-4 lg:mt-2" onClick={() => toggleDetails(index + validCoupons.length)}>
+                                            <div className="flex gap-1 items-center cursor-pointer text-xs lg:text-base lg:mx-2 lg:mt-2" onClick={() => toggleDetails(index + validCoupons.length)}>
                                                 See Details <IoAddOutline className="cursor-pointer"></IoAddOutline>
                                             </div>
                                             {detailsVisibility[index + validCoupons.length] && (
@@ -818,7 +829,7 @@ const Store = () => {
                         )
                     }
                     <div className="flex flex-col gap-5 lg:hidden mx-5">
-                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
+                        <div className="min-w-full flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white ">
                             <div className="font-semibold text-xl my-3 text-black">
                                 About {str?.name}
                             </div>
@@ -858,58 +869,62 @@ const Store = () => {
                                 </div>
                             </div>
                         </div>
+                        {
+                            (str?.faq || str?.hint || str?.moreAbout) && (
+                                <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white ">
 
-                        <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
-                            {
-                                (str?.faq || str?.hint || str?.moreAbout) &&
-                                <div className="font-semibold text-xl text-black">
-                                    Quick Links
+                                    <div className="font-semibold text-xl text-black">
+                                        Quick Links
+                                    </div>
+
+                                    {
+                                        str?.faq && (
+                                            <Link
+                                                className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                                to="faqs"
+                                                spy={true}
+                                                smooth={true}
+                                                offset={-150}
+                                                duration={800}
+
+                                            >
+                                                <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
+                                            </Link>
+                                        )
+                                    }
+                                    {
+                                        str?.hint && (
+                                            <Link
+                                                className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                                to="hints_tips"
+                                                spy={true}
+                                                smooth={true}
+                                                offset={-150}
+                                                duration={800}
+                                            >
+                                                <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
+                                            </Link>
+                                        )
+                                    }
+                                    {
+                                        str?.moreAbout && (
+                                            <Link
+                                                className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
+                                                to="more_about"
+                                                spy={true}
+                                                smooth={true}
+                                                offset={-150}
+                                                duration={800}
+                                            >
+                                                <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
+                                            </Link>
+                                        )
+                                    }
                                 </div>
-                            }
-                            {
-                                str?.faq && (
-                                    <Link
-                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        to="faqs"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
+                            )
 
-                                    >
-                                        <div className="flex gap-5 justify-between w-full">FAQS  <FaQuestionCircle></FaQuestionCircle></div>
-                                    </Link>
-                                )
-                            }
-                            {
-                                str?.hint && (
-                                    <Link
-                                        className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        to="hints_tips"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
-                                    >
-                                        <div className="flex gap-5 justify-between w-full">How To Apply? <MdTipsAndUpdates></MdTipsAndUpdates></div>
-                                    </Link>
-                                )
-                            }
-                            {
-                                str?.moreAbout && (
-                                    <Link
-                                        className="border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
-                                        to="more_about"
-                                        spy={true}
-                                        smooth={true}
-                                        offset={-150}
-                                        duration={800}
-                                    >
-                                        <div className="flex gap-5 justify-between w-full">More About <FcAbout /> </div>
-                                    </Link>
-                                )
-                            }
-                        </div>
+                        }
+
                         <div className="flex flex-col gap-2 shadow-boxshadow rounded-lg p-5 bg-white">
 
                             <div className="font-semibold text-xl text-black">
@@ -964,18 +979,17 @@ const Store = () => {
                     </div>
                     {
                         str?.faq && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="faqs">
+                            <div className="w-full lg:mx-5 p-10 bg-white my-2 shadow-boxshadow rounded-lg" id="faqs">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">FAQs</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {
                                         str?.faq?.map((ele, index) => {
                                             return (
-                                                <motion.div variants={variants} initial="hidden"
-                                                    animate="visible"
-                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }} key={index} className="flex flex-col gap-2 lg:text-justify">
+                                                <div variants={variants} initial="hidden"
+                                                    key={index} className="flex flex-col gap-2 lg:text-justify">
                                                     <div className="font-bold text-xl lg:text-2xl">{ele.question}</div>
                                                     <div className="text-justify">{ele.answer}</div>
-                                                </motion.div>)
+                                                </div>)
                                         })
                                     }
                                 </div>
@@ -984,16 +998,14 @@ const Store = () => {
                     }
                     {
                         str?.hint && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="hints_tips">
+                            <div className="w-full lg:mx-5 p-10 bg-white my-2 shadow-boxshadow rounded-lg" id="hints_tips">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">How to apply?</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     {str?.hint?.includes('\n') ? (
                                         str?.hint?.split('\n').map((line, index) => (
-                                            <motion.div className="flex flex-col text-justify" key={index} variants={variants} initial="hidden"
-                                                animate="visible"
-                                                transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }}>
+                                            <div className="flex flex-col text-justify" key={index}>
                                                 {line}
-                                            </motion.div>
+                                            </div>
                                         ))
                                     ) : (
                                         <div className="flex flex-col lg:text-justify">{str?.hint}</div>
@@ -1004,17 +1016,15 @@ const Store = () => {
                     }
                     {
                         str?.moreAbout && (
-                            <div className="w-full lg:w-[60rem] lg:mx-5 p-5 bg-white my-2" id="more_about">
+                            <div className="w-full lg:mx-5 p-10 bg-white my-2 shadow-boxshadow rounded-lg" id="more_about">
                                 <div className="font-semibold lg:text-4xl text-xl my-3">More About {str?.name}</div>
                                 <div className="moreaboutcompany flex flex-col gap-2">
                                     <div className="moreaboutcompany flex flex-col gap-2">
                                         {str?.moreAbout?.includes('\n') ? (
                                             str?.moreAbout?.split('\n').map((line, index) => (
-                                                <motion.div className="flex flex-col text-justify" key={index} variants={variants} initial="hidden"
-                                                    animate="visible"
-                                                    transition={{ delay: index * 0.25, ease: "easeInOut", duration: 0.5 }}>
+                                                <div className="flex flex-col text-justify" key={index}>
                                                     {line}
-                                                </motion.div>
+                                                </div>
                                             ))
                                         ) : (
                                             <div className="flex flex-col lg:text-justify">{str?.moreAbout}</div>
@@ -1025,8 +1035,6 @@ const Store = () => {
                             </div>
                         )
                     }
-
-
                 </div>
             </div>
             <Footer></Footer>

@@ -108,7 +108,7 @@ function AdminFestival() {
                 </h2>
             </div>
 
-            <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
+            <div className="max-w-[1280px] mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">
                     {isUpdate ? 'Update Festival Details' : 'Add Festival Details'}
                 </h1>

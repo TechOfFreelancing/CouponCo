@@ -20,15 +20,15 @@ const uploadAndCreateDocument = async (file) => {
 
 //add new store with basic details
 exports.addStore = catchAsyncErrors(async (req, res, next) => {
-    const { name, title, moreAbout, type, description, hint, best_offer, avg_disc } = req.body;
+    const { name, title, moreAbout, type, description, hint, best_offer, avg_disc, ref_link } = req.body;
     const storeFile = req.file;
 
 
     try {
         const logo_url = await uploadAndCreateDocument(storeFile);
-        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint, best_offer, avg_disc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO store (name,title,moreAbout, logo_url, type, description ,hint, best_offer, avg_disc, ref_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint, best_offer, avg_disc]);
+        const result = await db.query(sql, [name, title, moreAbout, logo_url, type, description, hint, best_offer, avg_disc , ref_link]);
         const storeId = result[0].insertId;
 
         const store = `SELECT * FROM store WHERE id = ?`;
@@ -304,7 +304,7 @@ exports.updateStore = catchAsyncErrors(async (req, res, next) => {
 
         let updateSql = 'UPDATE store SET ';
         const updateParams = [];
-        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint', 'best_offer', 'avg_disc'];
+        const validFields = ['name', 'title', 'type', 'description', 'moreAbout', 'hint', 'best_offer', 'avg_disc', 'ref_link'];
 
         // If there's a new storeFile, update logo_url
         if (storeFile) {
@@ -409,12 +409,11 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-//add coupons
+// add coupons
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
     const { storeId } = req.params;
-    // console.log(storeId);
-    const { title, couponCode, type, ref_link, category, dueDate, description, isVerified } = req.body;
-    // console.log(req.body);
+    const { title, couponCode, type, ref_link, category, dueDate, description, isVerified, events } = req.body;
+
     try {
         // Check if the store exists
         const [storeResult] = await db.query('SELECT * FROM store WHERE id = ?', [storeId]);
@@ -423,25 +422,29 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
             return next(new ErrorHandler(`Store with ID ${storeId} not found`, 404));
         }
 
-        if (!title || !couponCode || !dueDate || !type) {
+        if (!title || !dueDate || !type) {
             return res.status(400).json({ error: 'Incomplete data' });
         }
 
+        // Allow an empty string as couponCode for deal type
+        if (type.toLowerCase() !== "deals" && !couponCode) {
+            return res.status(400).json({ error: 'Incomplete data. Coupon code is required for non-deal types.' });
+        }
 
         // Inserting the coupon into the coupons table
         const insertCouponSql = `
-        INSERT INTO coupons (store_id, title, coupon_code, type, ref_link,category, due_date, isVerified, description,created_at)
-        VALUES (?, ?, ?, ?, ?, ?,?,? , ?,NOW())
+        INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, category, due_date, isVerified, description, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
         `;
         const [result, fields] = await db.query(insertCouponSql, [storeId, title, couponCode, type, ref_link, category, dueDate, isVerified, description]);
 
-        if (req.body.events) {
+        if (events) {
             await Promise.all(
-                req.body.events.map(async (e) => {
+                events.map(async (e) => {
                     const [existingEvent] = await db.query('SELECT * FROM events WHERE coupon_id = ? AND store_id = ? AND event_name = ?', [result.insertId, storeId, e]);
 
                     if (existingEvent.length === 0) {
-                        await db.query('INSERT INTO events (coupon_id,store_id,event_name) VALUES (?,?,?)', [result.insertId, storeId, e]);
+                        await db.query('INSERT INTO events (coupon_id, store_id, event_name) VALUES (?, ?, ?)', [result.insertId, storeId, e]);
                     }
                 })
             );
@@ -449,15 +452,15 @@ exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
 
         // Updating the stock count in the store table
         const updateCouponsOffersSql = `
-         UPDATE store 
-         SET 
-         coupons = coupons + 1,
-          offers = CASE 
-           WHEN LOWER(?) = 'deal' THEN offers + 1
-           WHEN LOWER(?) = 'offer' THEN offers + 1
-           ELSE offers
-           END
-           WHERE id = ?
+            UPDATE store 
+            SET 
+            coupons = coupons + 1,
+            offers = CASE 
+                WHEN LOWER(?) = 'deal' THEN offers + 1
+                WHEN LOWER(?) = 'offer' THEN offers + 1
+                ELSE offers
+            END
+            WHERE id = ?
         `;
         await db.query(updateCouponsOffersSql, [type, type, storeId]);
 

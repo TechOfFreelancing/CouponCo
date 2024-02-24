@@ -265,7 +265,7 @@ const HealthFitnessBased = () => {
                                     <FaHeart className="cursor-pointer text-xl duration-300" />
                                 </span>
                                 <div
-                                    className="absolute z-10 left-2 bottom-36 mt-2 shadow-boxshadow h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white cursor-pointer"
+                                    className="absolute z-10 left-2 bottom-40 mt-2 shadow-boxshadow h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white cursor-pointer"
                                     onClick={() => navigate(`/Stores/${item.name}`, { state: { sId: item.id } })}>
                                     <img src={item.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
                                 </div>

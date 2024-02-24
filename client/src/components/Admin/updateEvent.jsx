@@ -119,7 +119,7 @@ function UpdateEvent() {
                 open={openDeleteClouser}
                 handleOpen={handleDeleteClouserOpen}
             />
-            <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
+            <div className="max-w-[1280px] mx-auto p-4 bg-white rounded-lg">
                 <h1 className="text-center mb-6 text-2xl font-bold">Update Event</h1>
                 <div className="flex items-center justify-center">
                     <h1>Logo:</h1>
@@ -199,7 +199,7 @@ function UpdateEvent() {
 
                     <div className="mb-4">
                         <label htmlFor="best_offer" className="block mb-1 font-medium">
-                            Best Offer(%):
+                            Best Offer:
                         </label>
                         <input
                             id="best_offer"
@@ -213,7 +213,7 @@ function UpdateEvent() {
 
                     <div className="mb-4">
                         <label htmlFor="avg_disc" className="block mb-1 font-medium">
-                            Avg Discout(%):
+                            Avg Discout :
                         </label>
                         <input
                             id="avg_disc"

@@ -86,7 +86,7 @@ const AllStores = () => {
     return (
         <>
             <div className="flex">
-                <div className="lg:w-[75vw] flex flex-col gap-5 text-black border lg:mx-auto mt-28 lg:mt-32 p-5 lg:p-10">
+                <div className="max-w-[1280px] mx-auto flex flex-col gap-5 text-black mt-28 lg:mt-32 p-5">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
                             <Link to="/" className="text-gray-900 hover:text-[#B33D53]">
@@ -95,7 +95,7 @@ const AllStores = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-                            <Link to="/allstores" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                            <Link to="/all-stores" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 All Stores
                             </Link>
                         </li>

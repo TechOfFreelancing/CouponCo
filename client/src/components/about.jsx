@@ -3,7 +3,7 @@ import '../styles/about.css'
 
 const About = () => {
     return (
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-20 py-20 bg-white">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-20 py-20 bg-white max-w-[1280px] mx-auto">
             <div className="flex flex-col gap-4 items-start justify-center w-full lg:w-1/2 text-justify">
                 <div className='font-extrabold text-lg lg:text-3xl text-start'>Qwik Savings - Shop Smarter, Save Faster</div>
 

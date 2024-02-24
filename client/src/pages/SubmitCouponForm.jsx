@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { toast, Toaster } from 'react-hot-toast'
 import { useLocation } from "react-router-dom";
 import typesData from "../api/AllTypes";
@@ -9,10 +9,14 @@ import { Link } from "react-router-dom";
 const SubmitCouponForm = () => {
 
     const location = useLocation()
+    const [stores, setStores] = useState([]);
 
-    const sId = location.state?.storeId;
+    const initialSId = location.state?.storeId;
+
+    const [sId, setSID] = useState(initialSId || '');
 
     const [categories, setCategories] = useState([]);
+    const [selectedStore, setSelectedStore] = useState('');
 
 
     const [formData, setFormData] = useState({
@@ -95,32 +99,39 @@ const SubmitCouponForm = () => {
     useEffect(() => {
         // Fetch data from the API
         const fetchProducts = async () => {
-          try {
-            const response = await axios.get(
-              `https://backend.qwiksavings.com/api/getCategories`,
-              {
-                withCredentials: true,
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-              }
-            );
-            setCategories(response.data.categories);
-        
-          } catch (error) {
-            alert(error.response?.data?.message || "Failed to fetch category.");
-            console.error("Failed to fetch category:", error);
-          }
+            try {
+                const response = await axios.get(
+                    `https://backend.qwiksavings.com/api/getCategories`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        },
+                    }
+                );
+                setCategories(response.data.categories);
+                const res = await axios.get(`https://backend.qwiksavings.com/api/getAllStore`);
+                if (res) {
+                    setStores(res.data.stores);
+                }
+                else {
+                    console.log("unable to fetch data");
+                }
+
+            } catch (error) {
+                alert(error.response?.data?.message || "Failed to fetch category.");
+                console.error("Failed to fetch category:", error);
+            }
         };
-    
+
         fetchProducts();
-      }, []);
+    }, []);
 
     return (
         <>
             <Toaster position="top-center"></Toaster>
-            <div className="px-5 lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32 items-start gap-5">
+            <div className="px-5 max-w-[1280px] mx-auto flex flex-col text-black mt-28 lg:mt-32 items-start gap-5">
                 <div className="flex flex-col items-start flex-wrap gap-2 lg:p-5 pt-5 lg:pb-0">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">
@@ -137,11 +148,11 @@ const SubmitCouponForm = () => {
                             </Link>
                         </li>
                     </ul>
-                    <span className="text-xl lg:text-2xl font-bold lg:ml-2 lg:mt-5">Submit A Coupon & Help Millions Save!</span>
+
                 </div>
 
                 <div className="w-full lg:w-3/4 flex flex-col justify-between items-start p-5 lg:p-10 rounded-lg bg-white  mt-5 mb-10 shadow-boxshadow mx-auto">
-
+                    <span className="text-xl lg:text-2xl font-bold lg:mx-5">Submit A Coupon & Help Millions Save!</span>
                     <h1 className="text-gray-600 text-sm text-start lg:mx-5 mb-5">To submit a coupon, simply fill out our form below. Our team will carefully review and approve it before sharing it with the public. Thank you for your commitment to helping everyone save money!</h1>
                     <div className="form flex flex-col gap-5 bg-white lg:px-10 lg:py-5">
                         <form onSubmit={handleSubmit}>
@@ -162,7 +173,6 @@ const SubmitCouponForm = () => {
 
                             <div className="mb-4">
                                 <label htmlFor="type" className="block mb-1 font-medium">
-
                                     Select an Offer Type:
                                 </label>
                                 <select
@@ -198,7 +208,31 @@ const SubmitCouponForm = () => {
                                 </select>
                             </div>
 
-
+                            {!initialSId && (
+                                <div className="mb-4">
+                                    <label htmlFor="Store" className="block mb-1 font-medium">
+                                        Store:
+                                    </label>
+                                    <select
+                                        id="store"
+                                        name="store"
+                                        value={selectedStore}
+                                        onChange={(e) => {
+                                            const selectedId = e.target.value;
+                                            setSelectedStore(selectedId);
+                                            setSID(selectedId); 
+                                        }}
+                                        style={inputStyle}
+                                    >
+                                        <option value="">Select Store</option>
+                                        {stores.map((store, index) => (
+                                            <option key={index} value={store.id}>
+                                                {store.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
 
                             <div className="mb-4">
                                 <label htmlFor="couponCode" className="block mb-1 font-medium">

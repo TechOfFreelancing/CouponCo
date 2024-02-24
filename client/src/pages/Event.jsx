@@ -37,7 +37,7 @@ const Event = () => {
 
     return (
         <>
-            <div className='lg:px-28 flex flex-col text-black lg:mx-auto mt-28 lg:mt-32'>
+            <div className='max-w-[1280px] mx-auto flex flex-col text-black mt-28 lg:mt-32'>
                 <div className="p-4 flex flex-col items-start flex-wrap">
                     <ul className="flex items-center">
                         <li className="inline-flex items-center">

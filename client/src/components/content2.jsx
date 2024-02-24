@@ -2,7 +2,7 @@ import { content2 } from '../api/content2';
 
 const Content2 = () => {
     return (
-        <>
+        <div className='max-w-[1280px] mx-auto px-5'>
             <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-between mb-10 h-[2rem]">
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">How to use Qwik Savings</span>
@@ -21,7 +21,7 @@ const Content2 = () => {
                     </div>)
                 }
             </div>
-        </>
+        </div>
     )
 }
 

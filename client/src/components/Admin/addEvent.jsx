@@ -63,7 +63,7 @@ const AddEvent = () => {
   return (
     <>
     <Toaster position="top-center"></Toaster>
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg">
+    <div className="max-w-[1280px] mx-auto p-4 bg-white rounded-lg">
         <h1 className="text-center mb-6 text-2xl font-bold">Add New Event</h1>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             <Form>
@@ -132,7 +132,7 @@ const AddEvent = () => {
                 
                 <div className="mb-4">
                     <label htmlFor="best_offer" className="block mb-1 font-medium">
-                        Best Offer(%):
+                        Best Offer:
                     </label>
                     <Field
                         id="best_offer"
@@ -143,7 +143,7 @@ const AddEvent = () => {
 
                 <div className="mb-4">
                     <label htmlFor="avg_disc" className="block mb-1 font-medium">
-                        Avg Discout(%):
+                        Avg Discout:
                     </label>
                     <Field
                         id="avg_disc"
@@ -151,8 +151,6 @@ const AddEvent = () => {
                         style={inputStyle}
                     />
                 </div>
-
-               
 
                 <button
                     type="submit"

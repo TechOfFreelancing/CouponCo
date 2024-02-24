@@ -109,11 +109,11 @@ const Carousel = () => {
                         <img
                             src={featuredImages[0].thumbnail}
                             alt='single-slide'
-                            className='object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[750px] xl:w-[800px] 2xl:w-[850px]  rounded-[20px]'
+                            className='object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[800px] xl:min-w-[950px] 2xl:min-w-[950px]  rounded-[20px]'
                         />
                     </a>
                 ) : (
-                    <div className='slideshow group lg:w-[750px] xl:w-[800px] 2xl:w-[850px]  w-screen my-0 lg:my-auto mx-5'>
+                    <div className='slideshow group lg:w-[850px] xl:min-w-[950px]  w-screen my-0 lg:my-auto'>
                         <AnimatePresence initial={false} custom={direction}>
                             <a
                                 href={featuredImages[index].ref_link && (featuredImages[index].ref_link.startsWith('https://') ? featuredImages[index].ref_link : `https://${featuredImages[index].ref_link}`)}
@@ -128,7 +128,7 @@ const Carousel = () => {
                                     exit='exit'
                                     src={featuredImages[index].thumbnail}
                                     alt='slides'
-                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] xl:w-[800px] 2xl:w-[850px] lg:w-[750px] rounded-[20px]'
+                                    className='slides object-cover w-[95vw] h-auto lg:h-[350px] lg:w-[850px] xl:min-w-[950px]  rounded-[20px]'
                                     key={featuredImages[index].thumbnail}
                                     custom={direction}
                                 />

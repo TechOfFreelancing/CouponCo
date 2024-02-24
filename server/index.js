@@ -10,7 +10,7 @@ const path = require('path');
 
 
 var corsOptions = {
-    origin: ['https://qwiksavings.com', 'http://localhost:5173'],
+    origin: ['https://qwiksavings.com', 'http://localhost:5173','https://coupon-co.vercel.app'],
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
     credentials: true
