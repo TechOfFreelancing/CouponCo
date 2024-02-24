@@ -4,31 +4,9 @@ import axios from "axios";
 
 
 const Navlist = () => {
-
+    
     const [stores, setStores] = useState([]);
-    const [Categories, setCategories] = useState([]);
-    const [event, setEvent] = useState([]);
-    const [isStoresDropdownOpen, setIsStoresDropdownOpen] = useState(false);
-    const [isEventsDropdownOpen, setIsEventsDropdownOpen] = useState(false);
-    const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
-
-    const toggleStoresDropdown = () => {
-        setIsStoresDropdownOpen(!isStoresDropdownOpen);
-    };
-
-    const toggleEventsDropdown = () => {
-        setIsEventsDropdownOpen(!isEventsDropdownOpen);
-    };
-
-    const toggleCategoriesDropdown = () => {
-        setIsCategoriesDropdownOpen(!isCategoriesDropdownOpen);
-    };
-
-    const closeDropdowns = () => {
-        setIsStoresDropdownOpen(false);
-        setIsEventsDropdownOpen(false);
-        setIsCategoriesDropdownOpen(false);
-    };
+    const [Categories,setCategories] = useState([]);
 
     const navigate = useNavigate();
 
@@ -109,7 +87,7 @@ const Navlist = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [])
 
     return (
         <ul className="py-5  mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
@@ -139,9 +117,13 @@ const Navlist = () => {
                 </Link>
                 <div className={`lg:block absolute top-0  lg:-left-[25.3rem] transition ${isCategoriesDropdownOpen ? 'opacity-100 visible translate-y-5' : 'opacity-0 invisible translate-y-5'} duration-500 ease-in-out transform z-50 w-[100vw] max-w-[1280px] mx-auto`} onClick={closeDropdowns}>
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
-                        {Categories.map((ele, index) => (
-                            <div key={index} onClick={() => navigate("/categoriesdetails", { state: { category: ele.name, category_icon: ele.logo_url } })} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline">{ele.name}</div>
-                        ))}
+                        {
+                            Categories.map((ele, index) => {
+                                return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
+                                    navigate("/categoriesdetails", { state: { cId: ele.id, category: ele.name, category_icon: ele.logo_url } })
+                                }}>{ele.name}</div>
+                            })
+                        }
                     </div>
                 </div>
             </span>
@@ -162,10 +144,10 @@ const Navlist = () => {
                 <div className={`lg:block absolute top-0 lg:-left-[40.3rem] transition ${isEventsDropdownOpen ? 'opacity-100 visible translate-y-5' : 'opacity-0 invisible translate-y-5'} duration-500 ease-in-out transform z-50 w-[100vw] max-w-[1280px] mx-auto`} onClick={closeDropdowns}>
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
                         {
-                            Categories.map((ele, index) => {
+                            event.map((ele, index) => {
                                 return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
-                                    navigate("/categoriesdetails", { state: { cId : ele.id ,category: ele.name, category_icon: ele.logo_url } })
-                                }}>{ele.name}</div>
+                                    navigate("/eventdetails", { state: { eId: ele.id,event: ele.event_name } })
+                                }}>{ele.event_name}</div>
                             })
                         }
 
