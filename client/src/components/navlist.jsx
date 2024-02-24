@@ -161,9 +161,14 @@ const Navlist = () => {
                 </Link>
                 <div className={`lg:block absolute top-0 lg:-left-[40.3rem] transition ${isEventsDropdownOpen ? 'opacity-100 visible translate-y-5' : 'opacity-0 invisible translate-y-5'} duration-500 ease-in-out transform z-50 w-[100vw] max-w-[1280px] mx-auto`} onClick={closeDropdowns}>
                     <div className="grid grid-cols-5 px-20 gap-5 relative top-6 p-6 bg-white rounded-xl shadow-xl w-full">
-                        {event.map((ele, index) => (
-                            <div key={index} onClick={() => navigate("/eventdetails", { state: { eId: ele.id, event: ele.event_name } })} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline">{ele.event_name}</div>
-                        ))}
+                        {
+                            Categories.map((ele, index) => {
+                                return <div key={index} className="cursor-pointer hover:-translate-y-1 duration-300 hover:text-red-500 hover:underline" onClick={() => {
+                                    navigate("/categoriesdetails", { state: { cId : ele.id ,category: ele.name, category_icon: ele.logo_url } })
+                                }}>{ele.name}</div>
+                            })
+                        }
+
                     </div>
                 </div>
             </span>
