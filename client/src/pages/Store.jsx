@@ -697,7 +697,7 @@ const Store = () => {
 
                     <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2">
                         {
-                            filteredCoupons && filteredCoupons.map((ele, index) => {
+                            filteredCoupons && filteredCoupons.reverse().map((ele, index) => {
                                 return (
                                     <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-full hover:shadow-lg duration-300">
                                         <span
@@ -763,6 +763,7 @@ const Store = () => {
                             })
                         }
                     </div>
+
 
                     {
                         expiredCoupons && (
