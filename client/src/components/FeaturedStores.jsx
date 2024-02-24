@@ -61,7 +61,7 @@ const Featured_Stores = () => {
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
-                <Link to="/all-stores" className="hover:underline h-7 duration-300">
+                <Link to="/allstores" className="hover:underline h-7 duration-300">
                     All Stores
                 </Link>
             </div>

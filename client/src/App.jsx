@@ -36,8 +36,8 @@ import UpdateEvent from './components/Admin/updateEvent';
 import Blog from './pages/Blog';
 import BlogDetails from './pages/BlogDetails';
 import TermsOfService from './pages/TermsOfService';
-import AllStores from './pages/all-stores';
-import AllCategories from './pages/all-categories';
+import AllStores from './pages/allstores';
+import AllCategories from './pages/allcategories';
 
 
 
@@ -164,7 +164,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/all-stores"
+            path="/allstores"
             element={
               <>
                 <Header></Header>
@@ -173,7 +173,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/all-categories"
+            path="/allcategories"
             element={
               <>
                 <Header></Header>

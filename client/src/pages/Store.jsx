@@ -464,7 +464,7 @@ const Store = () => {
                             </li>
 
                             <li className="inline-flex items-center">
-                                <Link1 to="/all-stores" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                                <Link1 to="/allstores" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                     All Stores
                                 </Link1>
                                 <span className="mx-4 h-auto text-black font-medium">/</span>

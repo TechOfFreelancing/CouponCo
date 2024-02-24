@@ -95,7 +95,7 @@ const AllStores = () => {
                             <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li className="inline-flex items-center">
-                            <Link to="/all-stores" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                            <Link to="/allstores" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                                 All Stores
                             </Link>
                         </li>

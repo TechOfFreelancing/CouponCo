@@ -148,14 +148,14 @@ export function Header() {
                             <ul className="py-5  mb-4 flex flex-col gap-2 lg:mb-0 lg:flex-row lg:items-center lg:gap-6 text-black">
                                 <span className="p-1 font-normal font-[Poppins] relative group"
                                 >
-                                    <Link to="/all-stores" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                                    <Link to="/allstores" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                                         Stores
                                     </Link>
                                     
                                 </span>
                                 <span className="p-1 font-normal font-[Poppins] relative group"
                                 >
-                                    <Link to="/all-categories" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
+                                    <Link to="/allcategories" onClick={CloseSidebar} className="flex items-center hover:-translate-y-1 duration-300 hover:text-red-500 hover:lg:border-red-500 hover:lg:border-b-2 whitespace-nowrap">
                                         Categories
                                     </Link>
                                    

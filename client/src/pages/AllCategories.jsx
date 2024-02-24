@@ -56,7 +56,7 @@ const AllCategories = () => {
                         <span className="mx-4 h-auto text-gray-400 font-medium">/</span>
                     </li>
                     <li className="inline-flex items-center">
-                        <Link to="/all-categories" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
+                        <Link to="/allcategories" className="text-gray-900 hover:text-[#B33D53] whitespace-nowrap">
                             All Categories
                         </Link>
                     </li>
