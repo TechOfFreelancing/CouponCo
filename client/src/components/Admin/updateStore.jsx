@@ -159,7 +159,7 @@ function UpdateStores() {
             // Join the showcases array to create the showInFieldName
             const showInFieldName = showcases.join(',');
 
-            await axios.delete(`https://backend.qwiksavings.com//api/storeDisplay/${sId}`, {
+            await axios.delete(`https://backend.qwiksavings.com/api/storeDisplay/${sId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
