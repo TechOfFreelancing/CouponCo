@@ -165,7 +165,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/allstores"
+            path="/all-stores"
             element={
               <>
                 <Header></Header>
@@ -174,7 +174,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/allcategories"
+            path="/all-categories"
             element={
               <>
                 <Header></Header>

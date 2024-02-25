@@ -464,7 +464,7 @@ const Store = () => {
                             </li>
 
                             <li className="inline-flex items-center">
-                                <Link1 to="/allstores" className="text-black hover:text-[#B33D53] whitespace-nowrap">
+                                <Link1 to="/all-stores" className="text-black hover:text-[#B33D53] whitespace-nowrap">
                                     All Stores
                                 </Link1>
                                 <span className="mx-4 h-auto text-black font-medium">/</span>
@@ -697,7 +697,7 @@ const Store = () => {
 
                     <div className="flex flex-col gap-5 items-start lg:mx-5 mx-2">
                         {
-                            filteredCoupons && filteredCoupons.reverse().map((ele, index) => {
+                            filteredCoupons && filteredCoupons.map((ele, index) => {
                                 return (
                                     <div key={index} className="group bg-white relative flex flex-col border border-gray-500 rounded-lg p-2 lg:p-5 w-full lg:w-full hover:shadow-lg duration-300">
                                         <span
@@ -763,7 +763,6 @@ const Store = () => {
                             })
                         }
                     </div>
-
 
                     {
                         expiredCoupons && (
