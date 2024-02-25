@@ -57,6 +57,7 @@ class Coupons {
             store_id INT,
             store_type ENUM('similar', 'popular'),
             sId INT,
+            FOREIGN KEY (sId) REFERENCES store(id) ON DELETE CASCADE,
             FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE,
             FOREIGN KEY (event_id) REFERENCES allEvents(id) ON DELETE CASCADE
@@ -83,6 +84,7 @@ class Coupons {
             thumbnail VARCHAR(255),
             content VARCHAR(255),
             ref_link VARCHAR(1000),
+            FOREIGN KEY (coupon_id) REFERENCES coupons(id) ON DELETE CASCADE,
             FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
         );`
 
