@@ -37,7 +37,6 @@ export function Header() {
                 updateUserRole("");
                 alert(response.data.message);
                 localStorage.clear();
-                // console.log("logout headerside", role);
                 navigate("/");
             } else {
                 alert("Logout failed. Please try again.");

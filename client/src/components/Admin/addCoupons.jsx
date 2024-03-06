@@ -104,7 +104,14 @@ function AddCoupons() {
             ...(selectedEvents.length !== 0 && { "events": selectedEvents }),
         });
 
+        const dueDateStr = values.dueDate // Assuming formik.values.due_date is '2024-02-10'
+        const parts = dueDateStr.split("-")
+        const targetDate = new Date(parts[0], parts[1] - 1, parts[2])
+        const currentDate = new Date()
 
+        if (currentDate >= targetDate) {
+            toast.error("Error: Please select a Correct date for the Coupon Code.")
+        }else { 
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -125,6 +132,7 @@ function AddCoupons() {
                 toast.error(error.response.data.message);
                 console.error(error);
             });
+            }
     }
 
     return (

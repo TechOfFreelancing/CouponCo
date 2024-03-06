@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const updateUserRole = (newRole) => {
     localStorage.setItem('role', newRole);
     setRole(newRole);
-    // console.log("authcontext", newRole, role);
   };
 
   return (

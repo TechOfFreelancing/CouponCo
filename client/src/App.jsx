@@ -309,7 +309,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/blogdetails"
+          path="/blogdetails/:slug"
           element={
             <>
               <Header></Header>
