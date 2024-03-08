@@ -5,8 +5,10 @@ import { useLocation } from "react-router-dom"
 import typesData from "../api/AllTypes"
 import Footer from "../components/Footer"
 import { Link } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 const SubmitCouponForm = () => {
+  const navigate = useNavigate();
   const location = useLocation()
   const [stores, setStores] = useState([])
 
@@ -16,7 +18,7 @@ const SubmitCouponForm = () => {
 
   const [categories, setCategories] = useState([])
   const [selectedStore, setSelectedStore] = useState("")
-
+  console.log(selectedStore);
   const [formData, setFormData] = useState({
     title: "",
     type: "Codes",
@@ -37,11 +39,13 @@ const SubmitCouponForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    console.log(sId);
     const { title, type, category, couponCode, dueDate, link, description } =
       formData
 
+    // Construct data object
     const data = {
+      store_id : selectedStore,
       title,
       type,
       category,
@@ -50,41 +54,58 @@ const SubmitCouponForm = () => {
       link,
       description,
       isVerified: false,
+    };
+    // Validate form data
+    if (!title || !type || !dueDate) {
+      toast.error("Please fill in all required fields.");
+      return;
     }
 
-    let config = {
+    // Parse and validate dueDate
+    const dueDateStr = data.dueDate; // Assuming formik.values.due_date is '2024-02-10'
+    const parts = dueDateStr.split("-");
+    const targetDate = new Date(parts[0], parts[1] - 1, parts[2]);
+    const currentDate = new Date();
+    const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    const targetDateWithoutTime = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+
+    console.log(currentDateWithoutTime);
+    console.log(targetDateWithoutTime);
+
+    if (targetDateWithoutTime >= currentDateWithoutTime) {
+      console.log("True");
+    } else {
+      return toast.error("Please select a future date for the due date.");
+
+    }
+    if (!selectedStore) {
+      return toast.error("Please Select Store");
+    }
+    // Configure Axios request
+    const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `https://backend.qwiksavings.com/api/admin/addCoupons/${sId}`,
+      url: `https://backend.qwiksavings.com/api/admin/addCoupon`,
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
-    }
+    };
 
+    // Make Axios request
     axios
       .request(config)
       .then((response) => {
-        toast.success("Coupon Will be Added Soon After Approval!")
-
-        // Reset the form data after successful submission
-        setFormData({
-          title: "",
-          type: "Codes",
-          category: "",
-          couponCode: "",
-          dueDate: "",
-          link: "",
-          description: "",
-        })
+        toast.success(response.data.message);
+        navigate("/")
       })
       .catch((error) => {
-        toast.error(error.response.data.message)
-        console.error(error)
-      })
-  }
+        toast.error(error.response.data.message || "An error occurred.");
+        console.log(error);
+      });
+  };
 
   const inputStyle = {
     width: "100%",
@@ -216,7 +237,7 @@ const SubmitCouponForm = () => {
                 >
                   <option value=''>Select Category</option>
                   {categories.map((category, index) => (
-                    <option key={index} value={category}>
+                    <option key={index} value={category.value}>
                       {category.name}
                     </option>
                   ))}
@@ -225,17 +246,17 @@ const SubmitCouponForm = () => {
 
               {!initialSId && (
                 <div className='mb-4'>
-                  <label htmlFor='Store' className='block mb-1 font-medium'>
+                  <label htmlFor='store' className='block mb-1 font-medium'>
                     Store:
                   </label>
                   <select
-                    id='store'
-                    name='store'
+                    id='store' // Corrected id attribute to match the htmlFor attribute
+                    name='store' // Set name attribute to 'store'
                     value={selectedStore}
                     onChange={(e) => {
-                      const selectedId = e.target.value
-                      setSelectedStore(selectedId)
-                      setSID(selectedId)
+                      const selectedId = e.target.value;
+                      setSelectedStore(selectedId);
+                      setSID(selectedId);
                     }}
                     style={inputStyle}
                   >
@@ -248,21 +269,22 @@ const SubmitCouponForm = () => {
                   </select>
                 </div>
               )}
-
-              <div className='mb-4'>
-                <label htmlFor='couponCode' className='block mb-1 font-medium'>
-                  Coupon Code:
-                </label>
-                <input
-                  type='text'
-                  id='couponCode'
-                  name='couponCode'
-                  value={formData.couponCode}
-                  onChange={handleInputChange}
-                  className='bg-[#FAF9F5]'
-                  style={inputStyle}
-                />
-              </div>
+              {formData.type == "Codes" ?
+                <div className='mb-4'>
+                  <label htmlFor='couponCode' className='block mb-1 font-medium'>
+                    Coupon Code:
+                  </label>
+                  <input
+                    type='text'
+                    id='couponCode'
+                    name='couponCode'
+                    value={formData.couponCode}
+                    onChange={handleInputChange}
+                    className='bg-[#FAF9F5]'
+                    style={inputStyle}
+                  />
+                </div>
+                : null}
 
               <div className='mb-4'>
                 <label htmlFor='dueDate' className='block mb-1 font-medium'>
