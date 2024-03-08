@@ -506,7 +506,59 @@ exports.addStoreRating = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Unable to add rating", 400))
   }
 })
+exports.addCoupon = 
+catchAsyncErrors(async (req, res, next) => {
+  try {
+    const {
+      store_id,
+      title,
+      couponCode,
+      type,
+      ref_link,
+      category,
+      dueDate,
+      description,
+      isVerified,
+      events,
+    } = req.body
+    if (!title || !dueDate || !type) {
+      let errorMessage = " ";
+      if (!title) errorMessage += "Title is required. ";
+      if (!dueDate) errorMessage += "Due date is required.";
+      if (!type) errorMessage += "Type is required. ";
+      return res.status(400).json({ error: errorMessage.trim() });
+    }
+    // Allow an empty string as couponCode for deal type
+    if (type.toLowerCase() !== "deals" && !couponCode) {
+      return res.status(400).json({
+        error: "Incomplete data. Coupon code is required for non-deal types.",
+      })
+    }
+    // Inserting the coupon into the coupons table
+    const insertCouponSql = `
+    INSERT INTO coupons (store_id, title, coupon_code, type, ref_link, category, due_date, isVerified, description, created_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+    `
+  const [result, fields] = await db.query(insertCouponSql, [
+    store_id,
+  title,
+  couponCode,
+  type,
+  ref_link,
+  category,
+  dueDate,
+  isVerified,
+  description,
+  ])
+  res.status(201).json({ message: "Coupon added successfully" })
+     
+  } catch (error) {
+    res.status(400).json({message: error})
+  }
+ 
 
+
+})
 // add coupons
 exports.addCoupons = catchAsyncErrors(async (req, res, next) => {
   const { storeId } = req.params

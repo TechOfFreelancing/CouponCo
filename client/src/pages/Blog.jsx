@@ -15,7 +15,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/blogs`)
+        const res = await axios.get(`https://backend.qwiksavings.com/api/blogs`)
         setData(res.data)
       } catch (error) {
         console.error("Error fetching festival details:", error)

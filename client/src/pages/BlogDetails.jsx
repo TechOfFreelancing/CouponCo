@@ -16,7 +16,7 @@ const BlogDetails = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `http://localhost:3000/api/blogs/${params.slug}`,
+        url: `https://backend.qwiksavings.com/api/blogs/${params.slug}`,
       }
 
       axios

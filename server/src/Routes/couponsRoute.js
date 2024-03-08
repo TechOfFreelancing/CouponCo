@@ -37,6 +37,7 @@ const {
   removePopularStoreEvent,
   similarAndPopularStore,
   updateUserCount,
+  addCoupon
 } = require("../controllers/couponsConroller")
 const router = express.Router();
 const { fileUpload, formData } = require('../utils/multer');
@@ -75,7 +76,7 @@ router.route("/admin/removeClouser/:storeId").delete(isAdmin,removeStoreId);
 router.route("/admin/removePopularForCategory/:storeId").delete(isAdmin,removePopularStore);
 router.route("/admin/removePopularForEvent/:storeId").delete(isAdmin,removePopularStoreEvent);
 
-
+router.route("/admin/addCoupon").post(addCoupon)
 router.route("/admin/addCoupons/:storeId").post(addCoupons);
 router.route("/admin/getUnverifed").get(getUnverifiedCoupons);
 

@@ -59,7 +59,7 @@ const AdminCoupons = () => {
 
   const couponStore = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/getStore/${id}`);
+      const response = await axios.get(`https://backend.qwiksavings.com/api/getStore/${id}`);
       response.data.store.name;
     } catch (error) {
       console.error("Error fetching store:", error);
