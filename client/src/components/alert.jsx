@@ -9,7 +9,7 @@ const Alert = () => {
         "festival_name": "",
         "discount": ""
     })
-
+    
     const navigate = useNavigate();
 
     useEffect(() => {

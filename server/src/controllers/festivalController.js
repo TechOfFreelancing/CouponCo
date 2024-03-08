@@ -6,12 +6,13 @@ const ErrorHandler = require('../utils/errorhandler');
 //add festival & Discount
 exports.addfestival_Discount = catchAsyncErrors(async (req, res, next) => {
     const { festival, discount } = req.body;
+    const cleanedDiscount = discount.replace(/\D/g, "")
 
     try {
         const sql = `INSERT INTO festivalshowcase (festival_name, discount) VALUES (?, ?)`;
 
-        const result = await db.query(sql, [festival, discount]);
-
+        const result = await db.query(sql, [festival, cleanedDiscount])
+        console.log(result);
         res.status(201).json({ message: "Festival & Discount added successfully", rowId: result[0].insertId });
     } catch (err) {
         console.log(err);

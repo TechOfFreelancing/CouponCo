@@ -104,7 +104,22 @@ function AddCoupons() {
             ...(selectedEvents.length !== 0 && { "events": selectedEvents }),
         });
 
+        const dueDateStr = data.dueDate; // Assuming formik.values.due_date is '2024-02-10'
+        const parts = dueDateStr.split("-");
+        const targetDate = new Date(parts[0], parts[1] - 1, parts[2]);
+        const currentDate = new Date();
+        const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+        const targetDateWithoutTime = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
 
+        console.log(currentDateWithoutTime);
+        console.log(targetDateWithoutTime);
+
+        if (targetDateWithoutTime >= currentDateWithoutTime) {
+            console.log("True");
+        } else {
+            return toast.error("Please select a future date for the due date.");
+
+        }
         let config = {
             method: 'post',
             maxBodyLength: Infinity,

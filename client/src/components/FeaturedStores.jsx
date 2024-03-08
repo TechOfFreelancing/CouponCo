@@ -24,7 +24,6 @@ const Featured_Stores = () => {
                     const storeDetails = await Promise.all(filteredStores.map(async store => {
                         try {
                             const storeDetailsResponse = await axios.get(`https://backend.qwiksavings.com/api/getStore/${store.store_id}`);
-                            // console.log(storeDetailsResponse);
                             return {
                                 name: storeDetailsResponse.data.store.name || null, // Add the name attribute
                                 storeId: store.store_id,
@@ -61,7 +60,7 @@ const Featured_Stores = () => {
                 <div className="flex flex-col gap-1 lg:gap-5">
                     <span className="font-semibold text-lg lg:text-3xl">Featured Stores</span>
                 </div>
-                <Link to="/allstores" className="hover:underline h-7 duration-300">
+                <Link to="/all-stores" className="hover:underline h-7 duration-300">
                     All Stores
                 </Link>
             </div>

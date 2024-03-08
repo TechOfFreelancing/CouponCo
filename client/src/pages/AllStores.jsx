@@ -140,29 +140,46 @@ const AllStores = () => {
                                 }
 
                                 return (
-                                    <div key={index} className="border-2 border-gray-400 mb-3">
-                                        <div className="text-4xl font-medium mx-5 my-2">{letter}</div>
-                                        <div className="lg:grid lg:grid-cols-3 gap-3 mx-3">
-                                            {filteredStores.map((ele) => (
-                                                <div
-                                                    key={ele.id}
-                                                    className="px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-3 cursor-pointer"
-                                                    onClick={() => {
-                                                        navigate(`/Stores/${ele.name}`, { state: { sId: ele.id } });
-                                                    }}
-                                                >
-                                                    <div className="flex gap-4">
-                                                        <div className="border border-black h-[75px] w-[75px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white"><img src={ele.logo_url} alt={ele.name} className="h-full w-auto object-cover rounded-full" /></div>
-                                                        <div className="flex flex-col justify-evenly">
-                                                            <div className="whitespace-pre-wrap">{ele.name}</div>
-                                                            <div className=" text-sm text-gray-800">{ele.coupons} coupons</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
+                                  <div
+                                    key={index}
+                                    className='border-2 border-gray-400 mb-3'
+                                  >
+                                    <div className='text-4xl font-medium mx-5 my-2'>
+                                      {letter}
                                     </div>
-                                );
+                                    <div className='lg:grid lg:grid-cols-3 gap-3 mx-3'>
+                                      {filteredStores.map((ele) => (
+                                        <div
+                                          key={ele.id}
+                                          className='px-5 py-3 font-thin bg-gray-200 mb-3 lg:mb-3 cursor-pointer'
+                                          onClick={() => {
+                                            navigate(`/Stores/${ele.name}`, {
+                                              state: { sId: ele.id },
+                                            })
+                                          }}
+                                        >
+                                          <div className='flex gap-4'>
+                                            <div className='h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl overflow-hidden'>
+                                              <img
+                                                src={ele.logo_url}
+                                                alt={ele.name}
+                                                className='h-auto w-auto max-h-full max-w-full'
+                                              />
+                                            </div>
+                                            <div className='flex flex-col justify-evenly'>
+                                              <div className='whitespace-pre-wrap'>
+                                                {ele.name}
+                                              </div>
+                                              <div className=' text-sm text-gray-800'>
+                                                {ele.coupons} coupons
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )
                             })
 
                         ) : selectedCategory === "#" ? (

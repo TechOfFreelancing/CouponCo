@@ -53,7 +53,6 @@ const Carousel2 = () => {
                         }));
 
                     setFeaturedImages(fetchedImages);
-                    // console.log(featuredImages)
                 }
             } catch (error) {
                 console.error('Error fetching images:', error);

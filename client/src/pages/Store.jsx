@@ -137,11 +137,14 @@ const Store = () => {
                 const res = await axios.get(`https://backend.qwiksavings.com/api/getStore/${sId}`);
                 const coup = await axios.get(`https://backend.qwiksavings.com/api/coupons/${sId}`);
                 setStr(res.data.store);
-
-
                 const verifiedCoupons = coup.data.coupons.filter(coupon => coupon.isVerified);
-
-                setCoupons(verifiedCoupons);
+                const sortedCoupons = coupons.sort((a, b) => {
+                    const dateA = new Date(a.created_at);
+                    const dateB = new Date(b.created_at);
+                    return dateB - dateA; // Compare dates in descending order
+                  });
+                  
+                setCoupons(sortedCoupons);
 
                 const response = await axios.get(`https://backend.qwiksavings.com/api/clouser`);
 
@@ -477,8 +480,12 @@ const Store = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="border border-black h-[208px] w-[208px] rounded-full flex flex-wrap items-center justify-center overflow-clip p-1 bg-white">
-                        <img src={str?.logo_url} alt="logo" className="h-full w-auto object-cover rounded-full" />
+                    <div className='h-[5rem] w-[5rem] lg:h-[10rem] lg:w-[10rem] p-5 rounded-full flex items-center justify-center border-2 border-black hover:shadow-2xl overflow-hidden'>
+                        <img
+                            src={str?.logo_url}
+                            alt={str?.name}
+                            className='h-auto w-auto max-h-full max-w-full'
+                        />
                     </div>
 
                     <a
@@ -557,6 +564,7 @@ const Store = () => {
                                                 className=" border border-gray-400 w-full cursor-pointer bg-white p-2 rounded-lg flex gap-3"
                                                 to="faqs"
                                                 spy={true}
+                                                style={{ wordWrap: "break-word" }}
                                                 smooth={true}
                                                 offset={-150}
                                                 duration={800}
@@ -730,15 +738,28 @@ const Store = () => {
                                                                 {formatUserCount(ele.user_count)} Uses
                                                             </span>
                                                         </div>
-                                                        {
-                                                            ele.type === "Codes" ? <button className="button has-code1" onClick={() => handleOpen(ele)} >
-                                                                <span className="is-code1">74
-                                                                    {ele.coupon_code}</span>
-                                                                <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
-                                                            </button> : <button className="whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" onClick={() => handleOpen(ele)}>
-                                                                <span className="uppercase font-bold">Get {ele.type}</span>
+                                                        {ele.type === "Codes" ? (
+                                                            <button
+                                                                className='button has-code1'
+                                                                onClick={() => handleOpen(ele)}
+                                                            >
+                                                                <span className='is-code1'>
+                                                                    {ele.coupon_code}
+                                                                </span>
+                                                                <span className='is-code-text1 uppercase'>
+                                                                    <em>Get {ele.type}</em>
+                                                                </span>
+                                                           </button>
+                                                        ) : (
+                                                            <button
+                                                                className='whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md'
+                                                                onClick={() => handleOpen(ele)}
+                                                            >
+                                                                <span className='uppercase font-bold h-3'>
+                                                                    Get {ele.type}
+                                                                </span>
                                                             </button>
-                                                        }
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -806,7 +827,7 @@ const Store = () => {
                                                                     {ele.coupon_code}</span>
                                                                 <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
                                                             </button> : <button className="!grayscale whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" onClick={() => handleOpen(ele)}>
-                                                                <span className="uppercase font-bold">Get {ele.type}</span>
+                                                                <span className="uppercase font-bold" style={{height: "48px"}}>Get {ele.type}</span>
                                                             </button>
                                                         }
                                                     </div> </div>
@@ -988,7 +1009,7 @@ const Store = () => {
                                                 <div variants={variants} initial="hidden"
                                                     key={index} className="flex flex-col gap-2 lg:text-justify">
                                                     <div className="font-bold text-xl lg:text-2xl">{ele.question}</div>
-                                                    <div className="text-justify">{ele.answer}</div>
+                                                    <div className="text-justify" style={{ wordWrap: "break-word" }}>{ele.answer}</div>
                                                 </div>)
                                         })
                                     }
