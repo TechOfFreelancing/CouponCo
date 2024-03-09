@@ -138,12 +138,13 @@ const Store = () => {
                 const coup = await axios.get(`https://backend.qwiksavings.com/api/coupons/${sId}`);
                 setStr(res.data.store);
                 const verifiedCoupons = coup.data.coupons.filter(coupon => coupon.isVerified);
+                console.log(verifiedCoupons);
                 const sortedCoupons = verifiedCoupons.sort((a, b) => {
-                    const dateA = new Date(a.created_at);
-                    const dateB = new Date(b.created_at);
+                    const dateA = new Date(a.coupon_id);
+                    const dateB = new Date(b.coupon_id);
                     return dateB - dateA; // Compare dates in descending order
-                  });
-                  
+                });
+                console.log(sortedCoupons);
                 setCoupons(sortedCoupons);
 
                 const response = await axios.get(`https://backend.qwiksavings.com/api/clouser`);
@@ -195,12 +196,19 @@ const Store = () => {
                     console.error('Error fetching saved coupons:', error);
                 }
             }
-
+        
             // Rest of your code for filtering and setting valid coupons
             const validCoupons = coupons?.filter((coupon) => {
-                const dueDate = new Date(coupon.due_date);
-                const today = new Date();
-                return dueDate >= today;
+                console.log();
+                const dueDateStr = coupon.due_date.split("T")[0]; 
+                const parts = dueDateStr.split("-");
+                const targetDate = new Date(parts[0], parts[1] - 1, parts[2]);
+                const currentDate = new Date();
+                const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+                const targetDateWithoutTime = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+                console.log(currentDateWithoutTime);
+                console.log(targetDateWithoutTime);
+                return targetDateWithoutTime >= currentDateWithoutTime;
             });
 
             const filteredCoupons = validCoupons?.filter((coupon) => {
@@ -264,7 +272,7 @@ const Store = () => {
     const expiredCoupons = coupons?.filter((coupon) => {
         const dueDate = new Date(coupon.due_date);
         const today = new Date();
-        return dueDate < today;
+        return dueDate => today;
     });
 
     const handleUse = async (cId) => {
@@ -448,8 +456,8 @@ const Store = () => {
         }
     };
 
-
-
+    const DueDatas = validCoupons ? (validCoupons[0]?.due_date.split('T')[0] || "X") : "X";
+    console.log(validCoupons);
 
     return (
         <>
@@ -660,7 +668,7 @@ const Store = () => {
                         <div className="lg:text-4xl text-2xl font-bold hidden lg:inline">{str?.title}</div>
 
                         <div className="text-md lg:text-sm font-semibold uppercase">
-                            Best {validCoupons?.length} offers last validated on {formattedDate}
+                            Best {validCoupons?.length} offers last validated on {DueDatas}
                         </div>
                         <Tabs value={activeTab}>
                             <div className="flex flex-row items-center justify-between gap-3 lg:gap-5">
@@ -749,13 +757,13 @@ const Store = () => {
                                                                 <span className='is-code-text1 uppercase'>
                                                                     <em>Get {ele.type}</em>
                                                                 </span>
-                                                           </button>
+                                                            </button>
                                                         ) : (
                                                             <button
                                                                 className='whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md'
                                                                 onClick={() => handleOpen(ele)}
                                                             >
-                                                                <span className='uppercase font-bold h-3' style={{height: "50px"}}>
+                                                                <span className='uppercase font-bold h-3' style={{ height: "50px" }}>
                                                                     Get {ele.type}
                                                                 </span>
                                                             </button>
@@ -826,7 +834,7 @@ const Store = () => {
                                                                 <span className="is-code1">74
                                                                     {ele.coupon_code}</span>
                                                                 <span className="is-code-text1 uppercase"><em>Get {ele.type}</em></span>
-                                                            </button> : <button className="!grayscale whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" style={{height: "48px"}}onClick={() => handleOpen(ele)}>
+                                                            </button> : <button className="!grayscale whitespace-nowrap bg-[#B33D53] px-4 py-2 text-white rounded-md" style={{ height: "48px" }} onClick={() => handleOpen(ele)}>
                                                                 <span className="uppercase font-bold" >Get {ele.type}</span>
                                                             </button>
                                                         }
@@ -1070,15 +1078,17 @@ const Store = () => {
                             <div className="text-2xl whitespace-nowrap">{str?.name}</div>
                             <div className="text-sm lg:text-3xl font-semibold text-black whitespace-nowrap">{selectedProduct.title}</div></div>
                         <div className="text-lg">Ends {formatDate(selectedProduct.due_date)}</div>
-                        <div
-                            className="flex items-center lg:min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
-                            <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
-                            <button
-                                className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
-                                onClick={handleCopyClick}>
-                                Copy
-                            </button>
-                        </div>
+                        {selectedProduct.type === "Codes" ?
+                            <div
+                                className="flex items-center lg:min-w-[20rem] w-fit max-w-full justify-center border border-black rounded-full text-xl pl-10 p-2 bg-red-50/40">
+                                <span className="copy-text w-[60%] text-center">{selectedProduct.coupon_code}</span>
+                                <button
+                                    className="bg-[#800000] w-[40%] p-2 lg:p-5 text-white cursor-pointer whitespace-nowrap hover:shadow-xl rounded-full"
+                                    onClick={handleCopyClick}>
+                                    Copy
+                                </button>
+                            </div>
+                            : null}
                         {!waiting ? (<div
                             className="text-xs lg:text-2xl text-green-800 w-full flex items-center justify-center gap-5">
                             <span className="whitespace-nowrap"> Copy and paste Coupon code at</span>

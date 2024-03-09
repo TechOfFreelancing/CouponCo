@@ -31,36 +31,21 @@ const Navlist = () => {
   }
 
   const navigate = useNavigate()
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(
-          `https://backend.qwiksavings.com/api/getAllEvents`
-        )
-        if (response && response.data && response.data.data) {
-          // Extracting unique events starting with different alphabets
-          const uniqueEvents = response.data.data.reduce((acc, current) => {
-            const firstLetter = current.event_name.charAt(0).toUpperCase()
-            if (!acc[firstLetter]) {
-              acc[firstLetter] = current
-            }
-            return acc
-          }, {})
-          // Sorting unique events alphabetically
-          const sortedUniqueEvents = Object.values(uniqueEvents).sort((a, b) =>
-            a.event_name.localeCompare(b.event_name)
-          )
-          setEvents(sortedUniqueEvents)
-        } else {
-          console.log("unable to fetch data")
-        }
+        const response = await axios.get(`https://backend.qwiksavings.com/api/getAllEvents`);
+        console.log(response.data.data); // Accessing the response data
+        setEvents(response.data.data); // Setting the events using response data
       } catch (error) {
-        console.error("Error fetching events:", error)
+        console.error('Error fetching events:', error);
       }
-    }
-    fetchEvents()
-  }, [])
+    };
+  
+    fetchEvents(); // Call fetchEvents function inside useEffect
+  
+  }, []); // Ensure the dependency array is properly closed
+  
 
   useEffect(() => {
     const fetchStores = async () => {

@@ -265,7 +265,9 @@ const HomeGardenBased = () => {
               .map((item, index) => (
                 <div
                   key={index}
-                  className='group flex flex-col gap-3 items-center justify-start relative h-[335px] w-fit border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start'
+                  style="
+    width: 300px !important"
+                  className='group flex flex-col gap-3 items-center justify-start relative h-[335px] w-[300px] border rounded-lg overflow-hidden shadow-lg duration-300 my-4 pb-10 bg-white overflow-y-hidden item flex-shrink-0 scroll-snap-align-start'
                 >
                   <img
                     src={item.thumbnail}

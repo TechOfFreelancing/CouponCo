@@ -12,6 +12,8 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { Avatar } from "@material-tailwind/react"
 import typesData from "../../api/AllTypes"
+import { format } from 'date-fns';
+
 
 const UpdateCoupons = () => {
   const [Events, setEvents] = useState([])
@@ -85,14 +87,7 @@ const UpdateCoupons = () => {
         description: values.description,
         events: values.events,
       })
-      const dueDateStr = formik.values.due_date // Assuming formik.values.due_date is '2024-02-10'
-      const parts = dueDateStr.split("-")
-      const targetDate = new Date(parts[0], parts[1] - 1, parts[2])
-      const currentDate = new Date()
-
-      if (currentDate > targetDate) {
-        toast.error("Error: Please select a Correct date for the Coupon Code.")
-      } else {
+    
         let config = {
           method: "put",
           maxBodyLength: Infinity,
@@ -114,7 +109,6 @@ const UpdateCoupons = () => {
             toast.error(error.response.data.message)
             console.error(error)
           })
-      }
     },
   })
 
@@ -141,6 +135,8 @@ const UpdateCoupons = () => {
 
     fetchProducts()
   }, [])
+  const formattedToday = format(new Date(), 'yyyy-MM-dd');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -378,6 +374,7 @@ const UpdateCoupons = () => {
               type='date'
               id='due_date'
               name='due_date'
+              min={formattedToday}
               style={inputStyle}
               onChange={formik.handleChange}
               value={formik.values.due_date}
